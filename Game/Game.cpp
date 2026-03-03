@@ -2,20 +2,46 @@
 #include "Game.h"
 #include "GameCamera.h"
 #include "Player.h"
-#include "a.h"
+
 #include "Water.h"
 
 bool Game::Start()
 {
-	NewGO<Player>(0, "Player");
-	NewGO<GameCamera>(0, "GameCamera");
-	NewGO<Water>(0, "Water");
-	m_a = NewGO<a>(0, "wserdtfyguh");
-	a * k = NewGO<a>(0, "wserdtfyguh");
-	k->m_pos = { 0.0f,0.0f,1300.0f };
-	Water* water2 = NewGO<Water>(0, "Water");
-	water2->m_pos = { 0.0f,0.0f,1200.0f };
+	
 
+
+
+	m_stageLevelRnder.Init("Assets/modelData/Stage2.tkl", [&](LevelObjectData& odData)
+		{
+			if (odData.EqualObjectName(L"fish") == true)
+			{
+				m_modelRender.Init("Assets/modelData/fish/Fish.tkm");
+				m_modelRender.SetTRS(
+					odData.position,
+					odData.rotation,
+					odData.scale);
+				g_camera3D->SetTarget(odData.position);
+				auto x = odData.position;
+				x.x += 100.0f;
+				x.y += 100.0f;
+				g_camera3D->SetPosition(x);
+
+				return true;
+			}
+			if (odData.EqualObjectName(L"Stage") == true)
+			{
+				m_stageRender.Init("Assets/modelData/stage/Stage2.tkm");
+				m_stageRender.SetTRS(
+					odData.position,
+					odData.rotation,
+					odData.scale);
+				/*float scale = 0.01f;
+				m_stageRender.SetScale(scale, scale, scale);
+				m_stageRender.Update();*/
+				return true;
+			}
+			return false;
+		});
 	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	
 	return true;
@@ -24,11 +50,13 @@ bool Game::Start()
 void Game::Update()
 {
 	// g_renderingEngine->DisableRaytracing();
-	//m_stageRender.Update();
+	m_stageRender.Update();
+	m_modelRender.Update();
 }
 
 void Game::Render(RenderContext& rc)
 {
-	//m_stageRender.Draw(rc);
-	
+	m_stageRender.Draw(rc);
+	m_modelRender.Draw(rc);
+	//m_stageLevelRnder.Draw(rc);
 }
