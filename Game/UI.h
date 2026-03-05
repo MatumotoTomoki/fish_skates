@@ -12,9 +12,9 @@ private:
 	SpriteRender m_spriteRender3;
 	SpriteRender m_spriteRender4;
 	SpriteRender m_spriteRender5;
-
 	FontRender m_fontRender;
-	float m_o2 = 340.0f;
+
+	float m_o2 = -1.05f;
 
 };
 
