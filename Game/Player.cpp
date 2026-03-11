@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Player.h"
+#include "Pengin.h"
 
 bool Player::Start() {
 	m_characterController.Init(25.0f, 75.0f, m_position);
@@ -15,6 +16,7 @@ bool Player::Start() {
 	m_modelRender.SetScale(10.0f, 10.0f, 10.0f);
 	m_rot.SetRotationDegZ(-90.0f);
 	m_modelRender.SetRotation(m_rot);
+	m_pengin = FindGO<Pengin>("Pengin");
 	m_modelRender.Update();
 	return true;
 }
@@ -86,7 +88,19 @@ void Player::Update() {
 		m_rot.SetRotationDegZ(-90.0f);
 	}
 	m_position.y += 8.0f;
+	Vector3 diff = m_pengin->m_pos - m_position;
 
+	if (diff.Length() <= 300.0f) {
+		float distToPlayer = diff.Length();
+
+		Vector3 toPlayerDir = diff;
+		toPlayerDir.Normalize();
+
+		m_position += toPlayerDir * 50.0f;
+
+		float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
+		m_rot.SetRotationY(-angleY);
+	}
 	wchar_t shineText[64];
 	swprintf(shineText, 64, L"力:%.0f", m_position.y);
 	m_font.SetText(shineText);

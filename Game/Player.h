@@ -1,4 +1,5 @@
 ﻿#pragma once
+class Pengin;
 class Player:public IGameObject
 {
 public:
@@ -22,5 +23,6 @@ public:
 	bool m_swim = false;
 	bool m_waterJump = false;
 	FontRender m_font;
+	Pengin* m_pengin;
 };
 

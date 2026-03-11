@@ -229,7 +229,7 @@ namespace nsK2EngineLow {
 				std::wstring adapterName =desc.Description;
 				if (adapterName.find(L"RTX") != std::string::npos) {
 					// RTXシリーズのGPU。
-					m_isPossibleRaytracing = false;
+					m_isPossibleRaytracing = true;
 
 				}
 #else // #ifdef ENABLE_DXR_ON_RTX_ONLY

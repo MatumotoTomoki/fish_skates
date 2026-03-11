@@ -16,6 +16,7 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Pengin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -27,5 +28,6 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="Pengin.h" />
   </ItemGroup>
 </Project>

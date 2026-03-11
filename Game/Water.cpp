@@ -3,7 +3,7 @@
 
 bool Water::Start() {
 	m_render.Init("Assets/modelData/water.tkm");
-	m_render.SetScale(10.0f, 10.0f, 10.0f);
+	m_render.SetScale(100.0f, 10.0f, 100.0f);
 	m_pos.x = 0.0f;
 	m_pos.y = -0.0f;
 	m_render.SetPosition(m_pos);

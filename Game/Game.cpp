@@ -5,6 +5,7 @@
 #include"sound/SoundEngine.h"
 #include "Water.h"
 #include "UI.h"
+#include "Pengin.h"
 
 bool Game::Start()
 {
@@ -19,29 +20,32 @@ bool Game::Start()
 					odData.position,
 					odData.rotation,
 					odData.scale);
-				g_camera3D->SetTarget(odData.position);
-				auto x = odData.position;
-				x.x += 100.0f;
-				x.y += 100.0f;
-				g_camera3D->SetPosition(x);
+				
+				m_player = NewGO<Player>(0, "Player");
+				m_gameCamera = NewGO<GameCamera>(0, "GameCamera");
 				m_ui = NewGO<UI>(0, "ui");
+				m_pengin = NewGO<Pengin>(0, "Pengin");
 				g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
 				m_gameBGM = NewGO<SoundSource>(0);
 				m_gameBGM->Init(0);
 				m_gameBGM->Play(true);
+				m_skyCube = NewGO<SkyCube>(0);
+				Water* water = NewGO<Water>(0);
 
 				return true;
 			}
 			if (odData.EqualObjectName(L"Stage") == true)
 			{
-				m_stageRender.Init("Assets/modelData/stage/Stage2.tkm");
+				m_stageRender.Init("Assets/modelData/tairiku3.tkm");
 				m_stageRender.SetTRS(
 					odData.position,
 					odData.rotation,
 					odData.scale);
-				/*float scale = 0.01f;
-				m_stageRender.SetScale(scale, scale, scale);
-				m_stageRender.Update();*/
+				m_stageRender.SetPosition(0.0f, -475.0f, 0.0f);
+				m_stageRender.SetScale(100.0f, 100.0f, 100.0f);
+				m_stageRender.Update();
+				m_physicsStaticObject.CreateFromModel(m_stageRender.GetModel(),
+					m_stageRender.GetModel().GetWorldMatrix());
 				return true;
 			}
 

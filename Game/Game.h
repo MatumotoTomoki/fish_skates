@@ -5,6 +5,7 @@
 class GameCamera;
 class Player;
 class UI;
+class Pengin;
 class Game : public IGameObject
 {
 public:
@@ -20,7 +21,10 @@ private:
 	LevelRender m_stageLevelRnder;
 	SkyCube* m_skyCube;
 	SoundSource* m_gameBGM = nullptr;
+	Player* m_player;
+	GameCamera* m_gameCamera;
 	UI* m_ui;
+	Pengin* m_pengin;
 	int m_skyCubeType = enSkyCubeType_Day;
 	
 };
