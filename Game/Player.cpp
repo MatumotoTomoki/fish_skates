@@ -88,19 +88,7 @@ void Player::Update() {
 		m_rot.SetRotationDegZ(-90.0f);
 	}
 	m_position.y += 8.0f;
-	Vector3 diff = m_pengin->m_pos - m_position;
-
-	if (diff.Length() <= 300.0f) {
-		float distToPlayer = diff.Length();
-
-		Vector3 toPlayerDir = diff;
-		toPlayerDir.Normalize();
-
-		m_position += toPlayerDir * 50.0f;
-
-		float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
-		m_rot.SetRotationY(-angleY);
-	}
+	
 	wchar_t shineText[64];
 	swprintf(shineText, 64, L"力:%.0f", m_position.y);
 	m_font.SetText(shineText);
