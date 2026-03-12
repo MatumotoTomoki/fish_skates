@@ -3,17 +3,26 @@
 #include "Player.h"
 
 bool Pengin::Start() {
-	m_modelRender.Init("Assets/modelData/pennginnnn.tkm");
+	/*m_animationClips[enAnimClip_Walk].Load("Assets/animData/pengin_walk.tka");
+	m_animationClips[enAnimClip_Walk].SetLoopFlag(true);*/
+	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
+	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
+	m_modelRender.Init("Assets/modelData/pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
 	m_pos = { 0.0f,0.0f,500.0f };
 	m_modelRender.SetScale(10.0f, 10.0f, 10.0f);
-	m_rot.SetRotationDegY(180.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
-	m_player = FindGO<Player>("Player");
+	
+	m_modelRender.Update();
 	return true;
 }
 
 void Pengin::Update() {
+	if (m_player == nullptr) {
+		m_player = FindGO<Player>("Player");
+		return;
+	}
+
 	Vector3 diff = m_player->m_position - m_pos;
 	if (diff.Length() <= 1000.0f and m_player->m_swim == false) {
 		float distToPlayer = diff.Length();
@@ -44,8 +53,10 @@ void Pengin::Update() {
 	else {
 		m_rot.SetRotationDegY(180.0f);
 	}
+
 	m_pos.y = 0.0f;
 	m_pos.z -= 1.0f;
+
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
 	m_modelRender.Update();
