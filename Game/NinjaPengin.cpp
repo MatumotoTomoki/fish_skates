@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "NinjaPengin.h"
 #include "Player.h"
+#include "Dummy.h"
 
 bool NinjaPengin::Start() {
 	m_animationClips[enAnimClip_Walk].Load("Assets/animData/pengin_walk.tka");
@@ -8,7 +9,8 @@ bool NinjaPengin::Start() {
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
-	m_pos = { 0.0f,0.0f,9999000.0f };
+	m_pos = { 0.0f,0.0f,9999900.0f };
+	m_dummy = FindGO<Dummy>("Dummy");
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
@@ -19,6 +21,7 @@ bool NinjaPengin::Start() {
 
 void NinjaPengin::Update() {
 	Vector3 moveSpeed;
+	m_modelRender.PlayAnimation(enAnimClip_Chase);
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
 		return;
@@ -26,7 +29,6 @@ void NinjaPengin::Update() {
 
 	Vector3 diff = m_player->m_position - m_pos;
 	if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and  m_player->m_swim == false) {
-		m_modelRender.PlayAnimation(enAnimClip_Chase);
 		float distToPlayer = diff.Length();
 
 		Vector3 toPlayerDir = diff;
@@ -62,6 +64,7 @@ void NinjaPengin::Update() {
 		else {
 			moveSpeed.z -= 15.0f;
 		}
+		m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 		m_stealth = false;
 	}
 	else if (m_player->m_swim == true) {
@@ -83,12 +86,18 @@ void NinjaPengin::Update() {
 		m_stealth = true;
 	}
 
+	if (m_dummy->m_change == true) {
+		for (; m_i < 1; m_i++) {
+			m_characterController.SetPosition(m_dummy->m_oldPos);
+		}
+	}
+
 	moveSpeed.y = 0.0f;
 	moveSpeed.z -= 1.0f;
-
+	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
-	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
+	
 	m_modelRender.Update();
 }
 
