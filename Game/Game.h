@@ -8,6 +8,7 @@ class UI;
 class Pengin;
 class NinjaPengin;
 class SilenPengin;
+class Water;
 class Game : public IGameObject
 {
 public:
@@ -26,6 +27,7 @@ private:
 	Player* m_player;
 	GameCamera* m_gameCamera;
 	UI* m_ui;
+	Water* m_water;
 	Pengin* m_pengin;
 	NinjaPengin* m_ninjaPengin;
 	SilenPengin* m_silenPengin;

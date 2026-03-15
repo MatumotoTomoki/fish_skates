@@ -60,6 +60,28 @@ bool Game::Start()
 
 void Game::Update()
 {
+	if (m_player->m_o2 >= -0.1f) {
+		DeleteGO(m_pengin);
+		DeleteGO(m_ninjaPengin);
+		DeleteGO(m_silenPengin);
+		DeleteGO(m_gameCamera);
+		DeleteGO(m_player);
+		DeleteGO(m_gameBGM);
+		DeleteGO(m_ui);
+		DeleteGO(m_water);
+		DeleteGO(this);
+	}
+	if (m_player->m_hp >= -0.1f) {
+		DeleteGO(m_pengin);
+		DeleteGO(m_ninjaPengin);
+		DeleteGO(m_silenPengin);
+		DeleteGO(m_gameCamera);
+		DeleteGO(m_player);
+		DeleteGO(m_gameBGM);
+		DeleteGO(m_ui);
+		DeleteGO(m_water);
+		DeleteGO(this);
+	}
 	// g_renderingEngine->DisableRaytracing();
 	m_stageRender.Update();
 	m_modelRender.Update();

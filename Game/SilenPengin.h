@@ -2,6 +2,7 @@
 class Player;
 class SilenPengin : public IGameObject
 {
+public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
