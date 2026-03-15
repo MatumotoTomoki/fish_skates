@@ -19,6 +19,7 @@
     <ClCompile Include="Pengin.cpp" />
     <ClCompile Include="NinjaPengin.cpp" />
     <ClCompile Include="SilenPengin.cpp" />
+    <ClCompile Include="Dummy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -33,5 +34,6 @@
     <ClInclude Include="Pengin.h" />
     <ClInclude Include="NinjaPengin.h" />
     <ClInclude Include="SilenPengin.h" />
+    <ClInclude Include="Dummy.h" />
   </ItemGroup>
 </Project>

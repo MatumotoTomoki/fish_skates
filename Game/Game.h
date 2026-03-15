@@ -9,6 +9,7 @@ class Pengin;
 class NinjaPengin;
 class SilenPengin;
 class Water;
+class Dummy;
 class Game : public IGameObject
 {
 public:
@@ -31,6 +32,7 @@ private:
 	Pengin* m_pengin;
 	NinjaPengin* m_ninjaPengin;
 	SilenPengin* m_silenPengin;
+	Dummy* m_dummy;
 	int m_skyCubeType = enSkyCubeType_Day;
 	
 };

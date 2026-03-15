@@ -4,6 +4,7 @@
 #include "Player.h"
 #include"sound/SoundEngine.h"
 #include "Water.h"
+#include "Dummy.h"
 #include "UI.h"
 #include "Pengin.h"
 #include "NinjaPengin.h"
@@ -33,6 +34,7 @@ bool Game::Start()
 				m_gameBGM->Play(true);
 				m_skyCube = NewGO<SkyCube>(0);
 				Water* water = NewGO<Water>(0);
+				m_dummy = NewGO<Dummy>(0,"Dummy");
 
 				return true;
 			}
@@ -69,6 +71,7 @@ void Game::Update()
 		DeleteGO(m_gameBGM);
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
+		DeleteGO(m_dummy);
 		DeleteGO(this);
 	}
 	if (m_player->m_hp >= -0.1f) {
@@ -80,6 +83,7 @@ void Game::Update()
 		DeleteGO(m_gameBGM);
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
+		DeleteGO(m_dummy);
 		DeleteGO(this);
 	}
 	// g_renderingEngine->DisableRaytracing();
