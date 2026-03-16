@@ -35,6 +35,8 @@ private:
 	NinjaPengin* m_ninjaPengin;
 	SilenPengin* m_silenPengin;
 	Dummy* m_dummy;
+	bool m_isBgmOn = true;
+	bool m_isSeOn = true;
 
 	int m_skyCubeType = enSkyCubeType_Day;
 	
