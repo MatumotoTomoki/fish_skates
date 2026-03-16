@@ -226,6 +226,7 @@
     <ClCompile Include="Dummy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NinjaPengin.cpp" />
@@ -246,6 +247,7 @@
     <ClInclude Include="Dummy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="NinjaPengin.h" />
     <ClInclude Include="Pengin.h" />
