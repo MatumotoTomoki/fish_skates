@@ -10,6 +10,7 @@ class NinjaPengin;
 class SilenPengin;
 class Water;
 class Dummy;
+class GameOver;
 class Game : public IGameObject
 {
 public:
@@ -27,6 +28,7 @@ private:
 	SoundSource* m_gameBGM = nullptr;
 	Player* m_player;
 	GameCamera* m_gameCamera;
+	GameOver* m_gameOver;
 	UI* m_ui;
 	Water* m_water;
 	Pengin* m_pengin;

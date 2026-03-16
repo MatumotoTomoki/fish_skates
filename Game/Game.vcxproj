@@ -226,6 +226,7 @@
     <ClCompile Include="Dummy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NinjaPengin.cpp" />
     <ClCompile Include="Pengin.cpp" />
@@ -237,6 +238,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Preview|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
+    <ClCompile Include="Title.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
@@ -244,12 +246,14 @@
     <ClInclude Include="Dummy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="NinjaPengin.h" />
     <ClInclude Include="Pengin.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SilenPengin.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
+    <ClInclude Include="Title.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>

@@ -88,14 +88,14 @@ void Player::Update() {
 	if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
 		m_superJump = true;
 		m_velocity.x -= 300.0f;
-		m_velocity.y += 20.0f;
+		m_velocity.y += 25.0f;
 		m_sprite.Init("Assets/sprite/931908.dds", 200.0f, 150.0f);
 		m_sprite.SetPosition({ -25.0f,-300.0f,0.0f });
 		m_sprite.Update();
 	}
 	if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
 		m_superJump = true;
-		m_velocity.y += 20.0f;
+		m_velocity.y += 25.0f;
 		m_velocity.x += 300.0f;
 		m_sprite.Init("Assets/sprite/931902.dds", 200.0f, 150.0f);
 		m_sprite.SetPosition({ 25.0f,-300.0f,0.0f });
@@ -126,6 +126,7 @@ void Player::Update() {
 	}
 	if (m_swim == true) {
 		if (m_waterJump == false) {
+			m_count += 0.1f;
 			m_modelRender.PlayAnimation(enAnimClip_Swim);
 		}
 		m_rot.SetRotationDegZ(0.0f);
@@ -135,6 +136,7 @@ void Player::Update() {
 		m_i -= 1;
 	}
 	else {
+		m_count = 0.0f;
 		if (m_diff.Length() <= 350.0f) {
 			m_hp += 0.001f;
 		}
@@ -145,6 +147,11 @@ void Player::Update() {
 			m_hp += 0.01f;
 		}
 		m_rot.SetRotationDegZ(-90.0f);
+	}
+	if (m_count >= 20.0f) {
+		m_waterJump = true;
+		m_velocity.y += 20.0f;
+		m_count = 0.0f;
 	}
 	m_position.y += 12.0f;
 

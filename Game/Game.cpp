@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Game.h"
+#include "GameOver.h"
 #include "GameCamera.h"
 #include "Player.h"
 #include"sound/SoundEngine.h"
@@ -72,6 +73,7 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
+		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
 	if (m_player->m_hp >= -0.1f) {
@@ -84,6 +86,7 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
+		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
 	// g_renderingEngine->DisableRaytracing();
