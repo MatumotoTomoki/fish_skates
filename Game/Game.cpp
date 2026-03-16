@@ -10,6 +10,7 @@
 #include "Pengin.h"
 #include "NinjaPengin.h"
 #include "SilenPengin.h"
+#include "GameClear.h"
 
 bool Game::Start()
 {
@@ -89,6 +90,19 @@ void Game::Update()
 		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
+	if (m_player->m_position.z >= 7500.0f) {
+		DeleteGO(m_pengin);
+		DeleteGO(m_ninjaPengin);
+		DeleteGO(m_silenPengin);
+		DeleteGO(m_gameCamera);
+		DeleteGO(m_player);
+		DeleteGO(m_gameBGM);
+		DeleteGO(m_ui);
+		DeleteGO(m_water);
+		DeleteGO(m_dummy);
+		NewGO<GameClear>(0, "GameClear");
+		DeleteGO(this);
+	}
 	// g_renderingEngine->DisableRaytracing();
 	m_stageRender.Update();
 	m_modelRender.Update();
@@ -98,5 +112,8 @@ void Game::Render(RenderContext& rc)
 {
 	m_stageRender.Draw(rc);
 	m_modelRender.Draw(rc);
+
+	
+
 	//m_stageLevelRnder.Draw(rc);
 }

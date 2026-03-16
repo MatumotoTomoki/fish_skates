@@ -35,6 +35,7 @@ private:
 	NinjaPengin* m_ninjaPengin;
 	SilenPengin* m_silenPengin;
 	Dummy* m_dummy;
+
 	int m_skyCubeType = enSkyCubeType_Day;
 	
 };

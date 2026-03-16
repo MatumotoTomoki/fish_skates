@@ -22,6 +22,7 @@
     <ClCompile Include="Dummy.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="GameClear.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -39,5 +40,6 @@
     <ClInclude Include="Dummy.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="GameClear.h" />
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@ public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
+	void Clear();
 
 	Vector3 m_velocity = Vector3::Zero;
 	Vector3 m_position;
@@ -17,6 +18,7 @@ public:
 	Quaternion m_rot;
 	ModelRender m_modelRender;
 	CharacterController m_characterController;
+	Vector3 GetPosition() const { return m_position; }
 	enum EnAnimationClip {
 		enAnimClip_Idle,
 		enAnimClip_Jump,
