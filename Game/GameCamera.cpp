@@ -2,6 +2,7 @@
 #include "GameCamera.h"
 #include "Player.h"
 #include "Game.h"
+#include "Pause.h"
 
 bool GameCamera::Start() {
 	m_toCameraPos.Set(0.0f, 0.0f, -500.0f);
@@ -12,6 +13,11 @@ bool GameCamera::Start() {
 }
 
 void GameCamera::Update() {
+	auto pause = FindGO<Pause>("Pause");
+	if (pause && pause->IsPaused()) {
+		return;
+	}
+
 	Vector3 playerRawTarget = m_player->m_position; // プレイヤーの現在位置を取得
 	playerRawTarget.y += 80.0f; // 目標Y座標を調整
 	float lerpFactor = 0.8f; // 追従の滑らかさを調整する係数 (0.0で動かない、1.0で即座に追従)

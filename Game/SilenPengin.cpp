@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Player.h"
 #include "SilenPengin.h"
+#include "Pause.h"
 
 bool SilenPengin::Start() {
 	g_soundEngine->ResistWaveFileBank(1, "Assets/Sound/silen.wav");
@@ -19,6 +20,11 @@ bool SilenPengin::Start() {
 }
 
 void SilenPengin::Update() {
+	auto pause = FindGO<Pause>("Pause");
+	if (pause && pause->IsPaused()) {
+		return;
+	}
+
 	Vector3 diff = m_player->m_position - m_pos;
 	if (m_player->m_swim == false) {
 		m_coolTime -= 0.1f;

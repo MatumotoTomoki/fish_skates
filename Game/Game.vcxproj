@@ -230,6 +230,7 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NinjaPengin.cpp" />
+    <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Pengin.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SilenPengin.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="NinjaPengin.h" />
+    <ClInclude Include="Pause.h" />
     <ClInclude Include="Pengin.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SilenPengin.h" />

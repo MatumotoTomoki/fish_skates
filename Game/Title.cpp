@@ -24,7 +24,7 @@ void Title::Update() {
 		m_font.SetText(L"GO!");
 	}
 	if (m_count <= -1.0f) {
-		NewGO<Game>(0, "game");
+		NewGO<Game>(0, "Game");
 		DeleteGO(this);
 	}
 }

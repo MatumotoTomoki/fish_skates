@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Game.h"
+#include "GameClear.h"
 #include "GameCamera.h"
 #include "Player.h"
 #include"sound/SoundEngine.h"
@@ -9,6 +10,8 @@
 #include "Pengin.h"
 #include "NinjaPengin.h"
 #include "SilenPengin.h"
+#include "Pause.h"
+#include "Title.h"
 
 // ★追加（BGMとSEのスイッチ）
 bool m_isBgmOn = true;
@@ -32,18 +35,14 @@ bool Game::Start()
 				m_pengin = NewGO<Pengin>(0, "Pengin");
 				m_ninjaPengin = NewGO<NinjaPengin>(0, "NinjaPengin");
 				m_silenPengin = NewGO<SilenPengin>(0, "SilenPengin");
-
+				m_pause = NewGO<Pause>(0, "Pause");
 				// SE読み込み
 				g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
 
 				// BGM
 				m_gameBGM = NewGO<SoundSource>(0);
 				m_gameBGM->Init(0);
-
-				// ★BGM ONのときだけ再生
-				if (m_isBgmOn) {
-					m_gameBGM->Play(true);
-				}
+				m_gameBGM->Play(true);
 
 				m_skyCube = NewGO<SkyCube>(0);
 				Water* water = NewGO<Water>(0);
@@ -77,19 +76,6 @@ bool Game::Start()
 
 void Game::Update()
 {
-	// ★BキーでBGM ON/OFF
-	if (g_pad[0]->IsTrigger(enButtonB)) {
-
-		m_isBgmOn = !m_isBgmOn;
-
-		if (m_isBgmOn) {
-			m_gameBGM->Play(true);
-		}
-		else {
-			m_gameBGM->Stop();
-		}
-	}
-
 	// ★YキーでSE ON/OFF
 	if (g_pad[0]->IsTrigger(enButtonY)) {
 		m_isSeOn = !m_isSeOn;
@@ -118,6 +104,36 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
+		DeleteGO(m_pause);
+		DeleteGO(this);
+	}
+
+	if (m_player->m_position.z >= 7500.0f) {
+		DeleteGO(m_pengin);
+		DeleteGO(m_ninjaPengin);
+		DeleteGO(m_silenPengin);
+		DeleteGO(m_gameCamera);
+		DeleteGO(m_player);
+		DeleteGO(m_gameBGM);
+		DeleteGO(m_ui);
+		DeleteGO(m_water);
+		DeleteGO(m_dummy);
+		DeleteGO(m_pause);
+		NewGO<GameClear>(0, "GameClear");
+		DeleteGO(this);
+	}
+	auto title = FindGO<Title>("Title");
+	if (title) {
+		DeleteGO(m_pengin);
+		DeleteGO(m_ninjaPengin);
+		DeleteGO(m_silenPengin);
+		DeleteGO(m_gameCamera);
+		DeleteGO(m_player);
+		DeleteGO(m_gameBGM);
+		DeleteGO(m_ui);
+		DeleteGO(m_water);
+		DeleteGO(m_dummy);
+		DeleteGO(m_pause);
 		DeleteGO(this);
 	}
 
