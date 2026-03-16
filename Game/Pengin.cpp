@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Pengin.h"
 #include "Player.h"
+#include "Pause.h"
 
 bool Pengin::Start() {
 	m_animationClips[enAnimClip_Walk].Load("Assets/animData/pengin_walk.tka");
@@ -18,6 +19,11 @@ bool Pengin::Start() {
 }
 
 void Pengin::Update() {
+	auto pause = FindGO<Pause>("Pause");
+	if (pause && pause->IsPaused()) {
+		return;
+	}
+
 	Vector3 moveSpeed;
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");

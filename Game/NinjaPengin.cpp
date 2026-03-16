@@ -2,6 +2,7 @@
 #include "NinjaPengin.h"
 #include "Player.h"
 #include "Dummy.h"
+#include "Pause.h"
 
 bool NinjaPengin::Start() {
 	m_animationClips[enAnimClip_Walk].Load("Assets/animData/pengin_walk.tka");
@@ -20,6 +21,11 @@ bool NinjaPengin::Start() {
 }
 
 void NinjaPengin::Update() {
+	auto pause = FindGO<Pause>("Pause");
+	if (pause && pause->IsPaused()) {
+		return;
+	}
+
 	Vector3 moveSpeed;
 	m_modelRender.PlayAnimation(enAnimClip_Chase);
 	if (m_player == nullptr) {

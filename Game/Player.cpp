@@ -3,6 +3,7 @@
 #include "Pengin.h"
 #include "NinjaPengin.h"
 #include "SilenPengin.h"
+#include "Pause.h"
 
 bool Player::Start() {
 	m_characterController.Init(25.0f, 75.0f, m_position);
@@ -29,6 +30,10 @@ bool Player::Start() {
 }
 
 void Player::Update() {
+	auto pause = FindGO<Pause>("Pause");
+	if (pause && pause->IsPaused()) {
+		return;
+	}
 	m_o2 += 0.001f;
 	Vector3 forward = g_camera3D->GetForward();
 	// カメラの "前方向" ベクトルを、水平方向だけにしたベクトルを作成

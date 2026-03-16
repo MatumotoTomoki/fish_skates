@@ -11,12 +11,18 @@ class SilenPengin;
 class Water;
 class Dummy;
 class GameOver;
+class Pause;
 class Game : public IGameObject
 {
 public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
+	void SetBGMVolume(float vol) {
+		if (m_gameBGM) {
+			m_gameBGM->SetVolume(vol);
+		}
+	}
 
 private:
 	PhysicsStaticObject m_physicsStaticObject;
@@ -35,6 +41,7 @@ private:
 	NinjaPengin* m_ninjaPengin;
 	SilenPengin* m_silenPengin;
 	Dummy* m_dummy;
+	Pause* m_pause;
 	bool m_isBgmOn = true;
 	bool m_isSeOn = true;
 

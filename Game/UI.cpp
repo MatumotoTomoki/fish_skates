@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "UI.h"
 #include "Player.h"
+#include "Pause.h"
 
 bool UI::Start()
 {
@@ -22,6 +23,10 @@ bool UI::Start()
 
 void UI::Update()
 {
+	auto pause = FindGO<Pause>("Pause");
+	if (pause && pause->IsPaused()) {
+		return;
+	}
 	m_o2 += 0.001f;
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });

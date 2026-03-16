@@ -2,6 +2,7 @@
 #include "Dummy.h"
 #include "NinjaPengin.h"
 #include "Player.h"
+#include "Pause.h"
 
 bool  Dummy::Start() {
 	m_animationClips[enAnimClip_Walk].Load("Assets/animData/pengin_walk.tka");
@@ -20,6 +21,10 @@ bool  Dummy::Start() {
 }
 
 void  Dummy::Update() {
+	auto pause = FindGO<Pause>("Pause");
+	if (pause && pause->IsPaused()) {
+		return;
+	}
 	Vector3 moveSpeed;
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
