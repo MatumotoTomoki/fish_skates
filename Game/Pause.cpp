@@ -77,6 +77,8 @@ void Pause::Update() {
 			if (g_pad[0]->IsTrigger(enButtonB)) { // Bボタンで戻る
 				m_font.SetText(L"Pause");
 				m_font.SetPosition(-110.0f, 450.0f, 0.0f);
+				m_menuFont.SetText(L"メニューを閉じる\n\n\n\nサウンド設定\n\n\n\nタイトルに戻る");
+				m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
 				m_state = PauseState::Main;
 			}
 			m_game = FindGO<Game>("Game");
