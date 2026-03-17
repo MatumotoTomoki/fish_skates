@@ -1,6 +1,7 @@
 ﻿#pragma once
 class Title;
 class Game;
+class SilenPengin;
 class Pause : public IGameObject
 {
 public:
@@ -10,14 +11,17 @@ public:
 	bool IsPaused() const { return m_isPause; }
 
 	int m_mode = 2;
+	int m_sevolume = 5;
 private:
 	SpriteRender m_sprite;
 	SpriteRender m_backGround;
 	FontRender m_font;
 	FontRender m_menuFont;
 	FontRender m_volumeFont;
+	FontRender m_sevolumeFont;
 	Title* m_title;
 	Game* m_game;
+	SilenPengin* m_silenPengin;
 	bool m_isPause = false;
 
 	enum class PauseState {
@@ -26,5 +30,7 @@ private:
 	};
 	PauseState m_state = PauseState::Main;
 	int m_volume = 5;
+	
+	int m_soundMode = 0;
 };
 

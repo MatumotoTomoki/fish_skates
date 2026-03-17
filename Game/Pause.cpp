@@ -1,7 +1,8 @@
 ﻿#include "stdafx.h"
 #include "Pause.h"
-#include "Title.h"
+#include "Title.h" 
 #include "Game.h"
+#include "SilenPengin.h"
 
 bool Pause::Start() {
 	m_sprite.Init("Assets/sprite/arrow.dds",150.0f,100.0f);
@@ -19,6 +20,9 @@ bool Pause::Start() {
 	m_volumeFont.SetPosition(-220.0f, 155.0f, 0.0f);
 	m_volumeFont.SetScale(2.0f);
 	m_volumeFont.SetColor(1.0f,0.0f,0.0f,0.0f);
+	m_sevolumeFont.SetPosition(-220.0f, 15.0f, 0.0f);
+	m_sevolumeFont.SetScale(2.0f);
+	m_sevolumeFont.SetColor(1.0f,0.0f,0.0f,0.0f);
 	return true;
 }
 
@@ -51,7 +55,7 @@ void Pause::Update() {
 					m_state = PauseState::Sound;
 					m_font.SetText(L"サウンド設定");
 					m_font.SetPosition(-290.0f, 450.0f, 0.0f);
-					m_menuFont.SetText(L"BGM");
+					m_menuFont.SetText(L"BGM\n\nSE");
 					m_menuFont.SetPosition(-350.0f, 150.0f, 0.0f);
 					break;
 				case 2:
@@ -82,21 +86,68 @@ void Pause::Update() {
 				m_state = PauseState::Main;
 			}
 			m_game = FindGO<Game>("Game");
-			if (g_pad[0]->IsTrigger(enButtonLeft)) {
-				m_volume = max(0, m_volume - 1);
-				if (m_game) {
-					// m_volume(0~10) を 0.0f ~ 1.0f に変換して適用
-					m_game->SetBGMVolume(m_volume * 1.0f);
+
+			if (g_pad[0]->IsTrigger(enButtonUp)) {
+				m_soundMode--;
+				if (m_soundMode < 0) {
+					m_soundMode = 1;
 				}
 			}
-			if (g_pad[0]->IsTrigger(enButtonRight)) {
-				m_volume = min(10, m_volume + 1);
-				if (m_game) {
-					// m_volume(0~10) を 0.0f ~ 1.0f に変換して適用
-					m_game->SetBGMVolume(m_volume * 1.0f);
+			if (g_pad[0]->IsTrigger(enButtonDown)) {
+				m_soundMode++;
+				if (m_soundMode > 1) {
+					m_soundMode = 0;
 				}
 			}
-			
+
+			switch (m_soundMode) {
+			case 0:
+				m_sprite.SetPosition({ -400.0f,120.0f,0.0f }); // BGM
+				break;
+			case 1:
+				m_sprite.SetPosition({ -400.0f,-40.0f,0.0f }); // SE
+				break;
+			}
+
+			if (m_soundMode == 0) {
+				if (g_pad[0]->IsTrigger(enButtonLeft)) {
+					m_volume = max(0, m_volume - 1);
+					if (m_game) {
+						// m_volume(0~10) を 0.0f ~ 1.0f に変換して適用
+						m_game->SetBGMVolume(m_volume * 1.0f);
+					}
+				}
+
+
+				if (g_pad[0]->IsTrigger(enButtonRight)) {
+					m_volume = min(10, m_volume + 1);
+					if (m_game) {
+						// m_volume(0~10) を 0.0f ~ 1.0f に変換して適用
+						m_game->SetBGMVolume(m_volume * 1.0f);
+					}
+				}
+			}
+
+			if (m_soundMode == 1) {
+				m_silenPengin = FindGO<SilenPengin>("silenPengin");
+				if (g_pad[0]->IsTrigger(enButtonLeft))
+				{
+					m_sevolume = max(0, m_sevolume - 1);
+					if (m_silenPengin)
+					{
+						m_silenPengin->SetSEVolume(m_sevolume * 1.0f);
+					}
+				}
+
+				if (g_pad[0]->IsTrigger(enButtonRight))
+				{
+					m_sevolume = min(10, m_sevolume + 1);
+					if (m_silenPengin)
+					{
+						m_silenPengin->SetSEVolume(m_sevolume * 1.0f);
+					}
+				}
+			}
 			switch (m_volume) {
 			case 0:
 				m_volumeFont.SetText(L"");
@@ -132,6 +183,42 @@ void Pause::Update() {
 				m_volumeFont.SetText(L"llllllllll");
 				break;
 			}
+
+			switch (m_sevolume) {
+			case 0:
+				m_sevolumeFont.SetText(L"");
+				break;
+			case 1:
+				m_sevolumeFont.SetText(L"l");
+				break;
+			case 2:
+				m_sevolumeFont.SetText(L"ll");
+				break;
+			case 3:
+				m_sevolumeFont.SetText(L"lll");
+				break;
+			case 4:
+				m_sevolumeFont.SetText(L"llll");
+				break;
+			case 5:
+				m_sevolumeFont.SetText(L"lllll");
+				break;
+			case 6:
+				m_sevolumeFont.SetText(L"llllll");
+				break;
+			case 7:
+				m_sevolumeFont.SetText(L"lllllll");
+				break;
+			case 8:
+				m_sevolumeFont.SetText(L"llllllll");
+				break;
+			case 9:
+				m_sevolumeFont.SetText(L"lllllllll");
+				break;
+			case 10:
+				m_sevolumeFont.SetText(L"llllllllll");
+				break;
+			}
 		}
 	}
 	m_sprite.Update();
@@ -145,6 +232,7 @@ void Pause::Render(RenderContext& rc) {
 		m_menuFont.Draw(rc);
 		if (m_state == PauseState::Sound) {
 			m_volumeFont.Draw(rc);
+			m_sevolumeFont.Draw(rc);
 		}
 	}
 }

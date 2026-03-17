@@ -20,8 +20,8 @@ bool SilenPengin::Start() {
 }
 
 void SilenPengin::Update() {
-	auto pause = FindGO<Pause>("Pause");
-	if (pause && pause->IsPaused()) {
+	m_pause = FindGO<Pause>("Pause");
+	if (m_pause && m_pause->IsPaused()) {
 		return;
 	}
 
@@ -34,15 +34,15 @@ void SilenPengin::Update() {
 		m_pos.x += 3000.0f;
 	}
 	if (m_coolTime <= 35.0f and m_player->m_swim == false) {
-		SoundSource* se = NewGO<SoundSource>(0);
+		m_se = NewGO<SoundSource>(0);
 		for (; m_silen < 1; m_silen++) {
-			se->Init(1);
-			se->Play(false);
-			se->SetVolume(2.5f);
+			m_se->Init(1);
+			m_se->SetVolume(m_pause->m_sevolume);
+			m_se->Play(false);
+			
 		}
 		if (m_player->m_swim == true) {
-			if (se != nullptr)
-				delete se;
+			if (m_se != nullptr);
 		}
 	}
 	if (m_coolTime <= 0.0f) {
