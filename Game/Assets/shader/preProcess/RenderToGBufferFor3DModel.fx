@@ -26,10 +26,11 @@ static const int dither_table[4][4] = {
     { 12, 44, 4, 36 }, { 60, 28, 52, 20 }
 };
 
-cbuffer CustomBuffer : register(b1) // 他と被らないようb1を使用
+cbuffer CustomBuffer : register(b1)
 {
-    float g_opacity; // 0.0(透明) ～ 1.0(不透明)
-    float3 padding;  // 16バイト境界に合わせるための詰め物
+    float g_opacity;   // C++の opacity がここに入る
+    float g_isDither;  // C++の isDither がここに入る
+    float2 padding;    
 };
 
 float3 GetNormalFromNormalMap(float3 normal, float3 tangent, float3 biNormal, float2 uv)
