@@ -9,7 +9,7 @@ bool NinjaPengin::Start() {
 	m_animationClips[enAnimClip_Walk].SetLoopFlag(true);
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
-	m_modelRender.Init("Assets/modelData/pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
+	m_modelRender.Init("Assets/modelData/ninja_pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
 	m_pos = { 0.0f,0.0f,9999900.0f };
 	m_dummy = FindGO<Dummy>("Dummy");
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
@@ -17,6 +17,8 @@ bool NinjaPengin::Start() {
 	m_modelRender.SetPosition(m_pos);
 	m_characterController.Init(75.0f, 75.0f, m_pos);
 	m_modelRender.Update();
+	m_cb.Init(sizeof(SCustomCb), nullptr);
+	m_opacity = 0.0f;
 	return true;
 }
 
@@ -103,12 +105,17 @@ void NinjaPengin::Update() {
 	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
-	
+	if (!m_stealth) {
+		m_opacity += 0.01f; // ここで現れるスピードを調整
+	}
+	else {
+		m_opacity -= 0.01f; // ステルス中は消える
+	}
+	m_opacity = fmaxf(0.0f, fminf(1.0f, m_opacity)); // 0～1に固定
+
 	m_modelRender.Update();
 }
 
 void NinjaPengin::Render(RenderContext& rc) {
-	if (m_stealth == false) {
-		m_modelRender.Draw(rc);
-	}
+	m_modelRender.Draw(rc);
 }
