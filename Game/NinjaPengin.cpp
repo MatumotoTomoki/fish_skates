@@ -10,7 +10,7 @@ bool NinjaPengin::Start() {
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/ninja_pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
-	m_pos = { 0.0f,0.0f,9999900.0f };
+	m_pos = { 0.0f,0.0f,3000.0f };
 	m_dummy = FindGO<Dummy>("Dummy");
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_modelRender.SetRotation(m_rot);
@@ -94,28 +94,46 @@ void NinjaPengin::Update() {
 		m_stealth = true;
 	}
 
-	if (m_dummy->m_change == true) {
+	/*if (m_dummy->m_change == true) {
 		for (; m_i < 1; m_i++) {
 			m_characterController.SetPosition(m_dummy->m_oldPos);
 		}
-	}
+	}*/
 
 	moveSpeed.y = 0.0f;
 	moveSpeed.z -= 1.0f;
 	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
+	
+	// だんだん現れる（例：1秒強で出現）
 	if (!m_stealth) {
-		m_opacity += 0.01f; // ここで現れるスピードを調整
+		m_opacity += 0.005f;
 	}
 	else {
-		m_opacity -= 0.01f; // ステルス中は消える
+		m_opacity -= 0.01f;
 	}
-	m_opacity = fmaxf(0.0f, fminf(1.0f, m_opacity)); // 0～1に固定
+	m_opacity = fmaxf(0.0f, fminf(1.0f, m_opacity));
 
 	m_modelRender.Update();
 }
 
 void NinjaPengin::Render(RenderContext& rc) {
-	m_modelRender.Draw(rc);
+	if (m_opacity > 0.0f) {
+		SCustomCb cbData;
+		cbData.opacity = m_opacity; // ここで Update で計算した値を渡す！
+		cbData.isDither = 1.0f;     // ペンギンは常に網目対象
+
+		m_cb.CopyToVRAM(&cbData);
+		rc.SetConstantBuffer(1, m_cb);
+
+		m_modelRender.Draw(rc);
+
+		// 背景を守るためのお掃除（フラグを0にする）
+		SCustomCb resetData;
+		resetData.opacity = 1.0f;
+		resetData.isDither = 0.0f; // 他の描画では網目機能をOFFにする
+		m_cb.CopyToVRAM(&resetData);
+		rc.SetConstantBuffer(1, m_cb);
+	}
 }

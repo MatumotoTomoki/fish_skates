@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "GameClear.h"
 #include "GameCamera.h"
+#include "GameOver.h"
 #include "Player.h"
 #include"sound/SoundEngine.h"
 #include "Water.h"
@@ -91,6 +92,8 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
+		DeleteGO(m_pause);
+		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
 
@@ -105,6 +108,7 @@ void Game::Update()
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
 		DeleteGO(m_pause);
+		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
 
