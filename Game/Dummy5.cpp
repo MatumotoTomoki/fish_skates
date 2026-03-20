@@ -1,17 +1,17 @@
 ﻿#include "stdafx.h"
-#include "Dummy.h"
+#include "Dummy5.h"
 #include "Dummy3.h"
 #include "NinjaPengin.h"
 #include "Player.h"
 #include "Pause.h"
 
-bool  Dummy::Start() {
+bool  Dummy5::Start() {
 	m_animationClips[enAnimClip_Walk].Load("Assets/animData/pengin_walk.tka");
 	m_animationClips[enAnimClip_Walk].SetLoopFlag(true);
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
-	m_modelRender.Init("Assets/modelData/pengin_dummy.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
-	m_pos = { 0.0f,0.0f,3000.0f };
+	m_modelRender.Init("Assets/modelData/pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
+	m_pos = { 0.0f,0.0f,9999000.0f };
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
@@ -22,7 +22,8 @@ bool  Dummy::Start() {
 	return true;
 }
 
-void  Dummy::Update() {
+void  Dummy5::Update() {
+	m_modelRender.PlayAnimation(enAnimClip_Chase);
 	auto pause = FindGO<Pause>("Pause");
 	if (pause && pause->IsPaused()) {
 		return;
@@ -35,7 +36,7 @@ void  Dummy::Update() {
 
 	Vector3 diff = m_player->m_position - m_pos;
 	if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
-		m_modelRender.PlayAnimation(enAnimClip_Chase);
+		
 		float distToPlayer = diff.Length();
 
 		Vector3 toPlayerDir = diff;
@@ -53,12 +54,32 @@ void  Dummy::Update() {
 			moveSpeed.z -= 15.0f;
 		}
 	}
-	if (diff.Length() <= 1000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
-		m_oldPos = m_pos;
-		m_characterController.SetPosition(m_dummy3->m_pos);
-		m_change = true;
+	if (diff.Length() <= 600.0f and m_player->m_swim == false) {
+		float distToPlayer = diff.Length();
+
+		Vector3 toPlayerDir = diff;
+		toPlayerDir.Normalize();
+
+		if (m_player->m_superJump == false) {
+			moveSpeed += toPlayerDir * 0.1f;
+
+			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
+
+			// ラジアンを度数に変換し、回転行列を作成
+			m_rot.SetRotationY(angleY);
+		}
+		else {
+			moveSpeed.z -= 15.0f;
+		}
 	}
-	
+
+	if (m_ninjaPengin->m_change == true) {
+		for (; m_i < 1; m_i++) {
+			m_oldPos = m_pos;
+			m_characterController.SetPosition(m_ninjaPengin->m_oldPos);
+		}
+	}
+
 	else {
 		m_rot.SetRotationDegY(180.0f);
 	}
@@ -72,7 +93,7 @@ void  Dummy::Update() {
 	m_modelRender.Update();
 }
 
-void  Dummy::Render(RenderContext& rc) {
+void  Dummy5::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
 
 }
