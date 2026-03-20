@@ -10,6 +10,8 @@ class NinjaPengin;
 class SilenPengin;
 class Water;
 class Dummy;
+class Dummy3;
+class Dummy5;
 class GameOver;
 class Pause;
 class Game : public IGameObject
@@ -41,6 +43,8 @@ private:
 	NinjaPengin* m_ninjaPengin;
 	SilenPengin* m_silenPengin;
 	Dummy* m_dummy;
+	Dummy3* m_dummy3;
+	Dummy5* m_dummy5;
 	Pause* m_pause;
 	bool m_isBgmOn = true;
 	bool m_isSeOn = true;

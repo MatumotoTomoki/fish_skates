@@ -57,8 +57,8 @@ SPSOut PSMainCore(SPSIn psIn, int isShadowReciever)
     // テクスチャの色をサンプル（ここでアルファ値も取得される）
     psOut.albedo = g_albedo.Sample(g_sampler, psIn.uv);
     
-    uint d_x = (uint) psIn.pos.x % 4;
-    uint d_y = (uint) psIn.pos.y % 4;
+    uint d_x = (uint) psIn.pos.x % 2;
+    uint d_y = (uint) psIn.pos.y % 2;
 
     // --- 0.5f ではなく、テクスチャのアルファ値(psOut.albedo.a)を使う ---
     clip(psOut.albedo.a - (float) dither_table[d_y][d_x] / 64.0f);

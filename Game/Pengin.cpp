@@ -31,7 +31,7 @@ void Pengin::Update() {
 	}
 
 	Vector3 diff = m_player->m_position - m_pos;
-	if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false ) {
+	if (diff.Length() <= 2000.0f and diff.Length() >= 1500.0f and m_player->m_swim == false ) {
 		m_modelRender.PlayAnimation(enAnimClip_Chase);
 		float distToPlayer = diff.Length();
 

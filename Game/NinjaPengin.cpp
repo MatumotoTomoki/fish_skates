@@ -2,6 +2,8 @@
 #include "NinjaPengin.h"
 #include "Player.h"
 #include "Dummy.h"
+#include "Dummy3.h"
+#include "Dummy5.h"
 #include "Pause.h"
 
 bool NinjaPengin::Start() {
@@ -10,8 +12,10 @@ bool NinjaPengin::Start() {
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/ninja_pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
-	m_pos = { 0.0f,0.0f,3000.0f };
+	m_pos = { 0.0f,0.0f,99999000.0f };
 	m_dummy = FindGO<Dummy>("Dummy");
+	m_dummy3 = FindGO<Dummy3>("Dummy3");
+	m_dummy5 = FindGO<Dummy5>("Dummy5");
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
@@ -36,7 +40,7 @@ void NinjaPengin::Update() {
 	}
 
 	Vector3 diff = m_player->m_position - m_pos;
-	if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and  m_player->m_swim == false) {
+	if (diff.Length() <= 2000.0f and diff.Length() >= 700.0f and  m_player->m_swim == false) {
 		float distToPlayer = diff.Length();
 
 		Vector3 toPlayerDir = diff;
@@ -55,7 +59,7 @@ void NinjaPengin::Update() {
 		}
 		m_stealth = false;
 	}
-	else if (diff.Length() <= 600.0f  and m_player->m_swim == false) {
+	else if (diff.Length() <= 700.0f and diff.Length() >= 600.0f  and m_player->m_swim == false) {
 		float distToPlayer = diff.Length();
 
 		Vector3 toPlayerDir = diff;
@@ -74,6 +78,11 @@ void NinjaPengin::Update() {
 		}
 		m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 		m_stealth = false;
+		if (m_change == false) {
+			m_oldPos = m_pos;
+			m_characterController.SetPosition(m_dummy5->m_pos);
+			m_change = true;
+		}
 	}
 	else if (m_player->m_swim == true) {
 		Vector3 diff = m_pos - m_player->m_position;
@@ -86,7 +95,6 @@ void NinjaPengin::Update() {
 
 		float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
 		m_rot.SetRotationY(-angleY);
-
 		m_stealth = true;
 	}
 	else {
@@ -94,11 +102,11 @@ void NinjaPengin::Update() {
 		m_stealth = true;
 	}
 
-	/*if (m_dummy->m_change == true) {
+	if (m_dummy3->m_change == true) {
 		for (; m_i < 1; m_i++) {
-			m_characterController.SetPosition(m_dummy->m_oldPos);
+			m_characterController.SetPosition(m_dummy3->m_oldPos);
 		}
-	}*/
+	}
 
 	moveSpeed.y = 0.0f;
 	moveSpeed.z -= 1.0f;
