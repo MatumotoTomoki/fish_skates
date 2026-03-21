@@ -49,10 +49,16 @@ void GameCamera::Update() {
 		qRot.Apply(m_toCameraPos);
 		Vector3 toPosDir = m_toCameraPos;
 		toPosDir.Normalize();
-		if (toPosDir.y < -0.9f) {
+		if (toPosDir.y < -0.15f) {
 			m_toCameraPos = toCameraPosOld;
 		}
 		else if (toPosDir.y > 0.9f) {
+			m_toCameraPos = toCameraPosOld;
+		}
+		if (toPosDir.x < -0.8f) {
+			m_toCameraPos = toCameraPosOld;
+		}
+		else if (toPosDir.x > 0.8f) {
 			m_toCameraPos = toCameraPosOld;
 		}
 	
