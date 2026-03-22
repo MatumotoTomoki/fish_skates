@@ -10,6 +10,9 @@ bool Pause::Start() {
 	Vector4 color = { 0.0f, 0.0f, 0.0f, 0.5f };
 	m_backGround.SetMulColor(color);
 	m_font.SetText(L"Pause");
+	if (m_game) {
+		m_game->SetBGMVolume(m_volume * 1.0f);
+	}
 	m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
 	m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
 	m_menuFont.SetScale(1.52f);
@@ -66,6 +69,7 @@ void Pause::Update() {
 					m_font.SetPosition(-290.0f, 450.0f, 0.0f);
 					m_menuFont.SetText(L"BGM\n\nSE");
 					m_menuFont.SetPosition(-350.0f, 150.0f, 0.0f);
+					m_soundTest = true;
 					break;
 				case 3:
 					m_isPause = !m_isPause;
@@ -92,6 +96,7 @@ void Pause::Update() {
 			m_sprite.SetPosition({ -400.0f,120.0f,0.0f });
 			if (g_pad[0]->IsTrigger(enButtonB)) { // Bボタンで戻る
 				m_soundMode = 0;
+				m_soundTest = false;
 				m_font.SetText(L"Pause");
 				m_font.SetPosition(-110.0f, 450.0f, 0.0f);
 				m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
