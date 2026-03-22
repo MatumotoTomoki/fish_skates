@@ -34,6 +34,8 @@ private:
 	LevelRender m_stageLevelRnder;
 	SkyCube* m_skyCube;
 	SoundSource* m_gameBGM = nullptr;
+	SoundSource* m_menuSE = nullptr;
+	SoundSource* m_selectSE = nullptr;
 	Player* m_player;
 	GameCamera* m_gameCamera;
 	GameOver* m_gameOver;
@@ -48,6 +50,7 @@ private:
 	Pause* m_pause;
 	bool m_isBgmOn = true;
 	bool m_isSeOn = true;
+	bool m_stop = false;
 
 	int m_skyCubeType = enSkyCubeType_Day;
 	
