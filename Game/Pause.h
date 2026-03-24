@@ -12,8 +12,6 @@ public:
 
 	int m_mode = 2;
 	int m_sevolume = 5;
-	int m_soundMode = 0;
-	bool m_soundTest = false;
 private:
 	SpriteRender m_sprite;
 	SpriteRender m_backGround;
@@ -33,6 +31,6 @@ private:
 	PauseState m_state = PauseState::Main;
 	int m_volume = 5;
 	
-	
+	int m_soundMode = 0;
 };
 
