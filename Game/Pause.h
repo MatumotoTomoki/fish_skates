@@ -36,6 +36,6 @@ private:
 	PauseState m_state = PauseState::Main;
 	int m_volume = 5;
 	
-	int m_soundMode = 0;
+	
 };
 
