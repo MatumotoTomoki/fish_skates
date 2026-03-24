@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "Pause.h"
 #include "Title.h" 
 #include "Game.h"
@@ -10,7 +10,10 @@ bool Pause::Start() {
 	Vector4 color = { 0.0f, 0.0f, 0.0f, 0.5f };
 	m_backGround.SetMulColor(color);
 	m_font.SetText(L"Pause");
-	m_menuFont.SetText(L"メニューを閉じる\n\n\n\nサウンド設定\n\n\n\nタイトルに戻る");
+	if (m_game) {
+		m_game->SetBGMVolume(m_volume * 1.0f);
+	}
+	m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
 	m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
 	m_menuFont.SetScale(1.52f);
 	m_font.SetPosition(-130.0f, 450.0f, 0.0f);
@@ -23,42 +26,55 @@ bool Pause::Start() {
 	m_sevolumeFont.SetPosition(-220.0f, 15.0f, 0.0f);
 	m_sevolumeFont.SetScale(2.0f);
 	m_sevolumeFont.SetColor(1.0f,0.0f,0.0f,0.0f);
+	m_masterFont.SetPosition(-100.0f, -110.0f, 0.0f);
+	m_masterFont.SetScale(2.0f);
+	m_masterFont.SetColor(1.0f, 0.0f, 0.0f, 0.0f);
 	return true;
 }
 
 void Pause::Update() {
 	if (g_pad[0]->IsTrigger(enButtonStart)) {
+		m_soundMode = 0;
+		m_font.SetText(L"Pause");
+		m_font.SetPosition(-130.0f, 450.0f, 0.0f);
+		m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
+		m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
+		m_state = PauseState::Main;
 		m_isPause = !m_isPause;
-		m_mode = 2;
+		m_mode = 3;
 	}
 	if (m_isPause == true) {
 		if (m_state == PauseState::Main) {
 			if (g_pad[0]->IsTrigger(enButtonUp)) {
 				m_mode++;
-				if (m_mode > 2) {
+				if (m_mode > 3) {
 					m_mode = 0;
 				}
 			}
 			if (g_pad[0]->IsTrigger(enButtonDown)) {
 				m_mode--;
 				if (m_mode < 0) {
-					m_mode = 2;
+					m_mode = 3;
 				}
 			}
 			if (g_pad[0]->IsTrigger(enButtonA)) {
 				switch (m_mode) {
 				case 0:
+					PostQuitMessage(0);
+					break;
+				case 1:
 					m_title = NewGO<Title>(0, "Title");
 					DeleteGO(this);
 					break;
-				case 1:
+				case 2:
 					m_state = PauseState::Sound;
 					m_font.SetText(L"サウンド設定");
 					m_font.SetPosition(-290.0f, 450.0f, 0.0f);
-					m_menuFont.SetText(L"BGM\n\nSE");
+					m_menuFont.SetText(L"BGM\n\nSE\n\nマスター");
 					m_menuFont.SetPosition(-350.0f, 150.0f, 0.0f);
+					m_soundTest = true;
 					break;
-				case 2:
+				case 3:
 					m_isPause = !m_isPause;
 					break;
 				}
@@ -66,12 +82,15 @@ void Pause::Update() {
 
 			switch (m_mode) {
 			case 0:
-				m_sprite.SetPosition({ -300.0f,-300.0f,0.0f });
+				m_sprite.SetPosition({ -300.0f,-360.0f,0.0f });
 				break;
 			case 1:
-				m_sprite.SetPosition({ -300.0f,-40.0f,0.0f });
+				m_sprite.SetPosition({ -300.0f,-170.0f,0.0f });
 				break;
 			case 2:
+				m_sprite.SetPosition({ -300.0f,25.0f,0.0f });
+				break;
+			case 3:
 				m_sprite.SetPosition({ -300.0f,220.0f,0.0f });
 				break;
 			}
@@ -79,9 +98,11 @@ void Pause::Update() {
 		else if (m_state == PauseState::Sound) {
 			m_sprite.SetPosition({ -400.0f,120.0f,0.0f });
 			if (g_pad[0]->IsTrigger(enButtonB)) { // Bボタンで戻る
+				m_soundMode = 0;
+				m_soundTest = false;
 				m_font.SetText(L"Pause");
 				m_font.SetPosition(-110.0f, 450.0f, 0.0f);
-				m_menuFont.SetText(L"メニューを閉じる\n\n\n\nサウンド設定\n\n\n\nタイトルに戻る");
+				m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
 				m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
 				m_state = PauseState::Main;
 			}
@@ -90,12 +111,12 @@ void Pause::Update() {
 			if (g_pad[0]->IsTrigger(enButtonUp)) {
 				m_soundMode--;
 				if (m_soundMode < 0) {
-					m_soundMode = 1;
+					m_soundMode = 2;
 				}
 			}
 			if (g_pad[0]->IsTrigger(enButtonDown)) {
 				m_soundMode++;
-				if (m_soundMode > 1) {
+				if (m_soundMode > 2) {
 					m_soundMode = 0;
 				}
 			}
@@ -148,6 +169,29 @@ void Pause::Update() {
 					}
 				}
 			}
+
+			if (m_soundMode == 2) {
+				
+				if (g_pad[0]->IsTrigger(enButtonLeft)) {
+					m_masterVolume = max(0, m_masterVolume - 1);
+				}
+				if (g_pad[0]->IsTrigger(enButtonRight)) {
+					m_masterVolume = min(10, m_masterVolume + 1);
+				}
+
+				// BGMに反映
+				if (m_game) {
+					float finalBGM = (m_volume / 10.0f) * (m_masterVolume / 10.0f);
+					m_game->SetBGMVolume(finalBGM);
+				}
+
+				// SEに反映
+				if (m_silenPengin) {
+					float finalSE = (m_sevolume / 10.0f) * (m_masterVolume / 10.0f);
+					m_silenPengin->SetSEVolume(finalSE);
+				}
+			}
+
 			switch (m_volume) {
 			case 0:
 				m_volumeFont.SetText(L"");
@@ -219,6 +263,43 @@ void Pause::Update() {
 				m_sevolumeFont.SetText(L"llllllllll");
 				break;
 			}
+
+			switch (m_masterVolume) {
+			case 0:
+				m_masterFont.SetText(L"");
+				break;
+			case 1:
+				m_masterFont.SetText(L"l");
+				break;
+			case 2:
+				m_masterFont.SetText(L"ll");
+				break;
+			case 3:
+				m_masterFont.SetText(L"lll");
+				break;
+			case 4:
+				m_masterFont.SetText(L"llll");
+				break;
+			case 5:
+				m_masterFont.SetText(L"lllll");
+				break;
+			case 6:
+				m_masterFont.SetText(L"llllll");
+				break;
+			case 7:
+				m_masterFont.SetText(L"lllllll");
+				break;
+			case 8:
+				m_masterFont.SetText(L"llllllll");
+				break;
+			case 9:
+				m_masterFont.SetText(L"lllllllll");
+				break;
+			case 10:
+				m_masterFont.SetText(L"llllllllll");
+				break;
+			}
+
 		}
 	}
 	m_sprite.Update();
@@ -233,6 +314,7 @@ void Pause::Render(RenderContext& rc) {
 		if (m_state == PauseState::Sound) {
 			m_volumeFont.Draw(rc);
 			m_sevolumeFont.Draw(rc);
+			m_masterFont.Draw(rc);
 		}
 	}
 }

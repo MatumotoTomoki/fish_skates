@@ -2,10 +2,13 @@
 #include "Game.h"
 #include "GameClear.h"
 #include "GameCamera.h"
+#include "GameOver.h"
 #include "Player.h"
 #include"sound/SoundEngine.h"
 #include "Water.h"
 #include "Dummy.h"
+#include "Dummy3.h"
+#include "Dummy5.h"
 #include "UI.h"
 #include "Pengin.h"
 #include "NinjaPengin.h"
@@ -28,7 +31,6 @@ bool Game::Start()
 					odData.position,
 					odData.rotation,
 					odData.scale);
-
 				m_player = NewGO<Player>(0, "Player");
 				m_gameCamera = NewGO<GameCamera>(0, "GameCamera");
 				m_ui = NewGO<UI>(0, "ui");
@@ -38,6 +40,10 @@ bool Game::Start()
 				m_pause = NewGO<Pause>(0, "Pause");
 				// SE読み込み
 				g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
+				g_soundEngine->ResistWaveFileBank(3, "Assets/sound/pause.wav");
+				g_soundEngine->ResistWaveFileBank(4, "Assets/sound/select.wav");
+				g_soundEngine->ResistWaveFileBank(5, "Assets/sound/ok.wav");
+				g_soundEngine->ResistWaveFileBank(6, "Assets/sound/cancel.wav");
 
 				// BGM
 				m_gameBGM = NewGO<SoundSource>(0);
@@ -47,6 +53,8 @@ bool Game::Start()
 				m_skyCube = NewGO<SkyCube>(0);
 				Water* water = NewGO<Water>(0);
 				m_dummy = NewGO<Dummy>(0, "Dummy");
+				m_dummy3 = NewGO<Dummy3>(0, "Dummy3");
+				m_dummy5 = NewGO<Dummy5>(0, "Dummy5");
 
 				return true;
 			}
@@ -70,15 +78,62 @@ bool Game::Start()
 				return true;
 			}
 		});
-
+	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;
 }
 
 void Game::Update()
 {
-	// ★YキーでSE ON/OFF
-	if (g_pad[0]->IsTrigger(enButtonY)) {
-		m_isSeOn = !m_isSeOn;
+	if (g_pad[0]->IsTrigger(enButtonStart)) {
+		m_menuSE = NewGO<SoundSource>(0);
+		m_menuSE->Init(3);
+		m_menuSE->Play(false);
+		m_menuSE->SetVolume(m_pause->m_sevolume);
+		m_stop = !m_stop;
+	}
+	if (m_stop == true) {
+		if (m_pause->m_mode == 3) {
+			if (g_pad[0]->IsTrigger(enButtonA)) {
+				m_menuSE = NewGO<SoundSource>(0);
+				m_menuSE->Init(3);
+				m_menuSE->Play(false);
+				m_menuSE->SetVolume(m_pause->m_sevolume);
+				m_stop = !m_stop;
+			}
+		}
+		if (m_pause->m_mode != 3) {
+			if (g_pad[0]->IsTrigger(enButtonA) and m_pause->m_soundTest == false) {
+				m_menuSE = NewGO<SoundSource>(0);
+				m_menuSE->Init(5);
+				m_menuSE->Play(false);
+				m_menuSE->SetVolume(m_pause->m_sevolume);
+
+			}
+		}
+		if (g_pad[0]->IsTrigger(enButtonB) and m_pause->m_soundTest == true) {
+			m_menuSE = NewGO<SoundSource>(0);
+			m_menuSE->Init(6);
+			m_menuSE->Play(false);
+			m_menuSE->SetVolume(m_pause->m_sevolume);
+		}
+		if (g_pad[0]->IsTrigger(enButtonUp) or g_pad[0]->IsTrigger(enButtonDown)) {
+			m_selectSE = NewGO<SoundSource>(0);
+			m_selectSE->Init(4);
+			m_selectSE->Play(false);
+			m_selectSE->SetVolume(m_pause->m_sevolume);
+		}
+		if (g_pad[0]->IsTrigger(enButtonLeft) and m_pause->m_soundTest == true) {
+			m_selectSE = NewGO<SoundSource>(0);
+			m_selectSE->Init(4);
+			m_selectSE->Play(false);
+			m_selectSE->SetVolume(m_pause->m_sevolume);
+		}
+		if (g_pad[0]->IsTrigger(enButtonRight) and m_pause->m_sevolume != 10 and m_pause->m_soundTest == true) {
+			m_selectSE = NewGO<SoundSource>(0);
+			m_selectSE->Init(4);
+			m_selectSE->Play(false);
+			m_selectSE->SetVolume(m_pause->m_sevolume);
+		}
 	}
 
 	if (m_player->m_o2 >= -0.1f) {
@@ -91,6 +146,10 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
+		DeleteGO(m_dummy3);
+		DeleteGO(m_dummy5);
+		DeleteGO(m_pause);
+		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
 
@@ -104,7 +163,10 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
+		DeleteGO(m_dummy3);
+		DeleteGO(m_dummy5);
 		DeleteGO(m_pause);
+		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
 
@@ -118,6 +180,8 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
+		DeleteGO(m_dummy3);
+		DeleteGO(m_dummy5);
 		DeleteGO(m_pause);
 		NewGO<GameClear>(0, "GameClear");
 		DeleteGO(this);
@@ -133,6 +197,8 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
+		DeleteGO(m_dummy3);
+		DeleteGO(m_dummy5);
 		DeleteGO(m_pause);
 		DeleteGO(this);
 	}

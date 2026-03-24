@@ -12,6 +12,8 @@ public:
 
 	int m_mode = 2;
 	int m_sevolume = 5;
+	int m_soundMode = 0;
+	bool m_soundTest = false;
 private:
 	SpriteRender m_sprite;
 	SpriteRender m_backGround;
@@ -19,6 +21,7 @@ private:
 	FontRender m_menuFont;
 	FontRender m_volumeFont;
 	FontRender m_sevolumeFont;
+	FontRender m_masterFont;
 	Title* m_title;
 	Game* m_game;
 	SilenPengin* m_silenPengin;
@@ -30,7 +33,7 @@ private:
 	};
 	PauseState m_state = PauseState::Main;
 	int m_volume = 5;
-	
+	int m_masterVolume = 10; // 0～10
 	int m_soundMode = 0;
 };
 

@@ -224,6 +224,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dummy.cpp" />
+    <ClCompile Include="Dummy3.cpp" />
+    <ClCompile Include="Dummy5.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameClear.cpp" />
@@ -246,6 +248,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dummy.h" />
+    <ClInclude Include="Dummy3.h" />
+    <ClInclude Include="Dummy5.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameClear.h" />

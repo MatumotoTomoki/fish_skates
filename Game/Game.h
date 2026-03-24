@@ -10,6 +10,8 @@ class NinjaPengin;
 class SilenPengin;
 class Water;
 class Dummy;
+class Dummy3;
+class Dummy5;
 class GameOver;
 class Pause;
 class Game : public IGameObject
@@ -32,6 +34,8 @@ private:
 	LevelRender m_stageLevelRnder;
 	SkyCube* m_skyCube;
 	SoundSource* m_gameBGM = nullptr;
+	SoundSource* m_menuSE = nullptr;
+	SoundSource* m_selectSE = nullptr;
 	Player* m_player;
 	GameCamera* m_gameCamera;
 	GameOver* m_gameOver;
@@ -41,9 +45,12 @@ private:
 	NinjaPengin* m_ninjaPengin;
 	SilenPengin* m_silenPengin;
 	Dummy* m_dummy;
+	Dummy3* m_dummy3;
+	Dummy5* m_dummy5;
 	Pause* m_pause;
 	bool m_isBgmOn = true;
 	bool m_isSeOn = true;
+	bool m_stop = false;
 
 	int m_skyCubeType = enSkyCubeType_Day;
 	

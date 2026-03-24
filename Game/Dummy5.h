@@ -2,7 +2,7 @@
 class Player;
 class NinjaPengin;
 class Dummy3;
-class Dummy : public IGameObject
+class Dummy5 : public IGameObject
 {
 public:
 	bool Start();
@@ -25,6 +25,7 @@ public:
 	ModelRender m_modelRender;
 	CharacterController m_characterController;
 	bool m_change = false;
+	int m_i = 0;
 
 };
 
