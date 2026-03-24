@@ -2,13 +2,10 @@
 #include "Game.h"
 #include "GameClear.h"
 #include "GameCamera.h"
-#include "GameOver.h"
 #include "Player.h"
 #include"sound/SoundEngine.h"
 #include "Water.h"
 #include "Dummy.h"
-#include "Dummy3.h"
-#include "Dummy5.h"
 #include "UI.h"
 #include "Pengin.h"
 #include "NinjaPengin.h"
@@ -31,6 +28,7 @@ bool Game::Start()
 					odData.position,
 					odData.rotation,
 					odData.scale);
+
 				m_player = NewGO<Player>(0, "Player");
 				m_gameCamera = NewGO<GameCamera>(0, "GameCamera");
 				m_ui = NewGO<UI>(0, "ui");
@@ -40,10 +38,6 @@ bool Game::Start()
 				m_pause = NewGO<Pause>(0, "Pause");
 				// SE読み込み
 				g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
-				g_soundEngine->ResistWaveFileBank(3, "Assets/sound/pause.wav");
-				g_soundEngine->ResistWaveFileBank(4, "Assets/sound/select.wav");
-				g_soundEngine->ResistWaveFileBank(5, "Assets/sound/ok.wav");
-				g_soundEngine->ResistWaveFileBank(6, "Assets/sound/cancel.wav");
 
 				// BGM
 				m_gameBGM = NewGO<SoundSource>(0);
@@ -53,8 +47,6 @@ bool Game::Start()
 				m_skyCube = NewGO<SkyCube>(0);
 				Water* water = NewGO<Water>(0);
 				m_dummy = NewGO<Dummy>(0, "Dummy");
-				m_dummy3 = NewGO<Dummy3>(0, "Dummy3");
-				m_dummy5 = NewGO<Dummy5>(0, "Dummy5");
 
 				return true;
 			}
@@ -78,7 +70,7 @@ bool Game::Start()
 				return true;
 			}
 		});
-	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+
 	return true;
 }
 
@@ -153,10 +145,6 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
-		DeleteGO(m_dummy3);
-		DeleteGO(m_dummy5);
-		DeleteGO(m_pause);
-		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
 
@@ -170,10 +158,7 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
-		DeleteGO(m_dummy3);
-		DeleteGO(m_dummy5);
 		DeleteGO(m_pause);
-		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
 
@@ -187,8 +172,6 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
-		DeleteGO(m_dummy3);
-		DeleteGO(m_dummy5);
 		DeleteGO(m_pause);
 		NewGO<GameClear>(0, "GameClear");
 		DeleteGO(this);
@@ -204,8 +187,6 @@ void Game::Update()
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
-		DeleteGO(m_dummy3);
-		DeleteGO(m_dummy5);
 		DeleteGO(m_pause);
 		DeleteGO(this);
 	}

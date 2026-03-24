@@ -1,7 +1,6 @@
 ﻿#pragma once
 class Player;
 class NinjaPengin;
-class Dummy3;
 class Dummy : public IGameObject
 {
 public:
@@ -21,7 +20,6 @@ public:
 	Quaternion m_rot;
 	Player* m_player;
 	NinjaPengin* m_ninjaPengin;
-	Dummy3* m_dummy3;
 	ModelRender m_modelRender;
 	CharacterController m_characterController;
 	bool m_change = false;
