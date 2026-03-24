@@ -26,6 +26,7 @@
     <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Dummy3.cpp" />
     <ClCompile Include="Dummy5.cpp" />
+    <ClCompile Include="Distance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -47,5 +48,6 @@
     <ClInclude Include="Pause.h" />
     <ClInclude Include="Dummy3.h" />
     <ClInclude Include="Dummy5.h" />
+    <ClInclude Include="Distance.h" />
   </ItemGroup>
 </Project>
