@@ -223,6 +223,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Distance.cpp" />
     <ClCompile Include="Dummy.cpp" />
     <ClCompile Include="Dummy3.cpp" />
     <ClCompile Include="Dummy5.cpp" />
@@ -247,6 +248,7 @@
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Distance.h" />
     <ClInclude Include="Dummy.h" />
     <ClInclude Include="Dummy3.h" />
     <ClInclude Include="Dummy5.h" />
