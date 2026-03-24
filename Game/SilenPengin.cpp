@@ -37,7 +37,8 @@ void SilenPengin::Update() {
 		m_se = NewGO<SoundSource>(0);
 		for (; m_silen < 1; m_silen++) {
 			m_se->Init(1);
-			m_se->SetVolume(m_pause->m_sevolume);
+			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+			m_se->SetVolume(finalSE);
 			m_se->Play(false);
 			
 		}
