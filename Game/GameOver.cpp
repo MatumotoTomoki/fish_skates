@@ -3,6 +3,7 @@
 #include "Title.h"
 
 bool GameOver::Start() {
+	m_render.Init("Assets/sprite/gameover.dds", 1920.0f, 1080.0f);
 	return true;
 }
 
@@ -14,5 +15,5 @@ void GameOver::Update() {
 }
 
 void GameOver::Render(RenderContext& rc) {
-
+	m_render.Draw(rc);
 }
