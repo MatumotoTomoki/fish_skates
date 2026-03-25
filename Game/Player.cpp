@@ -87,6 +87,9 @@ void Player::Update() {
 		}
 	}
 	if (m_characterController.IsOnGround() == true) {
+		if (m_swim == false) {
+			m_se = 0;
+		}
 		m_waterJump = false;
 	}
 	else {
@@ -133,6 +136,19 @@ void Player::Update() {
 		}
 	}
 	if (m_swim == true) {
+		if (m_se == 0) {
+			SoundSource* se = NewGO<SoundSource>(0);
+			se->Init(7);
+			se->Play(false);
+			float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+			se->SetVolume(finalSE);
+			m_se++;
+		}
+		if (m_se <= 1) {
+			if (g_pad[0]->IsTrigger(enButtonA)) {
+				m_se = 0;
+			}
+		}
 		if (m_waterJump == false) {
 			m_count += 0.1f;
 			m_modelRender.PlayAnimation(enAnimClip_Swim);
@@ -161,6 +177,8 @@ void Player::Update() {
 	}
 	if (m_count >= 20.0f) {
 		m_waterJump = true;
+		m_modelRender.PlayAnimation(enAnimClip_WaterJump);
+		m_se = 0;
 		m_velocity.y += 20.0f;
 		m_count = 0.0f;
 	}

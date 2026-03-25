@@ -44,6 +44,7 @@ bool Game::Start()
 				g_soundEngine->ResistWaveFileBank(4, "Assets/sound/select.wav");
 				g_soundEngine->ResistWaveFileBank(5, "Assets/sound/ok.wav");
 				g_soundEngine->ResistWaveFileBank(6, "Assets/sound/cancel.wav");
+				g_soundEngine->ResistWaveFileBank(7, "Assets/sound/hole.wav");
 
 				// BGM
 				m_gameBGM = NewGO<SoundSource>(0);
