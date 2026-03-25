@@ -3,6 +3,7 @@
 #include "Game.h"
 
 bool Title::Start() {
+	m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
 	return true;
 }
 
@@ -30,5 +31,8 @@ void Title::Update() {
 }
 
 void Title::Render(RenderContext& rc) {
+	if (m_flug == false) {
+		m_render.Draw(rc);
+	}
 	m_font.Draw(rc);
 }
