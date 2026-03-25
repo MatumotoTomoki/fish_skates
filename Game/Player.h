@@ -2,7 +2,6 @@
 class Pengin;
 class NinjaPengin;
 class SilenPengin;
-class Dummy5;
 class Player:public IGameObject
 {
 public:
@@ -16,7 +15,6 @@ public:
 	Vector3 m_diff;
 	Vector3 m_diff2;
 	Vector3 m_diff3;
-	Vector3 m_diff4;
 	Quaternion m_rot;
 	ModelRender m_modelRender;
 	CharacterController m_characterController;
@@ -41,6 +39,5 @@ public:
 	Pengin* m_pengin;
 	NinjaPengin* m_ninjaPengin;
 	SilenPengin* m_silenPengin;
-	Dummy5* m_dummy5;
 };
 
