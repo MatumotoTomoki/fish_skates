@@ -3,7 +3,6 @@
 #include "Pengin.h"
 #include "NinjaPengin.h"
 #include "SilenPengin.h"
-#include "Dummy5.h"
 #include "Pause.h"
 
 bool Player::Start() {
@@ -26,7 +25,6 @@ bool Player::Start() {
 	m_pengin = FindGO<Pengin>("Pengin");
 	m_ninjaPengin = FindGO<NinjaPengin>("NinjaPengin");
 	m_silenPengin = FindGO<SilenPengin>("SilenPengin");
-	m_dummy5 = FindGO<Dummy5>("Dummy5");
 	m_modelRender.Update();
 	return true;
 }
@@ -48,7 +46,6 @@ void Player::Update() {
 	m_diff = m_position - m_pengin->m_pos;
 	m_diff2 = m_position - m_ninjaPengin->m_pos;
 	m_diff3 = m_position - m_silenPengin->m_pos;
-	m_diff4 = m_position - m_dummy5->m_pos;
 
 	if (m_o2 > -0.1f) {
 		m_o2 = -0.1f;
@@ -154,9 +151,6 @@ void Player::Update() {
 		if (m_diff3.Length() <= 350.0f) {
 			m_hp += 0.01f;
 		}
-		if (m_diff4.Length() <= 350.0f) {
-			m_hp += 0.01f;
-		}
 		m_rot.SetRotationDegZ(-90.0f);
 	}
 	if (m_count >= 20.0f) {
@@ -182,7 +176,7 @@ void Player::Update() {
 
 void Player::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
-	if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+	if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f) {
 		m_sprite.Draw(rc);
 	}
 }

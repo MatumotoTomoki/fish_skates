@@ -1,6 +1,5 @@
 ﻿#include "stdafx.h"
 #include "Dummy.h"
-#include "Dummy3.h"
 #include "NinjaPengin.h"
 #include "Player.h"
 #include "Pause.h"
@@ -17,7 +16,6 @@ bool  Dummy::Start() {
 	m_modelRender.SetPosition(m_pos);
 	m_characterController.Init(75.0f, 75.0f, m_pos);
 	m_ninjaPengin = FindGO<NinjaPengin>("NinjaPengin");
-	m_dummy3 = FindGO<Dummy3>("Dummy3");
 	m_modelRender.Update();
 	return true;
 }
@@ -55,7 +53,7 @@ void  Dummy::Update() {
 	}
 	if (diff.Length() <= 1000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
 		m_oldPos = m_pos;
-		m_characterController.SetPosition(m_dummy3->m_pos);
+		m_characterController.SetPosition(m_ninjaPengin->m_pos);
 		m_change = true;
 	}
 	
