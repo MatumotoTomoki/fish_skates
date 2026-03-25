@@ -20,16 +20,26 @@ bool Pause::Start() {
 	m_volumeFont.SetPosition(-220.0f, 155.0f, 0.0f);
 	m_volumeFont.SetScale(2.0f);
 	m_volumeFont.SetColor(1.0f,0.0f,0.0f,0.0f);
-	m_sevolumeFont.SetPosition(-220.0f, 15.0f, 0.0f);
+	m_sevolumeFont.SetPosition(-220.0f, 30.0f, 0.0f);
 	m_sevolumeFont.SetScale(2.0f);
 	m_sevolumeFont.SetColor(1.0f,0.0f,0.0f,0.0f);
+	m_masterFont.SetPosition(-80.0f, -100.0f, 0.0f);
+	m_masterFont.SetScale(2.0f);
+	m_masterFont.SetColor(1.0f, 0.0f, 0.0f, 0.0f);
 	return true;
 }
 
 void Pause::Update() {
 	if (g_pad[0]->IsTrigger(enButtonStart)) {
+		m_soundMode = 0;
+		m_font.SetText(L"Pause");
+		m_font.SetPosition(-110.0f, 450.0f, 0.0f);
+		m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
+		m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
+		m_state = PauseState::Main;
 		m_isPause = !m_isPause;
-		m_mode = 2;
+		m_soundTest = false;
+		m_mode = 3;
 	}
 	if (m_isPause == true) {
 		if (m_state == PauseState::Main) {
@@ -55,7 +65,7 @@ void Pause::Update() {
 					m_state = PauseState::Sound;
 					m_font.SetText(L"サウンド設定");
 					m_font.SetPosition(-290.0f, 450.0f, 0.0f);
-					m_menuFont.SetText(L"BGM\n\nSE");
+					m_menuFont.SetText(L"BGM\n\nSE\n\nマスター");
 					m_menuFont.SetPosition(-350.0f, 150.0f, 0.0f);
 					break;
 				case 2:
@@ -90,12 +100,12 @@ void Pause::Update() {
 			if (g_pad[0]->IsTrigger(enButtonUp)) {
 				m_soundMode--;
 				if (m_soundMode < 0) {
-					m_soundMode = 1;
+					m_soundMode = 2;
 				}
 			}
 			if (g_pad[0]->IsTrigger(enButtonDown)) {
 				m_soundMode++;
-				if (m_soundMode > 1) {
+				if (m_soundMode > 2) {
 					m_soundMode = 0;
 				}
 			}
@@ -107,9 +117,16 @@ void Pause::Update() {
 			case 1:
 				m_sprite.SetPosition({ -400.0f,-40.0f,0.0f }); // SE
 				break;
+			case 2:
+				m_sprite.SetPosition({ -400.0f,-130.0f,0.0f }); // マスター
+				break;
+			case 2:
+				m_sprite.SetPosition({ -400.0f,-130.0f,0.0f }); // マスター
+				break;
 			}
 
 			if (m_soundMode == 0) {
+				m_select = m_volume;
 				if (g_pad[0]->IsTrigger(enButtonLeft)) {
 					m_volume = max(0, m_volume - 1);
 					if (m_game) {
@@ -129,7 +146,8 @@ void Pause::Update() {
 			}
 
 			if (m_soundMode == 1) {
-				m_silenPengin = FindGO<SilenPengin>("silenPengin");
+				m_select = m_sevolume;
+				m_silenPengin = FindGO<SilenPengin>("SilenPengin");
 				if (g_pad[0]->IsTrigger(enButtonLeft))
 				{
 					m_sevolume = max(0, m_sevolume - 1);
@@ -148,6 +166,30 @@ void Pause::Update() {
 					}
 				}
 			}
+
+			if (m_soundMode == 2) {
+				m_select = m_master;
+				m_silenPengin = FindGO<SilenPengin>("SilenPengin");
+				if (g_pad[0]->IsTrigger(enButtonLeft)) {
+					m_master = max(0, m_master - 1);
+				}
+				if (g_pad[0]->IsTrigger(enButtonRight)) {
+					m_master = min(10, m_master + 1);
+				}
+			}
+
+			// BGMに反映
+			if (m_game) {
+				float finalBGM = (m_volume / 10.0f) * (m_master / 10.0f);
+				m_game->SetBGMVolume(finalBGM);
+			}
+
+			// SEに反映
+			if (m_silenPengin) {
+				float finalSE = (m_sevolume / 10.0f) * (m_master / 10.0f);
+				m_silenPengin->SetSEVolume(finalSE);
+			}
+		
 			switch (m_volume) {
 			case 0:
 				m_volumeFont.SetText(L"");
@@ -219,6 +261,42 @@ void Pause::Update() {
 				m_sevolumeFont.SetText(L"llllllllll");
 				break;
 			}
+
+			switch (m_master) {
+			case 0:
+				m_masterFont.SetText(L"");
+				break;
+			case 1:
+				m_masterFont.SetText(L"l");
+				break;
+			case 2:
+				m_masterFont.SetText(L"ll");
+				break;
+			case 3:
+				m_masterFont.SetText(L"lll");
+				break;
+			case 4:
+				m_masterFont.SetText(L"llll");
+				break;
+			case 5:
+				m_masterFont.SetText(L"lllll");
+				break;
+			case 6:
+				m_masterFont.SetText(L"llllll");
+				break;
+			case 7:
+				m_masterFont.SetText(L"lllllll");
+				break;
+			case 8:
+				m_masterFont.SetText(L"llllllll");
+				break;
+			case 9:
+				m_masterFont.SetText(L"lllllllll");
+				break;
+			case 10:
+				m_masterFont.SetText(L"llllllllll");
+				break;
+			}
 		}
 	}
 	m_sprite.Update();
@@ -233,6 +311,7 @@ void Pause::Render(RenderContext& rc) {
 		if (m_state == PauseState::Sound) {
 			m_volumeFont.Draw(rc);
 			m_sevolumeFont.Draw(rc);
+			m_masterFont.Draw(rc);
 		}
 	}
 }

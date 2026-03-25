@@ -76,9 +76,63 @@ bool Game::Start()
 
 void Game::Update()
 {
-	// ★YキーでSE ON/OFF
-	if (g_pad[0]->IsTrigger(enButtonY)) {
-		m_isSeOn = !m_isSeOn;
+	if (g_pad[0]->IsTrigger(enButtonStart)) {
+		m_menuSE = NewGO<SoundSource>(0);
+		m_menuSE->Init(3);
+		m_menuSE->Play(false);
+		float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+		m_menuSE->SetVolume(finalSE);
+		m_stop = !m_stop;
+	}
+	if (m_stop == true) {
+		if (m_pause->m_mode == 3) {
+			if (g_pad[0]->IsTrigger(enButtonA)) {
+				m_menuSE = NewGO<SoundSource>(0);
+				m_menuSE->Init(3);
+				m_menuSE->Play(false);
+				float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+				m_menuSE->SetVolume(finalSE);
+				m_stop = !m_stop;
+			}
+		}
+		if (m_pause->m_mode != 3) {
+			if (g_pad[0]->IsTrigger(enButtonA) and m_pause->m_soundTest == false) {
+				m_menuSE = NewGO<SoundSource>(0);
+				m_menuSE->Init(5);
+				m_menuSE->Play(false);
+				float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+				m_menuSE->SetVolume(finalSE);
+
+			}
+		}
+		if (g_pad[0]->IsTrigger(enButtonB) and m_pause->m_soundTest == true) {
+			m_menuSE = NewGO<SoundSource>(0);
+			m_menuSE->Init(6);
+			m_menuSE->Play(false);
+			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+			m_menuSE->SetVolume(finalSE);
+		}
+		if (g_pad[0]->IsTrigger(enButtonUp) or g_pad[0]->IsTrigger(enButtonDown)) {
+			m_selectSE = NewGO<SoundSource>(0);
+			m_selectSE->Init(4);
+			m_selectSE->Play(false);
+			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+			m_selectSE->SetVolume(finalSE);
+		}
+		if (g_pad[0]->IsTrigger(enButtonLeft) and m_pause->m_soundTest == true) {
+			m_selectSE = NewGO<SoundSource>(0);
+			m_selectSE->Init(4);
+			m_selectSE->Play(false);
+			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+			m_selectSE->SetVolume(finalSE);
+		}
+		if (g_pad[0]->IsTrigger(enButtonRight) and m_pause->m_select != 10 and m_pause->m_soundTest == true) {
+			m_selectSE = NewGO<SoundSource>(0);
+			m_selectSE->Init(4);
+			m_selectSE->Play(false);
+			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+			m_selectSE->SetVolume(finalSE);
+		}
 	}
 
 	if (m_player->m_o2 >= -0.1f) {
