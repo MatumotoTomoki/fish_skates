@@ -36,6 +36,7 @@ public:
 	float m_o2 = -1.05f;
 	float m_count = 0.0f;
 	int m_i = 0;
+	int m_se = 0;
 	SpriteRender m_sprite;
 	Pengin* m_pengin;
 	NinjaPengin* m_ninjaPengin;
