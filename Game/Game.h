@@ -14,6 +14,7 @@ class Dummy3;
 class Dummy5;
 class GameOver;
 class Pause;
+class Distance;
 class Game : public IGameObject
 {
 public:
@@ -48,6 +49,7 @@ private:
 	Dummy3* m_dummy3;
 	Dummy5* m_dummy5;
 	Pause* m_pause;
+	Distance* m_distance;
 	bool m_isBgmOn = true;
 	bool m_isSeOn = true;
 	bool m_stop = false;

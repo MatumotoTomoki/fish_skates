@@ -24,8 +24,9 @@ public:
 	Dummy3* m_dummy3;
 	ModelRender m_modelRender;
 	CharacterController m_characterController;
+	EffectEmitter* m_effectEmitter = nullptr;			//エフェクト。
 	bool m_change = false;
 	int m_i = 0;
-
+	int m_effect = 0;
 };
 
