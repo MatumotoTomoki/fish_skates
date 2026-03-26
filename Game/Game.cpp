@@ -9,6 +9,7 @@
 #include "Dummy.h"
 #include "Dummy3.h"
 #include "Dummy5.h"
+#include "Distance.h"
 #include "UI.h"
 #include "Pengin.h"
 #include "NinjaPengin.h"
@@ -40,12 +41,13 @@ bool Game::Start()
 				m_pause = NewGO<Pause>(0, "Pause");
 				// SE読み込み
 				g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
+				g_soundEngine->ResistWaveFileBank(1, "Assets/Sound/silen.wav");
 				g_soundEngine->ResistWaveFileBank(3, "Assets/sound/pause.wav");
 				g_soundEngine->ResistWaveFileBank(4, "Assets/sound/select.wav");
 				g_soundEngine->ResistWaveFileBank(5, "Assets/sound/ok.wav");
 				g_soundEngine->ResistWaveFileBank(6, "Assets/sound/cancel.wav");
 				g_soundEngine->ResistWaveFileBank(7, "Assets/sound/hole.wav");
-
+				EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_laser.efk");
 				// BGM
 				m_gameBGM = NewGO<SoundSource>(0);
 				m_gameBGM->Init(0);
@@ -56,6 +58,7 @@ bool Game::Start()
 				m_dummy = NewGO<Dummy>(0, "Dummy");
 				m_dummy3 = NewGO<Dummy3>(0, "Dummy3");
 				m_dummy5 = NewGO<Dummy5>(0, "Dummy5");
+				m_distance = NewGO<Distance>(0, "Distance");
 
 				return true;
 			}
@@ -67,7 +70,7 @@ bool Game::Start()
 					odData.position,
 					odData.rotation,
 					odData.scale);
-				m_stageRender.SetPosition(0.0f, -475.0f, 0.0f);
+				m_stageRender.SetPosition(0.0f, -457.0f, 0.0f);
 				m_stageRender.SetScale(100.0f, 100.0f, 100.0f);
 				m_stageRender.Update();
 

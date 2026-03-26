@@ -11,6 +11,10 @@ bool  Dummy5::Start() {
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
+	m_effectEmitter = NewGO <EffectEmitter>(0);
+	m_effectEmitter->Init(0);
+	m_effectEmitter->SetScale({ 20.0f,20.0f,20.0f });
+	m_effectEmitter->Play();
 	m_pos = { 0.0f,0.0f,9999000.0f };
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_modelRender.SetRotation(m_rot);
@@ -55,6 +59,12 @@ void  Dummy5::Update() {
 		}
 	}
 	if (diff.Length() <= 600.0f and m_player->m_swim == false) {
+		if (m_effect != 15) {
+			m_effect++;
+		}
+		if (m_effect == 15) {
+			m_effectEmitter->Stop();
+		}
 		float distToPlayer = diff.Length();
 
 		Vector3 toPlayerDir = diff;
@@ -89,7 +99,7 @@ void  Dummy5::Update() {
 	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
-
+	m_effectEmitter->SetPosition(m_pos);
 	m_modelRender.Update();
 }
 
