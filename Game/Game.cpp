@@ -17,9 +17,20 @@
 #include "Pause.h"
 #include "Title.h"
 
-// ★追加（BGMとSEのスイッチ）
-bool m_isBgmOn = true;
-bool m_isSeOn = true;
+
+void Game::Preload() {
+	NewGO<SkyCube>(0,"SkyCube");
+	g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
+	g_soundEngine->ResistWaveFileBank(1, "Assets/Sound/silen.wav");
+	g_soundEngine->ResistWaveFileBank(3, "Assets/sound/pause.wav");
+	g_soundEngine->ResistWaveFileBank(4, "Assets/sound/select.wav");
+	g_soundEngine->ResistWaveFileBank(5, "Assets/sound/ok.wav");
+	g_soundEngine->ResistWaveFileBank(6, "Assets/sound/cancel.wav");
+	g_soundEngine->ResistWaveFileBank(7, "Assets/sound/hole.wav");
+	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_laser.efk");
+	NewGO<Pause>(0, "Pause");
+}
+
 
 bool Game::Start()
 {
@@ -38,28 +49,20 @@ bool Game::Start()
 				m_pengin = NewGO<Pengin>(0, "Pengin");
 				m_ninjaPengin = NewGO<NinjaPengin>(0, "NinjaPengin");
 				m_silenPengin = NewGO<SilenPengin>(0, "SilenPengin");
-				m_pause = NewGO<Pause>(0, "Pause");
+				m_pause = FindGO<Pause>("Pause");
 				// SE読み込み
-				g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
-				g_soundEngine->ResistWaveFileBank(1, "Assets/Sound/silen.wav");
-				g_soundEngine->ResistWaveFileBank(3, "Assets/sound/pause.wav");
-				g_soundEngine->ResistWaveFileBank(4, "Assets/sound/select.wav");
-				g_soundEngine->ResistWaveFileBank(5, "Assets/sound/ok.wav");
-				g_soundEngine->ResistWaveFileBank(6, "Assets/sound/cancel.wav");
-				g_soundEngine->ResistWaveFileBank(7, "Assets/sound/hole.wav");
-				EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_laser.efk");
+				
 				// BGM
 				m_gameBGM = NewGO<SoundSource>(0);
 				m_gameBGM->Init(0);
 				m_gameBGM->Play(true);
 
-				m_skyCube = NewGO<SkyCube>(0);
-				Water* water = NewGO<Water>(0);
+				m_water = NewGO<Water>(0);
 				m_dummy = NewGO<Dummy>(0, "Dummy");
 				m_dummy3 = NewGO<Dummy3>(0, "Dummy3");
 				m_dummy5 = NewGO<Dummy5>(0, "Dummy5");
 				m_distance = NewGO<Distance>(0, "Distance");
-
+				m_skyCube = FindGO<SkyCube>("SkyCube");
 				return true;
 			}
 
@@ -138,7 +141,7 @@ void Game::Update()
 			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
 			m_selectSE->SetVolume(finalSE);
 		}
-		if (g_pad[0]->IsTrigger(enButtonLeft) and m_pause->m_soundTest == true and m_pause->m_soundMode != 3) {
+		if (g_pad[0]->IsTrigger(enButtonLeft) and m_pause->m_soundTest == true and m_pause->m_soundMode != 3 and m_pause->m_select != 0) {
 			m_selectSE = NewGO<SoundSource>(0);
 			m_selectSE->Init(4);
 			m_selectSE->Play(false);
@@ -167,6 +170,8 @@ void Game::Update()
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
 		DeleteGO(m_pause);
+		DeleteGO(m_skyCube);
+		DeleteGO(m_distance);
 		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
@@ -184,6 +189,8 @@ void Game::Update()
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
 		DeleteGO(m_pause);
+		DeleteGO(m_skyCube);
+		DeleteGO(m_distance);
 		m_gameOver = NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
@@ -201,6 +208,8 @@ void Game::Update()
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
 		DeleteGO(m_pause);
+		DeleteGO(m_skyCube);
+		DeleteGO(m_distance);
 		NewGO<GameClear>(0, "GameClear");
 		DeleteGO(this);
 	}
@@ -218,6 +227,8 @@ void Game::Update()
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
 		DeleteGO(m_pause);
+		DeleteGO(m_skyCube);
+		DeleteGO(m_distance);
 		DeleteGO(this);
 	}
 
