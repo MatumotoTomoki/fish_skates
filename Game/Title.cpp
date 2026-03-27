@@ -11,6 +11,7 @@ void Title::Update() {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
 		m_flug = true;
 		m_font.SetText(L"3");
+		m_game->Preload();
 	}
 	if (m_flug == true) {
 		m_count -= 0.015f;
