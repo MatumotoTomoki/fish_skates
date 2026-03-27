@@ -21,9 +21,11 @@ private:
 	SpriteRender m_backGround;
 	FontRender m_font;
 	FontRender m_menuFont;
+	FontRender m_masterMenu;
 	FontRender m_volumeFont;
 	FontRender m_sevolumeFont;
 	FontRender m_masterFont;
+	FontRender m_returnFont;
 	Title* m_title;
 	Game* m_game;
 	SilenPengin* m_silenPengin;
