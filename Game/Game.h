@@ -31,7 +31,6 @@ public:
 private:
 	PhysicsStaticObject m_physicsStaticObject;
 	ModelRender m_modelRender;
-	TkmFile m_fishModel;
 	Vector3 m_pos;
 	ModelRender m_stageRender;
 	LevelRender m_stageLevelRnder;
@@ -52,10 +51,10 @@ private:
 	Dummy5* m_dummy5;
 	Pause* m_pause;
 	Distance* m_distance;
-	bool m_isBgmOn = true;
-	bool m_isSeOn = true;
 	bool m_stop = false;
+	bool m_initialized = false;
 	int m_skyCubeType = enSkyCubeType_Day;
+	int  m_loadStep = 0;
 	
 };
 

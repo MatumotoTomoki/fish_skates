@@ -70,14 +70,16 @@ void Player::Update() {
 		m_modelRender.PlayAnimation(enAnimClip_Idle);
 	}
 	if (m_characterController.IsOnGround() == true or m_swim == true) {
-		if (g_pad[0]->IsTrigger(enButtonA)) {
-			m_velocity.y = 12.0f;
-			if (m_swim == true) {
-				if (m_characterController.IsOnGround() == false) {
-					m_waterJump = true;
-					m_swim = false;
+		if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
+			if (g_pad[0]->IsTrigger(enButtonA)) {
+				m_velocity.y = 12.0f;
+				if (m_swim == true) {
+					if (m_characterController.IsOnGround() == false) {
+						m_waterJump = true;
+						m_swim = false;
+					}
+					m_modelRender.PlayAnimation(enAnimClip_WaterJump);
 				}
-				m_modelRender.PlayAnimation(enAnimClip_WaterJump);
 			}
 		}
 		for (; m_i < 0; m_i++) {
@@ -162,10 +164,10 @@ void Player::Update() {
 	else {
 		m_count = 0.0f;
 		if (m_diff.Length() <= 350.0f) {
-			m_hp += 0.001f;
+			m_hp += 0.01f;
 		}
 		if (m_diff2.Length() <= 350.0f) {
-			m_hp += 0.001f;
+			m_hp += 0.01f;
 		}
 		if (m_diff3.Length() <= 350.0f) {
 			m_hp += 0.01f;

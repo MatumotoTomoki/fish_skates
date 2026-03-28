@@ -4,6 +4,7 @@
 #include "NinjaPengin.h"
 #include "Player.h"
 #include "Pause.h"
+#include "Distance.h"
 
 bool  Dummy5::Start() {
 	m_animationClips[enAnimClip_Walk].Load("Assets/animData/pengin_walk.tka");
@@ -79,8 +80,30 @@ void  Dummy5::Update() {
 			m_rot.SetRotationY(angleY);
 		}
 		else {
-			moveSpeed.z -= 15.0f;
+			Vector3 diff = m_player->m_position - m_pos;
+			Vector3 toPlayerDir = diff;
+			toPlayerDir.Normalize();
+
+			// プレイヤー方向を向く角度
+			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
+			m_rot.SetRotationY(angleY);
+
+			// ここで「前方向」を作る
+			Vector3 forward;
+			forward.x = sinf(angleY);
+			forward.y = 0.0f;
+			forward.z = cosf(angleY);
+			moveSpeed += forward * 8.0f;
 		}
+	}
+	if(m_player->m_swim== true){
+		Vector3 diff = m_pos - m_player->m_position;
+		float distToPlayer = diff.Length();
+
+		Vector3 toPlayerDir = diff;
+		toPlayerDir.Normalize();
+
+		moveSpeed += toPlayerDir * 5.0f;
 	}
 
 	if (m_ninjaPengin->m_change == true) {

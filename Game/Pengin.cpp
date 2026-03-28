@@ -9,7 +9,7 @@ bool Pengin::Start() {
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
-	m_pos = { 0.0f,0.0f,9999000.0f };
+	m_pos = { 2000.0f,0.0f,5000.0f };
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
@@ -31,7 +31,7 @@ void Pengin::Update() {
 	}
 
 	Vector3 diff = m_player->m_position - m_pos;
-	if (diff.Length() <= 2000.0f and diff.Length() >= 1500.0f and m_player->m_swim == false ) {
+	if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false ) {
 		m_modelRender.PlayAnimation(enAnimClip_Chase);
 		float distToPlayer = diff.Length();
 
@@ -66,7 +66,20 @@ void Pengin::Update() {
 			m_rot.SetRotationY(angleY);
 		}
 		else {
-			moveSpeed.z -= 15.0f;
+			Vector3 diff = m_player->m_position - m_pos;
+			Vector3 toPlayerDir = diff;
+			toPlayerDir.Normalize();
+
+			// プレイヤー方向を向く角度
+			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
+			m_rot.SetRotationY(angleY);
+
+			// ここで「前方向」を作る
+			Vector3 forward;
+			forward.x = sinf(angleY);
+			forward.y = 0.0f;
+			forward.z = cosf(angleY);
+			moveSpeed += forward * 8.0f;
 		}
 	}
 	else if (m_player->m_swim == true) {
@@ -77,9 +90,6 @@ void Pengin::Update() {
 		toPlayerDir.Normalize();
 
 		moveSpeed += toPlayerDir * 5.0f;
-
-		float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
-		m_rot.SetRotationY(-angleY);
 	}
 	else {
 		m_modelRender.PlayAnimation(enAnimClip_Walk);

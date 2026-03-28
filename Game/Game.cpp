@@ -28,7 +28,6 @@ void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(6, "Assets/sound/cancel.wav");
 	g_soundEngine->ResistWaveFileBank(7, "Assets/sound/hole.wav");
 	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_laser.efk");
-	NewGO<Pause>(0, "Pause");
 }
 
 
@@ -43,37 +42,30 @@ bool Game::Start()
 					odData.position,
 					odData.rotation,
 					odData.scale);
+				
 				m_player = NewGO<Player>(0, "Player");
-				m_gameCamera = NewGO<GameCamera>(0, "GameCamera");
-				m_ui = NewGO<UI>(0, "ui");
+			
 				m_pengin = NewGO<Pengin>(0, "Pengin");
 				m_ninjaPengin = NewGO<NinjaPengin>(0, "NinjaPengin");
 				m_silenPengin = NewGO<SilenPengin>(0, "SilenPengin");
 				m_pause = FindGO<Pause>("Pause");
-				// SE読み込み
-				
-				// BGM
-				m_gameBGM = NewGO<SoundSource>(0);
-				m_gameBGM->Init(0);
-				m_gameBGM->Play(true);
-
-				m_water = NewGO<Water>(0);
+								
 				m_dummy = NewGO<Dummy>(0, "Dummy");
 				m_dummy3 = NewGO<Dummy3>(0, "Dummy3");
 				m_dummy5 = NewGO<Dummy5>(0, "Dummy5");
-				m_distance = NewGO<Distance>(0, "Distance");
+				
 				m_skyCube = FindGO<SkyCube>("SkyCube");
 				return true;
 			}
 
 			if (odData.EqualObjectName(L"Stage") == true)
 			{
-				m_stageRender.Init("Assets/modelData/tairiku3.tkm");
+				m_stageRender.Init("Assets/modelData/tairiku4.tkm");
 				m_stageRender.SetTRS(
 					odData.position,
 					odData.rotation,
 					odData.scale);
-				m_stageRender.SetPosition(0.0f, -457.0f, 0.0f);
+				m_stageRender.SetPosition(0.0f, 0.0f, 0.0f);
 				m_stageRender.SetScale(100.0f, 100.0f, 100.0f);
 				m_stageRender.Update();
 
@@ -91,6 +83,33 @@ bool Game::Start()
 
 void Game::Update()
 {
+	if (!m_initialized) {
+		switch (m_loadStep) {
+		case 0:
+			m_ui = NewGO<UI>(0, "ui");
+			break;
+		case 1:
+			m_water = NewGO<Water>(0);
+			break;
+		case 2:
+			m_gameCamera = NewGO<GameCamera>(0, "GameCamera");
+			break;
+		case 3:
+			m_distance = NewGO<Distance>(0, "Distance");
+			break;
+		case 4:
+			m_pause = NewGO<Pause>(0, "Pause");
+			break;
+		case 5:
+			m_gameBGM = NewGO<SoundSource>(0);
+			m_gameBGM->Init(0);
+			m_gameBGM->Play(true);
+			m_initialized = true;
+			break;
+		}
+		m_loadStep++;
+		return;
+	}
 	if (g_pad[0]->IsTrigger(enButtonStart)) {
 		m_menuSE = NewGO<SoundSource>(0);
 		m_menuSE->Init(3);
@@ -120,12 +139,14 @@ void Game::Update()
 
 			}
 		}
-		if (g_pad[0]->IsTrigger(enButtonB) and m_pause->m_soundTest == true) {
-			m_menuSE = NewGO<SoundSource>(0);
-			m_menuSE->Init(6);
-			m_menuSE->Play(false);
-			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
-			m_menuSE->SetVolume(finalSE);
+		if ( m_pause->m_soundTest == true) {
+			if (g_pad[0]->IsTrigger(enButtonB)) {
+				m_menuSE = NewGO<SoundSource>(0);
+				m_menuSE->Init(6);
+				m_menuSE->Play(false);
+				float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+				m_menuSE->SetVolume(finalSE);
+			}
 		}
 		if (m_pause->m_soundMode == 3 and g_pad[0]->IsTrigger(enButtonA)) {
 			m_menuSE = NewGO<SoundSource>(0);
