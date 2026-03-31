@@ -1,6 +1,5 @@
 ﻿#pragma once
 class Player;
-class Game;
 class GameCamera : public IGameObject
 {
 private:
@@ -19,9 +18,6 @@ public:
 
 private:
 	Player* m_player;
-	Game* m_game;
-	int m_count = 0;
-	bool m_cameraUp = false;
 
 
 
