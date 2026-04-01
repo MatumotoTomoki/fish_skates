@@ -139,7 +139,7 @@ void Game::Update()
 
 			}
 		}
-		if ( m_pause->m_soundTest == true) {
+		if (m_pause->m_soundTest == true) {
 			if (g_pad[0]->IsTrigger(enButtonB)) {
 				m_menuSE = NewGO<SoundSource>(0);
 				m_menuSE->Init(6);

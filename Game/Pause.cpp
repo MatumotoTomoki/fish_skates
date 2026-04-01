@@ -73,9 +73,6 @@ void Pause::Update() {
 					m_font.SetPosition(-310.0f, 450.0f, 0.0f);
 					m_menuFont.SetText(L"音楽\n\n\n効果音\n\n\nマスター\n\n\nメニューに戻る");
 					m_menuFont.SetPosition(-260.0f, 245.0f, 0.0f);
-					/*m_masterMenu.SetText(L"ﾏｽﾀｰ");
-					m_masterMenu.SetPosition(-260.0f, -140.0f, 0.0f);
-					m_masterMenu.SetScale(1.52f);*/
 					m_soundTest = true;
 					break;
 				case 3:
