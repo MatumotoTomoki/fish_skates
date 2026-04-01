@@ -14,6 +14,7 @@ public:
 	Pause* m_pause;
 	bool m_flug = false;
 	float m_count = 3.0f;
+	int m_i = 0;
 
 };
 

@@ -6,6 +6,7 @@
 bool Title::Start() {
 	m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
 	g_soundEngine->ResistWaveFileBank(2, "Assets/Sound/start.wav");
+	g_soundEngine->ResistWaveFileBank(8, "Assets/Sound/countdown.wav");
 	m_pause = FindGO<Pause>("Pause");
 	return true;
 }
@@ -27,7 +28,14 @@ void Title::Update() {
 		m_game->Preload();
 	}
 	if (m_flug == true) {
+		if (m_i == 3) {
+			SoundSource* se2 = NewGO<SoundSource>(0);
+			se2->Init(8);
+			se2->Play(false);
+			se2->SetVolume(2.5f);
+		}
 		m_count -= 0.015f;
+		m_i++;
 	}
 	if (m_count <= 2.0f) {
 		m_font.SetText(L"2");
