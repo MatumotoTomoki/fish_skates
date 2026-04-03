@@ -214,7 +214,3 @@ void Player::Render(RenderContext& rc) {
 		m_sprite.Draw(rc);
 	}
 }
-
-void Player::Clear() {
-	
-}
