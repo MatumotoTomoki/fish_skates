@@ -27,6 +27,9 @@ public:
 		}
 	}
 	static void Preload();
+	static void PreEnd(bool flug) {
+		flug = true;
+	}
 
 private:
 	PhysicsStaticObject m_physicsStaticObject;

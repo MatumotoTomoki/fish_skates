@@ -12,7 +12,10 @@ bool Title::Start() {
 }
 
 void Title::Update() {
-	if (g_pad[0]->IsTrigger(enButtonA)) {
+	if (g_pad[0]->IsTrigger(enButtonA)and m_j == 0) {
+		m_render.Init("Assets/sprite/backGround.dds", 1920.0f, 1080.0f);
+		m_font.SetText(L"ロード中");
+		m_j++;
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(2);
 		se->Play(false);
@@ -23,12 +26,11 @@ void Title::Update() {
 		else {
 			se->SetVolume(2.5f);
 		}
-		m_flug = true;
-		m_font.SetText(L"3");
 		m_game->Preload();
 	}
 	if (m_flug == true) {
 		if (m_i == 3) {
+			m_font.SetText(L"3");
 			SoundSource* se2 = NewGO<SoundSource>(0);
 			se2->Init(8);
 			se2->Play(false);
@@ -57,4 +59,5 @@ void Title::Render(RenderContext& rc) {
 		m_render.Draw(rc);
 	}
 	m_font.Draw(rc);
+
 }

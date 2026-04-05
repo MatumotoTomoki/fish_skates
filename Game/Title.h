@@ -15,6 +15,7 @@ public:
 	bool m_flug = false;
 	float m_count = 3.0f;
 	int m_i = 0;
+	int m_j = 0;
 
 };
 

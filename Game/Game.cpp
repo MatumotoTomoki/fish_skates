@@ -28,6 +28,8 @@ void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(6, "Assets/sound/cancel.wav");
 	g_soundEngine->ResistWaveFileBank(7, "Assets/sound/hole.wav");
 	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_laser.efk");
+	Title* title = FindGO<Title>("Title");
+	title->m_flug = true;
 }
 
 
@@ -42,22 +44,9 @@ bool Game::Start()
 					odData.position,
 					odData.rotation,
 					odData.scale);
-				
-				m_player = NewGO<Player>(0, "Player");
-			
-				m_pengin = NewGO<Pengin>(0, "Pengin");
-				m_ninjaPengin = NewGO<NinjaPengin>(0, "NinjaPengin");
-				m_silenPengin = NewGO<SilenPengin>(0, "SilenPengin");
-				m_pause = FindGO<Pause>("Pause");
-								
-				m_dummy = NewGO<Dummy>(0, "Dummy");
-				m_dummy3 = NewGO<Dummy3>(0, "Dummy3");
-				m_dummy5 = NewGO<Dummy5>(0, "Dummy5");
-				
 				m_skyCube = FindGO<SkyCube>("SkyCube");
 				return true;
 			}
-
 			if (odData.EqualObjectName(L"Stage") == true)
 			{
 				m_stageRender.Init("Assets/modelData/tairiku4.tkm");
@@ -68,12 +57,10 @@ bool Game::Start()
 				m_stageRender.SetPosition(0.0f, 0.0f, 0.0f);
 				m_stageRender.SetScale(100.0f, 100.0f, 100.0f);
 				m_stageRender.Update();
-
 				m_physicsStaticObject.CreateFromModel(
 					m_stageRender.GetModel(),
 					m_stageRender.GetModel().GetWorldMatrix()
 				);
-
 				return true;
 			}
 		});
@@ -86,21 +73,31 @@ void Game::Update()
 	if (!m_initialized) {
 		switch (m_loadStep) {
 		case 0:
-			m_ui = NewGO<UI>(0, "ui");
+			m_player = NewGO<Player>(0, "Player");
+			m_pengin = NewGO<Pengin>(0, "Pengin");
+			m_ninjaPengin = NewGO<NinjaPengin>(0, "NinjaPengin");
+			m_silenPengin = NewGO<SilenPengin>(0, "SilenPengin");
+			m_pause = FindGO<Pause>("Pause");
+			m_dummy = NewGO<Dummy>(0, "Dummy");
+			m_dummy3 = NewGO<Dummy3>(0, "Dummy3");
+			m_dummy5 = NewGO<Dummy5>(0, "Dummy5");
 			break;
 		case 1:
-			m_water = NewGO<Water>(0);
-			break;
-		case 2:
 			m_gameCamera = NewGO<GameCamera>(0, "GameCamera");
 			break;
+		case 2:
+			m_water = NewGO<Water>(0);
+			break;
 		case 3:
-			m_distance = NewGO<Distance>(0, "Distance");
+			m_ui = NewGO<UI>(0, "ui");
 			break;
 		case 4:
 			m_pause = NewGO<Pause>(0, "Pause");
 			break;
 		case 5:
+			m_distance = NewGO<Distance>(0, "Distance");
+			break;
+		case 6:
 			m_gameBGM = NewGO<SoundSource>(0);
 			m_gameBGM->Init(0);
 			m_gameBGM->Play(true);
