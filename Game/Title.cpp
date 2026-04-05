@@ -55,9 +55,9 @@ void Title::Update() {
 }
 
 void Title::Render(RenderContext& rc) {
-	if (m_flug == false) {
+	//if (m_flug == false) {
 		m_render.Draw(rc);
-	}
+	//}
 	m_font.Draw(rc);
 
 }

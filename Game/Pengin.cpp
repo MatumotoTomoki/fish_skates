@@ -94,9 +94,9 @@ void Pengin::Update() {
 	else {
 		m_modelRender.PlayAnimation(enAnimClip_Walk);
 		m_rot.SetRotationDegY(180.0f);
+		moveSpeed.z -= 1.0f;
 	}
 	moveSpeed.y = 0.0f;
-	moveSpeed.z -= 1.0f;
 
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
