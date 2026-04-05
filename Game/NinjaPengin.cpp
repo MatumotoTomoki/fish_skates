@@ -100,6 +100,7 @@ void NinjaPengin::Update() {
 	else {
 		m_rot.SetRotationDegY(180.0f);
 		m_stealth = true;
+		moveSpeed.z -= 1.0f;
 	}
 
 	if (m_dummy3->m_change == true) {
@@ -109,7 +110,6 @@ void NinjaPengin::Update() {
 	}
 
 	moveSpeed.y = 0.0f;
-	moveSpeed.z -= 1.0f;
 	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);

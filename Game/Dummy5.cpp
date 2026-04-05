@@ -59,7 +59,7 @@ void  Dummy5::Update() {
 			moveSpeed.z -= 15.0f;
 		}
 	}
-	if (diff.Length() <= 600.0f and m_player->m_swim == false) {
+	else if (diff.Length() <= 600.0f and m_player->m_swim == false) {
 		if (m_effect != 15) {
 			m_effect++;
 		}
@@ -96,7 +96,7 @@ void  Dummy5::Update() {
 			moveSpeed += forward * 8.0f;
 		}
 	}
-	if(m_player->m_swim== true){
+	else if (m_player->m_swim == true) {
 		Vector3 diff = m_pos - m_player->m_position;
 		float distToPlayer = diff.Length();
 
@@ -104,6 +104,9 @@ void  Dummy5::Update() {
 		toPlayerDir.Normalize();
 
 		moveSpeed += toPlayerDir * 5.0f;
+	}
+	else {
+		moveSpeed.z -= 1.0f;
 	}
 
 	if (m_ninjaPengin->m_change == true) {
@@ -118,7 +121,6 @@ void  Dummy5::Update() {
 	}
 
 	moveSpeed.y = 0.0f;
-	moveSpeed.z -= 1.0f;
 	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);

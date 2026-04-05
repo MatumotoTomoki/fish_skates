@@ -47,7 +47,10 @@ void SilenPengin::Update() {
 		}
 	}
 	if (m_coolTime <= 0.0f) {
-		if (diff.Length() >= 600.0f) {
+		if (m_player->m_swim == true) {
+			m_pos.x -= 50.0f;
+		}
+		else if (diff.Length() >= 600.0f) {
 			m_pos.x -= 50.0f;
 		}
 		else {
