@@ -86,18 +86,15 @@ void Game::Update()
 			m_gameCamera = NewGO<GameCamera>(0, "GameCamera");
 			break;
 		case 2:
-			m_water = NewGO<Water>(0);
-			break;
-		case 3:
 			m_ui = NewGO<UI>(0, "ui");
 			break;
-		case 4:
-			m_pause = NewGO<Pause>(0, "Pause");
-			break;
-		case 5:
+		case 3:
 			m_distance = NewGO<Distance>(0, "Distance");
 			break;
-		case 6:
+		case 4:
+			m_water = FindGO<Water>("");
+			break;
+		case 5:
 			m_gameBGM = NewGO<SoundSource>(0);
 			m_gameBGM->Init(0);
 			m_gameBGM->Play(true);
@@ -257,5 +254,4 @@ void Game::Update()
 void Game::Render(RenderContext& rc)
 {
 	m_stageRender.Draw(rc);
-	m_modelRender.Draw(rc);
 }

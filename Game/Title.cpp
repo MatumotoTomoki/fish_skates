@@ -2,6 +2,7 @@
 #include "Title.h"
 #include "Game.h"
 #include "Pause.h"
+#include "Water.h"
 
 bool Title::Start() {
 	m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
@@ -30,14 +31,21 @@ void Title::Update() {
 	}
 	if (m_flug == true) {
 		if (m_i == 3) {
+			m_pause = NewGO<Pause>(0, "Pause");
+			NewGO<Water>(0);
+			m_seafont.SetText(L"海を目指せ！");
+			m_seafont.SetPosition(-100.0f, -200.0f, 0.0f);
 			m_font.SetText(L"3");
-			SoundSource* se2 = NewGO<SoundSource>(0);
-			se2->Init(8);
-			se2->Play(false);
-			se2->SetVolume(2.5f);
 		}
 		m_count -= 0.015f;
 		m_i++;
+		m_se++;
+	}
+	if (m_se == 10) {
+		SoundSource* se2 = NewGO<SoundSource>(0);
+		se2->Init(8);
+		se2->Play(false);
+		se2->SetVolume(2.5f);
 	}
 	if (m_count <= 2.0f) {
 		m_font.SetText(L"2");
@@ -50,14 +58,15 @@ void Title::Update() {
 	}
 	if (m_count <= -1.0f) {
 		NewGO<Game>(0, "Game");
+
 		DeleteGO(this);
+
 	}
 }
 
 void Title::Render(RenderContext& rc) {
-	//if (m_flug == false) {
-		m_render.Draw(rc);
-	//}
+	m_render.Draw(rc);
 	m_font.Draw(rc);
+	m_seafont.Draw(rc);
 
 }
