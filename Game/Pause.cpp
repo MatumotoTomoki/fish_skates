@@ -77,7 +77,6 @@ void Pause::Update() {
 						m_font.SetPosition(-310.0f, 450.0f, 0.0f);
 						m_menuFont.SetText(L"音楽\n\n\n効果音\n\n\nマスター\n\n\nメニューに戻る");
 						m_menuFont.SetPosition(-260.0f, 245.0f, 0.0f);
-						m_soundTest = true;
 						break;
 					case 3:
 						m_isPause = !m_isPause;
@@ -104,7 +103,6 @@ void Pause::Update() {
 				m_sprite.SetPosition({ -400.0f,120.0f,0.0f });
 				if (g_pad[0]->IsTrigger(enButtonB)) { // Bボタンで戻る
 					m_soundMode = 0;
-					m_soundTest = false;
 					m_font.SetText(L"ポーズ");
 					m_font.SetPosition(-150.0f, 450.0f, 0.0f);
 					m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
@@ -196,8 +194,6 @@ void Pause::Update() {
 
 				if (m_soundMode == 3) {
 					if (g_pad[0]->IsTrigger(enButtonA)) {
-						m_soundMode = 0;
-						m_soundTest = false;
 						m_font.SetText(L"ポーズ");
 						m_font.SetPosition(-150.0f, 450.0f, 0.0f);
 						m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");

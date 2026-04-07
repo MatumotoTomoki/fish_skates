@@ -125,6 +125,7 @@ void Game::Update()
 		}
 		if (m_pause->m_mode != 3) {
 			if (g_pad[0]->IsTrigger(enButtonA) and m_pause->m_soundTest == false) {
+				m_pause->m_soundTest = true;
 				m_menuSE = NewGO<SoundSource>(0);
 				m_menuSE->Init(5);
 				m_menuSE->Play(false);
@@ -135,6 +136,7 @@ void Game::Update()
 		}
 		if (m_pause->m_soundTest == true) {
 			if (g_pad[0]->IsTrigger(enButtonB)) {
+				m_pause->m_soundTest = false;
 				m_menuSE = NewGO<SoundSource>(0);
 				m_menuSE->Init(6);
 				m_menuSE->Play(false);
@@ -142,12 +144,16 @@ void Game::Update()
 				m_menuSE->SetVolume(finalSE);
 			}
 		}
-		if (m_pause->m_soundMode == 3 and g_pad[0]->IsTrigger(enButtonA)) {
-			m_menuSE = NewGO<SoundSource>(0);
-			m_menuSE->Init(6);
-			m_menuSE->Play(false);
-			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
-			m_menuSE->SetVolume(finalSE);
+		if (m_pause->m_soundMode == 3) {
+			if (g_pad[0]->IsTrigger(enButtonA)) {
+				m_pause->m_soundMode = 0;
+				m_pause->m_soundTest = false;
+				m_menuSE = NewGO<SoundSource>(0);
+				m_menuSE->Init(6);
+				m_menuSE->Play(false);
+				float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+				m_menuSE->SetVolume(finalSE);
+			}
 		}
 		if (g_pad[0]->IsTrigger(enButtonUp) or g_pad[0]->IsTrigger(enButtonDown)) {
 			m_selectSE = NewGO<SoundSource>(0);

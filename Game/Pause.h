@@ -11,10 +11,10 @@ public:
 	bool IsPaused() const { return m_isPause; }
 
 	int m_mode = 2;
-	int m_sevolume = 5;
+	int m_sevolume = 10;
 	int m_soundMode = 0;
 	bool m_soundTest = false;
-	int m_master = 10;
+	int m_master = 7;
 	int m_select;
 private:
 	SpriteRender m_sprite;
@@ -36,7 +36,7 @@ private:
 		Sound   // サウンド設定中
 	};
 	PauseState m_state = PauseState::Main;
-	int m_volume = 5;
+	int m_volume = 10;
 	
 	
 };
