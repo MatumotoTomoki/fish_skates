@@ -8,14 +8,21 @@ bool Title::Start() {
 	m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
 	g_soundEngine->ResistWaveFileBank(2, "Assets/Sound/start.wav");
 	g_soundEngine->ResistWaveFileBank(8, "Assets/Sound/countdown.wav");
+	m_font.Init("Assets/sprite/Gaugeflame.dds", 1600.0f, 200.0f);
+	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
+	m_font.SetPosition({ 0.0f, 0.0f, 0.0f });
+	m_gauge.SetPosition({ -600.0f, -8.0f, 0.0f });
+	m_gauge.SetPivot({ 0.13f,0.5f });
+	m_gauge.SetScale({ -1600.0f,200.0f,0.0f });
 	m_pause = FindGO<Pause>("Pause");
+	m_gauge.Update();
 	return true;
 }
 
 void Title::Update() {
 	if (g_pad[0]->IsTrigger(enButtonA)and m_j == 0) {
 		m_render.Init("Assets/sprite/backGround.dds", 1920.0f, 1080.0f);
-		m_font.SetText(L"ロード中");
+		m_gaugeflug = true;
 		m_j++;
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(2);
@@ -29,13 +36,25 @@ void Title::Update() {
 		}
 		m_game->Preload();
 	}
+	if (m_gaugeflug == true) {
+		m_gauge.SetPosition({ -600.0f, -8.0f, 0.0f });
+		m_scare += 0.339f;
+		m_gauge.SetScale({ m_scare,1.0f,0.0f });
+		m_gauge.Update();
+	}
 	if (m_flug == true) {
 		if (m_i == 3) {
 			m_pause = NewGO<Pause>(0, "Pause");
 			NewGO<Water>(0);
-			m_seafont.SetText(L"海を目指せ！");
+			if (m_3 == 0) {
+				m_font.Init("Assets/sprite/3.dds", 200.0f, 200.0f);
+				m_3++;
+			}
+			if (m_sea == 0) {
+				m_seafont.SetText(L"海を目指せ！");
+				m_sea++;
+			}
 			m_seafont.SetPosition(-100.0f, -200.0f, 0.0f);
-			m_font.SetText(L"3");
 		}
 		m_count -= 0.015f;
 		m_i++;
@@ -48,17 +67,25 @@ void Title::Update() {
 		se2->SetVolume(2.5f);
 	}
 	if (m_count <= 2.0f) {
-		m_font.SetText(L"2");
+		if (m_2 == 0) {
+			m_font.Init("Assets/sprite/2.dds", 200.0f, 200.0f);
+			m_2++;
+		}
 	}
 	if (m_count <= 1.0f) {
-		m_font.SetText(L"1");
+		if (m_1 == 0) {
+			m_font.Init("Assets/sprite/1.dds", 200.0f, 200.0f);
+			m_1++;
+		}
 	}
 	if (m_count <= 0.0f) {
-		m_font.SetText(L"GO!");
+		if (m_GO == 0) {
+			m_font.Init("Assets/sprite/GO.dds", 400.0f, 200.0f);
+			m_GO++;
+		}
 	}
 	if (m_count <= -1.0f) {
 		NewGO<Game>(0, "Game");
-
 		DeleteGO(this);
 
 	}
@@ -66,7 +93,12 @@ void Title::Update() {
 
 void Title::Render(RenderContext& rc) {
 	m_render.Draw(rc);
-	m_font.Draw(rc);
+	if (m_i > 0) {
+		if (m_i < 4) {
+			m_gauge.Draw(rc);
+		}
+		m_font.Draw(rc);
+	}
 	m_seafont.Draw(rc);
 
 }
