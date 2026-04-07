@@ -10,18 +10,21 @@ bool Title::Start() {
 	g_soundEngine->ResistWaveFileBank(8, "Assets/Sound/countdown.wav");
 	m_font.Init("Assets/sprite/Gaugeflame.dds", 1600.0f, 200.0f);
 	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
+	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
+	m_seafont.SetPosition({ 10.0f, -200.0f, 0.0f });
 	m_font.SetPosition({ 0.0f, 0.0f, 0.0f });
-	m_gauge.SetPosition({ -600.0f, -8.0f, 0.0f });
+	m_gauge.SetPosition({ -600.0f, -7.0f, 0.0f });
 	m_gauge.SetPivot({ 0.13f,0.5f });
 	m_gauge.SetScale({ -1600.0f,200.0f,0.0f });
 	m_pause = FindGO<Pause>("Pause");
 	m_gauge.Update();
+	m_seafont.Update();
 	return true;
 }
 
 void Title::Update() {
 	if (g_pad[0]->IsTrigger(enButtonA)and m_j == 0) {
-		m_render.Init("Assets/sprite/backGround.dds", 1920.0f, 1080.0f);
+		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
 		m_gaugeflug = true;
 		m_j++;
 		SoundSource* se = NewGO<SoundSource>(0);
@@ -50,11 +53,6 @@ void Title::Update() {
 				m_font.Init("Assets/sprite/3.dds", 200.0f, 200.0f);
 				m_3++;
 			}
-			if (m_sea == 0) {
-				m_seafont.SetText(L"海を目指せ！");
-				m_sea++;
-			}
-			m_seafont.SetPosition(-100.0f, -200.0f, 0.0f);
 		}
 		m_count -= 0.015f;
 		m_i++;
@@ -87,7 +85,6 @@ void Title::Update() {
 	if (m_count <= -1.0f) {
 		NewGO<Game>(0, "Game");
 		DeleteGO(this);
-
 	}
 }
 
@@ -99,6 +96,7 @@ void Title::Render(RenderContext& rc) {
 		}
 		m_font.Draw(rc);
 	}
-	m_seafont.Draw(rc);
-
+	if (m_i > 3) {
+		m_seafont.Draw(rc);
+	}
 }

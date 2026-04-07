@@ -12,7 +12,7 @@ public:
 	SpriteRender m_render;
 	SpriteRender m_font;
 	SpriteRender m_gauge;
-	FontRender m_seafont;
+	SpriteRender m_seafont;
 	Game* m_game;
 	Pause* m_pause;
 	bool m_flug = false;
@@ -27,6 +27,4 @@ public:
 	int m_1 = 0;
 	int m_GO = 0;
 	int m_sea = 0;
-
 };
-
