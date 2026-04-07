@@ -27,7 +27,7 @@ void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(5, "Assets/sound/ok.wav");
 	g_soundEngine->ResistWaveFileBank(6, "Assets/sound/cancel.wav");
 	g_soundEngine->ResistWaveFileBank(7, "Assets/sound/hole.wav");
-	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_laser.efk");
+	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_sphere.efk");
 	Title* title = FindGO<Title>("Title");
 	title->m_flug = true;
 }

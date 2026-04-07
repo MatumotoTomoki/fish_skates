@@ -202,6 +202,11 @@ void Player::Update() {
 		m_i = -1;
 	}
 
+	if (g_pad[0]->IsPress(enButtonY)) {
+		m_o2 -= 0.002f;
+		m_hp += 0.003f;
+	}
+
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rot);
 	m_position = m_characterController.Execute(m_velocity, 1.0f);
