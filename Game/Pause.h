@@ -19,6 +19,8 @@ public:
 private:
 	SpriteRender m_sprite;
 	SpriteRender m_backGround;
+	SpriteRender m_menuSprite;
+	SpriteRender m_soundMenu;
 	FontRender m_font;
 	FontRender m_menuFont;
 	FontRender m_masterMenu;
