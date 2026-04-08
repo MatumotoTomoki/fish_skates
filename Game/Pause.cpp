@@ -5,7 +5,7 @@
 #include "SilenPengin.h"
 
 bool Pause::Start() {
-	m_sprite.Init("Assets/sprite/arrow.dds",150.0f,100.0f);
+	m_sprite.Init("Assets/sprite/allow.dds",300.0f,200.0f);
 	m_backGround.Init("Assets/sprite/backGround.dds", 1920.0f, 1080.0f);
 	Vector4 color = { 0.0f, 0.0f, 0.0f, 0.5f };
 	m_backGround.SetMulColor(color);
@@ -20,15 +20,17 @@ bool Pause::Start() {
 	m_font.SetScale(2.0f);
 	m_title = FindGO<Title>("Title");
 	m_sprite.Update();
-	m_volumeFont.SetPosition(-0.0f, 250.0f, 0.0f);
+	m_volumeFont.SetPosition(-45.0f, 220.0f, 0.0f);
 	m_volumeFont.SetScale(2.0f);
 	m_volumeFont.SetColor(1.0f,0.0f,0.0f,0.0f);
-	m_sevolumeFont.SetPosition(-0.0f, 60.0f, 0.0f);
+	m_sevolumeFont.SetPosition(-45.0f, 60.0f, 0.0f);
 	m_sevolumeFont.SetScale(2.0f);
 	m_sevolumeFont.SetColor(1.0f,0.0f,0.0f,0.0f);
-	m_masterFont.SetPosition(-0.0f, -130.0f, 0.0f);
+	m_masterFont.SetPosition(-45.0f, -100.0f, 0.0f);
 	m_masterFont.SetScale(2.0f);
 	m_masterFont.SetColor(1.0f, 0.0f, 0.0f, 0.0f);
+	m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
+	//m_soundMenu.Init("Assets/sprite/soundMenu.dds", 1920.0f, 1080.0f);
 	return true;
 }
 
@@ -42,6 +44,7 @@ void Pause::Update() {
 			m_font.SetText(L"ポーズ");
 			m_font.SetPosition(-150.0f, 450.0f, 0.0f);
 			m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
+			m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
 			m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
 			m_state = PauseState::Main;
 			m_isPause = !m_isPause;
@@ -76,6 +79,7 @@ void Pause::Update() {
 						m_font.SetText(L"サウンド設定");
 						m_font.SetPosition(-310.0f, 450.0f, 0.0f);
 						m_menuFont.SetText(L"音楽\n\n\n効果音\n\n\nマスター\n\n\nメニューに戻る");
+						m_menuSprite.Init("Assets/sprite/soundMenu.dds", 1920.0f, 1080.0f);
 						m_menuFont.SetPosition(-260.0f, 245.0f, 0.0f);
 						break;
 					case 3:
@@ -86,26 +90,27 @@ void Pause::Update() {
 
 				switch (m_mode) {
 				case 0:
-					m_sprite.SetPosition({ -300.0f,-360.0f,0.0f });
+					m_sprite.SetPosition({ -400.0f,-310.0f,0.0f });
 					break;
 				case 1:
-					m_sprite.SetPosition({ -300.0f,-170.0f,0.0f });
+					m_sprite.SetPosition({ -400.0f,-150.0f,0.0f });
 					break;
 				case 2:
-					m_sprite.SetPosition({ -300.0f,25.0f,0.0f });
+					m_sprite.SetPosition({ -400.0f,25.0f,0.0f });
 					break;
 				case 3:
-					m_sprite.SetPosition({ -300.0f,220.0f,0.0f });
+					m_sprite.SetPosition({ -470.0f,200.0f,0.0f });
 					break;
 				}
 			}
 			else if (m_state == PauseState::Sound) {
-				m_sprite.SetPosition({ -400.0f,120.0f,0.0f });
+				m_sprite.SetPosition({ -900.0f,120.0f,0.0f });
 				if (g_pad[0]->IsTrigger(enButtonB)) { // Bボタンで戻る
 					m_soundMode = 0;
 					m_font.SetText(L"ポーズ");
 					m_font.SetPosition(-150.0f, 450.0f, 0.0f);
 					m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
+					m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
 					m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
 					m_state = PauseState::Main;
 				}
@@ -126,16 +131,16 @@ void Pause::Update() {
 
 				switch (m_soundMode) {
 				case 0:
-					m_sprite.SetPosition({ -300.0f,220.0f,0.0f }); // BGM
+					m_sprite.SetPosition({ -480.0f,190.0f,0.0f }); // BGM
 					break;
 				case 1:
-					m_sprite.SetPosition({ -300.0f,25.0f,0.0f }); // SE
+					m_sprite.SetPosition({ -480.0f,25.0f,0.0f }); // SE
 					break;
 				case 2:
-					m_sprite.SetPosition({ -300.0f,-170.0f,0.0f }); // マスター
+					m_sprite.SetPosition({ -480.0f,-130.0f,0.0f }); // マスター
 					break;
 				case 3:
-					m_sprite.SetPosition({ -300.0f,-360.0f,0.0f }); //メニューに戻る
+					m_sprite.SetPosition({ -480.0f,-300.0f,0.0f }); //メニューに戻る
 					break;
 				}
 
@@ -197,6 +202,7 @@ void Pause::Update() {
 						m_font.SetText(L"ポーズ");
 						m_font.SetPosition(-150.0f, 450.0f, 0.0f);
 						m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
+						m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
 						m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
 						m_state = PauseState::Main;
 					}
@@ -332,9 +338,11 @@ void Pause::Render(RenderContext& rc) {
 		m_backGround.Draw(rc);
 		m_sprite.Draw(rc);
 		m_font.Draw(rc);
-		m_menuFont.Draw(rc);
+		//m_menuFont.Draw(rc);
+		m_menuSprite.Draw(rc);
 		if (m_state == PauseState::Sound) {
 			m_masterMenu.Draw(rc);
+			//m_soundMenu.Draw(rc);
 			m_volumeFont.Draw(rc);
 			m_sevolumeFont.Draw(rc);
 			m_masterFont.Draw(rc);
