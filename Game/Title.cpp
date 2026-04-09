@@ -23,7 +23,7 @@ bool Title::Start() {
 }
 
 void Title::Update() {
-	if (g_pad[0]->IsTrigger(enButtonA)and m_j == 0) {
+	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0) {
 		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
 		m_gaugeflug = true;
 		m_j++;
