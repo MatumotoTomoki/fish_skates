@@ -20,12 +20,9 @@ private:
 	SpriteRender m_sprite;
 	SpriteRender m_backGround;
 	SpriteRender m_menuSprite;
-	SpriteRender m_soundMenu;
-	FontRender m_font;
-	FontRender m_menuFont;
-	FontRender m_masterMenu;
-	FontRender m_volumeFont;
-	FontRender m_sevolumeFont;
+	SpriteRender m_soundBerSprite;
+	SpriteRender m_seBerSprite;
+	SpriteRender m_masterBerSprite;
 	FontRender m_masterFont;
 	FontRender m_returnFont;
 	Title* m_title;

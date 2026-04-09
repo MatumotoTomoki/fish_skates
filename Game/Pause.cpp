@@ -7,30 +7,26 @@
 bool Pause::Start() {
 	m_sprite.Init("Assets/sprite/allow.dds",300.0f,200.0f);
 	m_backGround.Init("Assets/sprite/backGround.dds", 1920.0f, 1080.0f);
+	m_soundBerSprite.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
+	m_seBerSprite.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
+	m_masterBerSprite.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
+	m_soundBerSprite.SetPosition({ 210.0f,180.0f,0.0f });
+	m_seBerSprite.SetPosition({ 210.0f,20.0f,0.0f });
+	m_masterBerSprite.SetPosition({ 210.0f,-140.0f,0.0f });
 	Vector4 color = { 0.0f, 0.0f, 0.0f, 0.5f };
 	m_backGround.SetMulColor(color);
-	m_font.SetText(L"ポーズ");
 	if (m_game) {
 		m_game->SetBGMVolume(m_volume * 1.0f);
 	}
-	m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
-	m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
-	m_menuFont.SetScale(1.52f);
-	m_font.SetPosition(-150.0f, 450.0f, 0.0f);
-	m_font.SetScale(2.0f);
 	m_title = FindGO<Title>("Title");
 	m_sprite.Update();
-	m_volumeFont.SetPosition(-45.0f, 220.0f, 0.0f);
-	m_volumeFont.SetScale(2.0f);
-	m_volumeFont.SetColor(1.0f,0.0f,0.0f,0.0f);
-	m_sevolumeFont.SetPosition(-45.0f, 60.0f, 0.0f);
-	m_sevolumeFont.SetScale(2.0f);
-	m_sevolumeFont.SetColor(1.0f,0.0f,0.0f,0.0f);
 	m_masterFont.SetPosition(-45.0f, -100.0f, 0.0f);
 	m_masterFont.SetScale(2.0f);
-	m_masterFont.SetColor(1.0f, 0.0f, 0.0f, 0.0f);
+	m_masterFont.SetColor(0.0f, 1.0f, 1.0f, 0.0f);
 	m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
-	//m_soundMenu.Init("Assets/sprite/soundMenu.dds", 1920.0f, 1080.0f);
+	m_soundBerSprite.Update();
+	m_seBerSprite.Update();
+	m_masterBerSprite.Update();
 	return true;
 }
 
@@ -41,11 +37,7 @@ void Pause::Update() {
 	if (m_game) {
 		if (g_pad[0]->IsTrigger(enButtonStart)) {
 			m_soundMode = 0;
-			m_font.SetText(L"ポーズ");
-			m_font.SetPosition(-150.0f, 450.0f, 0.0f);
-			m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
 			m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
-			m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
 			m_state = PauseState::Main;
 			m_isPause = !m_isPause;
 			m_soundTest = false;
@@ -76,11 +68,7 @@ void Pause::Update() {
 						break;
 					case 2:
 						m_state = PauseState::Sound;
-						m_font.SetText(L"サウンド設定");
-						m_font.SetPosition(-310.0f, 450.0f, 0.0f);
-						m_menuFont.SetText(L"音楽\n\n\n効果音\n\n\nマスター\n\n\nメニューに戻る");
 						m_menuSprite.Init("Assets/sprite/soundMenu.dds", 1920.0f, 1080.0f);
-						m_menuFont.SetPosition(-260.0f, 245.0f, 0.0f);
 						break;
 					case 3:
 						m_isPause = !m_isPause;
@@ -107,11 +95,7 @@ void Pause::Update() {
 				m_sprite.SetPosition({ -900.0f,120.0f,0.0f });
 				if (g_pad[0]->IsTrigger(enButtonB)) { // Bボタンで戻る
 					m_soundMode = 0;
-					m_font.SetText(L"ポーズ");
-					m_font.SetPosition(-150.0f, 450.0f, 0.0f);
-					m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
 					m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
-					m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
 					m_state = PauseState::Main;
 				}
 				m_game = FindGO<Game>("Game");
@@ -199,11 +183,7 @@ void Pause::Update() {
 
 				if (m_soundMode == 3) {
 					if (g_pad[0]->IsTrigger(enButtonA)) {
-						m_font.SetText(L"ポーズ");
-						m_font.SetPosition(-150.0f, 450.0f, 0.0f);
-						m_menuFont.SetText(L"メニューを閉じる\n\n\nサウンド設定\n\n\nタイトルに戻る\n\n\nゲームをやめる");
 						m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
-						m_menuFont.SetPosition(-260.0f, 250.0f, 0.0f);
 						m_state = PauseState::Main;
 					}
 				}
@@ -221,115 +201,107 @@ void Pause::Update() {
 				}
 
 				switch (m_volume) {
-				case 0:
-					m_volumeFont.SetText(L"");
-					break;
 				case 1:
-					m_volumeFont.SetText(L"l");
+					m_soundBerSprite.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
 					break;
 				case 2:
-					m_volumeFont.SetText(L"ll");
+					m_soundBerSprite.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
 					break;
 				case 3:
-					m_volumeFont.SetText(L"lll");
+					m_soundBerSprite.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
 					break;
 				case 4:
-					m_volumeFont.SetText(L"llll");
+					m_soundBerSprite.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
 					break;
 				case 5:
-					m_volumeFont.SetText(L"lllll");
+					m_soundBerSprite.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
 					break;
 				case 6:
-					m_volumeFont.SetText(L"llllll");
+					m_soundBerSprite.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
 					break;
 				case 7:
-					m_volumeFont.SetText(L"lllllll");
+					m_soundBerSprite.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
 					break;
 				case 8:
-					m_volumeFont.SetText(L"llllllll");
+					m_soundBerSprite.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
 					break;
 				case 9:
-					m_volumeFont.SetText(L"lllllllll");
+					m_soundBerSprite.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
 					break;
 				case 10:
-					m_volumeFont.SetText(L"llllllllll");
+					m_soundBerSprite.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
 					break;
 				}
 
 				switch (m_sevolume) {
-				case 0:
-					m_sevolumeFont.SetText(L"");
-					break;
 				case 1:
-					m_sevolumeFont.SetText(L"l");
+					m_seBerSprite.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
 					break;
 				case 2:
-					m_sevolumeFont.SetText(L"ll");
+					m_seBerSprite.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
 					break;
 				case 3:
-					m_sevolumeFont.SetText(L"lll");
+					m_seBerSprite.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
 					break;
 				case 4:
-					m_sevolumeFont.SetText(L"llll");
+					m_seBerSprite.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
 					break;
 				case 5:
-					m_sevolumeFont.SetText(L"lllll");
+					m_seBerSprite.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
 					break;
 				case 6:
-					m_sevolumeFont.SetText(L"llllll");
+					m_seBerSprite.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
 					break;
 				case 7:
-					m_sevolumeFont.SetText(L"lllllll");
+					m_seBerSprite.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
 					break;
 				case 8:
-					m_sevolumeFont.SetText(L"llllllll");
+					m_seBerSprite.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
 					break;
 				case 9:
-					m_sevolumeFont.SetText(L"lllllllll");
+					m_seBerSprite.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
 					break;
 				case 10:
-					m_sevolumeFont.SetText(L"llllllllll");
+					m_seBerSprite.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
 					break;
 				}
 
 				switch (m_master) {
-				case 0:
-					m_masterFont.SetText(L"");
-					break;
 				case 1:
-					m_masterFont.SetText(L"l");
+					m_masterBerSprite.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
 					break;
 				case 2:
-					m_masterFont.SetText(L"ll");
+					m_masterBerSprite.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
 					break;
 				case 3:
-					m_masterFont.SetText(L"lll");
+					m_masterBerSprite.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
 					break;
 				case 4:
-					m_masterFont.SetText(L"llll");
+					m_masterBerSprite.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
 					break;
 				case 5:
-					m_masterFont.SetText(L"lllll");
+					m_masterBerSprite.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
 					break;
 				case 6:
-					m_masterFont.SetText(L"llllll");
+					m_masterBerSprite.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
 					break;
 				case 7:
-					m_masterFont.SetText(L"lllllll");
+					m_masterBerSprite.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
 					break;
 				case 8:
-					m_masterFont.SetText(L"llllllll");
+					m_masterBerSprite.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
 					break;
 				case 9:
-					m_masterFont.SetText(L"lllllllll");
+					m_masterBerSprite.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
 					break;
 				case 10:
-					m_masterFont.SetText(L"llllllllll");
+					m_masterBerSprite.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
 					break;
 				}
 			}
 		}
 		m_sprite.Update();
+		m_soundBerSprite.Update();
 	}
 }
 
@@ -337,15 +309,18 @@ void Pause::Render(RenderContext& rc) {
 	if (m_isPause == true) {
 		m_backGround.Draw(rc);
 		m_sprite.Draw(rc);
-		m_font.Draw(rc);
-		//m_menuFont.Draw(rc);
 		m_menuSprite.Draw(rc);
 		if (m_state == PauseState::Sound) {
-			m_masterMenu.Draw(rc);
-			//m_soundMenu.Draw(rc);
-			m_volumeFont.Draw(rc);
-			m_sevolumeFont.Draw(rc);
 			m_masterFont.Draw(rc);
+			if (m_volume != 0) {
+				m_soundBerSprite.Draw(rc);
+			}
+			if (m_sevolume != 0) {
+				m_seBerSprite.Draw(rc);
+			}
+			if (m_master != 0) {
+				m_masterBerSprite.Draw(rc);
+			}
 		}
 	}
 }
