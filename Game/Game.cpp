@@ -169,7 +169,7 @@ void Game::Update()
 			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
 			m_selectSE->SetVolume(finalSE);
 		}
-		if (g_pad[0]->IsTrigger(enButtonRight) and m_pause->m_select != 10 and m_pause->m_soundTest == true) {
+		if (g_pad[0]->IsTrigger(enButtonRight) and m_pause->m_select != 10 and m_pause->m_soundTest == true and m_pause->m_soundMode != 3) {
 			m_selectSE = NewGO<SoundSource>(0);
 			m_selectSE->Init(4);
 			m_selectSE->Play(false);
