@@ -40,7 +40,7 @@ void SilenPengin::Update() {
 			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
 			m_se->SetVolume(finalSE);
 			m_se->Play(false);
-			
+
 		}
 		if (m_player->m_swim == true) {
 			if (m_se != nullptr);

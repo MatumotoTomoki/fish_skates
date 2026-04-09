@@ -23,20 +23,14 @@ private:
 	SpriteRender m_soundBerSprite;
 	SpriteRender m_seBerSprite;
 	SpriteRender m_masterBerSprite;
-	FontRender m_masterFont;
-	FontRender m_returnFont;
 	Title* m_title;
 	Game* m_game;
 	SilenPengin* m_silenPengin;
 	bool m_isPause = false;
-
 	enum class PauseState {
 		Main,   // 通常のメニュー選択
 		Sound   // サウンド設定中
 	};
 	PauseState m_state = PauseState::Main;
 	int m_volume = 10;
-	
-	
 };
-

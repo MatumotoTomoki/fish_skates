@@ -5,7 +5,7 @@
 #include "SilenPengin.h"
 
 bool Pause::Start() {
-	m_sprite.Init("Assets/sprite/allow.dds",300.0f,200.0f);
+	m_sprite.Init("Assets/sprite/allow.dds", 300.0f, 200.0f);
 	m_backGround.Init("Assets/sprite/backGround.dds", 1920.0f, 1080.0f);
 	m_soundBerSprite.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
 	m_seBerSprite.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
@@ -20,9 +20,6 @@ bool Pause::Start() {
 	}
 	m_title = FindGO<Title>("Title");
 	m_sprite.Update();
-	m_masterFont.SetPosition(-45.0f, -100.0f, 0.0f);
-	m_masterFont.SetScale(2.0f);
-	m_masterFont.SetColor(0.0f, 1.0f, 1.0f, 0.0f);
 	m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
 	m_soundBerSprite.Update();
 	m_seBerSprite.Update();
@@ -311,7 +308,6 @@ void Pause::Render(RenderContext& rc) {
 		m_sprite.Draw(rc);
 		m_menuSprite.Draw(rc);
 		if (m_state == PauseState::Sound) {
-			m_masterFont.Draw(rc);
 			if (m_volume != 0) {
 				m_soundBerSprite.Draw(rc);
 			}
