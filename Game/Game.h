@@ -30,7 +30,7 @@ public:
 	static void PreEnd(bool flug) {
 		flug = true;
 	}
-
+	bool m_initialized = false;
 private:
 	PhysicsStaticObject m_physicsStaticObject;
 	ModelRender m_modelRender;
@@ -55,7 +55,6 @@ private:
 	Pause* m_pause;
 	Distance* m_distance;
 	bool m_stop = false;
-	bool m_initialized = false;
 	int m_skyCubeType = enSkyCubeType_Day;
 	int  m_loadStep = 0;
 	
