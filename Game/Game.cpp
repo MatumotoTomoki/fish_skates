@@ -19,7 +19,6 @@
 
 
 void Game::Preload() {
-	NewGO<SkyCube>(0,"SkyCube");
 	g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
 	g_soundEngine->ResistWaveFileBank(1, "Assets/Sound/silen.wav");
 	g_soundEngine->ResistWaveFileBank(3, "Assets/sound/pause.wav");
@@ -29,6 +28,8 @@ void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(7, "Assets/sound/hole.wav");
 	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_sphere.efk");
 	Title* title = FindGO<Title>("Title");
+	SkyCube* skyCube = FindGO<SkyCube>("SkyCube");
+	Water* water = FindGO<Water>("");
 	title->m_flug = true;
 }
 
@@ -44,7 +45,6 @@ bool Game::Start()
 					odData.position,
 					odData.rotation,
 					odData.scale);
-				m_skyCube = FindGO<SkyCube>("SkyCube");
 				return true;
 			}
 			if (odData.EqualObjectName(L"Stage") == true)
@@ -77,7 +77,6 @@ void Game::Update()
 			m_pengin = NewGO<Pengin>(0, "Pengin");
 			m_ninjaPengin = NewGO<NinjaPengin>(0, "NinjaPengin");
 			m_silenPengin = NewGO<SilenPengin>(0, "SilenPengin");
-			m_pause = FindGO<Pause>("Pause");
 			m_dummy = NewGO<Dummy>(0, "Dummy");
 			m_dummy3 = NewGO<Dummy3>(0, "Dummy3");
 			m_dummy5 = NewGO<Dummy5>(0, "Dummy5");
@@ -86,13 +85,14 @@ void Game::Update()
 			m_gameCamera = NewGO<GameCamera>(0, "GameCamera");
 			break;
 		case 2:
-			m_ui = NewGO<UI>(0, "ui");
+			
 			break;
 		case 3:
-			m_distance = NewGO<Distance>(0, "Distance");
+			m_ui = NewGO<UI>(0, "ui");
 			break;
 		case 4:
-			m_water = FindGO<Water>("");
+			m_distance = NewGO<Distance>(0, "Distance");
+			m_pause = FindGO<Pause>("Pause");
 			break;
 		case 5:
 			m_gameBGM = NewGO<SoundSource>(0);
@@ -102,9 +102,8 @@ void Game::Update()
 			break;
 		}
 		m_loadStep++;
-		return;
 	}
-	if (g_pad[0]->IsTrigger(enButtonStart)) {
+	if (g_pad[0]->IsTrigger(enButtonStart) and m_initialized == true) {
 		m_menuSE = NewGO<SoundSource>(0);
 		m_menuSE->Init(3);
 		m_menuSE->Play(false);

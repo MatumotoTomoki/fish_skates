@@ -49,6 +49,7 @@ void Title::Update() {
 		if (m_i == 3) {
 			m_pause = NewGO<Pause>(0, "Pause");
 			NewGO<Water>(0);
+			NewGO<SkyCube>(0, "SkyCube");
 			if (m_3 == 0) {
 				m_font.Init("Assets/sprite/3.dds", 200.0f, 200.0f);
 				m_3++;
