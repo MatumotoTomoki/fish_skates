@@ -2,10 +2,10 @@
 #include "GameCamera.h"
 #include "Player.h"
 #include "Pause.h"
+#include "Title.h"
 
 bool GameCamera::Start() {
 	m_toCameraPos.Set(0.0f, 0.0f, -500.0f);
-	m_player = FindGO<Player>("Player");
 	g_camera3D->SetNear(1.0f);
 	g_camera3D->SetFar(20000.0f);
 	return true;
@@ -16,7 +16,13 @@ void GameCamera::Update() {
     if (pause && pause->IsPaused()) {
         return;
     }
-
+    auto title = FindGO<Title>("Title");
+    if (title) {
+        return;
+    }
+    if (m_player == nullptr) {
+        m_player = FindGO<Player>("Player");
+    }
     Vector3 playerRawTarget = m_player->m_position;
     playerRawTarget.y += 80.0f;
 

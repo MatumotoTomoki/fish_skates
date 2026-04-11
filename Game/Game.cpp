@@ -39,6 +39,7 @@ bool Game::Start()
 			m_skyCube = FindGO<SkyCube>("SkyCube");
 			m_water = FindGO<Water>("");
 			m_pause = FindGO<Pause>("Pause");
+			m_gameCamera = FindGO<GameCamera>("GameCamera");
 			if (odData.EqualObjectName(L"Stage") == true)
 			{
 				m_stageRender.Init("Assets/modelData/tairiku4.tkm");
@@ -74,18 +75,12 @@ void Game::Update()
 			m_dummy5 = NewGO<Dummy5>(0, "Dummy5");
 			break;
 		case 1:
-			m_gameCamera = NewGO<GameCamera>(0, "GameCamera");
-			break;
-		case 2:
-			
-			break;
-		case 3:
 			m_ui = NewGO<UI>(0, "ui");
 			break;
-		case 4:
+		case 2:
 			m_distance = NewGO<Distance>(0, "Distance");
 			break;
-		case 5:
+		case 3:
 			m_gameBGM = NewGO<SoundSource>(0);
 			m_gameBGM->Init(0);
 			m_gameBGM->Play(true);
@@ -206,7 +201,7 @@ void Game::Update()
 		DeleteGO(this);
 	}
 
-	if (m_player->m_position.z >= 7500.0f) {
+	else if (m_player->m_position.z >= 7500.0f) {
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
 		DeleteGO(m_silenPengin);
@@ -224,8 +219,8 @@ void Game::Update()
 		NewGO<GameClear>(0, "GameClear");
 		DeleteGO(this);
 	}
-	
-	if (m_pause->m_return == true) {
+
+	else if (m_pause->m_return == true) {
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
 		DeleteGO(m_silenPengin);

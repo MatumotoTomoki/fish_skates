@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Pause.h"
 #include "Water.h"
+#include "GameCamera.h"
 
 bool Title::Start() {
 	m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
@@ -50,6 +51,7 @@ void Title::Update() {
 			m_pause = NewGO<Pause>(0, "Pause");
 			NewGO<Water>(0);
 			NewGO<SkyCube>(0, "SkyCube");
+			NewGO<GameCamera>(0, "GameCamera");
 			if (m_3 == 0) {
 				m_font.Init("Assets/sprite/3.dds", 200.0f, 200.0f);
 				m_3++;
