@@ -21,6 +21,7 @@ public:
 	float m_scare = 0.0f;
 	int m_i = 0;
 	int m_j = 0;
+	int m_newGame = 0;
 	int m_se = 0;
 	int m_3 = 0;
 	int m_2 = 0;

@@ -13,6 +13,7 @@ bool SilenPengin::Start() {
 		m_player = FindGO<Player>("Player");
 	}
 	m_rot.SetRotationDegY(-90.0f);
+	m_pos = { 99999.0f,0.0f,0.0f };
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
 	m_modelRender.Update();

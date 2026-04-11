@@ -8,13 +8,13 @@
 
 bool Player::Start() {
 	m_characterController.Init(25.0f, 75.0f, m_position);
-	m_animationClips[enAnimClip_Idle].Load("assets/animdata/fish_idol.tka");
+	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
 	m_animationClips[enAnimClip_Idle].SetLoopFlag(true);
-	m_animationClips[enAnimClip_Jump].Load("assets/animdata/fish_jump.tka");
+	m_animationClips[enAnimClip_Jump].Load("Assets/animdata/fish_jump.tka");
 	m_animationClips[enAnimClip_Jump].SetLoopFlag(false);
-	m_animationClips[enAnimClip_Swim].Load("assets/animdata/fish_swim2.tka");
+	m_animationClips[enAnimClip_Swim].Load("Assets/animdata/fish_swim2.tka");
 	m_animationClips[enAnimClip_Swim].SetLoopFlag(true);
-	m_animationClips[enAnimClip_WaterJump].Load("assets/animdata/fish_waterJump.tka");
+	m_animationClips[enAnimClip_WaterJump].Load("Assets/animdata/fish_waterJump.tka");
 	m_animationClips[enAnimClip_WaterJump].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/fish_idol.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
 	m_modelRender.SetScale(10.0f, 10.0f, 10.0f);
@@ -60,7 +60,7 @@ void Player::Update() {
 			m_modelRender.PlayAnimation(enAnimClip_Jump);
 			m_velocity += cameraForward * speed;
 		}
-		if (m_waterJump == true) {
+		else if (m_waterJump == true) {
 			m_velocity += cameraForward * speed;
 		}
 
@@ -82,10 +82,11 @@ void Player::Update() {
 				}
 			}
 		}
-		for (; m_i < 0; m_i++) {
+		if (m_i < 0) {
 			m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
 			m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
 			m_sprite.Update();
+			m_i++;
 		}
 	}
 	if (m_characterController.IsOnGround() == true) {
