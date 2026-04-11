@@ -64,6 +64,7 @@ void Pause::Update() {
 						break;
 					case 1:
 						m_title = NewGO<Title>(0, "Title");
+						m_return = true;
 						DeleteGO(this);
 						break;
 					case 2:

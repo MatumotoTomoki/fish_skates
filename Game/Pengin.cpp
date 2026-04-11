@@ -11,8 +11,8 @@ bool Pengin::Start() {
 	m_modelRender.Init("Assets/modelData/pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
 	m_pos = { 2000.0f,0.0f,5000.0f };
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
-	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
+	m_modelRender.SetRotation(m_rot);
 	m_characterController.Init(75.0f, 75.0f, m_pos);
 	m_modelRender.Update();
 	return true;

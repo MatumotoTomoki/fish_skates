@@ -28,8 +28,6 @@ void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(7, "Assets/sound/hole.wav");
 	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_sphere.efk");
 	Title* title = FindGO<Title>("Title");
-	SkyCube* skyCube = FindGO<SkyCube>("SkyCube");
-	Water* water = FindGO<Water>("");
 	title->m_flug = true;
 }
 
@@ -38,15 +36,9 @@ bool Game::Start()
 {
 	m_stageLevelRnder.Init("Assets/modelData/Stage2.tkl", [&](LevelObjectData& odData)
 		{
-			if (odData.EqualObjectName(L"fish") == true)
-			{
-				m_modelRender.Init("Assets/modelData/fish/Fish.tkm");
-				m_modelRender.SetTRS(
-					odData.position,
-					odData.rotation,
-					odData.scale);
-				return true;
-			}
+			m_skyCube = FindGO<SkyCube>("SkyCube");
+			m_water = FindGO<Water>("");
+			m_pause = FindGO<Pause>("Pause");
 			if (odData.EqualObjectName(L"Stage") == true)
 			{
 				m_stageRender.Init("Assets/modelData/tairiku4.tkm");
@@ -92,7 +84,6 @@ void Game::Update()
 			break;
 		case 4:
 			m_distance = NewGO<Distance>(0, "Distance");
-			m_pause = FindGO<Pause>("Pause");
 			break;
 		case 5:
 			m_gameBGM = NewGO<SoundSource>(0);
@@ -233,8 +224,8 @@ void Game::Update()
 		NewGO<GameClear>(0, "GameClear");
 		DeleteGO(this);
 	}
-	auto title = FindGO<Title>("Title");
-	if (title) {
+	
+	if (m_pause->m_return == true) {
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
 		DeleteGO(m_silenPengin);

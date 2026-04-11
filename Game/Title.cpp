@@ -84,8 +84,14 @@ void Title::Update() {
 		}
 	}
 	if (m_count <= -1.0f) {
-		NewGO<Game>(0, "Game");
-		DeleteGO(this);
+		if (m_newGame == 0) {
+			NewGO<Game>(0, "Game");
+			m_game = FindGO<Game>("Game");
+			m_newGame++;
+		}
+		if (m_game->m_initialized == true) {
+			DeleteGO(this);
+		}
 	}
 }
 

@@ -13,9 +13,10 @@ public:
 	int m_mode = 2;
 	int m_sevolume = 10;
 	int m_soundMode = 0;
-	bool m_soundTest = false;
 	int m_master = 7;
 	int m_select;
+	bool m_soundTest = false;
+	bool m_return = false;
 private:
 	SpriteRender m_sprite;
 	SpriteRender m_backGround;
