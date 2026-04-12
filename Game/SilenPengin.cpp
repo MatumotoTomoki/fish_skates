@@ -25,7 +25,6 @@ void SilenPengin::Update() {
 	if (m_pause && m_pause->IsPaused()) {
 		return;
 	}
-
 	Vector3 diff = m_player->m_position - m_pos;
 	if (m_player->m_swim == false) {
 		m_coolTime -= 0.1f;

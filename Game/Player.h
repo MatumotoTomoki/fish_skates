@@ -10,7 +10,6 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 	void Clear();
-
 	Vector3 m_velocity = Vector3::Zero;
 	Vector3 m_position;
 	Vector3 m_diff;
@@ -43,4 +42,3 @@ public:
 	SilenPengin* m_silenPengin;
 	Dummy5* m_dummy5;
 };
-

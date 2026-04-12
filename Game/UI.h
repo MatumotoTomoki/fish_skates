@@ -6,7 +6,6 @@ public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
-
 private:
 	SpriteRender m_spriteRender;
 	SpriteRender m_spriteRender2;
@@ -15,7 +14,4 @@ private:
 	SpriteRender m_spriteRender5;
 	FontRender m_fontRender;
 	Player* m_player;
-	float m_o2 = -1.05f;
-
 };
-

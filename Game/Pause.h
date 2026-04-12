@@ -1,7 +1,5 @@
 ﻿#pragma once
-class Title;
 class Game;
-class SilenPengin;
 class Pause : public IGameObject
 {
 public:
@@ -9,7 +7,6 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 	bool IsPaused() const { return m_isPause; }
-
 	int m_mode = 2;
 	int m_sevolume = 10;
 	int m_soundMode = 0;
@@ -24,9 +21,7 @@ private:
 	SpriteRender m_soundBerSprite;
 	SpriteRender m_seBerSprite;
 	SpriteRender m_masterBerSprite;
-	Title* m_title;
 	Game* m_game;
-	SilenPengin* m_silenPengin;
 	bool m_isPause = false;
 	enum class PauseState {
 		Main,   // 通常のメニュー選択

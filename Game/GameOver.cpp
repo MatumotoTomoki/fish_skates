@@ -9,7 +9,7 @@ bool GameOver::Start() {
 
 void GameOver::Update() {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-		m_title = NewGO<Title>(0, "Title");
+		NewGO<Title>(0, "Title");
 		DeleteGO(this);
 	}
 }

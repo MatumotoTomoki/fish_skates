@@ -12,7 +12,6 @@ class Water;
 class Dummy;
 class Dummy3;
 class Dummy5;
-class GameOver;
 class Pause;
 class Distance;
 class Game : public IGameObject
@@ -43,7 +42,6 @@ private:
 	SoundSource* m_selectSE = nullptr;
 	Player* m_player;
 	GameCamera* m_gameCamera;
-	GameOver* m_gameOver;
 	UI* m_ui;
 	Water* m_water;
 	Pengin* m_pengin;
@@ -57,6 +55,5 @@ private:
 	bool m_stop = false;
 	int m_skyCubeType = enSkyCubeType_Day;
 	int  m_loadStep = 0;
-	
 };
 

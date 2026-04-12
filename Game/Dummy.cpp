@@ -32,20 +32,15 @@ void  Dummy::Update() {
 		m_player = FindGO<Player>("Player");
 		return;
 	}
-
 	Vector3 diff = m_player->m_position - m_pos;
 	if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
 		m_modelRender.PlayAnimation(enAnimClip_Chase);
 		float distToPlayer = diff.Length();
-
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
-
 		if (m_player->m_superJump == false) {
 			moveSpeed += toPlayerDir * 15.0f;
-
 			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
-
 			// ラジアンを度数に変換し、回転行列を作成
 			m_rot.SetRotationY(angleY);
 		}
@@ -58,21 +53,17 @@ void  Dummy::Update() {
 		m_characterController.SetPosition(m_dummy3->m_pos);
 		m_change = true;
 	}
-	
 	else {
 		m_rot.SetRotationDegY(180.0f);
 	}
-
 	moveSpeed.y = 0.0f;
 	moveSpeed.z -= 1.0f;
 	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
-
 	m_modelRender.Update();
 }
 
 void  Dummy::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
-
 }

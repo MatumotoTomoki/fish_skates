@@ -3,8 +3,7 @@
 #include "Player.h"
 #include "Pause.h"
 
-bool UI::Start()
-{
+bool UI::Start(){
 	m_spriteRender.Init("Assets/sprite/distance.DDS", 500.0f, 500.0f);
 	m_spriteRender.SetPosition({ -780.0f,480.0f,0.0f });
 	m_spriteRender2.Init("Assets/sprite/hpGaugeFrame.DDS", 500.0f, 500.0f);
@@ -21,24 +20,17 @@ bool UI::Start()
 	return true;
 }
 
-void UI::Update()
-{
+void UI::Update(){
 	auto pause = FindGO<Pause>("Pause");
 	if (pause && pause->IsPaused()) {
 		return;
 	}
-	m_o2 += 0.001f;
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
 	m_spriteRender5.SetPosition({ 600.0f,385.0f,0.0f });
-	if (m_o2 > -0.1f) {
-		m_o2 = -0.1f;
-	}
-
 	m_spriteRender3.SetPivot({ 1.0,0.53f });
 	m_spriteRender3.SetScale({ m_player->m_hp,1.0f,0.0f });
 	m_spriteRender3.SetPosition({ 600.0f,485.0f,0.0f });
-
 	m_spriteRender.Update();
 	m_spriteRender2.Update();
 	m_spriteRender3.Update();
@@ -46,8 +38,7 @@ void UI::Update()
 	m_spriteRender5.Update();
 }
 
-void UI::Render(RenderContext& rc)
-{
+void UI::Render(RenderContext& rc){
 	m_spriteRender.Draw(rc);
 	m_spriteRender3.Draw(rc);
 	m_spriteRender2.Draw(rc);
