@@ -4,7 +4,6 @@
 #include "GameCamera.h"
 #include "GameOver.h"
 #include "Player.h"
-#include"sound/SoundEngine.h"
 #include "Water.h"
 #include "Dummy.h"
 #include "Dummy3.h"
@@ -32,16 +31,13 @@ void Game::Preload() {
 }
 
 
-bool Game::Start()
-{
-	m_stageLevelRnder.Init("Assets/modelData/Stage2.tkl", [&](LevelObjectData& odData)
-		{
+bool Game::Start(){
+	m_stageLevelRnder.Init("Assets/modelData/Stage2.tkl", [&](LevelObjectData& odData){
 			m_skyCube = FindGO<SkyCube>("SkyCube");
 			m_water = FindGO<Water>("");
 			m_pause = FindGO<Pause>("Pause");
 			m_gameCamera = FindGO<GameCamera>("GameCamera");
-			if (odData.EqualObjectName(L"Stage") == true)
-			{
+			if (odData.EqualObjectName(L"Stage") == true){
 				m_stageRender.Init("Assets/modelData/tairiku4.tkm");
 				m_stageRender.SetTRS(
 					odData.position,
@@ -61,8 +57,7 @@ bool Game::Start()
 	return true;
 }
 
-void Game::Update()
-{
+void Game::Update(){
 	if (!m_initialized) {
 		switch (m_loadStep) {
 		case 0:
@@ -237,7 +232,6 @@ void Game::Update()
 	m_modelRender.Update();
 }
 
-void Game::Render(RenderContext& rc)
-{
+void Game::Render(RenderContext& rc){
 	m_stageRender.Draw(rc);
 }

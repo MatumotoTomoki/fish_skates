@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#include "Level3DRender/LevelRender.h"
-
 class GameCamera;
 class Player;
 class UI;
@@ -56,4 +54,3 @@ private:
 	int m_skyCubeType = enSkyCubeType_Day;
 	int  m_loadStep = 0;
 };
-

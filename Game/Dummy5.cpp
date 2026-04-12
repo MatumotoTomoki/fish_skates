@@ -1,6 +1,5 @@
 ﻿#include "stdafx.h"
 #include "Dummy5.h"
-#include "Dummy3.h"
 #include "NinjaPengin.h"
 #include "Player.h"
 #include "Pause.h"
@@ -21,7 +20,6 @@ bool  Dummy5::Start() {
 	m_modelRender.SetPosition(m_pos);
 	m_characterController.Init(75.0f, 75.0f, m_pos);
 	m_ninjaPengin = FindGO<NinjaPengin>("NinjaPengin");
-	m_dummy3 = FindGO<Dummy3>("Dummy3");
 	m_modelRender.Update();
 	return true;
 }
@@ -96,9 +94,10 @@ void  Dummy5::Update() {
 		moveSpeed.z -= 1.0f;
 	}
 	if (m_ninjaPengin->m_change == true) {
-		for (; m_i < 1; m_i++) {
+		if (m_i < 1) {
 			m_oldPos = m_pos;
 			m_characterController.SetPosition(m_ninjaPengin->m_oldPos);
+			m_i++;
 		}
 	}
 	else {

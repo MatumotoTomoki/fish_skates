@@ -21,8 +21,6 @@ bool NinjaPengin::Start() {
 	m_modelRender.SetPosition(m_pos);
 	m_characterController.Init(75.0f, 75.0f, m_pos);
 	m_modelRender.Update();
-	m_cb.Init(sizeof(SCustomCb), nullptr);
-	m_opacity = 0.0f;
 	return true;
 }
 
@@ -51,7 +49,6 @@ void NinjaPengin::Update() {
 		else {
 			moveSpeed.z -= 15.0f;
 		}
-		m_stealth = false;
 	}
 	else if (diff.Length() <= 700.0f and diff.Length() >= 600.0f  and m_player->m_swim == false) {
 		float distToPlayer = diff.Length();
@@ -67,7 +64,6 @@ void NinjaPengin::Update() {
 			moveSpeed.z -= 15.0f;
 		}
 		m_pos = m_characterController.Execute(moveSpeed, 1.0f);
-		m_stealth = false;
 		if (m_change == false) {
 			m_oldPos = m_pos;
 			m_characterController.SetPosition(m_dummy5->m_pos);
@@ -82,11 +78,9 @@ void NinjaPengin::Update() {
 		moveSpeed += toPlayerDir * 5.0f;
 		float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
 		m_rot.SetRotationY(-angleY);
-		m_stealth = true;
 	}
 	else {
 		m_rot.SetRotationDegY(180.0f);
-		m_stealth = true;
 		moveSpeed.z -= 1.0f;
 	}
 	if (m_dummy3->m_change == true) {
@@ -99,30 +93,9 @@ void NinjaPengin::Update() {
 	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
-	// だんだん現れる（例：1秒強で出現）
-	if (!m_stealth) {
-		m_opacity += 0.005f;
-	}
-	else {
-		m_opacity -= 0.01f;
-	}
-	m_opacity = fmaxf(0.0f, fminf(1.0f, m_opacity));
 	m_modelRender.Update();
 }
 
 void NinjaPengin::Render(RenderContext& rc) {
-	if (m_opacity > 0.0f) {
-		SCustomCb cbData;
-		cbData.opacity = m_opacity; // ここで Update で計算した値を渡す！
-		cbData.isDither = 1.0f;     // ペンギンは常に網目対象
-		m_cb.CopyToVRAM(&cbData);
-		rc.SetConstantBuffer(1, m_cb);
-		m_modelRender.Draw(rc);
-		// 背景を守るためのお掃除（フラグを0にする）
-		SCustomCb resetData;
-		resetData.opacity = 1.0f;
-		resetData.isDither = 0.0f; // 他の描画では網目機能をOFFにする
-		m_cb.CopyToVRAM(&resetData);
-		rc.SetConstantBuffer(1, m_cb);
-	}
+	m_modelRender.Draw(rc);
 }
