@@ -2,7 +2,6 @@
 class GameClear : public IGameObject
 {
 	bool Start();
-    ~GameClear();
     //更新処理。
     void Update();
     //描画処理。

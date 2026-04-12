@@ -44,12 +44,10 @@ void Player::Update() {
 	cameraForward.Normalize(); // ベクトルの長さを1に戻す
 	// moveSpeedにカメラの前進方向の速度を加える
 	float speed = 10.0f;
-
 	m_diff = m_position - m_pengin->m_pos;
 	m_diff2 = m_position - m_ninjaPengin->m_pos;
 	m_diff3 = m_position - m_silenPengin->m_pos;
 	m_diff4 = m_position - m_dummy5->m_pos;
-
 	if (m_o2 > -0.1f) {
 		m_o2 = -0.1f;
 	}
@@ -194,20 +192,16 @@ void Player::Update() {
 		m_count = 0.0f;
 	}
 	m_position.y += 12.0f;
-
 	if (m_o2 <= -1.05f) {
 		m_o2 = -1.05f;
 	}
-
 	if (m_i < -1) {
 		m_i = -1;
 	}
-
 	if (g_pad[0]->IsPress(enButtonY)) {
 		m_o2 -= 0.002f;
 		m_hp += 0.003f;
 	}
-
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rot);
 	m_position = m_characterController.Execute(m_velocity, 1.0f);

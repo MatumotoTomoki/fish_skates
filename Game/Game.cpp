@@ -162,7 +162,6 @@ void Game::Update()
 			m_selectSE->SetVolume(finalSE);
 		}
 	}
-
 	if (m_player->m_o2 >= -0.1f) {
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
@@ -178,10 +177,9 @@ void Game::Update()
 		DeleteGO(m_pause);
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
-		m_gameOver = NewGO<GameOver>(0, "GameOver");
+		NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
-
 	if (m_player->m_hp >= -0.1f) {
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
@@ -197,10 +195,9 @@ void Game::Update()
 		DeleteGO(m_pause);
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
-		m_gameOver = NewGO<GameOver>(0, "GameOver");
+		NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
-
 	else if (m_player->m_position.z >= 7500.0f) {
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
@@ -219,7 +216,6 @@ void Game::Update()
 		NewGO<GameClear>(0, "GameClear");
 		DeleteGO(this);
 	}
-
 	else if (m_pause->m_return == true) {
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
@@ -237,7 +233,6 @@ void Game::Update()
 		DeleteGO(m_distance);
 		DeleteGO(this);
 	}
-
 	m_stageRender.Update();
 	m_modelRender.Update();
 }

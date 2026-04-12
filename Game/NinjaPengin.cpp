@@ -31,26 +31,20 @@ void NinjaPengin::Update() {
 	if (pause && pause->IsPaused()) {
 		return;
 	}
-
 	Vector3 moveSpeed;
 	m_modelRender.PlayAnimation(enAnimClip_Chase);
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
 		return;
 	}
-
 	Vector3 diff = m_player->m_position - m_pos;
 	if (diff.Length() <= 2000.0f and diff.Length() >= 700.0f and  m_player->m_swim == false) {
 		float distToPlayer = diff.Length();
-
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
-
 		if (m_player->m_superJump == false) {
 			moveSpeed += toPlayerDir * 15.0f;
-
 			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
-
 			// ラジアンを度数に変換し、回転行列を作成
 			m_rot.SetRotationY(angleY);
 		}
@@ -61,15 +55,11 @@ void NinjaPengin::Update() {
 	}
 	else if (diff.Length() <= 700.0f and diff.Length() >= 600.0f  and m_player->m_swim == false) {
 		float distToPlayer = diff.Length();
-
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
-
 		if (m_player->m_superJump == false) {
 			moveSpeed += toPlayerDir * 0.1f;
-
 			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
-
 			// ラジアンを度数に変換し、回転行列を作成
 			m_rot.SetRotationY(angleY);
 		}
@@ -87,12 +77,9 @@ void NinjaPengin::Update() {
 	else if (m_player->m_swim == true) {
 		Vector3 diff = m_pos - m_player->m_position;
 		float distToPlayer = diff.Length();
-
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
-
 		moveSpeed += toPlayerDir * 5.0f;
-
 		float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
 		m_rot.SetRotationY(-angleY);
 		m_stealth = true;
@@ -102,18 +89,16 @@ void NinjaPengin::Update() {
 		m_stealth = true;
 		moveSpeed.z -= 1.0f;
 	}
-
 	if (m_dummy3->m_change == true) {
-		for (; m_i < 1; m_i++) {
+		if (m_i < 1) {
 			m_characterController.SetPosition(m_dummy3->m_oldPos);
+			m_i++;
 		}
 	}
-
 	moveSpeed.y = 0.0f;
 	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
-	
 	// だんだん現れる（例：1秒強で出現）
 	if (!m_stealth) {
 		m_opacity += 0.005f;
@@ -122,7 +107,6 @@ void NinjaPengin::Update() {
 		m_opacity -= 0.01f;
 	}
 	m_opacity = fmaxf(0.0f, fminf(1.0f, m_opacity));
-
 	m_modelRender.Update();
 }
 
@@ -131,12 +115,9 @@ void NinjaPengin::Render(RenderContext& rc) {
 		SCustomCb cbData;
 		cbData.opacity = m_opacity; // ここで Update で計算した値を渡す！
 		cbData.isDither = 1.0f;     // ペンギンは常に網目対象
-
 		m_cb.CopyToVRAM(&cbData);
 		rc.SetConstantBuffer(1, m_cb);
-
 		m_modelRender.Draw(rc);
-
 		// 背景を守るためのお掃除（フラグを0にする）
 		SCustomCb resetData;
 		resetData.opacity = 1.0f;

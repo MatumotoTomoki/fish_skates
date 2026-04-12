@@ -18,7 +18,6 @@ bool Pause::Start() {
 	if (m_game) {
 		m_game->SetBGMVolume(m_volume * 1.0f);
 	}
-	m_title = FindGO<Title>("Title");
 	m_sprite.Update();
 	m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
 	m_soundBerSprite.Update();
@@ -63,7 +62,7 @@ void Pause::Update() {
 						PostQuitMessage(0);
 						break;
 					case 1:
-						m_title = NewGO<Title>(0, "Title");
+						NewGO<Title>(0, "Title");
 						m_return = true;
 						DeleteGO(this);
 						break;
@@ -76,7 +75,6 @@ void Pause::Update() {
 						break;
 					}
 				}
-
 				switch (m_mode) {
 				case 0:
 					m_sprite.SetPosition({ -400.0f,-310.0f,0.0f });
@@ -100,7 +98,6 @@ void Pause::Update() {
 					m_state = PauseState::Main;
 				}
 				m_game = FindGO<Game>("Game");
-
 				if (g_pad[0]->IsTrigger(enButtonUp)) {
 					m_soundMode--;
 					if (m_soundMode < 0) {
@@ -113,7 +110,6 @@ void Pause::Update() {
 						m_soundMode = 0;
 					}
 				}
-
 				switch (m_soundMode) {
 				case 0:
 					m_sprite.SetPosition({ -480.0f,190.0f,0.0f }); // BGM
@@ -128,7 +124,6 @@ void Pause::Update() {
 					m_sprite.SetPosition({ -480.0f,-300.0f,0.0f }); //メニューに戻る
 					break;
 				}
-
 				if (m_soundMode == 0) {
 					m_select = m_volume;
 					if (g_pad[0]->IsTrigger(enButtonLeft)) {
@@ -138,8 +133,6 @@ void Pause::Update() {
 							m_game->SetBGMVolume(m_volume * 1.0f);
 						}
 					}
-
-
 					if (g_pad[0]->IsTrigger(enButtonRight)) {
 						m_volume = min(10, m_volume + 1);
 						if (m_game) {
@@ -148,32 +141,17 @@ void Pause::Update() {
 						}
 					}
 				}
-
 				if (m_soundMode == 1) {
 					m_select = m_sevolume;
-					m_silenPengin = FindGO<SilenPengin>("SilenPengin");
-					if (g_pad[0]->IsTrigger(enButtonLeft))
-					{
+					if (g_pad[0]->IsTrigger(enButtonLeft)){
 						m_sevolume = max(0, m_sevolume - 1);
-						if (m_silenPengin)
-						{
-							m_silenPengin->SetSEVolume(m_sevolume * 1.0f);
-						}
 					}
-
-					if (g_pad[0]->IsTrigger(enButtonRight))
-					{
+					if (g_pad[0]->IsTrigger(enButtonRight)){
 						m_sevolume = min(10, m_sevolume + 1);
-						if (m_silenPengin)
-						{
-							m_silenPengin->SetSEVolume(m_sevolume * 1.0f);
-						}
 					}
 				}
-
 				if (m_soundMode == 2) {
 					m_select = m_master;
-					m_silenPengin = FindGO<SilenPengin>("SilenPengin");
 					if (g_pad[0]->IsTrigger(enButtonLeft)) {
 						m_master = max(0, m_master - 1);
 					}
@@ -181,26 +159,17 @@ void Pause::Update() {
 						m_master = min(10, m_master + 1);
 					}
 				}
-
 				if (m_soundMode == 3) {
 					if (g_pad[0]->IsTrigger(enButtonA)) {
 						m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
 						m_state = PauseState::Main;
 					}
 				}
-
 				// BGMに反映
 				if (m_game) {
 					float finalBGM = (m_volume / 10.0f) * (m_master / 10.0f);
 					m_game->SetBGMVolume(finalBGM);
 				}
-
-				// SEに反映
-				if (m_silenPengin) {
-					float finalSE = (m_sevolume / 10.0f) * (m_master / 10.0f);
-					m_silenPengin->SetSEVolume(finalSE);
-				}
-
 				switch (m_volume) {
 				case 1:
 					m_soundBerSprite.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
@@ -233,7 +202,6 @@ void Pause::Update() {
 					m_soundBerSprite.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
 					break;
 				}
-
 				switch (m_sevolume) {
 				case 1:
 					m_seBerSprite.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
@@ -266,7 +234,6 @@ void Pause::Update() {
 					m_seBerSprite.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
 					break;
 				}
-
 				switch (m_master) {
 				case 1:
 					m_masterBerSprite.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);

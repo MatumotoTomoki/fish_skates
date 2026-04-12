@@ -1,8 +1,6 @@
 ﻿#pragma once
 class Game;
 class Pause;
-class Water;
-class GameCamera;
 class Title : public IGameObject
 {
 public:

@@ -33,14 +33,11 @@ void  Dummy3::Update() {
 		m_player = FindGO<Player>("Player");
 		return;
 	}
-
 	Vector3 diff = m_player->m_position - m_pos;
 	if (diff.Length() <= 2000.0f and diff.Length() >= 800.0f and m_player->m_swim == false) {
 		float distToPlayer = diff.Length();
-
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
-
 		if (m_player->m_superJump == false) {
 			moveSpeed += toPlayerDir * 15.0f;
 
@@ -58,27 +55,22 @@ void  Dummy3::Update() {
 		m_characterController.SetPosition(m_ninjaPengin->m_pos);
 		m_change = true;
 	}
-
 	else {
 		m_rot.SetRotationDegY(180.0f);
 	}
-
 	if (m_dummy->m_change == true) {
 		for (; m_i < 1; m_i++) {
 			m_characterController.SetPosition(m_dummy->m_oldPos);
 		}
 	}
-
 	moveSpeed.y = 0.0f;
 	moveSpeed.z -= 1.0f;
 	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
-
 	m_modelRender.Update();
 }
 
 void  Dummy3::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
-
 }

@@ -8,7 +8,6 @@ public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
-
 	Vector3 m_pos;
 	Vector3 m_oldPos;
 	enum EnPenginAnimationClip {
@@ -25,6 +24,4 @@ public:
 	ModelRender m_modelRender;
 	CharacterController m_characterController;
 	bool m_change = false;
-
 };
-

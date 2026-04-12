@@ -4,7 +4,6 @@ struct SCustomCb {
 	float isDither;   // 1.0f 固定（網目にするフラグ）
 	float padding[2]; // 16バイト境界合わせ
 };
-
 class Player;
 class Dummy;
 class Dummy3;
@@ -37,6 +36,4 @@ public:
 	bool m_stealth = true;
 	bool m_change = false;
 	int m_i = 0;
-
 };
-
