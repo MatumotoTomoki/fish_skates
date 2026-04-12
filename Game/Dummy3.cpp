@@ -59,8 +59,9 @@ void  Dummy3::Update() {
 		m_rot.SetRotationDegY(180.0f);
 	}
 	if (m_dummy->m_change == true) {
-		for (; m_i < 1; m_i++) {
+		if (m_i < 1) {
 			m_characterController.SetPosition(m_dummy->m_oldPos);
+			m_i++;
 		}
 	}
 	moveSpeed.y = 0.0f;

@@ -2,7 +2,6 @@
 #include "Pause.h"
 #include "Title.h" 
 #include "Game.h"
-#include "SilenPengin.h"
 
 bool Pause::Start() {
 	m_sprite.Init("Assets/sprite/allow.dds", 300.0f, 200.0f);

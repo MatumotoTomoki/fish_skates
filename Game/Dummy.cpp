@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Dummy.h"
 #include "Dummy3.h"
-#include "NinjaPengin.h"
 #include "Player.h"
 #include "Pause.h"
 
@@ -16,7 +15,6 @@ bool  Dummy::Start() {
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
 	m_characterController.Init(75.0f, 75.0f, m_pos);
-	m_ninjaPengin = FindGO<NinjaPengin>("NinjaPengin");
 	m_dummy3 = FindGO<Dummy3>("Dummy3");
 	m_modelRender.Update();
 	return true;

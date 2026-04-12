@@ -7,7 +7,6 @@ public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
-
 	SpriteRender m_render;
 	SpriteRender m_font;
 	SpriteRender m_gauge;

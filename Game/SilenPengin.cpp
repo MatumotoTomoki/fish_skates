@@ -35,12 +35,12 @@ void SilenPengin::Update() {
 	}
 	if (m_coolTime <= 35.0f and m_player->m_swim == false) {
 		m_se = NewGO<SoundSource>(0);
-		for (; m_silen < 1; m_silen++) {
+		if (m_silen < 1) {
 			m_se->Init(1);
 			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
 			m_se->SetVolume(finalSE);
 			m_se->Play(false);
-
+			m_silen++;
 		}
 		if (m_player->m_swim == true) {
 			if (m_se != nullptr);
