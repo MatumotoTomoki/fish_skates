@@ -16,7 +16,6 @@
 #include "Pause.h"
 #include "Title.h"
 
-
 void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
 	g_soundEngine->ResistWaveFileBank(1, "Assets/Sound/silen.wav");
@@ -29,7 +28,6 @@ void Game::Preload() {
 	Title* title = FindGO<Title>("Title");
 	title->m_flug = true;
 }
-
 
 bool Game::Start(){
 	m_stageLevelRnder.Init("Assets/modelData/Stage2.tkl", [&](LevelObjectData& odData){
