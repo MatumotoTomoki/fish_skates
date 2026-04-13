@@ -24,6 +24,8 @@ void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(5, "Assets/sound/ok.wav");
 	g_soundEngine->ResistWaveFileBank(6, "Assets/sound/cancel.wav");
 	g_soundEngine->ResistWaveFileBank(7, "Assets/sound/hole.wav");
+	g_soundEngine->ResistWaveFileBank(9, "Assets/sound/GameClear.wav");
+	g_soundEngine->ResistWaveFileBank(10, "Assets/sound/Gameover.wav");
 	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_sphere.efk");
 	Title* title = FindGO<Title>("Title");
 	title->m_flug = true;
@@ -180,6 +182,9 @@ void Game::Update(){
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		NewGO<GameOver>(0, "GameOver");
+		SoundSource* bgm = NewGO<SoundSource>(0);
+		bgm->Init(10);
+		bgm->Play(false);
 		DeleteGO(this);
 	}
 	if (m_player->m_hp >= -0.1f) {
@@ -198,6 +203,9 @@ void Game::Update(){
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		NewGO<GameOver>(0, "GameOver");
+		SoundSource* bgm = NewGO<SoundSource>(0);
+		bgm->Init(10);
+		bgm->Play(false);
 		DeleteGO(this);
 	}
 	else if (m_player->m_position.z >= 7500.0f) {
@@ -216,6 +224,9 @@ void Game::Update(){
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		NewGO<GameClear>(0, "GameClear");
+		SoundSource* bgm = NewGO<SoundSource>(0);
+		bgm->Init(9);
+		bgm->Play(false);
 		DeleteGO(this);
 	}
 	else if (m_pause->m_return == true) {
