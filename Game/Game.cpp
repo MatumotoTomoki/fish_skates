@@ -37,6 +37,15 @@ bool Game::Start(){
 			m_water = FindGO<Water>("");
 			m_pause = FindGO<Pause>("Pause");
 			m_gameCamera = FindGO<GameCamera>("GameCamera");
+			if (odData.EqualObjectName(L"fish") == true)
+			{
+				m_modelRender.Init("Assets/modelData/fish/Fish.tkm");
+				m_modelRender.SetTRS(
+					odData.position,
+					odData.rotation,
+					odData.scale);
+				return true;
+			}
 			if (odData.EqualObjectName(L"Stage") == true){
 				m_stageRender.Init("Assets/modelData/tairiku4.tkm");
 				m_stageRender.SetTRS(
