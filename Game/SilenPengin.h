@@ -12,7 +12,6 @@ public:
 			m_se->SetVolume(vol);
 		}
 	}
-
 	Vector3 m_pos;
 	enum EnPenginAnimationClip {
 		enAnimClip_Chase,

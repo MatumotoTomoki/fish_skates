@@ -40,9 +40,7 @@ void  Dummy3::Update() {
 		toPlayerDir.Normalize();
 		if (m_player->m_superJump == false) {
 			moveSpeed += toPlayerDir * 15.0f;
-
 			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
-
 			// ラジアンを度数に変換し、回転行列を作成
 			m_rot.SetRotationY(angleY);
 		}
@@ -53,6 +51,14 @@ void  Dummy3::Update() {
 	if (diff.Length() <= 800.0f and diff.Length() >= 700.0f and m_player->m_swim == false) {
 		m_oldPos = m_pos;
 		m_characterController.SetPosition(m_ninjaPengin->m_pos);
+		if (m_player->m_superJump == false) {
+			float distToPlayer = diff.Length();
+			Vector3 toPlayerDir = diff;
+			moveSpeed += toPlayerDir * 15.0f;
+			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
+			// ラジアンを度数に変換し、回転行列を作成
+			m_rot.SetRotationY(angleY);
+		}
 		m_change = true;
 	}
 	else {
