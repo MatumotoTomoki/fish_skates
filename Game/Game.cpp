@@ -178,13 +178,9 @@ void Game::Update(){
 		DeleteGO(m_dummy);
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
-		DeleteGO(m_pause);
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		NewGO<GameOver>(0, "GameOver");
-		SoundSource* bgm = NewGO<SoundSource>(0);
-		bgm->Init(10);
-		bgm->Play(false);
 		DeleteGO(this);
 	}
 	if (m_player->m_hp >= -0.1f) {
@@ -199,13 +195,9 @@ void Game::Update(){
 		DeleteGO(m_dummy);
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
-		DeleteGO(m_pause);
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		NewGO<GameOver>(0, "GameOver");
-		SoundSource* bgm = NewGO<SoundSource>(0);
-		bgm->Init(10);
-		bgm->Play(false);
 		DeleteGO(this);
 	}
 	else if (m_player->m_position.z >= 7500.0f) {
@@ -220,13 +212,9 @@ void Game::Update(){
 		DeleteGO(m_dummy);
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
-		DeleteGO(m_pause);
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		NewGO<GameClear>(0, "GameClear");
-		SoundSource* bgm = NewGO<SoundSource>(0);
-		bgm->Init(9);
-		bgm->Play(false);
 		DeleteGO(this);
 	}
 	else if (m_pause->m_return == true) {
@@ -241,9 +229,9 @@ void Game::Update(){
 		DeleteGO(m_dummy);
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
-		DeleteGO(m_pause);
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
+		DeleteGO(m_pause);
 		DeleteGO(this);
 	}
 	m_stageRender.Update();

@@ -63,7 +63,6 @@ void Pause::Update() {
 					case 1:
 						NewGO<Title>(0, "Title");
 						m_return = true;
-						DeleteGO(this);
 						break;
 					case 2:
 						m_state = PauseState::Sound;
@@ -269,6 +268,9 @@ void Pause::Update() {
 		}
 		m_sprite.Update();
 		m_soundBerSprite.Update();
+	}
+	if (m_title != nullptr) {
+		m_return = false;
 	}
 }
 
