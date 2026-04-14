@@ -48,7 +48,9 @@ void Title::Update() {
 	}
 	if (m_flug == true) {
 		if (m_i == 3) {
-			m_pause = NewGO<Pause>(0, "Pause");
+			if (m_pause == nullptr) {
+				m_pause = NewGO<Pause>(0, "Pause");
+			}
 			NewGO<Water>(0);
 			NewGO<SkyCube>(0, "SkyCube");
 			NewGO<GameCamera>(0, "GameCamera");
@@ -65,7 +67,13 @@ void Title::Update() {
 		SoundSource* se2 = NewGO<SoundSource>(0);
 		se2->Init(8);
 		se2->Play(false);
-		se2->SetVolume(2.5f);
+		if (m_pause) {
+			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+			se2->SetVolume(finalSE);
+		}
+		else {
+			se2->SetVolume(2.5f);
+		}
 	}
 	if (m_count <= 2.0f) {
 		if (m_2 == 0) {

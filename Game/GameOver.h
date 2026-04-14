@@ -5,5 +5,6 @@ class GameOver : public IGameObject
 	void Update();
 	void Render(RenderContext& rc);
 	SpriteRender m_render;
+	SoundSource* m_bgm;
 };
 
