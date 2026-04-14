@@ -13,6 +13,8 @@ bool Title::Start() {
 	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
 	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
 	m_seafont.SetPosition({ 10.0f, -200.0f, 0.0f });
+	m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
+	m_start.SetPosition({ 0.0f,-300.0f,0.0f });
 	m_font.SetPosition({ 0.0f, 0.0f, 0.0f });
 	m_gauge.SetPosition({ -600.0f, -7.0f, 0.0f });
 	m_gauge.SetPivot({ 0.13f,0.5f });
@@ -20,6 +22,7 @@ bool Title::Start() {
 	m_pause = FindGO<Pause>("Pause");
 	m_gauge.Update();
 	m_seafont.Update();
+	m_start.Update();
 	return true;
 }
 
@@ -107,6 +110,9 @@ void Title::Update() {
 
 void Title::Render(RenderContext& rc) {
 	m_render.Draw(rc);
+	if (m_i < 1) {
+		m_start.Draw(rc);
+	}
 	if (m_i > 0) {
 		if (m_i < 4) {
 			m_gauge.Draw(rc);

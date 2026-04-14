@@ -26,7 +26,9 @@ void Pengin::Update() {
 	Vector3 moveSpeed;
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
-		return;
+		if (m_player == nullptr) {
+			return;
+		}
 	}
 	Vector3 diff = m_player->m_position - m_pos;
 	if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {

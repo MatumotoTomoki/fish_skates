@@ -12,6 +12,8 @@ bool SilenPengin::Start() {
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
 	}
+	m_se = NewGO<SoundSource>(0);
+	m_se->Init(1);
 	m_rot.SetRotationDegY(-90.0f);
 	m_pos = { 99999.0f,0.0f,0.0f };
 	m_modelRender.SetRotation(m_rot);
@@ -25,6 +27,12 @@ void SilenPengin::Update() {
 	if (m_pause && m_pause->IsPaused()) {
 		return;
 	}
+	if (m_player == nullptr) {
+		m_player = FindGO<Player>("Player");
+		if (m_player == nullptr) {
+			return;   // ★絶対必要
+		}
+	}
 	Vector3 diff = m_player->m_position - m_pos;
 	if (m_player->m_swim == false) {
 		m_coolTime -= 0.1f;
@@ -34,9 +42,7 @@ void SilenPengin::Update() {
 		m_pos.x += 3000.0f;
 	}
 	if (m_coolTime <= 35.0f and m_player->m_swim == false) {
-		m_se = NewGO<SoundSource>(0);
 		if (m_silen < 1) {
-			m_se->Init(1);
 			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
 			m_se->SetVolume(finalSE);
 			m_se->Play(false);
