@@ -11,6 +11,7 @@ public:
 	SpriteRender m_font;
 	SpriteRender m_gauge;
 	SpriteRender m_seafont;
+	SpriteRender m_start;
 	Game* m_game;
 	Pause* m_pause;
 	bool m_flug = false;

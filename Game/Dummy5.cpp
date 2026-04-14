@@ -93,7 +93,7 @@ void  Dummy5::Update() {
 	else {
 		moveSpeed.z -= 1.0f;
 	}
-	if (m_ninjaPengin->m_change == true) {
+	if (m_ninjaPengin && m_ninjaPengin->m_change == true) {
 		if (m_i < 1) {
 			m_oldPos = m_pos;
 			m_characterController.SetPosition(m_ninjaPengin->m_oldPos);
