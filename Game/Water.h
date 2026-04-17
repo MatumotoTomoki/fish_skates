@@ -5,4 +5,5 @@ class Water : public IGameObject
 	void Render(RenderContext& rc);
 	ModelRender m_render;
 	Vector3 m_pos;
+	PhysicsStaticObject m_physicsStaticObject;
 };
