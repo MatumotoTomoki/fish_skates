@@ -61,7 +61,6 @@ void Player::Update() {
 		else if (m_waterJump == true) {
 			m_velocity += cameraForward * speed;
 		}
-
 	}
 	else {
 		m_superJump = false;
@@ -71,11 +70,8 @@ void Player::Update() {
 		if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
 			if (g_pad[0]->IsTrigger(enButtonA)) {
 				m_velocity.y = 12.0f;
-				if (m_swim == true) {
-					if (m_characterController.IsOnGround() == false) {
-						m_waterJump = true;
-						m_swim = false;
-					}
+				if (m_characterController.IsOnGround() == false) {
+					m_waterJump = true;
 					m_modelRender.PlayAnimation(enAnimClip_WaterJump);
 				}
 			}
@@ -141,7 +137,7 @@ void Player::Update() {
 		m_swim = true;
 		m_position.y = -30.0f;
 		if (m_waterJump == false) {
-			m_velocity.y = 0.1f;
+			m_velocity.y = 0.2f;
 		}
 	}
 	if (m_swim == true) {
