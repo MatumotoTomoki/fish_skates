@@ -29,9 +29,9 @@ void Pause::Update() {
 	if (m_game == nullptr) {
 		m_game = FindGO<Game>("Game");
 	}
-	if (m_game != nullptr and m_game->m_initialized == false) {
+	/*if (m_game != nullptr and m_game->m_initialized == false) {
 		return;
-	}
+	}*/
 	if (m_game) {
 		if (g_pad[0]->IsTrigger(enButtonStart)) {
 			m_soundMode = 0;

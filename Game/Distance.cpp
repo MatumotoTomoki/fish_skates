@@ -11,16 +11,15 @@ bool Distance::Start() {
 }
 
 void Distance::Update() {
-	if (m_player->m_position.z >= m_pos.z) {
+	if (m_player->m_position.z >= m_pos.z){
 		m_hollState += 1;
 	}
-	switch (m_hollState)
-	{
+	switch (m_hollState){
 	case 0:
 		m_pos = { 0.0f,0.0f,1300.0f };
 		break;
 	case 1:
-		m_pos = { 2646.0f,0.0f,1900.0f };
+		m_pos = { 2646.0f,0.0f,2500.0f };
 		break;
 	case 2:
 		m_pos = { 4095.0f,0.0f,4600.0f };

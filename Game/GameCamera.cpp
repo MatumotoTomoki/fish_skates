@@ -41,7 +41,7 @@ void GameCamera::Update() {
     float len = horizontalDir.Length();   // ← これが必要！
     if (len > 0.001f) {
         horizontalDir /= len;
-        if (horizontalDir.x < -0.8f or horizontalDir.x > 0.8f) {
+        if (horizontalDir.x < -0.9f or horizontalDir.x > 0.9f) {
             m_toCameraPos = oldPosYaw;
         }
     }

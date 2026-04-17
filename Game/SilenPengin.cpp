@@ -30,7 +30,7 @@ void SilenPengin::Update() {
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
 		if (m_player == nullptr) {
-			return;   // ★絶対必要
+			return;
 		}
 	}
 	Vector3 diff = m_player->m_position - m_pos;
