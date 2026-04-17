@@ -88,6 +88,10 @@ void Game::Update(){
 			m_gameBGM = NewGO<SoundSource>(0);
 			m_gameBGM->Init(0);
 			m_gameBGM->Play(true);
+			if (m_pause) {
+				float finalSE = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
+				m_gameBGM->SetVolume(finalSE);
+			}
 			m_initialized = true;
 			break;
 		}
