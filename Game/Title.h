@@ -14,6 +14,7 @@ public:
 	SpriteRender m_start;
 	Game* m_game;
 	Pause* m_pause;
+	SoundSource* m_sound;
 	bool m_flug = false;
 	bool m_gaugeflug = false;
 	float m_count = 3.0f;

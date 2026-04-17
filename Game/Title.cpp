@@ -9,6 +9,10 @@ bool Title::Start() {
 	m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
 	g_soundEngine->ResistWaveFileBank(2, "Assets/Sound/start.wav");
 	g_soundEngine->ResistWaveFileBank(8, "Assets/Sound/countdown.wav");
+	g_soundEngine->ResistWaveFileBank(11, "Assets/sound/title.wav");
+	m_sound = NewGO<SoundSource>(0);
+	m_sound->Init(11);
+	m_sound->Play(true);
 	m_font.Init("Assets/sprite/Gaugeflame.dds", 1600.0f, 200.0f);
 	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
 	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
@@ -28,6 +32,7 @@ bool Title::Start() {
 
 void Title::Update() {
 	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0) {
+		DeleteGO(m_sound);
 		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
 		m_gaugeflug = true;
 		m_j++;
