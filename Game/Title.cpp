@@ -13,6 +13,11 @@ bool Title::Start() {
 	m_sound = NewGO<SoundSource>(0);
 	m_sound->Init(11);
 	m_sound->Play(true);
+	m_pause = FindGO<Pause>("Pause");
+	if (m_pause) {
+		float finalSE = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
+		m_sound->SetVolume(finalSE);
+	}
 	m_font.Init("Assets/sprite/Gaugeflame.dds", 1600.0f, 200.0f);
 	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
 	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
@@ -23,7 +28,6 @@ bool Title::Start() {
 	m_gauge.SetPosition({ -600.0f, -7.0f, 0.0f });
 	m_gauge.SetPivot({ 0.13f,0.5f });
 	m_gauge.SetScale({ -1600.0f,200.0f,0.0f });
-	m_pause = FindGO<Pause>("Pause");
 	m_gauge.Update();
 	m_seafont.Update();
 	m_start.Update();
