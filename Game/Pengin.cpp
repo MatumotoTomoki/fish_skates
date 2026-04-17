@@ -37,7 +37,7 @@ void Pengin::Update() {
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
 		if (m_player->m_superJump == false) {
-			moveSpeed += toPlayerDir * 8.0f;
+			moveSpeed += toPlayerDir * 15.0f;
 			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
 			// ラジアンを度数に変換し、回転行列を作成
 			m_rot.SetRotationY(angleY);
@@ -52,7 +52,7 @@ void Pengin::Update() {
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
 		if (m_player->m_superJump == false) {
-			moveSpeed += toPlayerDir * 0.1f;
+			moveSpeed += toPlayerDir * 0.6f;
 			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
 			// ラジアンを度数に変換し、回転行列を作成
 			m_rot.SetRotationY(angleY);
