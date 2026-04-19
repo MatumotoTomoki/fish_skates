@@ -18,7 +18,11 @@ bool Pause::Start() {
 		m_game->SetBGMVolume(m_volume * 1.0f);
 	}
 	m_sprite.Update();
-	m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
+	m_menuSprite.Init("Assets/sprite/pause.dds", 1920.0f, 1080.0f);
+	m_menuReturn.Init("Assets/sprite/returnManu.dds", 1920.0f, 1080.0f);
+	m_menuSound.Init("Assets/sprite/soundTest.dds", 1920.0f, 1080.0f);
+	m_returnTitle.Init("Assets/sprite/returnTitle.dds", 1920.0f, 1080.0f);
+	m_endGame.Init("Assets/sprite/endGame.dds", 1920.0f, 1080.0f);
 	m_soundBerSprite.Update();
 	m_seBerSprite.Update();
 	m_masterBerSprite.Update();
@@ -35,7 +39,11 @@ void Pause::Update() {
 	if (m_game) {
 		if (g_pad[0]->IsTrigger(enButtonStart)) {
 			m_soundMode = 0;
-			m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
+			m_menuSprite.Init("Assets/sprite/pause.dds", 1920.0f, 1080.0f);
+			m_menuReturn.Init("Assets/sprite/returnMenu.dds", 1920.0f, 1080.0f);
+			m_menuSound.Init("Assets/sprite/soundTest.dds", 1920.0f, 1080.0f);
+			m_returnTitle.Init("Assets/sprite/returnTitle.dds", 1920.0f, 1080.0f);
+			m_endGame.Init("Assets/sprite/endGame.dds", 1920.0f, 1080.0f);
 			m_state = PauseState::Main;
 			m_isPause = !m_isPause;
 			m_soundTest = false;
@@ -55,24 +63,47 @@ void Pause::Update() {
 						m_mode = 3;
 					}
 				}
-				if (g_pad[0]->IsTrigger(enButtonA)) {
-					switch (m_mode) {
-					case 0:
+				switch (m_mode) {
+				case 0:
+					if (g_pad[0]->IsTrigger(enButtonA)) {
 						PostQuitMessage(0);
-						break;
-					case 1:
+					}
+					m_menuReturn.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuSound.SetScale({ 1.0f,1.0f,1.0f });
+					m_returnTitle.SetScale({ 1.0f,1.0f,1.0f });
+					m_endGame.SetScale({ 1.05f,1.05f,1.0f });
+					break;
+				case 1:
+					if (g_pad[0]->IsTrigger(enButtonA)) {
 						NewGO<Title>(0, "Title");
 						m_return = true;
-						break;
-					case 2:
+					}
+					m_menuReturn.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuSound.SetScale({ 1.0f,1.0f,1.0f });
+					m_returnTitle.SetScale({ 1.05f,1.05f,1.0f });
+					m_endGame.SetScale({ 1.0f,1.0f,1.0f });
+					break;
+				case 2:
+					if (g_pad[0]->IsTrigger(enButtonA)) {
 						m_state = PauseState::Sound;
 						m_menuSprite.Init("Assets/sprite/soundMenu.dds", 1920.0f, 1080.0f);
-						break;
-					case 3:
-						m_isPause = !m_isPause;
-						break;
 					}
+					m_menuReturn.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuSound.SetScale({ 1.05f,1.05f,1.0f });
+					m_returnTitle.SetScale({ 1.0f,1.0f,1.0f });
+					m_endGame.SetScale({ 1.0f,1.0f,1.0f });
+					break;
+				case 3:
+					if (g_pad[0]->IsTrigger(enButtonA)) {
+						m_isPause = !m_isPause;
+					}
+					m_menuReturn.SetScale({ 1.05f,1.05f,1.0f });
+					m_menuSound.SetScale({ 1.0f,1.0f,1.0f });
+					m_returnTitle.SetScale({ 1.0f,1.0f,1.0f });
+					m_endGame.SetScale({ 1.0f,1.0f,1.0f });
+					break;
 				}
+
 				switch (m_mode) {
 				case 0:
 					m_sprite.SetPosition({ -400.0f,-310.0f,0.0f });
@@ -92,7 +123,7 @@ void Pause::Update() {
 				m_sprite.SetPosition({ -900.0f,120.0f,0.0f });
 				if (g_pad[0]->IsTrigger(enButtonB)) { // Bボタンで戻る
 					m_soundMode = 0;
-					m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
+					m_menuSprite.Init("Assets/sprite/pause.dds", 1920.0f, 1080.0f);
 					m_state = PauseState::Main;
 				}
 				m_game = FindGO<Game>("Game");
@@ -141,10 +172,10 @@ void Pause::Update() {
 				}
 				if (m_soundMode == 1) {
 					m_select = m_sevolume;
-					if (g_pad[0]->IsTrigger(enButtonLeft)){
+					if (g_pad[0]->IsTrigger(enButtonLeft)) {
 						m_sevolume = max(0, m_sevolume - 1);
 					}
-					if (g_pad[0]->IsTrigger(enButtonRight)){
+					if (g_pad[0]->IsTrigger(enButtonRight)) {
 						m_sevolume = min(10, m_sevolume + 1);
 					}
 				}
@@ -159,7 +190,7 @@ void Pause::Update() {
 				}
 				if (m_soundMode == 3) {
 					if (g_pad[0]->IsTrigger(enButtonA)) {
-						m_menuSprite.Init("Assets/sprite/menu.dds", 1920.0f, 1080.0f);
+						m_menuSprite.Init("Assets/sprite/pause.dds", 1920.0f, 1080.0f);
 						m_state = PauseState::Main;
 					}
 				}
@@ -268,6 +299,10 @@ void Pause::Update() {
 		}
 		m_sprite.Update();
 		m_soundBerSprite.Update();
+		m_menuReturn.Update();
+		m_menuSound.Update();
+		m_returnTitle.Update();
+		m_endGame.Update();
 	}
 	if (m_title != nullptr) {
 		m_return = false;
@@ -279,6 +314,12 @@ void Pause::Render(RenderContext& rc) {
 		m_backGround.Draw(rc);
 		m_sprite.Draw(rc);
 		m_menuSprite.Draw(rc);
+		if (m_state == PauseState::Main) {
+			m_menuReturn.Draw(rc);
+			m_menuSound.Draw(rc);
+			m_returnTitle.Draw(rc);
+			m_endGame.Draw(rc);
+		}
 		if (m_state == PauseState::Sound) {
 			if (m_volume != 0) {
 				m_soundBerSprite.Draw(rc);
