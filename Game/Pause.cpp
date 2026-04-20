@@ -338,8 +338,8 @@ void Pause::Render(RenderContext& rc) {
 	if (m_isPause == true) {
 		m_backGround.Draw(rc);
 		m_sprite.Draw(rc);
-		m_menuSprite.Draw(rc);
 		if (m_state == PauseState::Main) {
+			m_menuSprite.Draw(rc);
 			m_menuReturn.Draw(rc);
 			m_menuSound.Draw(rc);
 			m_returnTitle.Draw(rc);
