@@ -23,6 +23,11 @@ bool Pause::Start() {
 	m_menuSound.Init("Assets/sprite/soundTest.dds", 1920.0f, 1080.0f);
 	m_returnTitle.Init("Assets/sprite/returnTitle.dds", 1920.0f, 1080.0f);
 	m_endGame.Init("Assets/sprite/endGame.dds", 1920.0f, 1080.0f);
+	m_pauseSound.Init("Assets/sprite/soundPauseMenu.dds", 1920.0f, 1080.0f);
+	m_menuSound2.Init("Assets/sprite/soundMove.dds", 1920.0f, 1080.0f);
+	m_menuSE.Init("Assets/sprite/seMove.dds", 1920.0f, 1080.0f);
+	m_menuMaster.Init("Assets/sprite/masterMove.dds", 1920.0f, 1080.0f);
+	m_returnMenu.Init("Assets/sprite/returnMove.dds", 1920.0f, 1080.0f);
 	m_soundBerSprite.Update();
 	m_seBerSprite.Update();
 	m_masterBerSprite.Update();
@@ -86,7 +91,6 @@ void Pause::Update() {
 				case 2:
 					if (g_pad[0]->IsTrigger(enButtonA)) {
 						m_state = PauseState::Sound;
-						m_menuSprite.Init("Assets/sprite/soundMenu.dds", 1920.0f, 1080.0f);
 					}
 					m_menuReturn.SetScale({ 1.0f,1.0f,1.0f });
 					m_menuSound.SetScale({ 1.05f,1.05f,1.0f });
@@ -142,15 +146,31 @@ void Pause::Update() {
 				switch (m_soundMode) {
 				case 0:
 					m_sprite.SetPosition({ -480.0f,190.0f,0.0f }); // BGM
+					m_menuSound2.SetScale({ 1.05f,1.05f,1.0f });
+					m_menuSE.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuMaster.SetScale({ 1.0f,1.0f,1.0f });
+					m_returnMenu.SetScale({ 1.0f,1.0f,1.0f });
 					break;
 				case 1:
 					m_sprite.SetPosition({ -480.0f,25.0f,0.0f }); // SE
+					m_menuSound2.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuSE.SetScale({ 1.05f,1.05f,1.0f });
+					m_menuMaster.SetScale({ 1.0f,1.0f,1.0f });
+					m_returnMenu.SetScale({ 1.0f,1.0f,1.0f });
 					break;
 				case 2:
 					m_sprite.SetPosition({ -480.0f,-130.0f,0.0f }); // マスター
+					m_menuSound2.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuSE.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuMaster.SetScale({ 1.05f,1.05f,1.0f });
+					m_returnMenu.SetScale({ 1.0f,1.0f,1.0f });
 					break;
 				case 3:
 					m_sprite.SetPosition({ -480.0f,-300.0f,0.0f }); //メニューに戻る
+					m_menuSound2.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuSE.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuMaster.SetScale({ 1.0f,1.0f,1.0f });
+					m_returnMenu.SetScale({ 1.05f,1.05f,1.0f });
 					break;
 				}
 				if (m_soundMode == 0) {
@@ -303,6 +323,11 @@ void Pause::Update() {
 		m_menuSound.Update();
 		m_returnTitle.Update();
 		m_endGame.Update();
+		m_pauseSound.Update();
+		m_menuSound2.Update();
+		m_menuSE.Update();
+		m_menuMaster.Update();
+		m_returnMenu.Update();
 	}
 	if (m_title != nullptr) {
 		m_return = false;
@@ -321,6 +346,11 @@ void Pause::Render(RenderContext& rc) {
 			m_endGame.Draw(rc);
 		}
 		if (m_state == PauseState::Sound) {
+			m_pauseSound.Draw(rc);
+			m_menuSound2.Draw(rc);
+			m_menuSE.Draw(rc);
+			m_menuMaster.Draw(rc);
+			m_returnMenu.Draw(rc);
 			if (m_volume != 0) {
 				m_soundBerSprite.Draw(rc);
 			}
