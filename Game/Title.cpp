@@ -71,6 +71,12 @@ void Title::Update() {
 				m_3++;
 			}
 		}
+		if (m_3 == 1) {
+			Vector4 FontColor = { 1.0f,1.0f,1.0f, m_fontHaikei };
+			m_fontHaikei += 0.02f;
+			m_font.SetMulColor(FontColor);
+			m_seafont.SetMulColor(FontColor);
+		}
 		m_count -= 0.015f;
 		m_i++;
 		m_se++;
@@ -104,6 +110,15 @@ void Title::Update() {
 			m_font.Init("Assets/sprite/GO.dds", 400.0f, 200.0f);
 			m_GO++;
 		}
+		Vector4 color = { 1.0f, 1.0f, 1.0f, m_alpha };
+		Vector4 hamachiColor = { 1.0f, 1.0f, 1.0f, m_hamachiAlpha };
+		
+		m_alpha -= 0.02f;
+		m_hamachiAlpha -= 0.008f;
+		m_font.SetMulColor(color);
+		m_seafont.SetMulColor(color);
+		m_render.SetMulColor(hamachiColor);
+		
 	}
 	if (m_count <= -1.0f) {
 		if (m_newGame == 0) {

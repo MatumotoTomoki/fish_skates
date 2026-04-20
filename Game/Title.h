@@ -19,6 +19,9 @@ public:
 	bool m_gaugeflug = false;
 	float m_count = 3.0f;
 	float m_scare = 0.0f;
+	float m_alpha = 1.0f;
+	float m_hamachiAlpha = 1.0f;
+	float m_fontHaikei = 0.0f;
 	int m_i = 0;
 	int m_j = 0;
 	int m_newGame = 0;
