@@ -20,6 +20,15 @@ private:
 	SpriteRender m_sprite;
 	SpriteRender m_backGround;
 	SpriteRender m_menuSprite;
+	SpriteRender m_menuReturn;
+	SpriteRender m_menuSound;
+	SpriteRender m_returnTitle;
+	SpriteRender m_endGame;
+	SpriteRender m_pauseSound;
+	SpriteRender m_menuSound2;
+	SpriteRender m_menuSE;
+	SpriteRender m_menuMaster;
+	SpriteRender m_returnMenu;
 	SpriteRender m_soundBerSprite;
 	SpriteRender m_seBerSprite;
 	SpriteRender m_masterBerSprite;
