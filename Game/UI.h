@@ -13,4 +13,5 @@ class UI : public IGameObject
 	Player* m_player;
 	int m_hpUI = 0;
 	int m_o2UI = 0;
+	bool m_heal = false;
 };
