@@ -4,8 +4,8 @@
 #include "Pause.h"
 
 bool UI::Start(){
-	m_spriteRender.Init("Assets/sprite/distance.dds", 500.0f, 500.0f);
-	m_spriteRender.SetPosition({ -780.0f,480.0f,0.0f });
+	m_spriteRender.Init("Assets/sprite/distance.dds", 650.0f, 630.0f);
+	m_spriteRender.SetPosition({ -740.0f,480.0f,0.0f });
 	m_spriteRender2.Init("Assets/sprite/hpGaugeFlame.dds", 600.0f, 390.0f);
 	m_spriteRender2.SetPosition({ 780.0f,480.0f,0.0f });
 	m_spriteRender3.Init("Assets/sprite/hpGauge.dds", 340.0f, 25.0f);

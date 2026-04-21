@@ -42,15 +42,15 @@ void Distance::Update() {
 	wchar_t distanceText[64];
 	swprintf(distanceText, 64, L"%.0f", distance);
 	m_font.SetText(distanceText);
-	m_font.SetColor(0.0f, 1.0f, 1.0f, 1.0f);
+	m_font.SetColor(0.7f, 1.0f, 1.0f, 1.0f);
 	if (distance < 10.0f) {
-		m_font.SetPosition(-830.0f, 510.0f, 0.0f);
+		m_font.SetPosition(-745.0f, 505.0f, 0.0f);
 	}
 	if (distance >= 10.0f) {
-		m_font.SetPosition(-850.0f, 510.0f, 0.0f);
+		m_font.SetPosition(-765.0f, 505.0f, 0.0f);
 	}
 	if (distance >= 100.0f) {
-		m_font.SetPosition(-870.0f, 510.0f, 0.0f);
+		m_font.SetPosition(-785.0f, 505.0f, 0.0f);
 	}
 	m_font.SetScale(1.0f);
 	m_model.SetPosition(m_pos);
