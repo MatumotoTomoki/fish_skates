@@ -4,7 +4,7 @@
 #include "Pause.h"
 
 bool GameClear::Start(){
-	m_spriteRender.Init("Assets/sprite/GameClear.DDS", 1920.0f, 1080.0f);
+	m_spriteRender.Init("Assets/sprite/GameClear.dds", 1920.0f, 1080.0f);
 	auto pause = FindGO<Pause>("Pause");
 	m_bgm = NewGO<SoundSource>(0);
 	m_bgm->Init(9);

@@ -11,4 +11,6 @@ class UI : public IGameObject
 	SpriteRender m_spriteRender4;
 	SpriteRender m_spriteRender5;
 	Player* m_player;
+	int m_hpUI = 0;
+	int m_o2UI = 0;
 };

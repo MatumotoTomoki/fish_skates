@@ -4,14 +4,14 @@
 #include "Pause.h"
 
 bool UI::Start(){
-	m_spriteRender.Init("Assets/sprite/distance.DDS", 500.0f, 500.0f);
+	m_spriteRender.Init("Assets/sprite/distance.dds", 500.0f, 500.0f);
 	m_spriteRender.SetPosition({ -780.0f,480.0f,0.0f });
-	m_spriteRender2.Init("Assets/sprite/hpGaugeFrame.DDS", 500.0f, 500.0f);
+	m_spriteRender2.Init("Assets/sprite/hpGaugeFlame.dds", 600.0f, 390.0f);
 	m_spriteRender2.SetPosition({ 780.0f,480.0f,0.0f });
-	m_spriteRender3.Init("Assets/sprite/hpGauge.DDS", 340.0f, 25.0f);
+	m_spriteRender3.Init("Assets/sprite/hpGauge.dds", 340.0f, 25.0f);
 	m_spriteRender3.SetPosition({ 780.0f,485.0f,0.0f });
-	m_spriteRender4.Init("Assets/sprite/O2GaugeFrame.DDS", 500.0f, 500.0f);
-	m_spriteRender4.SetPosition({ 780.0f,380.0f,0.0f });
+	m_spriteRender4.Init("Assets/sprite/o2GaugeFlame.dds", 570.0f, 390.0f);
+	m_spriteRender4.SetPosition({ 780.0f,375.0f,0.0f });
 	m_spriteRender5.Init("Assets/sprite/O2Gauge.dds", 340.0f, 25.0f);
 	m_spriteRender5.SetPosition({ 780.0f,385.0f,0.0f });
 	if (m_player == nullptr) {
@@ -24,6 +24,41 @@ void UI::Update(){
 	auto pause = FindGO<Pause>("Pause");
 	if (pause && pause->IsPaused()) {
 		return;
+	}
+	if (m_player->m_hp > -0.64f and m_hpUI == 0) {
+		m_spriteRender3.Init("Assets/sprite/hpHarfGauge.dds", 340.0f, 25.0f);
+		m_hpUI++;
+	}
+	if (m_player->m_hp > -0.44f and m_hpUI == 1) {
+		m_spriteRender3.Init("Assets/sprite/hpMinGauge.dds", 340.0f, 25.0f);
+		m_hpUI++;
+	}
+	if (m_player->m_hp > -0.34f and m_hpUI <= 6) {
+		m_spriteRender3.SetMulColor({ 1.0f,0.0f,0.0f,1.0f });
+		m_hpUI++;
+	}
+	if (m_player->m_hp > -0.34f and m_hpUI == 7) {
+		m_spriteRender3.SetMulColor({ 0.0f,0.0f,0.0f,1.0f });
+		m_hpUI -= 5;
+	}
+	if (m_player->m_hp > -0.64f) {
+		m_spriteRender5.Init("Assets/sprite/O2Gauge.dds", 340.0f, 25.0f);
+	}
+	if (m_player->m_o2 > -0.64f and m_o2UI == 0) {
+		m_spriteRender5.Init("Assets/sprite/hpHarfGauge.dds", 340.0f, 25.0f);
+		m_o2UI++;
+	}
+	if (m_player->m_o2 > -0.44f and m_o2UI == 1) {
+		m_spriteRender5.Init("Assets/sprite/hpMinGauge.dds", 340.0f, 25.0f);
+		m_o2UI++;
+	}
+	if (m_player->m_o2 > -0.34f and m_o2UI <= 6) {
+		m_spriteRender5.SetMulColor({ 1.0f,0.0f,0.0f,1.0f });
+		m_o2UI++;
+	}
+	if (m_player->m_o2 > -0.34f and m_o2UI == 7) {
+		m_spriteRender5.SetMulColor({ 0.0f,0.0f,0.0f,1.0f });
+		m_o2UI -= 5;
 	}
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
