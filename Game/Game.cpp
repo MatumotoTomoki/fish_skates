@@ -15,6 +15,7 @@
 #include "SilenPengin.h"
 #include "Pause.h"
 #include "Title.h"
+#include "Arrow.h"
 
 void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
@@ -83,6 +84,7 @@ void Game::Update(){
 			break;
 		case 2:
 			m_distance = NewGO<Distance>(0, "Distance");
+			m_arrow = NewGO<Arrow>(0, "Arrow");
 			break;
 		case 3:
 			m_gameBGM = NewGO<SoundSource>(0);
@@ -184,6 +186,7 @@ void Game::Update(){
 		DeleteGO(m_dummy5);
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
+		DeleteGO(m_arrow);
 		NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
@@ -201,6 +204,7 @@ void Game::Update(){
 		DeleteGO(m_dummy5);
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
+		DeleteGO(m_arrow);
 		NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
@@ -218,6 +222,7 @@ void Game::Update(){
 		DeleteGO(m_dummy5);
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
+		DeleteGO(m_arrow);
 		NewGO<GameClear>(0, "GameClear");
 		DeleteGO(this);
 	}
@@ -236,6 +241,7 @@ void Game::Update(){
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_pause);
+		DeleteGO(m_arrow);
 		DeleteGO(this);
 	}
 	m_stageRender.Update();

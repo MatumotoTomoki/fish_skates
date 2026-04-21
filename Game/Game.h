@@ -12,6 +12,7 @@ class Dummy3;
 class Dummy5;
 class Pause;
 class Distance;
+class Arrow;
 class Game : public IGameObject
 {
 public:
@@ -50,6 +51,7 @@ private:
 	Dummy5* m_dummy5;
 	Pause* m_pause;
 	Distance* m_distance;
+	Arrow* m_arrow;
 	bool m_stop = false;
 	int m_skyCubeType = enSkyCubeType_Day;
 	int  m_loadStep = 0;
