@@ -29,6 +29,7 @@ void Distance::Update() {
 		break;
 	default:
 		m_pos.z = 99999999999.9f;
+		DeleteGO(this);
 		break;
 	}
 	Vector3 center = m_pos;
