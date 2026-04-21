@@ -35,6 +35,24 @@ bool Title::Start() {
 }
 
 void Title::Update() {
+	Vector4 startColor = { 1.0f, 1.0f, 1.0f, m_startColor };
+	if (m_startColor >= 1.0f)
+	{
+		m_startAlpha = true;
+	}
+	if (m_startColor <= 0.0f)
+	{
+		m_startAlpha = false;
+	}
+	if (m_startAlpha == true)
+	{
+		m_startColor -= 0.01f;
+	}
+	if (m_startAlpha == false)
+	{
+		m_startColor += 0.01f;
+	}
+	m_start.SetMulColor(startColor);
 	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0) {
 		DeleteGO(m_sound);
 		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
