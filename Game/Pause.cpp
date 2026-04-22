@@ -28,9 +28,12 @@ bool Pause::Start() {
 	m_menuSE.Init("Assets/sprite/seMove.dds", 1920.0f, 1080.0f);
 	m_menuMaster.Init("Assets/sprite/masterMove.dds", 1920.0f, 1080.0f);
 	m_returnMenu.Init("Assets/sprite/returnMove.dds", 1920.0f, 1080.0f);
+	m_defalt.Init("Assets/sprite/defalt.dds", 700.0f, 500.0f);
+	m_defalt.SetPosition({ -400.0f,-400.0f,0.0f });
 	m_soundBerSprite.Update();
 	m_seBerSprite.Update();
 	m_masterBerSprite.Update();
+	m_defalt.Update();
 	return true;
 }
 
@@ -351,6 +354,7 @@ void Pause::Render(RenderContext& rc) {
 			m_menuSE.Draw(rc);
 			m_menuMaster.Draw(rc);
 			m_returnMenu.Draw(rc);
+			m_defalt.Draw(rc);
 			if (m_volume != 0) {
 				m_soundBerSprite.Draw(rc);
 			}
