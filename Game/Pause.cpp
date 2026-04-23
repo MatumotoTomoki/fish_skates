@@ -29,7 +29,8 @@ bool Pause::Start() {
 	m_menuMaster.Init("Assets/sprite/masterMove.dds", 1920.0f, 1080.0f);
 	m_returnMenu.Init("Assets/sprite/returnMove.dds", 1920.0f, 1080.0f);
 	m_defalt.Init("Assets/sprite/defalt.dds", 700.0f, 500.0f);
-	m_defalt.SetPosition({ -400.0f,-400.0f,0.0f });
+	m_defalt.SetPosition({ -200.0f,-300.0f,0.0f });
+	m_returnMenu.SetPosition({ 0.0f,-140.0f,0.0f });
 	m_soundBerSprite.Update();
 	m_seBerSprite.Update();
 	m_masterBerSprite.Update();
@@ -137,12 +138,12 @@ void Pause::Update() {
 				if (g_pad[0]->IsTrigger(enButtonUp)) {
 					m_soundMode--;
 					if (m_soundMode < 0) {
-						m_soundMode = 3;
+						m_soundMode = 4;
 					}
 				}
 				if (g_pad[0]->IsTrigger(enButtonDown)) {
 					m_soundMode++;
-					if (m_soundMode > 3) {
+					if (m_soundMode > 4) {
 						m_soundMode = 0;
 					}
 				}
@@ -153,6 +154,7 @@ void Pause::Update() {
 					m_menuSE.SetScale({ 1.0f,1.0f,1.0f });
 					m_menuMaster.SetScale({ 1.0f,1.0f,1.0f });
 					m_returnMenu.SetScale({ 1.0f,1.0f,1.0f });
+					m_defalt.SetScale({ 1.0f,1.0f,1.0f });
 					break;
 				case 1:
 					m_sprite.SetPosition({ -480.0f,25.0f,0.0f }); // SE
@@ -160,6 +162,7 @@ void Pause::Update() {
 					m_menuSE.SetScale({ 1.05f,1.05f,1.0f });
 					m_menuMaster.SetScale({ 1.0f,1.0f,1.0f });
 					m_returnMenu.SetScale({ 1.0f,1.0f,1.0f });
+					m_defalt.SetScale({ 1.0f,1.0f,1.0f });
 					break;
 				case 2:
 					m_sprite.SetPosition({ -480.0f,-130.0f,0.0f }); // マスター
@@ -167,13 +170,23 @@ void Pause::Update() {
 					m_menuSE.SetScale({ 1.0f,1.0f,1.0f });
 					m_menuMaster.SetScale({ 1.05f,1.05f,1.0f });
 					m_returnMenu.SetScale({ 1.0f,1.0f,1.0f });
+					m_defalt.SetScale({ 1.0f,1.0f,1.0f });
 					break;
 				case 3:
-					m_sprite.SetPosition({ -480.0f,-300.0f,0.0f }); //メニューに戻る
+					m_sprite.SetPosition({ -480.0f,-290.0f,0.0f }); //メニューに戻る
+					m_menuSound2.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuSE.SetScale({ 1.0f,1.0f,1.0f });
+					m_menuMaster.SetScale({ 1.0f,1.0f,1.0f });
+					m_returnMenu.SetScale({ 1.0f,1.0f,1.0f });
+					m_defalt.SetScale({ 1.05f,1.05f,1.0f });
+					break;
+				case 4:
+					m_sprite.SetPosition({ -480.0f,-440.0f,0.0f }); //メニューに戻る
 					m_menuSound2.SetScale({ 1.0f,1.0f,1.0f });
 					m_menuSE.SetScale({ 1.0f,1.0f,1.0f });
 					m_menuMaster.SetScale({ 1.0f,1.0f,1.0f });
 					m_returnMenu.SetScale({ 1.05f,1.05f,1.0f });
+					m_defalt.SetScale({ 1.0f,1.0f,1.0f });
 					break;
 				}
 				if (m_soundMode == 0) {
@@ -212,6 +225,13 @@ void Pause::Update() {
 					}
 				}
 				if (m_soundMode == 3) {
+					if (g_pad[0]->IsTrigger(enButtonA)) {
+						m_volume = 10;
+						m_sevolume = 10;
+						m_master = 7;
+					}
+				}
+				if (m_soundMode == 4) {
 					if (g_pad[0]->IsTrigger(enButtonA)) {
 						m_menuSprite.Init("Assets/sprite/pause.dds", 1920.0f, 1080.0f);
 						m_state = PauseState::Main;
@@ -331,6 +351,7 @@ void Pause::Update() {
 		m_menuSE.Update();
 		m_menuMaster.Update();
 		m_returnMenu.Update();
+		m_defalt.Update();
 	}
 	if (m_title != nullptr) {
 		m_return = false;
