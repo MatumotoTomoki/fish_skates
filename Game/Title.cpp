@@ -79,7 +79,7 @@ void Title::Update() {
 	if (m_flug == true) {
 		if (m_i == 3) {
 			if (m_pause == nullptr) {
-				m_pause = NewGO<Pause>(0, "Pause");
+				m_pause = NewGO<Pause>(1, "Pause");
 			}
 			NewGO<Water>(0);
 			NewGO<SkyCube>(0, "SkyCube");
