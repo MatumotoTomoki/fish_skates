@@ -2,6 +2,8 @@
 #include "Pause.h"
 #include "Title.h" 
 #include "Game.h"
+#include "GameClear.h"
+#include "GameOver.h"
 
 bool Pause::Start() {
 	m_sprite.Init("Assets/sprite/allow.dds", 300.0f, 200.0f);
@@ -42,9 +44,27 @@ void Pause::Update() {
 	if (m_game == nullptr) {
 		m_game = FindGO<Game>("Game");
 	}
-	/*if (m_game != nullptr and m_game->m_initialized == false) {
+	if (m_gameClear == nullptr) {
+		m_gameClear = FindGO<GameClear>("GameClear");
+	}
+	if (m_gameOver == nullptr) {
+		m_gameOver = FindGO<GameOver>("GameOver");
+	}
+	if (m_title == nullptr) {
+		m_title = FindGO<Title>("Title");
+	}
+	if (m_title) {
+		m_title = nullptr;
 		return;
-	}*/
+	}
+	if (m_gameClear) {
+		m_gameClear = nullptr;
+		return;
+	}
+	if (m_gameOver) {
+		m_gameOver = nullptr;
+		return;
+	}
 	if (m_game) {
 		if (g_pad[0]->IsTrigger(enButtonStart)) {
 			m_soundMode = 0;

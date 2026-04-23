@@ -1,5 +1,7 @@
 ﻿#pragma once
 class Game;
+class GameClear;
+class GameOver;
 class Title;
 class Pause : public IGameObject
 {
@@ -34,6 +36,8 @@ private:
 	SpriteRender m_masterBerSprite;
 	SpriteRender m_defalt;
 	Game* m_game;
+	GameClear* m_gameClear;
+	GameOver* m_gameOver;
 	Title* m_title;
 	bool m_isPause = false;
 	enum class PauseState {
