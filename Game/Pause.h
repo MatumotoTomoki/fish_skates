@@ -32,6 +32,7 @@ private:
 	SpriteRender m_soundBerSprite;
 	SpriteRender m_seBerSprite;
 	SpriteRender m_masterBerSprite;
+	SpriteRender m_defalt;
 	Game* m_game;
 	Title* m_title;
 	bool m_isPause = false;
