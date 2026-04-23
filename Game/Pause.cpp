@@ -233,6 +233,7 @@ void Pause::Update() {
 				}
 				if (m_soundMode == 4) {
 					if (g_pad[0]->IsTrigger(enButtonA)) {
+						m_soundMode = 0;
 						m_menuSprite.Init("Assets/sprite/pause.dds", 1920.0f, 1080.0f);
 						m_state = PauseState::Main;
 					}

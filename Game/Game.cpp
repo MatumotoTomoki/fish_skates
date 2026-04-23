@@ -150,7 +150,7 @@ void Game::Update(){
 		}
 		if (m_pause->m_soundMode == 4) {
 			if (g_pad[0]->IsTrigger(enButtonA)) {
-				m_pause->m_soundMode = 0;
+				//m_pause->m_soundMode = 0;
 				m_pause->m_soundTest = false;
 				m_menuSE = NewGO<SoundSource>(0);
 				m_menuSE->Init(6);
