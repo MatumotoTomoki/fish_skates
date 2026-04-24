@@ -55,8 +55,8 @@ void Title::Update() {
 	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0) {
 		m_titleColor = 1.0f;
 		DeleteGO(m_sound);
-		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
-		m_gaugeflug = true;
+		m_render.Init("Assets/sprite/Manual.dds", 1920.0f, 1080.0f);
+		//m_gaugeflug = true;
 		m_j++;
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(2);
@@ -68,6 +68,29 @@ void Title::Update() {
 		else {
 			se->SetVolume(2.5f);
 		}
+		//m_game->Preload();
+		m_coolTime = true;
+	}
+	if (m_coolTime == true) {
+		m_cool++;
+		if (m_cool > 2) {
+			m_cool = 3;
+		}
+	}
+	if (m_j == 1 and (g_pad[0]->IsTrigger(enButtonA)) and m_cool > 2) {
+		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
+		m_gaugeflug = true;
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(2);
+		se->Play(false);
+		if (m_pause) {
+			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+			se->SetVolume(finalSE);
+		}
+		else {
+			se->SetVolume(2.5f);
+		}
+		m_j++;
 		m_game->Preload();
 	}
 	if (m_gaugeflug == true) {

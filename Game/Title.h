@@ -12,12 +12,14 @@ public:
 	SpriteRender m_gauge;
 	SpriteRender m_seafont;
 	SpriteRender m_start;
+	SpriteRender m_manual;
 	Game* m_game;
 	Pause* m_pause;
 	SoundSource* m_sound;
 	bool m_flug = false;
 	bool m_gaugeflug = false;
 	bool m_startAlpha = false;
+	bool m_coolTime = false;
 	float m_count = 3.0f;
 	float m_scare = 0.0f;
 	float m_alpha = 1.0f;
@@ -34,4 +36,5 @@ public:
 	int m_1 = 0;
 	int m_GO = 0;
 	int m_sea = 0;
+	int m_cool = 0;
 };
