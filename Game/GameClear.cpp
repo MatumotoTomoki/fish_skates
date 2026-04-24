@@ -15,11 +15,14 @@ bool GameClear::Start(){
 }
 
 void GameClear::Update(){
+	m_color += 0.1f;
+	m_spriteRender.SetMulColor({ 1.0f, 1.0f, 1.0f, m_color});
 	if (g_pad[0]->IsTrigger(enButtonA)){
 		DeleteGO(m_bgm);
 		NewGO<Title>(0, "Title");
 		DeleteGO(this);
 	}
+	m_spriteRender.Update();
 }
 
 void GameClear::Render(RenderContext& rc){

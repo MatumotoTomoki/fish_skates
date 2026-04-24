@@ -6,5 +6,6 @@ class GameClear : public IGameObject
     void Render(RenderContext& rc);
     SpriteRender m_spriteRender;
     SoundSource* m_bgm;
+    float m_color = 0.0f;
 };
 

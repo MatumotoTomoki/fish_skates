@@ -6,5 +6,6 @@ class GameOver : public IGameObject
 	void Render(RenderContext& rc);
 	SpriteRender m_render;
 	SoundSource* m_bgm;
+	float m_color = 0.0f;
 };
 
