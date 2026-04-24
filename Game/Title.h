@@ -23,7 +23,8 @@ public:
 	float m_alpha = 1.0f;
 	float m_hamachiAlpha = 1.0f;
 	float m_fontHaikei = 0.0f;
-	float m_startColor = 1.0f;
+	float m_startColor = 0.0f;
+	float m_titleColor = 0.0f;
 	int m_i = 0;
 	int m_j = 0;
 	int m_newGame = 0;

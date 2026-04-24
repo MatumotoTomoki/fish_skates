@@ -35,7 +35,7 @@ void Game::Preload() {
 bool Game::Start(){
 	m_stageLevelRnder.Init("Assets/modelData/Stage2.tkl", [&](LevelObjectData& odData){
 			m_skyCube = FindGO<SkyCube>("SkyCube");
-			m_water = FindGO<Water>("");
+			m_water = FindGO<Water>("Water");
 			m_pause = FindGO<Pause>("Pause");
 			m_gameCamera = FindGO<GameCamera>("GameCamera");
 			if (odData.EqualObjectName(L"fish") == true)

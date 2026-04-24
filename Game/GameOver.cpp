@@ -15,11 +15,25 @@ bool GameOver::Start() {
 }
 
 void GameOver::Update() {
-	m_color += 0.1f;
+	if (m_change == false) {
+		m_color += 0.01f;
+	}
+	if (m_color > 1.0f) {
+		m_color = 1.0f;
+	}
 	m_render.SetMulColor({1.0f, 1.0f, 1.0f, m_color});
 	if (g_pad[0]->IsTrigger(enButtonA)) {
 		DeleteGO(m_bgm);
-		NewGO<Title>(0, "Title");
+		m_change = true;
+		if (m_i == 0) {
+			NewGO<Title>(0, "Title");
+		}
+		m_i++;
+	}
+	if (m_change == true) {
+		m_color -= 0.01;
+	}
+	if (m_color < 0.0f) {
 		DeleteGO(this);
 	}
 	m_render.Update();
