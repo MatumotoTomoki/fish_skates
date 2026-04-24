@@ -248,8 +248,8 @@ void Game::Update(){
 		DeleteGO(m_dummy5);
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
-		DeleteGO(m_pause);
 		DeleteGO(m_arrow);
+		m_pause->m_return = false;
 		DeleteGO(this);
 	}
 	m_stageRender.Update();

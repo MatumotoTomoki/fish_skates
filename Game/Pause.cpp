@@ -105,6 +105,7 @@ void Pause::Update() {
 				case 1:
 					if (g_pad[0]->IsTrigger(enButtonA)) {
 						NewGO<Title>(0, "Title");
+						m_isPause = false;
 						m_return = true;
 					}
 					m_menuReturn.SetScale({ 1.0f,1.0f,1.0f });
@@ -373,9 +374,6 @@ void Pause::Update() {
 		m_menuMaster.Update();
 		m_returnMenu.Update();
 		m_defalt.Update();
-	}
-	if (m_title != nullptr) {
-		m_return = false;
 	}
 }
 
