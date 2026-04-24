@@ -39,20 +39,16 @@ void Title::Update() {
 	m_titleColor += 0.01f;
 	m_render.SetMulColor(titleColor);
 	Vector4 startColor = { 1.0f, 1.0f, 1.0f, m_startColor };
-	if (m_startColor >= 1.0f)
-	{
+	if (m_startColor >= 1.0f) {
 		m_startAlpha = false;
 	}
-	if (m_startColor <= 0.0f)
-	{
+	if (m_startColor <= 0.0f) {
 		m_startAlpha = true;
 	}
-	if (m_startAlpha == false)
-	{
+	if (m_startAlpha == false) {
 		m_startColor -= 0.01f;
 	}
-	if (m_startAlpha == true)
-	{
+	if (m_startAlpha == true) {
 		m_startColor += 0.01f;
 	}
 	m_start.SetMulColor(startColor);
@@ -85,7 +81,7 @@ void Title::Update() {
 			if (m_pause == nullptr) {
 				m_pause = NewGO<Pause>(1, "Pause");
 			}
-			NewGO<Water>(0,"Water");
+			NewGO<Water>(0, "Water");
 			NewGO<SkyCube>(0, "SkyCube");
 			NewGO<GameCamera>(0, "GameCamera");
 			if (m_3 == 0) {
@@ -134,13 +130,13 @@ void Title::Update() {
 		}
 		Vector4 color = { 1.0f, 1.0f, 1.0f, m_alpha };
 		Vector4 hamachiColor = { 1.0f, 1.0f, 1.0f, m_hamachiAlpha };
-		
+
 		m_alpha -= 0.02f;
 		m_hamachiAlpha -= 0.008f;
 		m_font.SetMulColor(color);
 		m_seafont.SetMulColor(color);
 		m_render.SetMulColor(hamachiColor);
-		
+
 	}
 	if (m_count <= -1.0f) {
 		if (m_newGame == 0) {
