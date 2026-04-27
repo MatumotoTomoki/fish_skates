@@ -2,9 +2,9 @@
 #include "Arrow.h"
 #include "Player.h"
 #include "Distance.h"
-bool Arrow::Start()
-{
+bool Arrow::Start() {
 	m_modelRender.Init("Assets/modelData/Arrow.tkm");
+	m_modelRender.SetShadowCasterFlag(false);
 	m_player = FindGO<Player>("Player");
 	m_distance = FindGO<Distance>("Distance");
 	m_position = { m_player->m_position.x,10.0f,m_player->m_position.z };
@@ -16,8 +16,7 @@ bool Arrow::Start()
 	return true;
 }
 
-void Arrow::Update()
-{
+void Arrow::Update() {
 	m_position = { m_player->m_position.x,m_player->m_position.y,m_player->m_position.z };
 	m_position.y += 100.0f;
 	m_modelRender.SetPosition(m_position);
@@ -29,7 +28,6 @@ void Arrow::Update()
 	m_modelRender.Update();
 }
 
-void Arrow::Render(RenderContext& rc)
-{
+void Arrow::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
 }
