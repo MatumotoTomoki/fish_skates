@@ -7,6 +7,7 @@
 
 bool Title::Start() {
 	m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
+	m_manual.Init("Assets/sprite/Manual.dds", 1920.0f, 1080.0f);
 	g_soundEngine->ResistWaveFileBank(2, "Assets/Sound/start.wav");
 	g_soundEngine->ResistWaveFileBank(8, "Assets/Sound/countdown.wav");
 	g_soundEngine->ResistWaveFileBank(11, "Assets/sound/title.wav");
@@ -31,6 +32,7 @@ bool Title::Start() {
 	m_gauge.Update();
 	m_seafont.Update();
 	m_start.Update();
+	m_manual.Update();
 	return true;
 }
 
@@ -55,8 +57,6 @@ void Title::Update() {
 	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0) {
 		m_titleColor = 1.0f;
 		DeleteGO(m_sound);
-		m_render.Init("Assets/sprite/Manual.dds", 1920.0f, 1080.0f);
-		//m_gaugeflug = true;
 		m_j++;
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(2);
@@ -72,6 +72,13 @@ void Title::Update() {
 		m_coolTime = true;
 	}
 	if (m_coolTime == true) {
+		if (m_gaugeflug==false)
+		{
+		m_manualColor += 0.01;
+		}
+		if(m_gaugeflug ==true) {
+			m_manualColor -= 1.0;
+		}
 		m_cool++;
 		if (m_cool > 2) {
 			m_cool = 3;
@@ -171,20 +178,27 @@ void Title::Update() {
 			DeleteGO(this);
 		}
 	}
+	Vector4 manuaColor = { 1.0f,1.0f,1.0f,m_manualColor };
+	m_manual.SetMulColor(manuaColor);
 }
 
 void Title::Render(RenderContext& rc) {
 	m_render.Draw(rc);
-	if (m_i < 1) {
-		m_start.Draw(rc);
-	}
+	
+	
 	if (m_i > 0) {
 		if (m_i < 4) {
 			m_gauge.Draw(rc);
 		}
 		m_font.Draw(rc);
 	}
+	m_manual.Draw(rc);
+	if (m_i < 1) {
+		m_start.Draw(rc);
+	}
+	
 	if (m_i > 3) {
 		m_seafont.Draw(rc);
 	}
+	
 }

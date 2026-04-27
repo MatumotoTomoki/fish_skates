@@ -20,6 +20,7 @@ public:
 	bool m_gaugeflug = false;
 	bool m_startAlpha = false;
 	bool m_coolTime = false;
+	bool m_manualAlpha = false;
 	float m_count = 3.0f;
 	float m_scare = 0.0f;
 	float m_alpha = 1.0f;
@@ -27,6 +28,7 @@ public:
 	float m_fontHaikei = 0.0f;
 	float m_startColor = 0.0f;
 	float m_titleColor = 0.0f;
+	float m_manualColor = 0.0f;
 	int m_i = 0;
 	int m_j = 0;
 	int m_newGame = 0;
