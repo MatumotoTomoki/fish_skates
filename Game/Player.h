@@ -34,11 +34,14 @@ public:
 	float m_hp = -1.05f;
 	float m_o2 = -1.05f;
 	float m_count = 0.0f;
+	float m_posy = -100.0f;;
 	int m_i = 0;
 	int m_se = 0;
+	int m_eff = 0;
 	SpriteRender m_sprite;
 	Pengin* m_pengin;
 	NinjaPengin* m_ninjaPengin;
 	SilenPengin* m_silenPengin;
 	Dummy5* m_dummy5;
+	EffectEmitter* m_effectEmitter = nullptr;//エフェクト。
 };

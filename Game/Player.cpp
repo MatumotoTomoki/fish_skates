@@ -17,6 +17,10 @@ bool Player::Start() {
 	m_animationClips[enAnimClip_WaterJump].Load("Assets/animdata/fish_waterJump.tka");
 	m_animationClips[enAnimClip_WaterJump].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/fish_idol.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
+	m_effectEmitter = NewGO <EffectEmitter>(0);
+	m_effectEmitter->Init(1);
+	m_effectEmitter->SetScale({ 90.0f,90.0f,90.0f });
+	m_effectEmitter->Play();
 	m_modelRender.SetScale(10.0f, 10.0f, 10.0f);
 	m_sprite.Init("Assets/sprite/931912.dds",150.0f,150.0f);
 	m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
@@ -81,6 +85,8 @@ void Player::Update() {
 	}
 	if (m_characterController.IsOnGround() == true) {
 		if (m_swim == false) {
+			m_eff = 0;
+			m_effectEmitter->SetPosition({90000.0f,0.0f,0.0f});
 			m_se = 0;
 		}
 		m_waterJump = false;
@@ -146,6 +152,15 @@ void Player::Update() {
 		}
 	}
 	if (m_swim == true) {
+		if (m_eff < 12) {
+			m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
+			m_posy += 100.0f;
+			m_eff++;
+		}
+		if (m_eff > 11) {
+			m_effectEmitter->SetPosition({ 90000.0f,0.0f,0.0f });
+			m_posy = -100.0f;
+		}
 		if (m_se == 0) {
 			SoundSource* se = NewGO<SoundSource>(0);
 			se->Init(7);
