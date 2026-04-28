@@ -23,7 +23,7 @@ bool Title::Start() {
 	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
 	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
 	m_seafont.SetPosition({ 10.0f, -200.0f, 0.0f });
-	m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
+	m_start.Init("Assets/sprite/next.dds", 1000.0f, 700.0f);
 	m_start.SetPosition({ 0.0f,-300.0f,0.0f });
 	m_font.SetPosition({ 0.0f, 0.0f, 0.0f });
 	m_gauge.SetPosition({ -600.0f, -7.0f, 0.0f });
@@ -55,6 +55,7 @@ void Title::Update() {
 	}
 	m_start.SetMulColor(startColor);
 	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0) {
+		m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
 		m_titleColor = 1.0f;
 		DeleteGO(m_sound);
 		m_j++;
