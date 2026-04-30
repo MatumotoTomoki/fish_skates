@@ -147,7 +147,7 @@ void Player::Update() {
 			m_sprite.SetPosition({ 0.0f,-275.0f,0.0f });
 			auto eff = NewGO<EffectEmitter>(0);
 			eff->Init(2);
-			eff->SetScale({ 10.0f,1.0f,20.0f });
+			eff->SetScale({ 10.0f,1.0f,10.0f });
 			eff->SetPosition(m_position);
 			eff->Play();
 			m_sprite.Update();

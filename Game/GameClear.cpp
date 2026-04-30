@@ -3,7 +3,7 @@
 #include "Title.h"
 #include "Pause.h"
 
-bool GameClear::Start(){
+bool GameClear::Start() {
 	m_spriteRender.Init("Assets/sprite/GameClear.dds", 1920.0f, 1080.0f);
 	auto pause = FindGO<Pause>("Pause");
 	m_bgm = NewGO<SoundSource>(0);
@@ -39,7 +39,7 @@ void GameClear::Update() {
 	m_spriteRender.Update();
 }
 
-void GameClear::Render(RenderContext& rc){
+void GameClear::Render(RenderContext& rc) {
 	m_spriteRender.Draw(rc);
 }
 

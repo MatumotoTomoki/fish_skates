@@ -69,7 +69,6 @@ void Title::Update() {
 		else {
 			se->SetVolume(2.5f);
 		}
-		//m_game->Preload();
 		m_coolTime = true;
 	}
 	if (m_coolTime == true) {
@@ -185,8 +184,6 @@ void Title::Update() {
 
 void Title::Render(RenderContext& rc) {
 	m_render.Draw(rc);
-	
-	
 	if (m_i > 0) {
 		if (m_i < 4) {
 			m_gauge.Draw(rc);
@@ -197,9 +194,7 @@ void Title::Render(RenderContext& rc) {
 	if (m_i < 1) {
 		m_start.Draw(rc);
 	}
-	
 	if (m_i > 3) {
 		m_seafont.Draw(rc);
 	}
-	
 }
