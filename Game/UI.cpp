@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Pause.h"
 
-bool UI::Start(){
+bool UI::Start() {
 	m_spriteRender.Init("Assets/sprite/distance.dds", 650.0f, 630.0f);
 	m_spriteRender.SetPosition({ -740.0f,480.0f,0.0f });
 	m_spriteRender2.Init("Assets/sprite/hpGaugeFlame.dds", 600.0f, 390.0f);
@@ -22,7 +22,7 @@ bool UI::Start(){
 	return true;
 }
 
-void UI::Update(){
+void UI::Update() {
 	auto pause = FindGO<Pause>("Pause");
 	if (pause && pause->IsPaused()) {
 		return;
@@ -86,7 +86,7 @@ void UI::Update(){
 	m_spriteRender5.Update();
 }
 
-void UI::Render(RenderContext& rc){
+void UI::Render(RenderContext& rc) {
 	m_spriteRender.Draw(rc);
 	m_spriteRender3.Draw(rc);
 	m_spriteRender2.Draw(rc);

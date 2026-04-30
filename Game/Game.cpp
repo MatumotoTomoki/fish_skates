@@ -34,42 +34,42 @@ void Game::Preload() {
 	title->m_flug = true;
 }
 
-bool Game::Start(){
-	m_stageLevelRnder.Init("Assets/modelData/Stage2.tkl", [&](LevelObjectData& odData){
-			m_skyCube = FindGO<SkyCube>("SkyCube");
-			m_water = FindGO<Water>("Water");
-			m_pause = FindGO<Pause>("Pause");
-			m_gameCamera = FindGO<GameCamera>("GameCamera");
-			if (odData.EqualObjectName(L"fish") == true)
-			{
-				m_modelRender.Init("Assets/modelData/fish/Fish.tkm");
-				m_modelRender.SetTRS(
-					odData.position,
-					odData.rotation,
-					odData.scale);
-				return true;
-			}
-			if (odData.EqualObjectName(L"Stage") == true){
-				m_stageRender.Init("Assets/modelData/tairiku4.tkm");
-				m_stageRender.SetTRS(
-					odData.position,
-					odData.rotation,
-					odData.scale);
-				m_stageRender.SetPosition(0.0f, 0.0f, 0.0f);
-				m_stageRender.SetScale(100.0f, 100.0f, 100.0f);
-				m_stageRender.Update();
-				m_physicsStaticObject.CreateFromModel(
-					m_stageRender.GetModel(),
-					m_stageRender.GetModel().GetWorldMatrix()
-				);
-				return true;
-			}
+bool Game::Start() {
+	m_stageLevelRnder.Init("Assets/modelData/Stage2.tkl", [&](LevelObjectData& odData) {
+		m_skyCube = FindGO<SkyCube>("SkyCube");
+		m_water = FindGO<Water>("Water");
+		m_pause = FindGO<Pause>("Pause");
+		m_gameCamera = FindGO<GameCamera>("GameCamera");
+		if (odData.EqualObjectName(L"fish") == true)
+		{
+			m_modelRender.Init("Assets/modelData/fish/Fish.tkm");
+			m_modelRender.SetTRS(
+				odData.position,
+				odData.rotation,
+				odData.scale);
+			return true;
+		}
+		if (odData.EqualObjectName(L"Stage") == true) {
+			m_stageRender.Init("Assets/modelData/tairiku4.tkm");
+			m_stageRender.SetTRS(
+				odData.position,
+				odData.rotation,
+				odData.scale);
+			m_stageRender.SetPosition(0.0f, 0.0f, 0.0f);
+			m_stageRender.SetScale(100.0f, 100.0f, 100.0f);
+			m_stageRender.Update();
+			m_physicsStaticObject.CreateFromModel(
+				m_stageRender.GetModel(),
+				m_stageRender.GetModel().GetWorldMatrix()
+			);
+			return true;
+		}
 		});
 	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;
 }
 
-void Game::Update(){
+void Game::Update() {
 	if (!m_initialized) {
 		switch (m_loadStep) {
 		case 0:
@@ -258,6 +258,6 @@ void Game::Update(){
 	m_modelRender.Update();
 }
 
-void Game::Render(RenderContext& rc){
+void Game::Render(RenderContext& rc) {
 	m_stageRender.Draw(rc);
 }
