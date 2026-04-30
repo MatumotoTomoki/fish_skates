@@ -73,6 +73,11 @@ void Player::Update() {
 	if (m_characterController.IsOnGround() == true or m_swim == true) {
 		if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
 			if (g_pad[0]->IsTrigger(enButtonA)) {
+				auto eff = NewGO<EffectEmitter>(0);
+				eff->Init(2);
+				eff->SetScale({ 10.0f,1.0f,10.0f });
+				eff->SetPosition(m_position);
+				eff->Play();
 				m_velocity.y = 12.0f;
 			}
 		}
@@ -111,6 +116,11 @@ void Player::Update() {
 			m_velocity.y += 25.0f;
 			m_sprite.Init("Assets/sprite/931908.dds", 200.0f, 150.0f);
 			m_sprite.SetPosition({ -25.0f,-300.0f,0.0f });
+			auto eff = NewGO<EffectEmitter>(0);
+			eff->Init(2);
+			eff->SetScale({ 10.0f,1.0f,10.0f });
+			eff->SetPosition(m_position);
+			eff->Play();
 			m_sprite.Update();
 		}
 	}
@@ -121,6 +131,11 @@ void Player::Update() {
 			m_velocity.x += 300.0f;
 			m_sprite.Init("Assets/sprite/931902.dds", 200.0f, 150.0f);
 			m_sprite.SetPosition({ 25.0f,-300.0f,0.0f });
+			auto eff = NewGO<EffectEmitter>(0);
+			eff->Init(2);
+			eff->SetScale({ 10.0f,1.0f,10.0f });
+			eff->SetPosition(m_position);
+			eff->Play();
 			m_sprite.Update();
 		}
 	}
@@ -130,6 +145,11 @@ void Player::Update() {
 			m_velocity.y += 25.0f;
 			m_sprite.Init("Assets/sprite/931911.dds", 150.0f, 200.0f);
 			m_sprite.SetPosition({ 0.0f,-275.0f,0.0f });
+			auto eff = NewGO<EffectEmitter>(0);
+			eff->Init(2);
+			eff->SetScale({ 10.0f,1.0f,20.0f });
+			eff->SetPosition(m_position);
+			eff->Play();
 			m_sprite.Update();
 		}
 	}
@@ -140,6 +160,11 @@ void Player::Update() {
 			m_velocity.y += 20.0f;
 			m_sprite.Init("Assets/sprite/931905.dds", 150.0f, 200.0f);
 			m_sprite.SetPosition({ 0.0f,-325.0f,0.0f });
+			auto eff = NewGO<EffectEmitter>(0);
+			eff->Init(2);
+			eff->SetScale({ 10.0f,1.0f,10.0f });
+			eff->SetPosition(m_position);
+			eff->Play();
 			m_sprite.Update();
 		}
 	}
