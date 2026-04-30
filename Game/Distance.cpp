@@ -29,7 +29,6 @@ void Distance::Update() {
 		break;
 	default:
 		m_pos.z = 99999999999.9f;
-		DeleteGO(this);
 		break;
 	}
 	Vector3 center = m_pos;
@@ -58,5 +57,7 @@ void Distance::Update() {
 }
 
 void Distance::Render(RenderContext& rc) {
-	m_font.Draw(rc);
+	if (m_hollState < 4) {
+		m_font.Draw(rc);
+	}
 }
