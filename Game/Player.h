@@ -38,11 +38,12 @@ public:
 	int m_i = 0;
 	int m_se = 0;
 	int m_eff = 0;
+	int m_efk = 0;
 	SpriteRender m_sprite;
 	Pengin* m_pengin;
 	NinjaPengin* m_ninjaPengin;
 	SilenPengin* m_silenPengin;
 	Dummy5* m_dummy5;
 	EffectEmitter* m_effectEmitter = nullptr;//エフェクト。
-	EffectEmitter* m_effect2 = nullptr;//エフェクト。
+	EffectEmitter* m_eff2 = nullptr;//エフェクト。
 };
