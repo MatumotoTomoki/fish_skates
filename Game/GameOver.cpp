@@ -5,6 +5,8 @@
 
 bool GameOver::Start() {
 	m_render.Init("Assets/sprite/gameover.dds", 1920.0f, 1080.0f);
+	m_nextRender.Init("Assets/sprite/next.dds", 1000.0f, 700.0f);
+	m_nextRender.SetPosition({ 0.0f,-300.0f,0.0f });
 	auto pause = FindGO<Pause>("Pause");
 	m_bgm = NewGO<SoundSource>(0);
 	m_bgm->Init(10);
@@ -15,6 +17,19 @@ bool GameOver::Start() {
 }
 
 void GameOver::Update() {
+	if (m_flug == true) {
+		m_nextColor -= 0.01f;
+	}
+	if (m_nextColor >= 1.0f) {
+		m_flug = true;
+	}
+	if (m_flug == false) {
+		m_nextColor += 0.01f;
+	}
+	if (m_nextColor <= 0.0f) {
+		m_flug = false;
+	}
+	m_nextRender.SetMulColor({ 1.0f,1.0f,1.0f,m_nextColor });
 	if (m_change == false) {
 		m_color += 0.01f;
 	}
@@ -37,8 +52,10 @@ void GameOver::Update() {
 		DeleteGO(this);
 	}
 	m_render.Update();
+	m_nextRender.Update();
 }
 
 void GameOver::Render(RenderContext& rc) {
 	m_render.Draw(rc);
+	m_nextRender.Draw(rc);
 }
