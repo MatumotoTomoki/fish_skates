@@ -44,4 +44,5 @@ public:
 	SilenPengin* m_silenPengin;
 	Dummy5* m_dummy5;
 	EffectEmitter* m_effectEmitter = nullptr;//エフェクト。
+	EffectEmitter* m_effect2 = nullptr;//エフェクト。
 };
