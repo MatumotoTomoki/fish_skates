@@ -11,6 +11,7 @@ bool Title::Start() {
 	g_soundEngine->ResistWaveFileBank(2, "Assets/Sound/start.wav");
 	g_soundEngine->ResistWaveFileBank(8, "Assets/Sound/countdown.wav");
 	g_soundEngine->ResistWaveFileBank(11, "Assets/sound/title.wav");
+	g_soundEngine->ResistWaveFileBank(12, "Assets/sound/ok.wav");
 	m_sound = NewGO<SoundSource>(0);
 	m_sound->Init(11);
 	m_sound->Play(true);
@@ -60,7 +61,7 @@ void Title::Update() {
 		DeleteGO(m_sound);
 		m_j++;
 		SoundSource* se = NewGO<SoundSource>(0);
-		se->Init(2);
+		se->Init(12);
 		se->Play(false);
 		if (m_pause) {
 			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
