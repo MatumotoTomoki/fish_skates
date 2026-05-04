@@ -5,7 +5,7 @@
 #include "Title.h"
 
 bool GameCamera::Start() {
-	m_toCameraPos.Set(0.0f, 0.0f, -500.0f);
+	m_toCameraPos.Set(0.0f, 0.0f, -370.0f);
 	g_camera3D->SetNear(1.0f);
 	g_camera3D->SetFar(20000.0f);
 	return true;
