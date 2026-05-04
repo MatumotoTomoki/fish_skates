@@ -12,6 +12,7 @@ bool Arrow::Start() {
 	Quaternion rot;
 	rot.SetRotationDegX(90.0f);
 	m_modelRender.SetRotation(rot);
+	m_modelRender.SetScale(0.7f, 0.7f, 0.7f);
 	m_modelRender.Update();
 	return true;
 }

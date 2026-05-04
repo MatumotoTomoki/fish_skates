@@ -31,6 +31,14 @@ void GameClear::Update() {
 	}
 	m_nextRender.SetMulColor({ 1.0f,1.0f,1.0f,m_nextColor });
 	if (g_pad[0]->IsTrigger(enButtonA)) {
+		if (m_change == false) {
+			auto pause = FindGO<Pause>("Pause");
+			SoundSource* se = NewGO<SoundSource>(0);
+			se->Init(5);
+			float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+			se->SetVolume(finalSE);
+			se->Play(false);
+		}
 		DeleteGO(m_bgm);
 		m_change = true;
 		if (m_i == 0) {
