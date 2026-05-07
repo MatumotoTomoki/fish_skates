@@ -13,6 +13,7 @@ public:
 	SpriteRender m_seafont;
 	SpriteRender m_start;
 	SpriteRender m_manual;
+	SpriteRender m_b;
 	Game* m_game;
 	Pause* m_pause;
 	SoundSource* m_sound;
@@ -29,6 +30,7 @@ public:
 	float m_startColor = 0.0f;
 	float m_titleColor = 0.0f;
 	float m_manualColor = 0.0f;
+	float m_bColor = 0.0f;
 	int m_i = 0;
 	int m_j = 0;
 	int m_newGame = 0;
