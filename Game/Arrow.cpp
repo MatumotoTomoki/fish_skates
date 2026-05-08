@@ -30,5 +30,7 @@ void Arrow::Update() {
 }
 
 void Arrow::Render(RenderContext& rc) {
-	m_modelRender.Draw(rc);
+	if (m_player->m_start == true) {
+		m_modelRender.Draw(rc);
+	}
 }

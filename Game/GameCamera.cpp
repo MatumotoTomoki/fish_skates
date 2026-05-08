@@ -5,10 +5,14 @@
 #include "Title.h"
 
 bool GameCamera::Start() {
-	m_toCameraPos.Set(0.0f, 0.0f, -370.0f);
-	g_camera3D->SetNear(1.0f);
-	g_camera3D->SetFar(20000.0f);
-	return true;
+    m_toCameraPos.Set(0.0f, 0.0f, -570.0f);
+    // ★ カメラの向きと注視点を初期化
+    Vector3 target = { 0.0f, 80.0f, 0.0f };
+    g_camera3D->SetTarget(target);
+    g_camera3D->SetPosition(m_toCameraPos.x, 60.0f, m_toCameraPos.z);
+    g_camera3D->SetNear(1.0f);
+    g_camera3D->SetFar(20000.0f);
+    return true;
 }
 
 void GameCamera::Update() {
@@ -27,41 +31,57 @@ void GameCamera::Update() {
     playerRawTarget.y += 80.0f;
     float lerpFactor = 0.8f;
     m_currentCameraTarget.Lerp(lerpFactor, m_currentCameraTarget, playerRawTarget);
-    float x = g_pad[0]->GetRStickXF();
-    float y = g_pad[0]->GetRStickYF();
-    Quaternion qRot;
-    Vector3 dir = m_toCameraPos;
-    // --- 左右回転 ---
-    Vector3 oldPosYaw = m_toCameraPos;
-    qRot.SetRotationDeg(Vector3::AxisY, -1.3f * x);
-    qRot.Apply(m_toCameraPos);
-    // 左右制限チェック（水平成分で判定）
-    Vector3 horizontalDir = m_toCameraPos;
-    horizontalDir.y = 0;
-    float len = horizontalDir.Length();   // ← これが必要！
-    if (len > 0.001f) {
-        horizontalDir /= len;
-        if (horizontalDir.x < -0.999f or horizontalDir.x > 0.999f) {
-            m_toCameraPos = oldPosYaw;
+    if (m_player->m_start == true) {
+
+        // ★ ここが“本命”のリセットポイント
+        if (m_resetOnStart) {
+            // 角度・距離・注視点を毎ループ同じ状態に戻す
+            m_toCameraPos.Set(0.0f, 0.0f, -570.0f);
+            m_currentCameraTarget = m_player->m_position;
+            m_currentCameraTarget.y += 80.0f;
+            m_resetOnStart = false;
         }
+
+        // ここから先は今まで通り
+        if (m_toCameraPos.z < -370.0f) {
+            m_toCameraPos.z += 3.0f;
+        }
+
+        float x = g_pad[0]->GetRStickXF();
+        float y = g_pad[0]->GetRStickYF();
+        Quaternion qRot;
+        Vector3 dir = m_toCameraPos;
+
+        Vector3 oldPosYaw = m_toCameraPos;
+        qRot.SetRotationDeg(Vector3::AxisY, -1.3f * x);
+        qRot.Apply(m_toCameraPos);
+
+        Vector3 horizontalDir = m_toCameraPos;
+        horizontalDir.y = 0;
+        float len = horizontalDir.Length();
+        if (len > 0.001f) {
+            horizontalDir /= len;
+            if (horizontalDir.x < -0.999f || horizontalDir.x > 0.999f) {
+                m_toCameraPos = oldPosYaw;
+            }
+        }
+
+        Vector3 oldPosPitch = m_toCameraPos;
+        Vector3 axisX;
+        axisX.Cross(Vector3::AxisY, m_toCameraPos);
+        axisX.Normalize();
+        qRot.SetRotationDeg(axisX, -1.3f * y);
+        qRot.Apply(m_toCameraPos);
+
+        dir = m_toCameraPos;
+        dir.Normalize();
+        if (dir.y < -0.15f || dir.y > 0.9f) {
+            m_toCameraPos = oldPosPitch;
+        }
+
+        Vector3 pos = m_currentCameraTarget + m_toCameraPos;
+        g_camera3D->SetTarget(m_currentCameraTarget);
+        g_camera3D->SetPosition(pos);
+        g_camera3D->Update();
     }
-    // --- 上下回転 ---
-    Vector3 oldPosPitch = m_toCameraPos;
-    // 上下回転の軸
-    Vector3 axisX;
-    axisX.Cross(Vector3::AxisY, m_toCameraPos);
-    axisX.Normalize();
-    qRot.SetRotationDeg(axisX, -1.3f * y);
-    qRot.Apply(m_toCameraPos);
-    // 上下制限チェック
-    dir = m_toCameraPos;
-    dir.Normalize();
-    if (dir.y < -0.15f or dir.y > 0.9f) {
-        m_toCameraPos = oldPosPitch;
-    }
-    // カメラ位置更新
-    Vector3 pos = m_currentCameraTarget + m_toCameraPos;
-    g_camera3D->SetTarget(m_currentCameraTarget);
-    g_camera3D->SetPosition(pos);
-    g_camera3D->Update();
 }
