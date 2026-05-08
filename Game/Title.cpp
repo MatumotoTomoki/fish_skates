@@ -90,7 +90,7 @@ void Title::Update() {
 		if (m_cool > 2) {
 			m_cool = 3;
 		}
-		if (g_pad[0]->IsTrigger(enButtonB) and m_cool == 3)
+		if (g_pad[0]->IsTrigger(enButtonB) and m_cool == 3 and m_j==1)
 		{
 			m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
 			m_cool = 0;
