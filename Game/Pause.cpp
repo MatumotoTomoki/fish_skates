@@ -17,7 +17,11 @@ bool Pause::Start() {
 	Vector4 color = { 0.0f, 0.0f, 0.0f, 0.5f };
 	m_backGround.SetMulColor(color);
 	if (m_game) {
-		m_game->SetBGMVolume(m_volume * 1.0f);
+		auto bgm = m_game->GetCurrentBGM();
+		if (bgm) {
+			float finalBGM = (m_volume / 10.0f) * (m_master / 10.0f);
+			bgm->SetVolume(finalBGM);
+		}
 	}
 	m_sprite.Update();
 	m_menuSprite.Init("Assets/sprite/pause.dds", 1920.0f, 1080.0f);
@@ -215,15 +219,21 @@ void Pause::Update() {
 					if (g_pad[0]->IsTrigger(enButtonLeft)) {
 						m_volume = max(0, m_volume - 1);
 						if (m_game) {
-							// m_volume(0~10) を 0.0f ~ 1.0f に変換して適用
-							m_game->SetBGMVolume(m_volume * 1.0f);
+							auto bgm = m_game->GetCurrentBGM();
+							if (bgm) {
+								float finalBGM = (m_volume / 10.0f) * (m_master / 10.0f);
+								bgm->SetVolume(finalBGM);
+							}
 						}
 					}
 					if (g_pad[0]->IsTrigger(enButtonRight)) {
 						m_volume = min(10, m_volume + 1);
 						if (m_game) {
-							// m_volume(0~10) を 0.0f ~ 1.0f に変換して適用
-							m_game->SetBGMVolume(m_volume * 1.0f);
+							auto bgm = m_game->GetCurrentBGM();
+							if (bgm) {
+								float finalBGM = (m_volume / 10.0f) * (m_master / 10.0f);
+								bgm->SetVolume(finalBGM);
+							}
 						}
 					}
 				}
@@ -261,8 +271,11 @@ void Pause::Update() {
 				}
 				// BGMに反映
 				if (m_game) {
-					float finalBGM = (m_volume / 10.0f) * (m_master / 10.0f);
-					m_game->SetBGMVolume(finalBGM);
+					auto bgm = m_game->GetCurrentBGM();
+					if (bgm) {
+						float finalBGM = (m_volume / 10.0f) * (m_master / 10.0f);
+						bgm->SetVolume(finalBGM);
+					}
 				}
 				switch (m_volume) {
 				case 1:
