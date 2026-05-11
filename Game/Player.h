@@ -32,6 +32,7 @@ public:
 	bool m_waterJump = false;
 	bool m_superJump = false;
 	bool m_start = false;
+	bool m_chase = false;
 	float m_hp = -1.05f;
 	float m_o2 = -1.05f;
 	float m_count = 0.0f;

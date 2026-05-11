@@ -166,13 +166,13 @@ void Title::Update() {
 			m_2++;
 		}
 	}
-	if (m_count <= 1.0f) {
+	if (m_count <= 1.2f) {
 		if (m_1 == 0) {
 			m_font.Init("Assets/sprite/1.dds", 200.0f, 200.0f);
 			m_1++;
 		}
 	}
-	if (m_count <= 0.0f) {
+	if (m_count <= 0.3f) {
 		if (m_GO == 0) {
 			m_font.Init("Assets/sprite/GO.dds", 400.0f, 200.0f);
 			m_GO++;
@@ -187,7 +187,7 @@ void Title::Update() {
 		m_render.SetMulColor(hamachiColor);
 
 	}
-	if (m_count <= -1.0f) {
+	if (m_count <= -0.8f) {
 		if (m_newGame == 0) {
 			NewGO<Game>(0, "Game");
 			m_game = FindGO<Game>("Game");
