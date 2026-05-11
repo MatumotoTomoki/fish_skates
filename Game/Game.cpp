@@ -284,6 +284,22 @@ void Game::Update() {
 			m_gameBGM->SetVolume(vol);
 		}
 	}
+	if (m_player->m_hp > -0.34f or m_player->m_o2 > -0.34f) {
+		if (m_gameBGM) {
+			m_gameBGM->SetFrequencyRatio(1.1f);
+		}
+		if (m_chaseBGM) {
+			m_chaseBGM->SetFrequencyRatio(1.1f);
+		}
+	}
+	if (m_player->m_hp < -0.34 and m_player->m_o2 < -0.34) {
+		if (m_gameBGM) {
+			m_gameBGM->SetFrequencyRatio(1.0f);
+		}
+		if (m_chaseBGM) {
+			m_chaseBGM->SetFrequencyRatio(1.0f);
+		}
+	}
 	m_stageRender.Update();
 	m_modelRender.Update();
 }
