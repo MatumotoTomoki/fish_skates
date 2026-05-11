@@ -90,6 +90,7 @@ void Player::Update() {
 		}
 		if (m_characterController.IsOnGround() == true or m_swim == true) {
 			if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
+				m_chase = false;
 				if (g_pad[0]->IsTrigger(enButtonA)) {
 					m_eff2 = NewGO<EffectEmitter>(0);
 					m_eff2->Init(2);
@@ -103,6 +104,9 @@ void Player::Update() {
 					se->SetVolume(finalSE);
 					m_velocity.y = 12.0f;
 				}
+			}
+			else {
+				m_chase = true;
 			}
 			if (m_efk == 1) {
 				if (m_eff2 != nullptr) {

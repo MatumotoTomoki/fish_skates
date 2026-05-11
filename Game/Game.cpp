@@ -29,6 +29,7 @@ void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(10, "Assets/sound/Gameover.wav");
 	g_soundEngine->ResistWaveFileBank(14, "Assets/sound/jump.wav");
 	g_soundEngine->ResistWaveFileBank(15, "Assets/sound/superjump.wav");
+	g_soundEngine->ResistWaveFileBank(16, "Assets/sound/chase.wav");
 	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_sphere.efk");
 	EffectEngine::GetInstance()->ResistEffect(1, u"Assets/effect/Wave.efk");
 	EffectEngine::GetInstance()->ResistEffect(2, u"Assets/effect/jump.efk");
@@ -191,6 +192,7 @@ void Game::Update() {
 		DeleteGO(m_gameCamera);
 		DeleteGO(m_player);
 		DeleteGO(m_gameBGM);
+		DeleteGO(m_pauseBGM);
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
@@ -209,6 +211,7 @@ void Game::Update() {
 		DeleteGO(m_gameCamera);
 		DeleteGO(m_player);
 		DeleteGO(m_gameBGM);
+		DeleteGO(m_pauseBGM);
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
@@ -227,6 +230,7 @@ void Game::Update() {
 		DeleteGO(m_gameCamera);
 		DeleteGO(m_player);
 		DeleteGO(m_gameBGM);
+		DeleteGO(m_pauseBGM);
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
@@ -245,6 +249,7 @@ void Game::Update() {
 		DeleteGO(m_gameCamera);
 		DeleteGO(m_player);
 		DeleteGO(m_gameBGM);
+		DeleteGO(m_pauseBGM);
 		DeleteGO(m_ui);
 		DeleteGO(m_water);
 		DeleteGO(m_dummy);
@@ -255,6 +260,31 @@ void Game::Update() {
 		DeleteGO(m_arrow);
 		m_pause->m_return = false;
 		DeleteGO(this);
+	}
+	if (m_player->m_chase == true) {
+		if (m_pauseBGM == nullptr) {
+			// ゲームBGMを止める
+			DeleteGO(m_gameBGM);
+			// ポーズBGMを再生
+			m_pauseBGM = NewGO<SoundSource>(0);
+			m_pauseBGM->Init(16);
+			m_pauseBGM->Play(true);
+			float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
+			m_pauseBGM->SetVolume(vol);
+		}
+	}
+	if (m_player->m_chase == false) {
+		if (m_pauseBGM != nullptr) {
+			DeleteGO(m_pauseBGM);
+			m_pauseBGM = nullptr;
+			// ゲームBGMを再生し直す
+			m_gameBGM = NewGO<SoundSource>(0);
+			m_gameBGM->Init(0);   // ← 本来のゲームBGMの番号に戻す
+			m_gameBGM->Play(true);
+			float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
+			m_gameBGM->SetVolume(vol);
+			m_bgm = true;
+		}
 	}
 	m_stageRender.Update();
 	m_modelRender.Update();
