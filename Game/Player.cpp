@@ -100,7 +100,7 @@ void Player::Update() {
 					SoundSource* se = NewGO<SoundSource>(0);
 					se->Init(14);
 					se->Play(false);
-					float finalSE = (pause->m_volume / 10.0f) * (pause->m_master / 10.0f);
+					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
 					se->SetVolume(finalSE);
 					m_velocity.y = 12.0f;
 				}
@@ -154,6 +154,11 @@ void Player::Update() {
 				m_eff2->SetScale({ 10.0f,1.0f,10.0f });
 				m_eff2->SetPosition(m_position);
 				m_eff2->Play();
+				SoundSource* se = NewGO<SoundSource>(0);
+				se->Init(15);
+				se->Play(false);
+				float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+				se->SetVolume(finalSE);
 				m_sprite.Update();
 			}
 		}
@@ -169,6 +174,11 @@ void Player::Update() {
 				m_eff2->SetScale({ 10.0f,1.0f,10.0f });
 				m_eff2->SetPosition(m_position);
 				m_eff2->Play();
+				SoundSource* se = NewGO<SoundSource>(0);
+				se->Init(15);
+				se->Play(false);
+				float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+				se->SetVolume(finalSE);
 				m_sprite.Update();
 			}
 		}
@@ -186,6 +196,8 @@ void Player::Update() {
 				SoundSource* se = NewGO<SoundSource>(0);
 				se->Init(15);
 				se->Play(false);
+				float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+				se->SetVolume(finalSE);
 				m_sprite.Update();
 			}
 		}
@@ -201,6 +213,11 @@ void Player::Update() {
 				m_eff2->SetScale({ 10.0f,1.0f,10.0f });
 				m_eff2->SetPosition(m_position);
 				m_eff2->Play();
+				SoundSource* se = NewGO<SoundSource>(0);
+				se->Init(15);
+				se->Play(false);
+				float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+				se->SetVolume(finalSE);
 				m_sprite.Update();
 			}
 		}

@@ -28,6 +28,11 @@ public:
 	static void PreEnd(bool flug) {
 		flug = true;
 	}
+	SoundSource* GetCurrentBGM() {
+		if (m_chaseBGM != nullptr) return m_chaseBGM;
+		return m_gameBGM;
+	}
+
 	bool m_initialized = false;
 private:
 	PhysicsStaticObject m_physicsStaticObject;
@@ -37,7 +42,7 @@ private:
 	LevelRender m_stageLevelRnder;
 	SkyCube* m_skyCube;
 	SoundSource* m_gameBGM = nullptr;
-	SoundSource* m_pauseBGM = nullptr;
+	SoundSource* m_chaseBGM = nullptr;
 	SoundSource* m_menuSE = nullptr;
 	SoundSource* m_selectSE = nullptr;
 	Player* m_player;
@@ -54,7 +59,6 @@ private:
 	Distance* m_distance;
 	Arrow* m_arrow;
 	bool m_stop = false;
-	bool m_bgm = true;
 	int m_skyCubeType = enSkyCubeType_Day;
 	int  m_loadStep = 0;
 };
