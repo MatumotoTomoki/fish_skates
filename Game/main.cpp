@@ -44,4 +44,3 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 #endif // _DEBUG
 	return 0;
 }
-

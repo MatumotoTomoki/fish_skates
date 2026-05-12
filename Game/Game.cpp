@@ -263,43 +263,40 @@ void Game::Update() {
 	}
 	if (m_player->m_chase == true) {
 		if (m_chaseBGM == nullptr) {
-			// ゲームBGMを止める
 			DeleteGO(m_gameBGM);
+			m_gameBGM = nullptr;
 			m_chaseBGM = NewGO<SoundSource>(0);
 			m_chaseBGM->Init(16);
 			m_chaseBGM->Play(true);
 			float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
 			m_chaseBGM->SetVolume(vol);
+			m_bgmJustChanged = true;   // ← ロマン発動
 		}
 	}
+
 	if (m_player->m_chase == false) {
 		if (m_chaseBGM != nullptr) {
 			DeleteGO(m_chaseBGM);
 			m_chaseBGM = nullptr;
-			// ゲームBGMを再生し直す
 			m_gameBGM = NewGO<SoundSource>(0);
-			m_gameBGM->Init(0);   // ← 本来のゲームBGMの番号に戻す
+			m_gameBGM->Init(0);
 			m_gameBGM->Play(true);
 			float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
 			m_gameBGM->SetVolume(vol);
 		}
 	}
+	float targetRatio = 1.0f;
 	if (m_player->m_hp > -0.34f or m_player->m_o2 > -0.34f) {
-		if (m_gameBGM) {
-			m_gameBGM->SetFrequencyRatio(1.1f);
-		}
-		if (m_chaseBGM) {
-			m_chaseBGM->SetFrequencyRatio(1.1f);
-		}
+		targetRatio = 1.1f;
 	}
-	if (m_player->m_hp < -0.34 and m_player->m_o2 < -0.34) {
-		if (m_gameBGM) {
-			m_gameBGM->SetFrequencyRatio(1.0f);
-		}
-		if (m_chaseBGM) {
-			m_chaseBGM->SetFrequencyRatio(1.0f);
-		}
+	if (!m_bgmJustChanged) {
+		if (m_gameBGM and m_gameBGM->IsPlaying())
+			m_gameBGM->SetFrequencyRatio(targetRatio);
+
+		if (m_chaseBGM and m_chaseBGM->IsPlaying())
+			m_chaseBGM->SetFrequencyRatio(targetRatio);
 	}
+	m_bgmJustChanged = false;  // ← ロマン終了
 	m_stageRender.Update();
 	m_modelRender.Update();
 }
