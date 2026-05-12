@@ -101,6 +101,9 @@ void Title::Update() {
 			m_sound = NewGO<SoundSource>(0);
 			m_sound->Init(13);
 			m_sound->Play(false);
+			m_sound = NewGO<SoundSource>(0);
+			m_sound->Init(11);
+			m_sound->Play(true);
 		}
 	}
 	if (m_j == 1 and (g_pad[0]->IsTrigger(enButtonA)) and m_cool > 2) {
