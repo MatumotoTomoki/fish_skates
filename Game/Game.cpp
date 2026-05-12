@@ -262,7 +262,7 @@ void Game::Update() {
 		m_pause->m_return = false;
 		DeleteGO(this);
 	}
-	if (m_player->m_chase == true) {
+	if (m_player->m_chase == true and m_pause->m_isPause == false) {
 		if (m_chaseBGM == nullptr) {
 			DeleteGO(m_gameBGM);
 			m_gameBGM = nullptr;
@@ -300,6 +300,9 @@ void Game::Update() {
 	if (m_pause->m_isPause == true and m_isPause == 0)
 	{
 		DeleteGO(m_gameBGM);
+		m_gameBGM = nullptr;
+		DeleteGO(m_chaseBGM);
+		m_chaseBGM = nullptr;
 		m_pauseBGM = NewGO<SoundSource>(0);
 		m_pauseBGM->Init(17);
 		m_pauseBGM->Play(true);
@@ -310,12 +313,26 @@ void Game::Update() {
 	if (m_pause->m_isPause == false and m_isPause == 1)
 	{
 		DeleteGO(m_pauseBGM);
-		m_gameBGM = NewGO<SoundSource>(0);
-		m_gameBGM->Init(0);
-		m_gameBGM->Play(true);
-		m_isPause--;
+		m_pauseBGM = nullptr;
+
 		float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
-		m_gameBGM->SetVolume(vol);
+
+		if (m_chaseBGM == nullptr) {
+			m_gameBGM = NewGO<SoundSource>(0);
+			m_gameBGM->Init(0);
+			m_gameBGM->Play(true);
+			if (m_gameBGM) {
+				m_gameBGM->SetVolume(vol);
+			}
+		}
+		else {
+			// チェイス中なら chaseBGM の音量をいじる
+			if (m_chaseBGM) {
+				m_chaseBGM->SetVolume(vol);
+			}
+		}
+
+		m_isPause--;
 	}
 	m_bgmJustChanged = false;  // ← ロマン終了
 	m_stageRender.Update();

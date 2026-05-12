@@ -30,7 +30,8 @@ public:
 	}
 	SoundSource* GetCurrentBGM() {
 		if (m_chaseBGM != nullptr) return m_chaseBGM;
-		return m_gameBGM;
+		if (m_pauseBGM != nullptr)return m_pauseBGM;
+		if(m_gameBGM != nullptr)return m_gameBGM;
 	}
 	bool m_initialized = false;
 	bool m_bgmJustChanged = false;
