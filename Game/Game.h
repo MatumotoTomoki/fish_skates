@@ -45,6 +45,7 @@ private:
 	SoundSource* m_chaseBGM = nullptr;
 	SoundSource* m_menuSE = nullptr;
 	SoundSource* m_selectSE = nullptr;
+	SoundSource* m_pauseBGM = nullptr;
 	Player* m_player;
 	GameCamera* m_gameCamera;
 	UI* m_ui;
@@ -61,4 +62,5 @@ private:
 	bool m_stop = false;
 	int m_skyCubeType = enSkyCubeType_Day;
 	int  m_loadStep = 0;
+	int m_isPause = 0;
 };

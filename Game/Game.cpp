@@ -30,6 +30,7 @@ void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(14, "Assets/sound/jump.wav");
 	g_soundEngine->ResistWaveFileBank(15, "Assets/sound/superjump.wav");
 	g_soundEngine->ResistWaveFileBank(16, "Assets/sound/chase.wav");
+	g_soundEngine->ResistWaveFileBank(17, "Assets/sound/Menu.wav");
 	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_sphere.efk");
 	EffectEngine::GetInstance()->ResistEffect(1, u"Assets/effect/Wave.efk");
 	EffectEngine::GetInstance()->ResistEffect(2, u"Assets/effect/jump.efk");
@@ -295,6 +296,26 @@ void Game::Update() {
 
 		if (m_chaseBGM and m_chaseBGM->IsPlaying())
 			m_chaseBGM->SetFrequencyRatio(targetRatio);
+	}
+	if (m_pause->m_isPause == true and m_isPause == 0)
+	{
+		DeleteGO(m_gameBGM);
+		m_pauseBGM = NewGO<SoundSource>(0);
+		m_pauseBGM->Init(17);
+		m_pauseBGM->Play(true);
+		m_isPause++;
+		float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
+		m_pauseBGM->SetVolume(vol);
+	}
+	if (m_pause->m_isPause == false and m_isPause == 1)
+	{
+		DeleteGO(m_pauseBGM);
+		m_gameBGM = NewGO<SoundSource>(0);
+		m_gameBGM->Init(0);
+		m_gameBGM->Play(true);
+		m_isPause--;
+		float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
+		m_gameBGM->SetVolume(vol);
 	}
 	m_bgmJustChanged = false;  // ← ロマン終了
 	m_stageRender.Update();

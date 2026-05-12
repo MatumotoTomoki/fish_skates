@@ -18,6 +18,7 @@ public:
 	int m_select;
 	bool m_soundTest = false;
 	bool m_return = false;
+	bool m_isPause = false;
 private:
 	SpriteRender m_sprite;
 	SpriteRender m_backGround;
@@ -39,7 +40,6 @@ private:
 	GameClear* m_gameClear;
 	GameOver* m_gameOver;
 	Title* m_title;
-	bool m_isPause = false;
 	enum class PauseState {
 		Main,   // 通常のメニュー選択
 		Sound   // サウンド設定中
