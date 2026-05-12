@@ -32,8 +32,8 @@ public:
 		if (m_chaseBGM != nullptr) return m_chaseBGM;
 		return m_gameBGM;
 	}
-
 	bool m_initialized = false;
+	bool m_bgmJustChanged = false;
 private:
 	PhysicsStaticObject m_physicsStaticObject;
 	ModelRender m_modelRender;
