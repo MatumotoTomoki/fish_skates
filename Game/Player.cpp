@@ -43,7 +43,7 @@ void Player::Update() {
 	}
 	m_effectEmitter = NewGO <EffectEmitter>(0);
 	m_effectEmitter->Init(1);
-	m_effectEmitter->SetScale({ 30.0f,30.0f,30.0f });
+	m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
 	if (m_start == false) {
 		m_effectEmitter->SetPosition({ 90000.0f,0.0f,0.0f });
 		m_velocity.y -= 0.5f;
@@ -230,14 +230,12 @@ void Player::Update() {
 		}
 		if (m_swim == true) {
 			m_effectEmitter->Play();
-			if (m_eff < 12) {
+			if (m_eff < 2) {
 				m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
-				//m_posy += 100.0f;
 				m_eff++;
 			}
-			if (m_eff > 11) {
+			if (m_eff > 1) {
 				m_effectEmitter->SetPosition({ 90000.0f,0.0f,0.0f });
-				//m_posy = -100.0f;
 			}
 			if (m_se == 0) {
 				SoundSource* se = NewGO<SoundSource>(0);
