@@ -264,17 +264,18 @@ void Game::Update() {
 	}
 	if (m_player->m_chase == true and m_pause->m_isPause == false) {
 		if (m_chaseBGM == nullptr) {
-			DeleteGO(m_gameBGM);
-			m_gameBGM = nullptr;
-			m_chaseBGM = NewGO<SoundSource>(0);
-			m_chaseBGM->Init(16);
-			m_chaseBGM->Play(true);
-			float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
-			m_chaseBGM->SetVolume(vol);
-			m_bgmJustChanged = true;   // ← ロマン発動
+			if (m_pause->m_mode != 1) {
+				DeleteGO(m_gameBGM);
+				m_gameBGM = nullptr;
+				m_chaseBGM = NewGO<SoundSource>(0);
+				m_chaseBGM->Init(16);
+				m_chaseBGM->Play(true);
+				float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
+				m_chaseBGM->SetVolume(vol);
+				m_bgmJustChanged = true;   // ← ロマン発動
+			}
 		}
 	}
-
 	if (m_player->m_chase == false) {
 		if (m_chaseBGM != nullptr) {
 			DeleteGO(m_chaseBGM);
@@ -316,13 +317,14 @@ void Game::Update() {
 		m_pauseBGM = nullptr;
 
 		float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
-
 		if (m_chaseBGM == nullptr) {
-			m_gameBGM = NewGO<SoundSource>(0);
-			m_gameBGM->Init(0);
-			m_gameBGM->Play(true);
-			if (m_gameBGM) {
-				m_gameBGM->SetVolume(vol);
+			if (m_pause->m_mode != 1) {
+				m_gameBGM = NewGO<SoundSource>(0);
+				m_gameBGM->Init(0);
+				m_gameBGM->Play(true);
+				if (m_gameBGM) {
+					m_gameBGM->SetVolume(vol);
+				}
 			}
 		}
 		else {
