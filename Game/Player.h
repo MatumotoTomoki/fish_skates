@@ -3,13 +3,12 @@ class Pengin;
 class NinjaPengin;
 class SilenPengin;
 class Dummy5;
-class Player:public IGameObject
+class Player :public IGameObject
 {
 public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
-	void Clear();
 	Vector3 m_velocity = Vector3::Zero;
 	Vector3 m_position;
 	Vector3 m_diff;
@@ -42,10 +41,10 @@ public:
 	int m_eff = 0;
 	int m_efk = 0;
 	SpriteRender m_sprite;
-	Pengin* m_pengin;
-	NinjaPengin* m_ninjaPengin;
-	SilenPengin* m_silenPengin;
-	Dummy5* m_dummy5;
-	EffectEmitter* m_effectEmitter = nullptr;//エフェクト。
-	EffectEmitter* m_eff2 = nullptr;//エフェクト。
+	Pengin* m_pengin = nullptr;
+	NinjaPengin* m_ninjaPengin = nullptr;
+	SilenPengin* m_silenPengin = nullptr;
+	Dummy5* m_dummy5 = nullptr;
+	EffectEmitter* m_effectEmitter = nullptr;
+	EffectEmitter* m_eff2 = nullptr;
 };
