@@ -123,7 +123,6 @@ void Player::Update() {
 		if (m_characterController.IsOnGround() == true) {
 			if (m_swim == false) {
 				m_eff = 0;
-				m_effectEmitter->SetPosition({ 90000.0f,0.0f,0.0f });
 				m_se = 0;
 			}
 			m_waterJump = false;
@@ -251,6 +250,10 @@ void Player::Update() {
 			break;
 		}
 		if (m_position.y <= -30.0f) {
+			if (m_swim == false) {
+				m_eff = 0;
+				m_effectEmitter->Stop();
+			}
 			m_o2 -= 0.01f;
 			m_swim = true;
 			m_position.y = -30.0f;
@@ -263,9 +266,6 @@ void Player::Update() {
 			if (m_eff < 2) {
 				m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
 				m_eff++;
-			}
-			if (m_eff > 1) {
-				m_effectEmitter->SetPosition({ 90000.0f,0.0f,0.0f });
 			}
 			if (m_se == 0) {
 				SoundSource* se = NewGO<SoundSource>(0);
