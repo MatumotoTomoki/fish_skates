@@ -143,82 +143,112 @@ void Player::Update() {
 		}
 		if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
 			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-				m_superJump = true;
-				m_velocity.x -= 300.0f;
-				m_velocity.y += 25.0f;
-				m_sprite.Init("Assets/sprite/931908.dds", 200.0f, 150.0f);
-				m_sprite.SetPosition({ -25.0f,-300.0f,0.0f });
-				m_eff2 = NewGO<EffectEmitter>(0);
-				m_eff2->Init(2);
-				m_eff2->SetScale({ 10.0f,1.0f,10.0f });
-				m_eff2->SetPosition(m_position);
-				m_eff2->Play();
-				SoundSource* se = NewGO<SoundSource>(0);
-				se->Init(15);
-				se->Play(false);
-				float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-				se->SetVolume(finalSE);
-				m_sprite.Update();
+				m_jump = 1;
 			}
 		}
 		if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
 			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-				m_superJump = true;
-				m_velocity.y += 25.0f;
-				m_velocity.x += 300.0f;
-				m_sprite.Init("Assets/sprite/931902.dds", 200.0f, 150.0f);
-				m_sprite.SetPosition({ 25.0f,-300.0f,0.0f });
-				m_eff2 = NewGO<EffectEmitter>(0);
-				m_eff2->Init(2);
-				m_eff2->SetScale({ 10.0f,1.0f,10.0f });
-				m_eff2->SetPosition(m_position);
-				m_eff2->Play();
-				SoundSource* se = NewGO<SoundSource>(0);
-				se->Init(15);
-				se->Play(false);
-				float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-				se->SetVolume(finalSE);
-				m_sprite.Update();
+				m_jump = 2;
 			}
 		}
 		if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
 			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-				m_superJump = true;
-				m_velocity.y += 25.0f;
-				m_sprite.Init("Assets/sprite/931911.dds", 150.0f, 200.0f);
-				m_sprite.SetPosition({ 0.0f,-275.0f,0.0f });
-				m_eff2 = NewGO<EffectEmitter>(0);
-				m_eff2->Init(2);
-				m_eff2->SetScale({ 10.0f,1.0f,10.0f });
-				m_eff2->SetPosition(m_position);
-				m_eff2->Play();
-				SoundSource* se = NewGO<SoundSource>(0);
-				se->Init(15);
-				se->Play(false);
-				float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-				se->SetVolume(finalSE);
-				m_sprite.Update();
+				m_jump = 0;
 			}
 		}
 		if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
 			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-				m_superJump = true;
-				m_velocity.z -= 10.0f;
-				m_velocity.y += 20.0f;
-				m_sprite.Init("Assets/sprite/931905.dds", 150.0f, 200.0f);
-				m_sprite.SetPosition({ 0.0f,-325.0f,0.0f });
-				m_eff2 = NewGO<EffectEmitter>(0);
-				m_eff2->Init(2);
-				m_eff2->SetScale({ 10.0f,1.0f,10.0f });
-				m_eff2->SetPosition(m_position);
-				m_eff2->Play();
-				SoundSource* se = NewGO<SoundSource>(0);
-				se->Init(15);
-				se->Play(false);
-				float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-				se->SetVolume(finalSE);
-				m_sprite.Update();
+				m_jump = 3;
 			}
+		}
+		switch (m_jump) {
+		case 0:
+			if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
+				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					m_superJump = true;
+					m_velocity.y += 25.0f;
+					m_sprite.Init("Assets/sprite/931911.dds", 150.0f, 200.0f);
+					m_sprite.SetPosition({ 0.0f,-275.0f,0.0f });
+					m_eff2 = NewGO<EffectEmitter>(0);
+					m_eff2->Init(2);
+					m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+					m_eff2->SetPosition(m_position);
+					m_eff2->Play();
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(15);
+					se->Play(false);
+					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+					se->SetVolume(finalSE);
+					m_sprite.Update();
+				}
+			}
+			break;
+		case 1:
+			if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
+				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					m_superJump = true;
+					m_velocity.x -= 300.0f;
+					m_velocity.y += 25.0f;
+					m_sprite.Init("Assets/sprite/931908.dds", 200.0f, 150.0f);
+					m_sprite.SetPosition({ -25.0f,-300.0f,0.0f });
+					m_eff2 = NewGO<EffectEmitter>(0);
+					m_eff2->Init(2);
+					m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+					m_eff2->SetPosition(m_position);
+					m_eff2->Play();
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(15);
+					se->Play(false);
+					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+					se->SetVolume(finalSE);
+					m_sprite.Update();
+				}
+			}
+			break;
+		case 2:
+			if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
+				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					m_superJump = true;
+					m_velocity.y += 25.0f;
+					m_velocity.x += 300.0f;
+					m_sprite.Init("Assets/sprite/931902.dds", 200.0f, 150.0f);
+					m_sprite.SetPosition({ 25.0f,-300.0f,0.0f });
+					m_eff2 = NewGO<EffectEmitter>(0);
+					m_eff2->Init(2);
+					m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+					m_eff2->SetPosition(m_position);
+					m_eff2->Play();
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(15);
+					se->Play(false);
+					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+					se->SetVolume(finalSE);
+					m_sprite.Update();
+				}
+			}
+			break;
+		case 3:
+			if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
+				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					m_superJump = true;
+					m_velocity.z -= 10.0f;
+					m_velocity.y += 20.0f;
+					m_sprite.Init("Assets/sprite/931905.dds", 150.0f, 200.0f);
+					m_sprite.SetPosition({ 0.0f,-325.0f,0.0f });
+					m_eff2 = NewGO<EffectEmitter>(0);
+					m_eff2->Init(2);
+					m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+					m_eff2->SetPosition(m_position);
+					m_eff2->Play();
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(15);
+					se->Play(false);
+					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+					se->SetVolume(finalSE);
+					m_sprite.Update();
+				}
+			}
+			break;
 		}
 		if (m_position.y <= -30.0f) {
 			m_o2 -= 0.01f;

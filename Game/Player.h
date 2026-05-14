@@ -40,6 +40,7 @@ public:
 	int m_se = 0;
 	int m_eff = 0;
 	int m_efk = 0;
+	int m_jump = 0;
 	SpriteRender m_sprite;
 	Pengin* m_pengin = nullptr;
 	NinjaPengin* m_ninjaPengin = nullptr;
