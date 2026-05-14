@@ -298,8 +298,7 @@ void Game::Update() {
 		if (m_chaseBGM and m_chaseBGM->IsPlaying())
 			m_chaseBGM->SetFrequencyRatio(targetRatio);
 	}
-	if (m_pause->m_isPause == true and m_isPause == 0)
-	{
+	if (m_pause->m_isPause == true and m_isPause == 0){
 		DeleteGO(m_gameBGM);
 		m_gameBGM = nullptr;
 		DeleteGO(m_chaseBGM);
@@ -311,11 +310,9 @@ void Game::Update() {
 		float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
 		m_pauseBGM->SetVolume(vol);
 	}
-	if (m_pause->m_isPause == false and m_isPause == 1)
-	{
+	if (m_pause->m_isPause == false and m_isPause == 1){
 		DeleteGO(m_pauseBGM);
 		m_pauseBGM = nullptr;
-
 		float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
 		if (m_chaseBGM == nullptr) {
 			if (m_pause->m_mode != 1) {
@@ -333,7 +330,6 @@ void Game::Update() {
 				m_chaseBGM->SetVolume(vol);
 			}
 		}
-
 		m_isPause--;
 	}
 	m_bgmJustChanged = false;  // ← ロマン終了
