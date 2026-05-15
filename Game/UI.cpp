@@ -87,9 +87,11 @@ void UI::Update() {
 }
 
 void UI::Render(RenderContext& rc) {
-	m_spriteRender.Draw(rc);
-	m_spriteRender3.Draw(rc);
-	m_spriteRender2.Draw(rc);
-	m_spriteRender5.Draw(rc);
-	m_spriteRender4.Draw(rc);
+	if (m_player->m_start == true) {
+		m_spriteRender.Draw(rc);
+		m_spriteRender3.Draw(rc);
+		m_spriteRender2.Draw(rc);
+		m_spriteRender5.Draw(rc);
+		m_spriteRender4.Draw(rc);
+	}
 }
