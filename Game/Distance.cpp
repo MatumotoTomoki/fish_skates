@@ -57,7 +57,9 @@ void Distance::Update() {
 }
 
 void Distance::Render(RenderContext& rc) {
-	if (m_hollState < 4) {
-		m_font.Draw(rc);
+	if (m_player->m_start == true) {
+		if (m_hollState < 4) {
+			m_font.Draw(rc);
+		}
 	}
 }
