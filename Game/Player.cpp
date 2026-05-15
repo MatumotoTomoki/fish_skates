@@ -48,7 +48,9 @@ void Player::Update() {
 		m_effectEmitter->SetPosition({ 90000.0f,0.0f,0.0f });
 		m_velocity.y -= 0.5f;
 		if (m_characterController.IsOnGround() == true) {
-			m_superJump = false;
+			m_go++;
+		}
+		if (m_go > 60) {
 			m_start = true;
 		}
 		m_position = m_characterController.Execute(m_velocity, 1.0f);
@@ -56,6 +58,7 @@ void Player::Update() {
 		m_modelRender.Update();
 	}
 	else {
+		m_go++;
 		m_o2 += 0.001f;
 		Vector3 forward = g_camera3D->GetForward();
 		// カメラの "前方向" ベクトルを、水平方向だけにしたベクトルを作成
@@ -333,7 +336,7 @@ void Player::Update() {
 
 void Player::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
-	if (m_start == true) {
+	if (m_go > 61) {
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
 			m_sprite.Draw(rc);
 		}
