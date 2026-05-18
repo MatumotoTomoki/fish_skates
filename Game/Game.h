@@ -41,6 +41,11 @@ private:
 	Vector3 m_pos;
 	ModelRender m_stageRender;
 	LevelRender m_stageLevelRnder;
+	FontRender m_fpsFont;
+	float m_deltaTime = 0.0f;
+	float m_fps = 0.0f;
+	long long m_prevTime = 0;
+	long long m_freq = 0;
 	SkyCube* m_skyCube;
 	SoundSource* m_gameBGM = nullptr;
 	SoundSource* m_chaseBGM = nullptr;

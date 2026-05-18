@@ -39,6 +39,8 @@ void Game::Preload() {
 }
 
 bool Game::Start() {
+	QueryPerformanceFrequency((LARGE_INTEGER*)&m_freq);
+	QueryPerformanceCounter((LARGE_INTEGER*)&m_prevTime);
 	m_stageLevelRnder.Init("Assets/modelData/Stage2.tkl", [&](LevelObjectData& odData) {
 		m_skyCube = FindGO<SkyCube>("SkyCube");
 		m_water = FindGO<Water>("Water");
@@ -74,6 +76,16 @@ bool Game::Start() {
 }
 
 void Game::Update() {
+	long long now;
+	QueryPerformanceCounter((LARGE_INTEGER*)&now);
+
+	m_deltaTime = (float)(now - m_prevTime) / (float)m_freq;
+	m_prevTime = now;
+
+	if (m_deltaTime > 0.0f) {
+		m_fps = 1.0f / m_deltaTime;
+	}
+
 	if (!m_initialized) {
 		switch (m_loadStep) {
 		case 0:
@@ -335,8 +347,14 @@ void Game::Update() {
 	m_bgmJustChanged = false;  // ← ロマン終了
 	m_stageRender.Update();
 	m_modelRender.Update();
+	//リリースでのFPS確認用
+	wchar_t fpsText[64];
+	swprintf(fpsText, 64, L"FPS: %.1f", m_fps);
+	m_fpsFont.SetText(fpsText);
+	m_fpsFont.SetPosition({ -900.0f,420.0f,0.0f });
 }
 
 void Game::Render(RenderContext& rc) {
 	m_stageRender.Draw(rc);
+	m_fpsFont.Draw(rc);		//リリースでのFPS確認用
 }
