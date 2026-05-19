@@ -107,6 +107,7 @@ void Player::Update() {
 			}
 			else {
 				m_chase = true;
+				m_modelRender.SetAnimationSpeed(0.6f);
 			}
 			if (m_efk == 1) {
 				if (m_eff2 != nullptr) {
@@ -330,6 +331,12 @@ void Player::Update() {
 		if (g_pad[0]->IsPress(enButtonY)) {
 			m_o2 -= 0.002f;
 			m_hp += 0.003f;
+		}
+		if (m_chase == true) {
+			m_modelRender.SetAnimationSpeed(0.5f);
+		}
+		else {
+			m_modelRender.SetAnimationSpeed(1.0f);
 		}
 		m_modelRender.SetPosition(m_position);
 		m_modelRender.SetRotation(m_rot);
