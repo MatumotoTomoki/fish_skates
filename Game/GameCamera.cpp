@@ -41,19 +41,28 @@ void GameCamera::Update() {
             m_resetOnStart = false;
         }
         // ここから先は今まで通り
-        if (m_toCameraPos.z < -370.0f) {
+        if (m_toCameraPos.z < -170.0f and m_zoom == true) {
             m_toCameraPos.z += 3.0f;
         }
-        if (m_toCameraPos.z > -370.0f) {
+        if (m_toCameraPos.z >= -170.0f) {
+            m_zoom = false;
+        }
+        if (m_zoom == false and m_toCameraPos.z > -370.0f) {
+            if (m_flug == false) {
+                m_toCameraPos.z -= 3.0f;
+            }
+        }
+        else if (m_zoom == false and m_toCameraPos.z < -370.0f) {
+            m_flug = true;
+        }
+        if (m_flug == true) {
             float x = g_pad[0]->GetRStickXF();
             float y = g_pad[0]->GetRStickYF();
             Quaternion qRot;
             Vector3 dir = m_toCameraPos;
-
             Vector3 oldPosYaw = m_toCameraPos;
             qRot.SetRotationDeg(Vector3::AxisY, -1.3f * x);
             qRot.Apply(m_toCameraPos);
-
             Vector3 horizontalDir = m_toCameraPos;
             horizontalDir.y = 0;
             float len = horizontalDir.Length();
