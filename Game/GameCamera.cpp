@@ -79,6 +79,10 @@ void GameCamera::Update() {
             m_toCameraPos = oldPosPitch;
         }
 
+
+
+
+
         Vector3 pos = m_currentCameraTarget + m_toCameraPos;
         g_camera3D->SetTarget(m_currentCameraTarget);
         g_camera3D->SetPosition(pos);
