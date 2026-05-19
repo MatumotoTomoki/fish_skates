@@ -41,14 +41,12 @@ void Player::Update() {
 	if (pause && pause->IsPaused()) {
 		return;
 	}
-	m_effectEmitter = NewGO <EffectEmitter>(0);
-	m_effectEmitter->Init(1);
-	m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
 	if (m_start == false) {
-		m_effectEmitter->SetPosition({ 90000.0f,0.0f,0.0f });
 		m_velocity.y -= 0.5f;
 		if (m_characterController.IsOnGround() == true) {
-			m_go++;
+			if (m_go < 62) {
+				m_go++;
+			}
 		}
 		if (m_go > 60) {
 			m_start = true;
@@ -255,21 +253,14 @@ void Player::Update() {
 		if (m_position.y <= -30.0f) {
 			if (m_swim == false) {
 				m_eff = 0;
-				m_effectEmitter->Stop();
 			}
 			m_o2 -= 0.01f;
 			m_swim = true;
-			m_position.y = -30.0f;
 			if (m_waterJump == false) {
 				m_velocity.y = 0.2f;
 			}
 		}
 		if (m_swim == true) {
-			m_effectEmitter->Play();
-			if (m_eff < 2) {
-				m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
-				m_eff++;
-			}
 			if (m_se == 0) {
 				SoundSource* se = NewGO<SoundSource>(0);
 				se->Init(7);
@@ -277,6 +268,19 @@ void Player::Update() {
 				float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
 				se->SetVolume(finalSE);
 				m_se++;
+				m_effectEmitter = NewGO <EffectEmitter>(0);
+				m_effectEmitter->Init(1);
+				m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
+				m_effectEmitter->Play();
+				m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
+				m_eff++;
+			}
+			if (g_pad[0]->IsTrigger(enButtonA)) {
+				m_effectEmitter = NewGO <EffectEmitter>(0);
+				m_effectEmitter->Init(1);
+				m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
+				m_effectEmitter->Play();
+				m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
 			}
 			if (m_se <= 1) {
 				if (g_pad[0]->IsTrigger(enButtonA)) {
