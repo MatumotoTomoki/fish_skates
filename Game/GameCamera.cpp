@@ -32,7 +32,6 @@ void GameCamera::Update() {
     float lerpFactor = 0.8f;
     m_currentCameraTarget.Lerp(lerpFactor, m_currentCameraTarget, playerRawTarget);
     if (m_player->m_start == true) {
-
         // ★ ここが“本命”のリセットポイント
         if (m_resetOnStart) {
             // 角度・距離・注視点を毎ループ同じ状態に戻す
@@ -41,7 +40,6 @@ void GameCamera::Update() {
             m_currentCameraTarget.y += 80.0f;
             m_resetOnStart = false;
         }
-
         // ここから先は今まで通り
         if (m_toCameraPos.z < -370.0f) {
             m_toCameraPos.z += 3.0f;
@@ -61,27 +59,25 @@ void GameCamera::Update() {
             float len = horizontalDir.Length();
             if (len > 0.001f) {
                 horizontalDir /= len;
-                if (horizontalDir.x < -0.999f || horizontalDir.x > 0.999f) {
+                if (horizontalDir.x < -0.999f or horizontalDir.x > 0.999f) {
                     m_toCameraPos = oldPosYaw;
                 }
             }
-
             Vector3 oldPosPitch = m_toCameraPos;
             Vector3 axisX;
             axisX.Cross(Vector3::AxisY, m_toCameraPos);
             axisX.Normalize();
             qRot.SetRotationDeg(axisX, -1.3f * y);
             qRot.Apply(m_toCameraPos);
-
             dir = m_toCameraPos;
             dir.Normalize();
-            if (dir.y < -0.15f || dir.y > 0.9f) {
+            if (dir.y < -0.15f or dir.y > 0.9f) {
                 m_toCameraPos = oldPosPitch;
             }
         }
-            Vector3 pos = m_currentCameraTarget + m_toCameraPos;
-            g_camera3D->SetTarget(m_currentCameraTarget);
-            g_camera3D->SetPosition(pos);
-            g_camera3D->Update();
+        Vector3 pos = m_currentCameraTarget + m_toCameraPos;
+        g_camera3D->SetTarget(m_currentCameraTarget);
+        g_camera3D->SetPosition(pos);
+        g_camera3D->Update();
     }
 }
