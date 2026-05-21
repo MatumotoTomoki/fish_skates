@@ -5,6 +5,7 @@
 #include "SilenPengin.h"
 #include "Dummy5.h"
 #include "Pause.h"
+#include "GameCamera.h"
 
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
@@ -57,292 +58,297 @@ void Player::Update() {
 	}
 	else {
 		m_go++;
-		m_o2 += 0.001f;
-		Vector3 forward = g_camera3D->GetForward();
-		// カメラの "前方向" ベクトルを、水平方向だけにしたベクトルを作成
-		Vector3 cameraForward = forward;
-		cameraForward.y = 0.0f; // Y成分（上下方向）をゼロにして、水平方向（地面に沿った方向）にする
-		cameraForward.Normalize(); // ベクトルの長さを1に戻す
-		// moveSpeedにカメラの前進方向の速度を加える
-		float speed = 10.0f;
-		m_diff = m_position - m_pengin->m_pos;
-		m_diff2 = m_position - m_ninjaPengin->m_pos;
-		m_diff3 = m_position - m_silenPengin->m_pos;
-		m_diff4 = m_position - m_dummy5->m_pos;
-		if (m_o2 > -0.1f) {
-			m_o2 = -0.1f;
-		}
-		m_velocity.x = 0.0f;
-		m_velocity.z = 0.0f;
-		if (m_characterController.IsOnGround() == false) {
-			m_efk = 1;
-			if (m_swim == false and m_waterJump == false) {
-				m_modelRender.PlayAnimation(enAnimClip_Jump);
-				m_velocity += cameraForward * speed;
+		auto camera = FindGO<GameCamera>("GameCamera");
+		if (camera->m_flug == true)
+		{
+			m_o2 += 0.001f;
+			Vector3 forward = g_camera3D->GetForward();
+			// カメラの "前方向" ベクトルを、水平方向だけにしたベクトルを作成
+			Vector3 cameraForward = forward;
+			cameraForward.y = 0.0f; // Y成分（上下方向）をゼロにして、水平方向（地面に沿った方向）にする
+			cameraForward.Normalize(); // ベクトルの長さを1に戻す
+			// moveSpeedにカメラの前進方向の速度を加える
+			float speed = 10.0f;
+			m_diff = m_position - m_pengin->m_pos;
+			m_diff2 = m_position - m_ninjaPengin->m_pos;
+			m_diff3 = m_position - m_silenPengin->m_pos;
+			m_diff4 = m_position - m_dummy5->m_pos;
+			if (m_o2 > -0.1f) {
+				m_o2 = -0.1f;
 			}
-			else if (m_waterJump == true) {
-				m_velocity += cameraForward * speed;
-			}
-		}
-		else {
-			m_modelRender.PlayAnimation(enAnimClip_Idle);
-			m_superJump = false;
-		}
-		if (m_characterController.IsOnGround() == true or m_swim == true) {
-			if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
-				m_chase = false;
-				if (g_pad[0]->IsTrigger(enButtonA)) {
-					m_eff2 = NewGO<EffectEmitter>(0);
-					m_eff2->Init(2);
-					m_eff2->SetScale({ 10.0f,1.0f,10.0f });
-					m_eff2->SetPosition(m_position);
-					m_eff2->Play();
-					SoundSource* se = NewGO<SoundSource>(0);
-					se->Init(14);
-					se->Play(false);
-					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-					se->SetVolume(finalSE);
-					m_velocity.y = 12.0f;
+			m_velocity.x = 0.0f;
+			m_velocity.z = 0.0f;
+			if (m_characterController.IsOnGround() == false) {
+				m_efk = 1;
+				if (m_swim == false and m_waterJump == false) {
+					m_modelRender.PlayAnimation(enAnimClip_Jump);
+					m_velocity += cameraForward * speed;
+				}
+				else if (m_waterJump == true) {
+					m_velocity += cameraForward * speed;
 				}
 			}
 			else {
-				m_chase = true;
-				m_modelRender.SetAnimationSpeed(0.6f);
+				m_modelRender.PlayAnimation(enAnimClip_Idle);
+				m_superJump = false;
 			}
-			if (m_efk == 1) {
-				if (m_eff2 != nullptr) {
-					m_eff2->Stop();
-				}
-				m_efk = 0;
-			}
-			if (m_i < 0) {
-				m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
-				m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
-				m_sprite.Update();
-				m_i++;
-			}
-		}
-		if (m_characterController.IsOnGround() == true) {
-			if (m_swim == false) {
-				m_eff = 0;
-				m_se = 0;
-			}
-			m_waterJump = false;
-		}
-		else {
-			if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
-				if (m_swim == true) {
+			if (m_characterController.IsOnGround() == true or m_swim == true) {
+				if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
+					m_chase = false;
 					if (g_pad[0]->IsTrigger(enButtonA)) {
-						m_swim = false;
-						m_waterJump = true;
-						m_modelRender.PlayAnimation(enAnimClip_WaterJump);
+						m_eff2 = NewGO<EffectEmitter>(0);
+						m_eff2->Init(2);
+						m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+						m_eff2->SetPosition(m_position);
+						m_eff2->Play();
+						SoundSource* se = NewGO<SoundSource>(0);
+						se->Init(14);
+						se->Play(false);
+						float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+						se->SetVolume(finalSE);
+						m_velocity.y = 12.0f;
 					}
 				}
-			}
-			m_i -= 1;
-			m_velocity.y -= 0.5f;
-		}
-		if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
-			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-				m_jump = 1;
-			}
-		}
-		if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
-			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-				m_jump = 2;
-			}
-		}
-		if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
-			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-				m_jump = 0;
-			}
-		}
-		if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
-			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-				m_jump = 3;
-			}
-		}
-		switch (m_jump) {
-		case 0:
-			if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
-				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-					m_superJump = true;
-					m_velocity.y += 25.0f;
-					m_sprite.Init("Assets/sprite/931911.dds", 150.0f, 200.0f);
-					m_sprite.SetPosition({ 0.0f,-275.0f,0.0f });
-					m_eff2 = NewGO<EffectEmitter>(0);
-					m_eff2->Init(2);
-					m_eff2->SetScale({ 10.0f,1.0f,10.0f });
-					m_eff2->SetPosition(m_position);
-					m_eff2->Play();
-					SoundSource* se = NewGO<SoundSource>(0);
-					se->Init(15);
-					se->Play(false);
-					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-					se->SetVolume(finalSE);
+				else {
+					m_chase = true;
+					m_modelRender.SetAnimationSpeed(0.6f);
+				}
+				if (m_efk == 1) {
+					if (m_eff2 != nullptr) {
+						m_eff2->Stop();
+					}
+					m_efk = 0;
+				}
+				if (m_i < 0) {
+					m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
+					m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
 					m_sprite.Update();
+					m_i++;
 				}
 			}
-			break;
-		case 1:
-			if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
-				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-					m_superJump = true;
-					m_velocity.x -= 300.0f;
-					m_velocity.y += 25.0f;
-					m_sprite.Init("Assets/sprite/931908.dds", 200.0f, 150.0f);
-					m_sprite.SetPosition({ -25.0f,-300.0f,0.0f });
-					m_eff2 = NewGO<EffectEmitter>(0);
-					m_eff2->Init(2);
-					m_eff2->SetScale({ 10.0f,1.0f,10.0f });
-					m_eff2->SetPosition(m_position);
-					m_eff2->Play();
-					SoundSource* se = NewGO<SoundSource>(0);
-					se->Init(15);
-					se->Play(false);
-					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-					se->SetVolume(finalSE);
-					m_sprite.Update();
-				}
-			}
-			break;
-		case 2:
-			if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
-				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-					m_superJump = true;
-					m_velocity.y += 25.0f;
-					m_velocity.x += 300.0f;
-					m_sprite.Init("Assets/sprite/931902.dds", 200.0f, 150.0f);
-					m_sprite.SetPosition({ 25.0f,-300.0f,0.0f });
-					m_eff2 = NewGO<EffectEmitter>(0);
-					m_eff2->Init(2);
-					m_eff2->SetScale({ 10.0f,1.0f,10.0f });
-					m_eff2->SetPosition(m_position);
-					m_eff2->Play();
-					SoundSource* se = NewGO<SoundSource>(0);
-					se->Init(15);
-					se->Play(false);
-					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-					se->SetVolume(finalSE);
-					m_sprite.Update();
-				}
-			}
-			break;
-		case 3:
-			if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
-				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-					m_superJump = true;
-					m_velocity.z -= 10.0f;
-					m_velocity.y += 20.0f;
-					m_sprite.Init("Assets/sprite/931905.dds", 150.0f, 200.0f);
-					m_sprite.SetPosition({ 0.0f,-325.0f,0.0f });
-					m_eff2 = NewGO<EffectEmitter>(0);
-					m_eff2->Init(2);
-					m_eff2->SetScale({ 10.0f,1.0f,10.0f });
-					m_eff2->SetPosition(m_position);
-					m_eff2->Play();
-					SoundSource* se = NewGO<SoundSource>(0);
-					se->Init(15);
-					se->Play(false);
-					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-					se->SetVolume(finalSE);
-					m_sprite.Update();
-				}
-			}
-			break;
-		}
-		if (m_position.y <= -30.0f) {
-			if (m_swim == false) {
-				m_eff = 0;
-			}
-			m_o2 -= 0.01f;
-			m_swim = true;
-			if (m_waterJump == false) {
-				m_velocity.y = 0.2f;
-			}
-		}
-		if (m_swim == true) {
-			if (m_se == 0) {
-				SoundSource* se = NewGO<SoundSource>(0);
-				se->Init(7);
-				se->Play(false);
-				float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-				se->SetVolume(finalSE);
-				m_se++;
-				m_effectEmitter = NewGO <EffectEmitter>(0);
-				m_effectEmitter->Init(1);
-				m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
-				m_effectEmitter->Play();
-				m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
-				m_eff++;
-			}
-			if (g_pad[0]->IsTrigger(enButtonA)) {
-				m_effectEmitter = NewGO <EffectEmitter>(0);
-				m_effectEmitter->Init(1);
-				m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
-				m_effectEmitter->Play();
-				m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
-			}
-			if (m_se <= 1) {
-				if (g_pad[0]->IsTrigger(enButtonA)) {
+			if (m_characterController.IsOnGround() == true) {
+				if (m_swim == false) {
+					m_eff = 0;
 					m_se = 0;
 				}
+				m_waterJump = false;
 			}
-			if (m_waterJump == false) {
-				m_count += 0.1f;
-				m_modelRender.PlayAnimation(enAnimClip_Swim);
+			else {
+				if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
+					if (m_swim == true) {
+						if (g_pad[0]->IsTrigger(enButtonA)) {
+							m_swim = false;
+							m_waterJump = true;
+							m_modelRender.PlayAnimation(enAnimClip_WaterJump);
+						}
+					}
+				}
+				m_i -= 1;
+				m_velocity.y -= 0.5f;
 			}
-			m_rot.SetRotationDegZ(0.0f);
-			if (m_characterController.IsOnGround() == true) {
-				m_swim = false;
+			if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
+				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					m_jump = 1;
+				}
 			}
-			m_i -= 1;
-		}
-		else {
-			m_count = 0.0f;
-			if (m_diff.Length() <= 350.0f) {
-				m_hp += 0.01f;
+			if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
+				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					m_jump = 2;
+				}
 			}
-			if (m_diff2.Length() <= 350.0f) {
-				m_hp += 0.01f;
+			if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
+				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					m_jump = 0;
+				}
 			}
-			if (m_diff3.Length() <= 350.0f) {
-				m_hp += 0.01f;
+			if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
+				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					m_jump = 3;
+				}
 			}
-			if (m_diff4.Length() <= 350.0f) {
-				m_hp += 0.01f;
+			switch (m_jump) {
+			case 0:
+				if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+						m_superJump = true;
+						m_velocity.y += 25.0f;
+						m_sprite.Init("Assets/sprite/931911.dds", 150.0f, 200.0f);
+						m_sprite.SetPosition({ 0.0f,-275.0f,0.0f });
+						m_eff2 = NewGO<EffectEmitter>(0);
+						m_eff2->Init(2);
+						m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+						m_eff2->SetPosition(m_position);
+						m_eff2->Play();
+						SoundSource* se = NewGO<SoundSource>(0);
+						se->Init(15);
+						se->Play(false);
+						float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+						se->SetVolume(finalSE);
+						m_sprite.Update();
+					}
+				}
+				break;
+			case 1:
+				if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+						m_superJump = true;
+						m_velocity.x -= 300.0f;
+						m_velocity.y += 25.0f;
+						m_sprite.Init("Assets/sprite/931908.dds", 200.0f, 150.0f);
+						m_sprite.SetPosition({ -25.0f,-300.0f,0.0f });
+						m_eff2 = NewGO<EffectEmitter>(0);
+						m_eff2->Init(2);
+						m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+						m_eff2->SetPosition(m_position);
+						m_eff2->Play();
+						SoundSource* se = NewGO<SoundSource>(0);
+						se->Init(15);
+						se->Play(false);
+						float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+						se->SetVolume(finalSE);
+						m_sprite.Update();
+					}
+				}
+				break;
+			case 2:
+				if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+						m_superJump = true;
+						m_velocity.y += 25.0f;
+						m_velocity.x += 300.0f;
+						m_sprite.Init("Assets/sprite/931902.dds", 200.0f, 150.0f);
+						m_sprite.SetPosition({ 25.0f,-300.0f,0.0f });
+						m_eff2 = NewGO<EffectEmitter>(0);
+						m_eff2->Init(2);
+						m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+						m_eff2->SetPosition(m_position);
+						m_eff2->Play();
+						SoundSource* se = NewGO<SoundSource>(0);
+						se->Init(15);
+						se->Play(false);
+						float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+						se->SetVolume(finalSE);
+						m_sprite.Update();
+					}
+				}
+				break;
+			case 3:
+				if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+						m_superJump = true;
+						m_velocity.z -= 10.0f;
+						m_velocity.y += 20.0f;
+						m_sprite.Init("Assets/sprite/931905.dds", 150.0f, 200.0f);
+						m_sprite.SetPosition({ 0.0f,-325.0f,0.0f });
+						m_eff2 = NewGO<EffectEmitter>(0);
+						m_eff2->Init(2);
+						m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+						m_eff2->SetPosition(m_position);
+						m_eff2->Play();
+						SoundSource* se = NewGO<SoundSource>(0);
+						se->Init(15);
+						se->Play(false);
+						float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+						se->SetVolume(finalSE);
+						m_sprite.Update();
+					}
+				}
+				break;
 			}
-			m_rot.SetRotationDegZ(-90.0f);
+			if (m_position.y <= -30.0f) {
+				if (m_swim == false) {
+					m_eff = 0;
+				}
+				m_o2 -= 0.01f;
+				m_swim = true;
+				if (m_waterJump == false) {
+					m_velocity.y = 0.2f;
+				}
+			}
+			if (m_swim == true) {
+				if (m_se == 0) {
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(7);
+					se->Play(false);
+					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+					se->SetVolume(finalSE);
+					m_se++;
+					m_effectEmitter = NewGO <EffectEmitter>(0);
+					m_effectEmitter->Init(1);
+					m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
+					m_effectEmitter->Play();
+					m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
+					m_eff++;
+				}
+				if (g_pad[0]->IsTrigger(enButtonA)) {
+					m_effectEmitter = NewGO <EffectEmitter>(0);
+					m_effectEmitter->Init(1);
+					m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
+					m_effectEmitter->Play();
+					m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
+				}
+				if (m_se <= 1) {
+					if (g_pad[0]->IsTrigger(enButtonA)) {
+						m_se = 0;
+					}
+				}
+				if (m_waterJump == false) {
+					m_count += 0.1f;
+					m_modelRender.PlayAnimation(enAnimClip_Swim);
+				}
+				m_rot.SetRotationDegZ(0.0f);
+				if (m_characterController.IsOnGround() == true) {
+					m_swim = false;
+				}
+				m_i -= 1;
+			}
+			else {
+				m_count = 0.0f;
+				if (m_diff.Length() <= 350.0f) {
+					m_hp += 0.01f;
+				}
+				if (m_diff2.Length() <= 350.0f) {
+					m_hp += 0.01f;
+				}
+				if (m_diff3.Length() <= 350.0f) {
+					m_hp += 0.01f;
+				}
+				if (m_diff4.Length() <= 350.0f) {
+					m_hp += 0.01f;
+				}
+				m_rot.SetRotationDegZ(-90.0f);
+			}
+			if (m_count >= 20.0f) {
+				m_waterJump = true;
+				m_modelRender.PlayAnimation(enAnimClip_WaterJump);
+				m_se = 0;
+				m_velocity.y += 20.0f;
+				m_count = 0.0f;
+			}
+			m_position.y += 12.0f;
+			if (m_o2 <= -1.05f) {
+				m_o2 = -1.05f;
+			}
+			if (m_i < -1) {
+				m_i = -1;
+			}
+			if (g_pad[0]->IsPress(enButtonY)) {
+				m_o2 -= 0.002f;
+				m_hp += 0.003f;
+			}
+			if (m_chase == true) {
+				m_modelRender.SetAnimationSpeed(0.5f);
+			}
+			else {
+				m_modelRender.SetAnimationSpeed(1.0f);
+			}
+			m_modelRender.SetPosition(m_position);
+			m_modelRender.SetRotation(m_rot);
+			m_position = m_characterController.Execute(m_velocity, 1.0f);
+			m_modelRender.Update();
 		}
-		if (m_count >= 20.0f) {
-			m_waterJump = true;
-			m_modelRender.PlayAnimation(enAnimClip_WaterJump);
-			m_se = 0;
-			m_velocity.y += 20.0f;
-			m_count = 0.0f;
 		}
-		m_position.y += 12.0f;
-		if (m_o2 <= -1.05f) {
-			m_o2 = -1.05f;
-		}
-		if (m_i < -1) {
-			m_i = -1;
-		}
-		if (g_pad[0]->IsPress(enButtonY)) {
-			m_o2 -= 0.002f;
-			m_hp += 0.003f;
-		}
-		if (m_chase == true) {
-			m_modelRender.SetAnimationSpeed(0.5f);
-		}
-		else {
-			m_modelRender.SetAnimationSpeed(1.0f);
-		}
-		m_modelRender.SetPosition(m_position);
-		m_modelRender.SetRotation(m_rot);
-		m_position = m_characterController.Execute(m_velocity, 1.0f);
-		m_modelRender.Update();
-	}
+		
 }
 
 void Player::Render(RenderContext& rc) {
