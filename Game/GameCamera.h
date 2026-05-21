@@ -2,6 +2,7 @@
 class Player;
 class GameCamera : public IGameObject
 {
+public:
 	bool Start();
 	void Update();
 	Player* m_player;
