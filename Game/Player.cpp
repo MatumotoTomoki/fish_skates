@@ -7,6 +7,7 @@
 #include "Pause.h"
 #include "GameCamera.h"
 
+
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
 	m_animationClips[enAnimClip_Idle].SetLoopFlag(true);
@@ -37,6 +38,7 @@ bool Player::Start() {
 	return true;
 }
 
+
 void Player::Update() {
 	auto pause = FindGO<Pause>("Pause");
 	if (pause && pause->IsPaused()) {
@@ -59,39 +61,39 @@ void Player::Update() {
 	else {
 		m_go++;
 		auto camera = FindGO<GameCamera>("GameCamera");
+		Vector3 forward = g_camera3D->GetForward();
+		// カメラの "前方向" ベクトルを、水平方向だけにしたベクトルを作成
+		Vector3 cameraForward = forward;
+		cameraForward.y = 0.0f; // Y成分（上下方向）をゼロにして、水平方向（地面に沿った方向）にする
+		cameraForward.Normalize(); // ベクトルの長さを1に戻す
+		// moveSpeedにカメラの前進方向の速度を加える
+		float speed = 10.0f;
+		m_diff = m_position - m_pengin->m_pos;
+		m_diff2 = m_position - m_ninjaPengin->m_pos;
+		m_diff3 = m_position - m_silenPengin->m_pos;
+		m_diff4 = m_position - m_dummy5->m_pos;
+		if (m_o2 > -0.1f) {
+			m_o2 = -0.1f;
+		}
+		m_velocity.x = 0.0f;
+		m_velocity.z = 0.0f;
+		if (m_characterController.IsOnGround() == false) {
+			m_efk = 1;
+			if (m_swim == false and m_waterJump == false) {
+				m_modelRender.PlayAnimation(enAnimClip_Jump);
+				m_velocity += cameraForward * speed;
+			}
+			else if (m_waterJump == true) {
+				m_velocity += cameraForward * speed;
+			}
+		}
+		else {
+			m_modelRender.PlayAnimation(enAnimClip_Idle);
+			m_superJump = false;
+		}
 		if (camera->m_flug == true)
 		{
 			m_o2 += 0.001f;
-			Vector3 forward = g_camera3D->GetForward();
-			// カメラの "前方向" ベクトルを、水平方向だけにしたベクトルを作成
-			Vector3 cameraForward = forward;
-			cameraForward.y = 0.0f; // Y成分（上下方向）をゼロにして、水平方向（地面に沿った方向）にする
-			cameraForward.Normalize(); // ベクトルの長さを1に戻す
-			// moveSpeedにカメラの前進方向の速度を加える
-			float speed = 10.0f;
-			m_diff = m_position - m_pengin->m_pos;
-			m_diff2 = m_position - m_ninjaPengin->m_pos;
-			m_diff3 = m_position - m_silenPengin->m_pos;
-			m_diff4 = m_position - m_dummy5->m_pos;
-			if (m_o2 > -0.1f) {
-				m_o2 = -0.1f;
-			}
-			m_velocity.x = 0.0f;
-			m_velocity.z = 0.0f;
-			if (m_characterController.IsOnGround() == false) {
-				m_efk = 1;
-				if (m_swim == false and m_waterJump == false) {
-					m_modelRender.PlayAnimation(enAnimClip_Jump);
-					m_velocity += cameraForward * speed;
-				}
-				else if (m_waterJump == true) {
-					m_velocity += cameraForward * speed;
-				}
-			}
-			else {
-				m_modelRender.PlayAnimation(enAnimClip_Idle);
-				m_superJump = false;
-			}
 			if (m_characterController.IsOnGround() == true or m_swim == true) {
 				if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
 					m_chase = false;
@@ -119,14 +121,19 @@ void Player::Update() {
 					}
 					m_efk = 0;
 				}
-				if (m_i < 0) {
-					m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
-					m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
-					m_sprite.Update();
-					m_i++;
+			}
+			if (m_jump != 9) {
+				if (m_superJump == true) {
+					m_jump = 9;
 				}
 			}
 			if (m_characterController.IsOnGround() == true) {
+				if (m_jump == 9) {
+					m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
+					m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
+					m_sprite.Update();
+					m_jump = 10;
+				}
 				if (m_swim == false) {
 					m_eff = 0;
 					m_se = 0;
@@ -347,8 +354,10 @@ void Player::Update() {
 			m_position = m_characterController.Execute(m_velocity, 1.0f);
 			m_modelRender.Update();
 		}
+		else {
+			m_modelRender.Update();
 		}
-		
+	}
 }
 
 void Player::Render(RenderContext& rc) {
