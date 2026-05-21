@@ -7,6 +7,7 @@
 #include "Pause.h"
 #include "GameCamera.h"
 
+
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
 	m_animationClips[enAnimClip_Idle].SetLoopFlag(true);
@@ -36,6 +37,7 @@ bool Player::Start() {
 	m_characterController.Execute(m_velocity, 0);
 	return true;
 }
+
 
 void Player::Update() {
 	auto pause = FindGO<Pause>("Pause");
@@ -119,9 +121,19 @@ void Player::Update() {
 					}
 					m_efk = 0;
 				}
-
+			}
+			if (m_jump != 9) {
+				if (m_superJump == true) {
+					m_jump = 9;
+				}
 			}
 			if (m_characterController.IsOnGround() == true) {
+				if (m_jump == 9) {
+					m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
+					m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
+					m_sprite.Update();
+					m_jump = 10;
+				}
 				if (m_swim == false) {
 					m_eff = 0;
 					m_se = 0;
@@ -342,8 +354,10 @@ void Player::Update() {
 			m_position = m_characterController.Execute(m_velocity, 1.0f);
 			m_modelRender.Update();
 		}
+		else {
+			m_modelRender.Update();
+		}
 	}
-
 }
 
 void Player::Render(RenderContext& rc) {
