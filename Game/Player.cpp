@@ -155,21 +155,41 @@ void Player::Update() {
 			}
 			if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
 				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(4);
+					se->Play(false);
+					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+					se->SetVolume(finalSE);
 					m_jump = 1;
 				}
 			}
 			if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
 				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(4);
+					se->Play(false);
+					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+					se->SetVolume(finalSE);
 					m_jump = 2;
 				}
 			}
 			if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
 				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(4);
+					se->Play(false);
+					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+					se->SetVolume(finalSE);
 					m_jump = 0;
 				}
 			}
 			if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
 				if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(4);
+					se->Play(false);
+					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+					se->SetVolume(finalSE);
 					m_jump = 3;
 				}
 			}
@@ -311,16 +331,7 @@ void Player::Update() {
 			}
 			else {
 				m_count = 0.0f;
-				if (m_diff.Length() <= 350.0f) {
-					m_hp += 0.01f;
-				}
-				if (m_diff2.Length() <= 350.0f) {
-					m_hp += 0.01f;
-				}
-				if (m_diff3.Length() <= 350.0f) {
-					m_hp += 0.01f;
-				}
-				if (m_diff4.Length() <= 350.0f) {
+				if (m_diff.Length() <= 350.0f or m_diff2.Length() <= 350.0f or m_diff3.Length() <= 350.0f or m_diff4.Length() <= 350.0f) {
 					m_hp += 0.01f;
 				}
 				m_rot.SetRotationDegZ(-90.0f);
