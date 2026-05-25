@@ -297,6 +297,9 @@ void Player::Update() {
 					SoundSource* se = NewGO<SoundSource>(0);
 					se->Init(7);
 					se->Play(false);
+					SoundSource* SuperSe = NewGO<SoundSource>(0);
+					SuperSe->Init(18);
+					SuperSe->Play(false);
 					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
 					se->SetVolume(finalSE);
 					m_se++;
