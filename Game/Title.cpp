@@ -84,7 +84,7 @@ void Title::Update() {
 		m_manualColor += 0.01;
 		}
 		if(m_gaugeflug ==true) {
-			m_manualColor -= 1.0;
+			m_manualColor = 0.0;
 		}
 		m_cool++;
 		if (m_cool > 2) {
