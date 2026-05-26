@@ -358,5 +358,5 @@ void Game::Update() {
 
 void Game::Render(RenderContext& rc) {
 	m_stageRender.Draw(rc);
-	m_fpsFont.Draw(rc);		//リリースでのFPS確認用
+	//m_fpsFont.Draw(rc);		//リリースでのFPS確認用
 }
