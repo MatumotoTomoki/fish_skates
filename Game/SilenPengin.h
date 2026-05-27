@@ -27,4 +27,3 @@ public:
 	float m_coolTime = 100.0f;
 	int m_silen = 0;
 };
-

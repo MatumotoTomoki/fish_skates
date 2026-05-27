@@ -30,7 +30,7 @@ bool Player::Start() {
 	m_dummy5 = FindGO<Dummy5>("Dummy5");
 	m_position = { 0.0f,1000.0f,0.0f };
 	m_modelRender.SetPosition(m_position);
-	m_characterController.Init(25.0f, 75.0f, m_position);
+	m_characterController.Init(35.0f, 30.0f, m_position);
 	m_characterController.SetPosition(m_position);
 	m_modelRender.Update();
 	m_start = false;
@@ -283,7 +283,7 @@ void Player::Update() {
 				}
 				break;
 			}
-			if (m_position.y <= -40.0f) {
+			if (m_position.y <= -60.0f) {
 				if (m_swim == false) {
 					m_eff = 0;
 				}
@@ -350,7 +350,7 @@ void Player::Update() {
 				m_waterJump = true;
 				m_modelRender.PlayAnimation(enAnimClip_WaterJump);
 				m_se = 0;
-				m_velocity.y += 20.0f;
+				m_velocity.y += 25.0f;
 				m_count = 0.0f;
 			}
 			if (m_o2 <= -1.05f) {

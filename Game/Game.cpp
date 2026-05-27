@@ -73,7 +73,7 @@ bool Game::Start() {
 			return true;
 		}
 		});
-	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;
 }
 
