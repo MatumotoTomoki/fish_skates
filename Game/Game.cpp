@@ -58,7 +58,7 @@ bool Game::Start() {
 			return true;
 		}
 		if (odData.EqualObjectName(L"Stage") == true) {
-			m_stageRender.Init("Assets/modelData/tairiku4.tkm");
+			m_stageRender.Init("Assets/modelData/tairiku5.1.tkm");
 			m_stageRender.SetTRS(
 				odData.position,
 				odData.rotation,
@@ -358,5 +358,5 @@ void Game::Update() {
 
 void Game::Render(RenderContext& rc) {
 	m_stageRender.Draw(rc);
-	//m_fpsFont.Draw(rc);		//リリースでのFPS確認用
+	m_fpsFont.Draw(rc);		//リリースでのFPS確認用
 }
