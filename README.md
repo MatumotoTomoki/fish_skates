@@ -441,5 +441,5 @@ SPSOut PSMainShadowReciever(SPSIn psIn) { return PSMainCore(psIn, 1); }
 
   ![透明ペンギン](学校画像/透明ペンギン.gif)
 
-  これにより段階的に浮かび上がるようになりました
+  これにより段階的に浮かび上がるようになりました　　　
   エネミーに実装
