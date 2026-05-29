@@ -18,7 +18,7 @@ bool Player::Start() {
 	m_animationClips[enAnimClip_WaterJump].Load("Assets/animdata/fish_waterJump.tka");
 	m_animationClips[enAnimClip_WaterJump].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/fish_idol.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
-	m_modelRender.SetScale(10.0f, 10.0f, 10.0f);
+	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
 	m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
 	m_sprite.Update();
@@ -46,6 +46,7 @@ void Player::Update() {
 	}
 	if (m_start == false) {
 		m_velocity.y -= 0.5f;
+		m_position.y += 12.0f;
 		if (m_characterController.IsOnGround() == true) {
 			if (m_go < 62) {
 				m_go++;
@@ -54,8 +55,8 @@ void Player::Update() {
 		if (m_go > 60) {
 			m_start = true;
 		}
-		m_position = m_characterController.Execute(m_velocity, 1.0f);
 		m_modelRender.SetPosition(m_position);
+		m_position = m_characterController.Execute(m_velocity, 1.0f);
 		m_modelRender.Update();
 	}
 	else {
@@ -353,6 +354,7 @@ void Player::Update() {
 				m_velocity.y += 25.0f;
 				m_count = 0.0f;
 			}
+			m_position.y += 12.0f;
 			if (m_o2 <= -1.05f) {
 				m_o2 = -1.05f;
 			}
@@ -369,10 +371,10 @@ void Player::Update() {
 			else {
 				m_modelRender.SetAnimationSpeed(1.0f);
 			}
-			m_position = m_characterController.Execute(m_velocity, 1.0f); 
             m_modelRender.SetPosition(m_position); 
             m_modelRender.SetRotation(m_rot);
-            m_modelRender.Update();
+			m_position = m_characterController.Execute(m_velocity, 1.0f);
+			m_modelRender.Update();
 		}
 		else {
 			m_modelRender.Update();

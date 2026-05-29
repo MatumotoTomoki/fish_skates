@@ -28,15 +28,27 @@ static const int dither_table[4][4] = {
 
 cbuffer CustomBuffer : register(b1)
 {
-    float g_opacity;   // C++‚Ì opacity ‚ª‚±‚±‚É“ü‚é
-    float g_isDither;  // C++‚Ì isDither ‚ª‚±‚±‚É“ü‚é
+    float g_opacity;   // C++ï¿½ï¿½ opacity ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É“ï¿½ï¿½ï¿½
+    float g_isDither;  // C++ï¿½ï¿½ isDither ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É“ï¿½ï¿½ï¿½
     float2 padding;    
 };
 
 float3 GetNormalFromNormalMap(float3 normal, float3 tangent, float3 biNormal, float2 uv)
 {
-    float3 binSpaceNormal = g_normal.SampleLevel(g_sampler, uv, 0.0f).xyz;
+    // â˜… 1. UVã‚’ã‚¿ã‚¤ãƒªãƒ³ã‚°ã—ã¦ç›®ã‚’ç´°ã‹ãã™ã‚‹ãªã‚‰ã“ã“ï¼ˆä¾‹: 8.0å€ã«ã‚¶ãƒ©ã‚¶ãƒ©ã«ã™ã‚‹ï¼‰
+    // ã‚‚ã—ä»Šã®ã¾ã¾ã§è‰¯ã‘ã‚Œã°ã€ä¸‹ã® SampleLevel ã® uv ã‚’ tiledUV ã«å¤‰ãˆãšã« uv ã®ã¾ã¾ã§OK
+    float2 tiledUV = uv * 8.0f; 
+
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‹ã‚‰æ³•ç·šã‚’å–å¾—
+    float3 binSpaceNormal = g_normal.SampleLevel(g_sampler, tiledUV, 0.0f).xyz;
     binSpaceNormal = (binSpaceNormal * 2.0f) - 1.0f;
+
+    // â˜… 2. ã“ã“ã§å¼·åº¦ã‚’èª¿æ•´ï¼ (0.1 ï½ 0.3 ã‚ãŸã‚Šã«ä¸‹ã’ã‚‹ã¨æ±šã‚Œã£ã½ã•ãŒæ¶ˆãˆã‚‹)
+    float normalStrength = 0.3f;
+    binSpaceNormal.x *= normalStrength;
+    binSpaceNormal.y *= normalStrength;
+
+    // æœ€å¾Œã«TBNå¤‰æ›ã—ã¦ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã®æ³•ç·šã«ã™ã‚‹
     return tangent * binSpaceNormal.x + biNormal * binSpaceNormal.y + normal * binSpaceNormal.z;
 }
 
@@ -54,13 +66,13 @@ SPSIn VSMainCore(SVSIn vsIn, float4x4 mWorldLocal, uniform bool isUsePreComputed
 SPSOut PSMainCore(SPSIn psIn, int isShadowReciever)
 {
     SPSOut psOut;
-    // ƒeƒNƒXƒ`ƒƒ‚ÌF‚ğƒTƒ“ƒvƒ‹i‚±‚±‚ÅƒAƒ‹ƒtƒ@’l‚àæ“¾‚³‚ê‚éj
+    // ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌFï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ÅƒAï¿½ï¿½ï¿½tï¿½@ï¿½lï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½j
     psOut.albedo = g_albedo.Sample(g_sampler, psIn.uv);
     
     uint d_x = (uint) psIn.pos.x % 2;
     uint d_y = (uint) psIn.pos.y % 2;
 
-    // --- 0.5f ‚Å‚Í‚È‚­AƒeƒNƒXƒ`ƒƒ‚ÌƒAƒ‹ƒtƒ@’l(psOut.albedo.a)‚ğg‚¤ ---
+    // --- 0.5f ï¿½Å‚Í‚È‚ï¿½ï¿½Aï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒAï¿½ï¿½ï¿½tï¿½@ï¿½l(psOut.albedo.a)ï¿½ï¿½ï¿½gï¿½ï¿½ ---
     clip(psOut.albedo.a - (float) dither_table[d_y][d_x] / 64.0f);
     // ------------------------------------------------------------
 
