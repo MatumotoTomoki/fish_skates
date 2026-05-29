@@ -46,6 +46,7 @@ void Player::Update() {
 	}
 	if (m_start == false) {
 		m_velocity.y -= 0.5f;
+		m_position.y += 12.0f;
 		if (m_characterController.IsOnGround() == true) {
 			if (m_go < 62) {
 				m_go++;
@@ -54,8 +55,8 @@ void Player::Update() {
 		if (m_go > 60) {
 			m_start = true;
 		}
-		m_position = m_characterController.Execute(m_velocity, 1.0f);
 		m_modelRender.SetPosition(m_position);
+		m_position = m_characterController.Execute(m_velocity, 1.0f);
 		m_modelRender.Update();
 	}
 	else {
