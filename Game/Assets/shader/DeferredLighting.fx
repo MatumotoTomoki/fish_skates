@@ -139,7 +139,7 @@ float3 CalcDirectionLight(
     for(int ligNo = 0; ligNo < NUM_DIRECTIONAL_LIGHT; ligNo++)
     {
         // ★強制的に光の向きを固定（ここを変えると光が動く）
-        float3 customDir = normalize(float3(0.3f, -0.5f, -0.7f));
+        float3 customDir = normalize(float3(0.1f, -0.5f, -0.7f));
 
         // 影の比率を計算する。
         float shadow = 0.8f;
@@ -156,7 +156,7 @@ float3 CalcDirectionLight(
         float maxShadowDarkness = 0.7f; // 0.0で影が消える、1.0で真っ黒
         lig += CalcLighting(
             customDir, // ★固定した向きを適用
-            light.directionalLight[ligNo].color,
+            light.directionalLight[ligNo].color * 1.2f,
             normal,
             toEye,
             albedoColor,
@@ -229,7 +229,38 @@ float3 CalcPointLight(
         float affect = 1.0f - min(1.0f, distance / light.pointLight[ligNo].attn.x);
         affect = pow( affect, light.pointLight[ligNo].attn.y );
         lig += ptLig * affect;
+    } // ← forループはここでしっかり閉じる！
+
+    // ========================================================
+    // ★ ここから追加：力技でオリジナルのポイントライトを1個配置する！
+    // ========================================================
+    
+    // 1. ライトを置きたい「ワールド座標(X, Y, Z)」を決める
+    float3 myLightPos = float3(0.0f, 70.0f, 0.0f); 
+    
+    // 2. ライトの色（R, G, B）を決める（たき火や電球のような温かいオレンジ色）
+    float3 myLightColor = float3(100.0f, 100.0f, 0.0f); 
+    
+    // 3. 光が届く「半径（距離）」を決める
+    float myRange = 100.0f;
+
+    // 4. 【重要】実際に光を計算して画面の光（lig）に足し算する処理
+    float3 myLigDir = normalize(worldPos - myLightPos);
+    float myDistance = length(worldPos - myLightPos);
+    
+    if (myDistance < myRange) {
+        // PBRのライティング公式を適用して基本の光を計算
+        float3 myPtLig = CalcLighting(myLigDir, myLightColor, normal, toEye, albedoColor, metaric, smooth, specColor);
+        
+        // 離れるほど滑らかに暗くしていく（減衰の計算）
+        float myAffect = 1.0f - (myDistance / myRange);
+        myAffect = pow(myAffect, 2.0f); // 2乗して減衰のボケ足を綺麗にする
+        
+        // 最終的な光の合計（lig）にプラスする！
+        lig += myPtLig * myAffect; 
     }
+    // ========================================================
+
     return lig;
 }
 /*!
