@@ -236,7 +236,7 @@ float3 CalcPointLight(
     // ========================================================
     
     // 1. ライトを置きたい「ワールド座標(X, Y, Z)」を決める
-    float3 myLightPos = float3(0.0f, 70.0f, 0.0f); 
+    float3 myLightPos = float3(0.0f, 40.0f, 0.0f); 
     
     // 2. ライトの色（R, G, B）を決める（たき火や電球のような温かいオレンジ色）
     float3 myLightColor = float3(100.0f, 100.0f, 0.0f); 
