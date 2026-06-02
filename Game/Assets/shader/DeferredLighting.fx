@@ -242,7 +242,7 @@ float3 CalcPointLight(
     float3 myLightColor = float3(100.0f, 100.0f, 0.0f); 
     
     // 3. 光が届く「半径（距離）」を決める
-    float myRange = 100.0f;
+    float myRange = 0.0f;
 
     // 4. 【重要】実際に光を計算して画面の光（lig）に足し算する処理
     float3 myLigDir = normalize(worldPos - myLightPos);
