@@ -19,9 +19,13 @@ bool Player::Start() {
 	m_animationClips[enAnimClip_WaterJump].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/fish_idol.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
+	m_qte.SetScale({ 1.1f,1.1f,0.0f });
 	m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
 	m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
 	m_sprite.Update();
+	m_qte.Init("Assets/sprite/QTEgauge10.DDS", 150.0f, 150.0f);
+	m_qte.SetPosition({ 0.0f,-300.0f,0.0f });
+	m_qte.Update();
 	m_rot.SetRotationDegZ(-90.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_pengin = FindGO<Pengin>("Pengin");
@@ -35,12 +39,23 @@ bool Player::Start() {
 	m_modelRender.Update();
 	m_start = false;
 	m_characterController.Execute(m_velocity, 0);
+	m_qteGauge = 1.0f;
+	m_qteGaugeLevel = 10;
 	return true;
 }
 
 
 void Player::Update() {
 	auto pause = FindGO<Pause>("Pause");
+
+	m_isEnemyNear =
+		(
+			m_diff.Length() <= 600.0f ||
+			m_diff2.Length() <= 600.0f ||
+			m_diff3.Length() <= 600.0f ||
+			m_diff4.Length() <= 600.0f
+			);
+
 	if (pause && pause->IsPaused()) {
 		return;
 	}
@@ -134,6 +149,10 @@ void Player::Update() {
 					m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
 					m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
 					m_sprite.Update();
+					m_qteGauge = 1.0f;
+					m_qteGaugeLevel = 10;
+					
+
 					m_jump = 10;
 				}
 				if (m_swim == false) {
@@ -380,6 +399,36 @@ void Player::Update() {
 			m_modelRender.Update();
 		}
 	}
+	
+
+	if (m_isEnemyNear)
+	{
+		m_qteGauge -= 0.00083f;
+
+		if (m_qteGauge < 0.0f)
+		{
+			m_qteGauge = 0.0f;
+		}
+
+		int newLevel = (int)(m_qteGauge * 10.0f);
+
+		if (newLevel != m_qteGaugeLevel)
+		{
+			m_qteGaugeLevel = newLevel;
+
+			char path[256];
+
+			sprintf_s(
+				path,
+				"Assets/sprite/QTEgauge%d.DDS",
+				m_qteGaugeLevel
+			);
+			
+			m_qte.Init(path, 150, 150);
+			m_qte.SetPosition({ 0,-300,0 });
+			m_qte.Update();
+		}
+	}
 }
 
 void Player::Render(RenderContext& rc) {
@@ -387,6 +436,7 @@ void Player::Render(RenderContext& rc) {
 	if (m_go > 61) {
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
 			m_sprite.Draw(rc);
+			m_qte.Draw(rc);
 		}
 	}
 }
