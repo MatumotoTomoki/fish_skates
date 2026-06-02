@@ -23,9 +23,9 @@ bool Pengin::Start() {
 	);
 
 	// ランダムスポーン
-	m_pos.x = rand() % 3000 - -2000;
-	m_pos.y = 0.0f;
-	m_pos.z = rand() % 6000 - -2000;
+	m_pos.x = rand() % 2200 - -2000;
+	m_pos.y = 40.0f;
+	m_pos.z = rand() % 5000 - -2000;
 
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_modelRender.SetPosition(m_pos);
