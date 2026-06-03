@@ -16,6 +16,7 @@
 #include "Pause.h"
 #include "Title.h"
 #include "Arrow.h"
+#include "graphics/light/SceneLight.h"
 
 void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(0, "Assets/Sound/fish.wav");
@@ -91,6 +92,7 @@ void Game::Update() {
 	if (!m_initialized) {
 		switch (m_loadStep) {
 		case 0:
+			m_playerLight = nullptr; // ★これを追加！開始時に確実に空っぽにする
 			m_player = NewGO<Player>(0, "Player");
 			m_pengin = NewGO<Pengin>(0, "Pengin");
 			m_ninjaPengin = NewGO<NinjaPengin>(0, "NinjaPengin");
@@ -216,6 +218,11 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
+		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
+		if (m_playerLight != nullptr) {
+			g_sceneLight->DeletePointLight(m_playerLight);
+			m_playerLight = nullptr;
+		}
 		NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
@@ -235,6 +242,11 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
+		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
+		if (m_playerLight != nullptr) {
+			g_sceneLight->DeletePointLight(m_playerLight);
+			m_playerLight = nullptr;
+		}
 		NewGO<GameOver>(0, "GameOver");
 		DeleteGO(this);
 	}
@@ -254,6 +266,11 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
+		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
+		if (m_playerLight != nullptr) {
+			g_sceneLight->DeletePointLight(m_playerLight);
+			m_playerLight = nullptr;
+		}
 		NewGO<GameClear>(0, "GameClear");
 		DeleteGO(this);
 	}
@@ -273,6 +290,11 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
+		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
+		if (m_playerLight != nullptr) {
+			g_sceneLight->DeletePointLight(m_playerLight);
+			m_playerLight = nullptr;
+		}
 		m_pause->m_return = false;
 		DeleteGO(this);
 	}
@@ -347,6 +369,28 @@ void Game::Update() {
 		m_isPause--;
 	}
 	m_bgmJustChanged = false;  // ← ロマン終了
+	// --- Update内のライト処理 ---
+	if (m_initialized && g_sceneLight && m_player != nullptr) {
+		Vector3 playerPos = m_player->m_position;
+		// 1. まだライトがなければ【1個だけ】生成する
+		if (m_playerLight == nullptr) {
+			m_playerLight = g_sceneLight->NewPointLight();
+			// 生成された瞬間だけ Use() を呼んで有効化する
+			if (m_playerLight != nullptr) {
+				m_playerLight->Use();
+			}
+		}
+		// 2. ライトが存在していれば、毎フレーム座標を更新して【手動でUpdate】を呼ぶ
+		if (m_playerLight != nullptr) {
+			// 色と範囲をセット
+			m_playerLight->SetColor(10.5f, 10.2f, 24.0f); // 色
+			m_playerLight->SetRange(100.0f);           // 影響範囲
+			// 魚の位置に追従
+			m_playerLight->SetPosition(playerPos.x, playerPos.y + 20.0f, playerPos.z);
+			// ★これを強制的に呼ぶことで、ライトの内部座標（positionInView）が計算されてシェーダーに送られる！
+			m_playerLight->Update();
+		}
+	}
 	m_stageRender.Update();
 	m_modelRender.Update();
 	//リリースでのFPS確認用

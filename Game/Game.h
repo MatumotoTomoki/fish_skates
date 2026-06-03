@@ -65,6 +65,8 @@ private:
 	Pause* m_pause;
 	Distance* m_distance;
 	Arrow* m_arrow;
+	// Game.h のメンバ変数定義エリア
+	nsK2Engine::SPointLight* m_playerLight = nullptr; // カエルを照らすライト用ポインタ
 	bool m_stop = false;
 	int m_skyCubeType = enSkyCubeType_Day;
 	int  m_loadStep = 0;

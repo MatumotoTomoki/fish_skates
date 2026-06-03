@@ -37,7 +37,7 @@ float3 GetNormalFromNormalMap(float3 normal, float3 tangent, float3 biNormal, fl
 {
     // ★ 1. UVをタイリングして目を細かくするならここ（例: 8.0倍にザラザラにする）
     // もし今のままで良ければ、下の SampleLevel の uv を tiledUV に変えずに uv のままでOK
-    float2 tiledUV = uv * 8.0f; 
+    float2 tiledUV = uv * 2.0f; 
 
     // テクスチャから法線を取得
     float3 binSpaceNormal = g_normal.SampleLevel(g_sampler, tiledUV, 0.0f).xyz;
