@@ -43,10 +43,15 @@ public:
 	int m_jump = 0;
 	int m_go = 0;
 	SpriteRender m_sprite;
+	SpriteRender m_qte;
 	Pengin* m_pengin = nullptr;
 	NinjaPengin* m_ninjaPengin = nullptr;
 	SilenPengin* m_silenPengin = nullptr;
 	Dummy5* m_dummy5 = nullptr;
 	EffectEmitter* m_effectEmitter = nullptr;
 	EffectEmitter* m_eff2 = nullptr;
+	float m_qteGauge = 1.0f;
+	int m_qteGaugeLevel = 10;
+	bool m_isEnemyNear = false;
+	
 };
