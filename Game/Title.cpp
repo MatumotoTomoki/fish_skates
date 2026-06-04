@@ -45,6 +45,8 @@ bool Title::Start() {
 	m_masOption.Init("Assets/sprite/masterMove.dds", 1000.0f, 700.0f);
 	m_masGauge.Init("Assets/sprite/bar7.dds", 1000.0f, 700.0f);
 	m_arrow.Init("Assets/sprite/allow.dds", 1000.0f, 700.0f);
+	m_cameraOption.Init("Assets/sprite/cameraOption.dds", 1000.0f, 700.0f);
+	m_optionButton.Init("Assets/sprite/option.dds", 1000.0f, 700.0f);
 	m_bgmOption.Update();
 	m_seOption.Update();
 	m_masOption.Update();
@@ -252,6 +254,105 @@ void Title::Update() {
 			}
 			break;
 		}
+		switch (m_bgmVol) {
+		case 1:
+			m_bgmGauge.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
+			break;
+		case 2:
+			m_bgmGauge.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
+			break;
+		case 3:
+			m_bgmGauge.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
+			break;
+		case 4:
+			m_bgmGauge.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
+			break;
+		case 5:
+			m_bgmGauge.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
+			break;
+		case 6:
+			m_bgmGauge.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
+			break;
+		case 7:
+			m_bgmGauge.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
+			break;
+		case 8:
+			m_bgmGauge.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
+			break;
+		case 9:
+			m_bgmGauge.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
+			break;
+		case 10:
+			m_bgmGauge.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
+			break;
+		}
+		switch (m_seVol) {
+		case 1:
+			m_seGauge.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
+			break;
+		case 2:
+			m_seGauge.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
+			break;
+		case 3:
+			m_seGauge.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
+			break;
+		case 4:
+			m_seGauge.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
+			break;
+		case 5:
+			m_seGauge.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
+			break;
+		case 6:
+			m_seGauge.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
+			break;
+		case 7:
+			m_seGauge.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
+			break;
+		case 8:
+			m_seGauge.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
+			break;
+		case 9:
+			m_seGauge.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
+			break;
+		case 10:
+			m_seGauge.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
+			break;
+		}
+		switch (m_masVol) {
+		case 1:
+			m_masGauge.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
+			break;
+		case 2:
+			m_masGauge.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
+			break;
+		case 3:
+			m_masGauge.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
+			break;
+		case 4:
+			m_masGauge.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
+			break;
+		case 5:
+			m_masGauge.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
+			break;
+		case 6:
+			m_masGauge.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
+			break;
+		case 7:
+			m_masGauge.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
+			break;
+		case 8:
+			m_masGauge.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
+			break;
+		case 9:
+			m_masGauge.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
+			break;
+		case 10:
+			m_masGauge.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
+			break;
+		}
+		m_bgmGauge.Update();
+		m_seGauge.Update();
+		m_masGauge.Update();
 	}
 	if (m_coolTime == true) {
 		m_b.Init("Assets/sprite/a.DDS", 1000.0f, 700.0f);
@@ -366,105 +467,6 @@ void Title::Update() {
 			DeleteGO(this);
 		}
 	}
-	switch (m_bgmVol) {
-	case 1:
-		m_bgmGauge.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
-		break;
-	case 2:
-		m_bgmGauge.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
-		break;
-	case 3:
-		m_bgmGauge.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
-		break;
-	case 4:
-		m_bgmGauge.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
-		break;
-	case 5:
-		m_bgmGauge.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
-		break;
-	case 6:
-		m_bgmGauge.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
-		break;
-	case 7:
-		m_bgmGauge.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
-		break;
-	case 8:
-		m_bgmGauge.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
-		break;
-	case 9:
-		m_bgmGauge.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
-		break;
-	case 10:
-		m_bgmGauge.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
-		break;
-	}
-	switch (m_seVol) {
-	case 1:
-		m_seGauge.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
-		break;
-	case 2:
-		m_seGauge.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
-		break;
-	case 3:
-		m_seGauge.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
-		break;
-	case 4:
-		m_seGauge.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
-		break;
-	case 5:
-		m_seGauge.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
-		break;
-	case 6:
-		m_seGauge.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
-		break;
-	case 7:
-		m_seGauge.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
-		break;
-	case 8:
-		m_seGauge.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
-		break;
-	case 9:
-		m_seGauge.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
-		break;
-	case 10:
-		m_seGauge.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
-		break;
-	}
-	switch (m_masVol) {
-	case 1:
-		m_masGauge.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
-		break;
-	case 2:
-		m_masGauge.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
-		break;
-	case 3:
-		m_masGauge.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
-		break;
-	case 4:
-		m_masGauge.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
-		break;
-	case 5:
-		m_masGauge.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
-		break;
-	case 6:
-		m_masGauge.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
-		break;
-	case 7:
-		m_masGauge.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
-		break;
-	case 8:
-		m_masGauge.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
-		break;
-	case 9:
-		m_masGauge.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
-		break;
-	case 10:
-		m_masGauge.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
-		break;
-	}
-	m_bgmGauge.Update();
-	m_seGauge.Update();
-	m_masGauge.Update();
 	Vector4 manuaColor = { 1.0f,1.0f,1.0f,m_manualColor };
 	m_manual.SetMulColor(manuaColor);
 	m_b.SetMulColor(manuaColor);
@@ -472,6 +474,9 @@ void Title::Update() {
 
 void Title::Render(RenderContext& rc) {
 	m_render.Draw(rc);
+	if (m_coolTime == false) {
+		m_optionButton.Draw(rc);
+	}
 	if (m_optionMode == false) {
 		if (m_i > 0) {
 			if (m_i < 4) {
@@ -491,6 +496,7 @@ void Title::Render(RenderContext& rc) {
 	else {
 		m_bgmOption.Draw(rc);
 		m_arrow.Draw(rc);
+		m_cameraOption.Draw(rc);
 		if (m_bgmVol != 0) {
 			m_bgmGauge.Draw(rc);
 		}
