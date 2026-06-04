@@ -45,4 +45,7 @@ public:
 	int m_sea = 0;
 	int m_cool = 0;
 	int m_optionSelecct = 0;
+	int m_bgmVol = 10;
+	int m_seVol = 10;
+	int m_masVol = 7;
 };

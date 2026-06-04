@@ -22,10 +22,8 @@ bool Title::Start() {
 	m_sound->Init(11);
 	m_sound->Play(true);
 	m_pause = FindGO<Pause>("Pause");
-	if (m_pause) {
-		float finalSE = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
-		m_sound->SetVolume(finalSE);
-	}
+	float finalSE = (m_bgmVol / 10.0f) * (m_masVol / 10.0f);
+	m_sound->SetVolume(finalSE);
 	m_font.Init("Assets/sprite/Gaugeflame.dds", 1600.0f, 200.0f);
 	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
 	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
@@ -62,17 +60,18 @@ void Title::Update() {
 	}
 	m_start.SetMulColor(startColor);
 	if (g_pad[0]->IsTrigger(enButtonRight) or g_pad[0]->IsTrigger(enButtonLeft)) {
-		m_optionState = !m_optionState;
-		SoundSource* se = NewGO<SoundSource>(0);
-		se->Init(20);
-		se->Play(false);
-		if (m_pause) {
-			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+		if (m_optionMode == false) {
+			m_optionState = !m_optionState;
+			SoundSource* se = NewGO<SoundSource>(0);
+			se->Init(20);
+			se->Play(false);
+			float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
 			se->SetVolume(finalSE);
 		}
-		else {
-			se->SetVolume(2.5f);
-		}
+	}
+	if (m_coolTime == false) {
+		float finalBGM = (m_bgmVol / 10.0f) * (m_masVol / 10.0f);
+		m_sound->SetVolume(finalBGM);
 	}
 	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0 and m_optionState == false) {
 		m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
@@ -82,13 +81,8 @@ void Title::Update() {
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(12);
 		se->Play(false);
-		if (m_pause) {
-			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
-			se->SetVolume(finalSE);
-		}
-		else {
-			se->SetVolume(2.5f);
-		}
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se->SetVolume(finalSE);
 		m_coolTime = true;
 	}
 	//設定に移行する処理
@@ -97,13 +91,8 @@ void Title::Update() {
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(12);
 		se->Play(false);
-		if (m_pause) {
-			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
-			se->SetVolume(finalSE);
-		}
-		else {
-			se->SetVolume(2.5f);
-		}
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se->SetVolume(finalSE);
 		m_optionMode = true;
 	}
 	if (m_optionMode == true and g_pad[0]->IsTrigger(enButtonB)) {
@@ -111,14 +100,10 @@ void Title::Update() {
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(13);
 		se->Play(false);
-		if (m_pause) {
-			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
-			se->SetVolume(finalSE);
-		}
-		else {
-			se->SetVolume(2.5f);
-		}
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se->SetVolume(finalSE);
 		m_optionMode = false;
+		m_optionSelecct = 0;
 	}
 	//オプションの項目選択
 	if (m_optionMode == true) {
@@ -126,27 +111,27 @@ void Title::Update() {
 			SoundSource* se = NewGO<SoundSource>(0);
 			se->Init(20);
 			se->Play(false);
-			if (m_pause) {
-				float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
-				se->SetVolume(finalSE);
+			float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+			se->SetVolume(finalSE);
+			if (m_optionSelecct != 0) {
+				m_optionSelecct--;
 			}
 			else {
-				se->SetVolume(2.5f);
+				m_optionSelecct = 5;
 			}
-			m_optionSelecct--;
 		}
 		if (g_pad[0]->IsTrigger(enButtonDown)) {
 			SoundSource* se = NewGO<SoundSource>(0);
 			se->Init(20);
 			se->Play(false);
-			if (m_pause) {
-				float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
-				se->SetVolume(finalSE);
+			float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+			se->SetVolume(finalSE);
+			if (m_optionSelecct != 5) {
+				m_optionSelecct++;
 			}
 			else {
-				se->SetVolume(2.5f);
+				m_optionSelecct = 0;
 			}
-			m_optionSelecct++;
 		}
 		switch (m_optionSelecct) {
 		case 0:
@@ -156,7 +141,92 @@ void Title::Update() {
 			}
 			break;
 		case 1:
-
+			//BGM設定
+			if (g_pad[0]->IsTrigger(enButtonRight)) {
+				if (m_bgmVol != 10) {
+					m_bgmVol++;
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(20);
+					se->Play(false);
+					float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+					se->SetVolume(finalSE);
+				}
+			}
+			if (g_pad[0]->IsTrigger(enButtonLeft)) {
+				if (m_bgmVol != 0) {
+					m_bgmVol--;
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(20);
+					se->Play(false);
+					float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+					se->SetVolume(finalSE);
+				}
+			}
+			break;
+		case 2:
+			//SE設定
+			if (g_pad[0]->IsTrigger(enButtonRight)) {
+				if (m_seVol != 10) {
+					m_seVol++;
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(20);
+					se->Play(false);
+					float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+					se->SetVolume(finalSE);
+				}
+			}
+			if (g_pad[0]->IsTrigger(enButtonLeft)) {
+				if (m_seVol != 0) {
+					m_seVol--;
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(20);
+					se->Play(false);
+					float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+					se->SetVolume(finalSE);
+				}
+			}
+			break;
+		case 3:
+			//マスター設定
+			if (g_pad[0]->IsTrigger(enButtonRight)) {
+				if (m_masVol != 10) {
+					m_masVol++;
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(20);
+					se->Play(false);
+					float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+					se->SetVolume(finalSE);
+				}
+			}
+			if (g_pad[0]->IsTrigger(enButtonLeft)) {
+				if (m_masVol != 0) {
+					m_masVol--;
+					SoundSource* se = NewGO<SoundSource>(0);
+					se->Init(20);
+					se->Play(false);
+					float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+					se->SetVolume(finalSE);
+				}
+			}
+			break;
+		case 4:
+			if (g_pad[0]->IsTrigger(enButtonA)) {
+				m_bgmVol = 10;
+				m_seVol = 10;
+				m_masVol = 7;
+			}
+			break;
+		case 5:
+			if (g_pad[0]->IsTrigger(enButtonA)) {
+				m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
+				SoundSource* se = NewGO<SoundSource>(0);
+				se->Init(13);
+				se->Play(false);
+				float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+				se->SetVolume(finalSE);
+				m_optionSelecct = 0;
+				m_optionMode = false;
+			}
 			break;
 		}
 	}
@@ -195,13 +265,8 @@ void Title::Update() {
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(2);
 		se->Play(false);
-		if (m_pause) {
-			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
-			se->SetVolume(finalSE);
-		}
-		else {
-			se->SetVolume(2.5f);
-		}
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se->SetVolume(finalSE);
 		m_j++;
 		m_game->Preload();
 	}
@@ -238,13 +303,8 @@ void Title::Update() {
 		SoundSource* se2 = NewGO<SoundSource>(0);
 		se2->Init(8);
 		se2->Play(false);
-		if (m_pause) {
-			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
-			se2->SetVolume(finalSE);
-		}
-		else {
-			se2->SetVolume(2.5f);
-		}
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se2->SetVolume(finalSE);
 	}
 	if (m_count <= 2.0f) {
 		if (m_2 == 0) {
@@ -290,18 +350,20 @@ void Title::Update() {
 
 void Title::Render(RenderContext& rc) {
 	m_render.Draw(rc);
-	if (m_i > 0) {
-		if (m_i < 4) {
-			m_gauge.Draw(rc);
+	if (m_optionMode == false) {
+		if (m_i > 0) {
+			if (m_i < 4) {
+				m_gauge.Draw(rc);
+			}
+			m_font.Draw(rc);
 		}
-		m_font.Draw(rc);
-	}
-	m_manual.Draw(rc);
-	if (m_i < 1) {
-		m_start.Draw(rc);
-		m_b.Draw(rc);
-	}
-	if (m_i > 3) {
-		m_seafont.Draw(rc);
+		m_manual.Draw(rc);
+		if (m_i < 1) {
+			m_start.Draw(rc);
+			m_b.Draw(rc);
+		}
+		if (m_i > 3) {
+			m_seafont.Draw(rc);
+		}
 	}
 }
