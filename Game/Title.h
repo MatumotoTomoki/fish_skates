@@ -22,6 +22,9 @@ public:
 	bool m_startAlpha = false;
 	bool m_coolTime = false;
 	bool m_manualAlpha = false;
+	bool m_optionState = false;
+	bool m_optionMode = false;
+	bool m_specialCamera = false;
 	float m_count = 3.0f;
 	float m_scare = 0.0f;
 	float m_alpha = 1.0f;
@@ -41,4 +44,5 @@ public:
 	int m_GO = 0;
 	int m_sea = 0;
 	int m_cool = 0;
+	int m_optionSelecct = 0;
 };

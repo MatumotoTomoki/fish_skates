@@ -17,6 +17,7 @@ bool Title::Start() {
 	g_soundEngine->ResistWaveFileBank(11, "Assets/sound/title.wav");
 	g_soundEngine->ResistWaveFileBank(12, "Assets/sound/ok.wav");
 	g_soundEngine->ResistWaveFileBank(13, "Assets/sound/cancel.wav");
+	g_soundEngine->ResistWaveFileBank(20, "Assets/sound/select.wav");
 	m_sound = NewGO<SoundSource>(0);
 	m_sound->Init(11);
 	m_sound->Play(true);
@@ -60,7 +61,20 @@ void Title::Update() {
 		m_startColor += 0.01f;
 	}
 	m_start.SetMulColor(startColor);
-	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0) {
+	if (g_pad[0]->IsTrigger(enButtonRight) or g_pad[0]->IsTrigger(enButtonLeft)) {
+		m_optionState = !m_optionState;
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(20);
+		se->Play(false);
+		if (m_pause) {
+			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+			se->SetVolume(finalSE);
+		}
+		else {
+			se->SetVolume(2.5f);
+		}
+	}
+	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0 and m_optionState == false) {
 		m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
 		m_titleColor = 1.0f;
 		DeleteGO(m_sound);
@@ -76,6 +90,75 @@ void Title::Update() {
 			se->SetVolume(2.5f);
 		}
 		m_coolTime = true;
+	}
+	//設定に移行する処理
+	if (m_optionState == true and m_optionMode == false and g_pad[0]->IsTrigger(enButtonA)) {
+		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(12);
+		se->Play(false);
+		if (m_pause) {
+			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+			se->SetVolume(finalSE);
+		}
+		else {
+			se->SetVolume(2.5f);
+		}
+		m_optionMode = true;
+	}
+	if (m_optionMode == true and g_pad[0]->IsTrigger(enButtonB)) {
+		m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(13);
+		se->Play(false);
+		if (m_pause) {
+			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+			se->SetVolume(finalSE);
+		}
+		else {
+			se->SetVolume(2.5f);
+		}
+		m_optionMode = false;
+	}
+	//オプションの項目選択
+	if (m_optionMode == true) {
+		if (g_pad[0]->IsTrigger(enButtonUp)) {
+			SoundSource* se = NewGO<SoundSource>(0);
+			se->Init(20);
+			se->Play(false);
+			if (m_pause) {
+				float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+				se->SetVolume(finalSE);
+			}
+			else {
+				se->SetVolume(2.5f);
+			}
+			m_optionSelecct--;
+		}
+		if (g_pad[0]->IsTrigger(enButtonDown)) {
+			SoundSource* se = NewGO<SoundSource>(0);
+			se->Init(20);
+			se->Play(false);
+			if (m_pause) {
+				float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
+				se->SetVolume(finalSE);
+			}
+			else {
+				se->SetVolume(2.5f);
+			}
+			m_optionSelecct++;
+		}
+		switch (m_optionSelecct) {
+		case 0:
+			//カメラ設定
+			if (g_pad[0]->IsTrigger(enButtonRight) or g_pad[0]->IsTrigger(enButtonLeft)) {
+				m_specialCamera = !m_specialCamera;
+			}
+			break;
+		case 1:
+
+			break;
+		}
 	}
 	if (m_coolTime == true) {
 		m_b.Init("Assets/sprite/a.DDS", 1000.0f, 700.0f);

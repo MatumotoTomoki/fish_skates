@@ -12,5 +12,6 @@ public:
 	bool m_resetOnStart = true;
 	bool m_zoom = true;
 	bool m_flug = false;
+	bool m_special = false;
 	int m_i = 0;
 };
