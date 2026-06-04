@@ -38,6 +38,16 @@ bool Title::Start() {
 	m_seafont.Update();
 	m_start.Update();
 	m_manual.Update();
+	m_bgmOption.Init("Assets/sprite/soundMove.dds", 1000.0f, 700.0f);
+	m_bgmGauge.Init("Assets/sprite/bar10.dds", 1000.0f, 700.0f);
+	m_seOption.Init("Assets/sprite/seMove.dds", 1000.0f, 700.0f);
+	m_seGauge.Init("Assets/sprite/bar10.dds", 1000.0f, 700.0f);
+	m_masOption.Init("Assets/sprite/masterMove.dds", 1000.0f, 700.0f);
+	m_masGauge.Init("Assets/sprite/bar7.dds", 1000.0f, 700.0f);
+	m_arrow.Init("Assets/sprite/allow.dds", 1000.0f, 700.0f);
+	m_bgmOption.Update();
+	m_seOption.Update();
+	m_masOption.Update();
 	return true;
 }
 
@@ -136,8 +146,21 @@ void Title::Update() {
 		switch (m_optionSelecct) {
 		case 0:
 			//カメラ設定
-			if (g_pad[0]->IsTrigger(enButtonRight) or g_pad[0]->IsTrigger(enButtonLeft)) {
-				m_specialCamera = !m_specialCamera;
+			if (g_pad[0]->IsTrigger(enButtonRight) and m_specialCamera == false) {
+				m_specialCamera = true;
+				SoundSource* se = NewGO<SoundSource>(0);
+				se->Init(20);
+				se->Play(false);
+				float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+				se->SetVolume(finalSE);
+			}
+			if (g_pad[0]->IsTrigger(enButtonLeft) and m_specialCamera == true) {
+				m_specialCamera = false;
+				SoundSource* se = NewGO<SoundSource>(0);
+				se->Init(20);
+				se->Play(false);
+				float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+				se->SetVolume(finalSE);
 			}
 			break;
 		case 1:
@@ -343,6 +366,105 @@ void Title::Update() {
 			DeleteGO(this);
 		}
 	}
+	switch (m_bgmVol) {
+	case 1:
+		m_bgmGauge.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
+		break;
+	case 2:
+		m_bgmGauge.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
+		break;
+	case 3:
+		m_bgmGauge.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
+		break;
+	case 4:
+		m_bgmGauge.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
+		break;
+	case 5:
+		m_bgmGauge.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
+		break;
+	case 6:
+		m_bgmGauge.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
+		break;
+	case 7:
+		m_bgmGauge.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
+		break;
+	case 8:
+		m_bgmGauge.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
+		break;
+	case 9:
+		m_bgmGauge.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
+		break;
+	case 10:
+		m_bgmGauge.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
+		break;
+	}
+	switch (m_seVol) {
+	case 1:
+		m_seGauge.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
+		break;
+	case 2:
+		m_seGauge.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
+		break;
+	case 3:
+		m_seGauge.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
+		break;
+	case 4:
+		m_seGauge.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
+		break;
+	case 5:
+		m_seGauge.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
+		break;
+	case 6:
+		m_seGauge.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
+		break;
+	case 7:
+		m_seGauge.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
+		break;
+	case 8:
+		m_seGauge.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
+		break;
+	case 9:
+		m_seGauge.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
+		break;
+	case 10:
+		m_seGauge.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
+		break;
+	}
+	switch (m_masVol) {
+	case 1:
+		m_masGauge.Init("Assets/sprite/bar1.dds", 500.0f, 150.0f);
+		break;
+	case 2:
+		m_masGauge.Init("Assets/sprite/bar2.dds", 500.0f, 150.0f);
+		break;
+	case 3:
+		m_masGauge.Init("Assets/sprite/bar3.dds", 500.0f, 150.0f);
+		break;
+	case 4:
+		m_masGauge.Init("Assets/sprite/bar4.dds", 500.0f, 150.0f);
+		break;
+	case 5:
+		m_masGauge.Init("Assets/sprite/bar5.dds", 500.0f, 150.0f);
+		break;
+	case 6:
+		m_masGauge.Init("Assets/sprite/bar6.dds", 500.0f, 150.0f);
+		break;
+	case 7:
+		m_masGauge.Init("Assets/sprite/bar7.dds", 500.0f, 150.0f);
+		break;
+	case 8:
+		m_masGauge.Init("Assets/sprite/bar8.dds", 500.0f, 150.0f);
+		break;
+	case 9:
+		m_masGauge.Init("Assets/sprite/bar9.dds", 500.0f, 150.0f);
+		break;
+	case 10:
+		m_masGauge.Init("Assets/sprite/bar10.dds", 500.0f, 150.0f);
+		break;
+	}
+	m_bgmGauge.Update();
+	m_seGauge.Update();
+	m_masGauge.Update();
 	Vector4 manuaColor = { 1.0f,1.0f,1.0f,m_manualColor };
 	m_manual.SetMulColor(manuaColor);
 	m_b.SetMulColor(manuaColor);
@@ -364,6 +486,21 @@ void Title::Render(RenderContext& rc) {
 		}
 		if (m_i > 3) {
 			m_seafont.Draw(rc);
+		}
+	}
+	else {
+		m_bgmOption.Draw(rc);
+		m_arrow.Draw(rc);
+		if (m_bgmVol != 0) {
+			m_bgmGauge.Draw(rc);
+		}
+		m_seOption.Draw(rc);
+		if (m_seVol != 0) {
+			m_seGauge.Draw(rc);
+		}
+		m_masOption.Draw(rc);
+		if (m_masVol != 0) {
+			m_masGauge.Draw(rc);
 		}
 	}
 }

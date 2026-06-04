@@ -14,6 +14,17 @@ public:
 	SpriteRender m_start;
 	SpriteRender m_manual;
 	SpriteRender m_b;
+	SpriteRender m_optionButton;
+	SpriteRender m_cameraOption;
+	SpriteRender m_bgmOption;
+	SpriteRender m_bgmGauge;
+	SpriteRender m_seOption;
+	SpriteRender m_seGauge;
+	SpriteRender m_masOption;
+	SpriteRender m_masGauge;
+	SpriteRender m_defaultOption;
+	SpriteRender m_returnOption;
+	SpriteRender m_arrow;
 	Game* m_game;
 	Pause* m_pause;
 	SoundSource* m_sound;
