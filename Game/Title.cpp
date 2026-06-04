@@ -38,18 +38,31 @@ bool Title::Start() {
 	m_seafont.Update();
 	m_start.Update();
 	m_manual.Update();
-	m_bgmOption.Init("Assets/sprite/soundMove.dds", 1000.0f, 700.0f);
+	m_bgmOption.Init("Assets/sprite/soundMove.dds", 1920.0f, 1080.0f);
 	m_bgmGauge.Init("Assets/sprite/bar10.dds", 1000.0f, 700.0f);
-	m_seOption.Init("Assets/sprite/seMove.dds", 1000.0f, 700.0f);
+	m_seOption.Init("Assets/sprite/seMove.dds", 1920.0f, 1080.0f);
 	m_seGauge.Init("Assets/sprite/bar10.dds", 1000.0f, 700.0f);
-	m_masOption.Init("Assets/sprite/masterMove.dds", 1000.0f, 700.0f);
+	m_masOption.Init("Assets/sprite/masterMove.dds", 1920.0f, 1080.0f);
 	m_masGauge.Init("Assets/sprite/bar7.dds", 1000.0f, 700.0f);
-	m_arrow.Init("Assets/sprite/allow.dds", 1000.0f, 700.0f);
+	m_arrow.Init("Assets/sprite/allow.dds", 300.0f, 200.0f);
 	m_cameraOption.Init("Assets/sprite/cameraOption.dds", 1000.0f, 700.0f);
 	m_optionButton.Init("Assets/sprite/option.dds", 1000.0f, 700.0f);
+	m_defaultOption.Init("Assets/sprite/defalt.dds", 700.0f, 500.0f);
+	m_defaultOption.SetPosition({ -200.0f,-300.0f,0.0f });
+	m_returnOption.Init("Assets/sprite/returnTitle.dds", 1890.0f, 1050.0f);
+	m_returnOption.SetPosition({ -70.0f,-300.0f,0.0f });
 	m_bgmOption.Update();
+	m_bgmGauge.SetPosition({ 210.0f,180.0f,0.0f });
+	m_bgmGauge.Update();
 	m_seOption.Update();
+	m_seGauge.SetPosition({ 210.0f,20.0f,0.0f });
+	m_seGauge.Update();
 	m_masOption.Update();
+	m_masGauge.SetPosition({ 210.0f,-140.0f,0.0f });
+	m_masGauge.Update();
+	m_defaultOption.Update();
+	m_arrow.Update();
+	m_returnOption.Update();
 	return true;
 }
 
@@ -167,6 +180,7 @@ void Title::Update() {
 			break;
 		case 1:
 			//BGM設定
+			m_arrow.SetPosition({ -480.0f,190.0f,0.0f });
 			if (g_pad[0]->IsTrigger(enButtonRight)) {
 				if (m_bgmVol != 10) {
 					m_bgmVol++;
@@ -190,6 +204,7 @@ void Title::Update() {
 			break;
 		case 2:
 			//SE設定
+			m_arrow.SetPosition({ -480.0f,25.0f,0.0f });
 			if (g_pad[0]->IsTrigger(enButtonRight)) {
 				if (m_seVol != 10) {
 					m_seVol++;
@@ -213,6 +228,7 @@ void Title::Update() {
 			break;
 		case 3:
 			//マスター設定
+			m_arrow.SetPosition({ -480.0f,-130.0f,0.0f });
 			if (g_pad[0]->IsTrigger(enButtonRight)) {
 				if (m_masVol != 10) {
 					m_masVol++;
@@ -235,13 +251,23 @@ void Title::Update() {
 			}
 			break;
 		case 4:
+			//デフォルトに戻す
+			m_arrow.SetPosition({ -480.0f,-290.0f,0.0f });
 			if (g_pad[0]->IsTrigger(enButtonA)) {
 				m_bgmVol = 10;
 				m_seVol = 10;
 				m_masVol = 7;
+				m_specialCamera = false;
+				SoundSource* se = NewGO<SoundSource>(0);
+				se->Init(12);
+				se->Play(false);
+				float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+				se->SetVolume(finalSE);
 			}
 			break;
 		case 5:
+			//タイトルに戻る
+			m_arrow.SetPosition({ -480.0f,-440.0f,0.0f });
 			if (g_pad[0]->IsTrigger(enButtonA)) {
 				m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
 				SoundSource* se = NewGO<SoundSource>(0);
@@ -470,6 +496,7 @@ void Title::Update() {
 	Vector4 manuaColor = { 1.0f,1.0f,1.0f,m_manualColor };
 	m_manual.SetMulColor(manuaColor);
 	m_b.SetMulColor(manuaColor);
+	m_arrow.Update();
 }
 
 void Title::Render(RenderContext& rc) {
@@ -495,8 +522,9 @@ void Title::Render(RenderContext& rc) {
 	}
 	else {
 		m_bgmOption.Draw(rc);
-		m_arrow.Draw(rc);
 		m_cameraOption.Draw(rc);
+		m_defaultOption.Draw(rc);
+		m_returnOption.Draw(rc);
 		if (m_bgmVol != 0) {
 			m_bgmGauge.Draw(rc);
 		}
@@ -508,5 +536,6 @@ void Title::Render(RenderContext& rc) {
 		if (m_masVol != 0) {
 			m_masGauge.Draw(rc);
 		}
+		m_arrow.Draw(rc);
 	}
 }
