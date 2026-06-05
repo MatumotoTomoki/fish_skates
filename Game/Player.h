@@ -42,6 +42,7 @@ public:
 	int m_efk = 0;
 	int m_jump = 0;
 	int m_go = 0;
+	int m_qteUI = 0;
 	SpriteRender m_sprite;
 	SpriteRender m_qte;
 	Pengin* m_pengin = nullptr;

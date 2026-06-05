@@ -417,6 +417,18 @@ void Player::Update() {
 		}
 	}
 	
+	if (m_qteGauge > 0.75f)
+	{
+		m_qte.SetMulColor({ 0.0f,1.0f,0.0f,1.0f });
+	}
+	else if (m_qteGauge > 0.65f)
+	{
+		m_qte.SetMulColor({ 1.0f,1.0f,0.0f,1.0f });
+	}
+	else
+	{
+		m_qte.SetMulColor({ 1.0f,0.0f,0.0f,1.0f });
+	}
 
 	if (m_isEnemyNear)
 	{
