@@ -12,6 +12,13 @@ bool GameCamera::Start() {
     g_camera3D->SetPosition(m_toCameraPos.x, 60.0f, m_toCameraPos.z);
     g_camera3D->SetNear(1.0f);
     g_camera3D->SetFar(20000.0f);
+    auto title = FindGO<Title>("Title");
+    if (title->m_specialCamera == false) {
+        m_special = false;
+    }
+    else {
+        m_special = true;
+    }
     return true;
 }
 
@@ -61,7 +68,12 @@ void GameCamera::Update() {
             Quaternion qRot;
             Vector3 dir = m_toCameraPos;
             Vector3 oldPosYaw = m_toCameraPos;
-            qRot.SetRotationDeg(Vector3::AxisY, -1.3f * x);
+            if (m_special == false) {
+                qRot.SetRotationDeg(Vector3::AxisY, -1.3f * x);
+            }
+            else {
+                qRot.SetRotationDeg(Vector3::AxisY, 1.3f * x);
+            }
             qRot.Apply(m_toCameraPos);
             Vector3 horizontalDir = m_toCameraPos;
             horizontalDir.y = 0;
@@ -76,7 +88,12 @@ void GameCamera::Update() {
             Vector3 axisX;
             axisX.Cross(Vector3::AxisY, m_toCameraPos);
             axisX.Normalize();
-            qRot.SetRotationDeg(axisX, -1.3f * y);
+            if (m_special == false) {
+                qRot.SetRotationDeg(axisX, -1.3f * y);
+            }
+            else {
+                qRot.SetRotationDeg(axisX, 1.3f * y);
+            }
             qRot.Apply(m_toCameraPos);
             dir = m_toCameraPos;
             dir.Normalize();

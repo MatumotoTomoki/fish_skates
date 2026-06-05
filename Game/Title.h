@@ -14,6 +14,19 @@ public:
 	SpriteRender m_start;
 	SpriteRender m_manual;
 	SpriteRender m_b;
+	SpriteRender m_optionButton;
+	SpriteRender m_cameraOption;
+	SpriteRender m_cameraCamera;
+	SpriteRender m_charaCamera;
+	SpriteRender m_bgmOption;
+	SpriteRender m_bgmGauge;
+	SpriteRender m_seOption;
+	SpriteRender m_seGauge;
+	SpriteRender m_masOption;
+	SpriteRender m_masGauge;
+	SpriteRender m_defaultOption;
+	SpriteRender m_returnOption;
+	SpriteRender m_arrow;
 	Game* m_game;
 	Pause* m_pause;
 	SoundSource* m_sound;
@@ -22,6 +35,10 @@ public:
 	bool m_startAlpha = false;
 	bool m_coolTime = false;
 	bool m_manualAlpha = false;
+	bool m_stopAlpha = false;
+	bool m_optionState = false;
+	bool m_optionMode = false;
+	bool m_specialCamera = false;
 	float m_count = 3.0f;
 	float m_scare = 0.0f;
 	float m_alpha = 1.0f;
@@ -31,6 +48,7 @@ public:
 	float m_titleColor = 0.0f;
 	float m_manualColor = 0.0f;
 	float m_bColor = 0.0f;
+	float m_stopColor = 1.0f;
 	int m_i = 0;
 	int m_j = 0;
 	int m_newGame = 0;
@@ -41,4 +59,8 @@ public:
 	int m_GO = 0;
 	int m_sea = 0;
 	int m_cool = 0;
+	int m_optionSelecct = 0;
+	int m_bgmVol = 10;
+	int m_seVol = 10;
+	int m_masVol = 7;
 };
