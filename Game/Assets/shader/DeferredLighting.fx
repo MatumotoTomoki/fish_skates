@@ -156,7 +156,7 @@ float3 CalcDirectionLight(
         float maxShadowDarkness = 0.7f; // 0.0で影が消える、1.0で真っ黒
         lig += CalcLighting(
             customDir, // ★固定した向きを適用
-            light.directionalLight[ligNo].color * 1.2f,
+            light.directionalLight[ligNo].color * 2.0f,
             normal,
             toEye,
             albedoColor,
