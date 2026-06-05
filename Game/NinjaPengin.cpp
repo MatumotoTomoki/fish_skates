@@ -5,25 +5,77 @@
 #include "Dummy3.h"
 #include "Dummy5.h"
 #include "Pause.h"
+#include "Pengin.h"
 
 bool NinjaPengin::Start() {
+
 	m_animationClips[enAnimClip_Walk].Load("Assets/animData/pengin_walk.tka");
 	m_animationClips[enAnimClip_Walk].SetLoopFlag(true);
+
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
-	m_modelRender.Init("Assets/modelData/ninja_pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
-	m_pos = { 0.0f,0.0f,99999000.0f };
+
+	m_modelRender.Init(
+		"Assets/modelData/ninja_pengin.tkm",
+		m_animationClips,
+		enAnimClip_Num,
+		enModelUpAxisZ
+	);
+
 	m_dummy = FindGO<Dummy>("Dummy");
 	m_dummy3 = FindGO<Dummy3>("Dummy3");
 	m_dummy5 = FindGO<Dummy5>("Dummy5");
+
+	m_player = FindGO<Player>("Player");
+	auto pengin = FindGO<Pengin>("Pengin");
+
+	// ランダムスポーン
+	for (int i = 0; i < 100; i++)
+	{
+		m_pos.x = rand() % 8000 - 4000;
+		m_pos.y = 0.0f;
+		m_pos.z = rand() % 8000 - 4000;
+
+		bool canSpawn = true;
+
+		// プレイヤーと近すぎる場所はNG
+		if (m_player != nullptr)
+		{
+			Vector3 diff = m_pos - m_player->m_position;
+
+			if (diff.Length() < 2500.0f)
+			{
+				canSpawn = false;
+			}
+		}
+
+		// 普通ペンギンと近すぎる場所はNG
+		if (pengin != nullptr)
+		{
+			Vector3 diff = m_pos - pengin->m_pos;
+
+			if (diff.Length() < 2000.0f)
+			{
+				canSpawn = false;
+			}
+		}
+
+		if (canSpawn)
+		{
+			break;
+		}
+	}
+
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
+
 	m_characterController.Init(75.0f, 75.0f, m_pos);
+
 	m_modelRender.Update();
+
 	return true;
 }
-
 void NinjaPengin::Update() {
 	auto pause = FindGO<Pause>("Pause");
 	if (pause && pause->IsPaused()) {
