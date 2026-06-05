@@ -39,7 +39,7 @@ bool Player::Start() {
 	m_characterController.Execute(m_velocity, 0);
 	m_qteGauge = 1.0f;
 	
-	m_gaugeCB.gaugeRate = 0.5f;
+	m_gaugeCB.gaugeRate = 1.0f;
 
 	SpriteInitData initData;
 
@@ -53,6 +53,8 @@ bool Player::Start() {
 	initData.m_expandConstantBufferSize = sizeof(m_gaugeCB);
 
 	m_qte.Init(initData);
+	m_qte.SetPosition({ 0.0f,-300.0f,0.0f });
+	m_qte.Update();
 	return true;
 }
 

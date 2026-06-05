@@ -36,9 +36,9 @@ float4 PSMain(PSInput In) : SV_Target0
 
     float2 dir = uv - center;
 
-    float angle = atan2(dir.y, dir.x);
+    float angle = atan2(-dir.y, dir.x);
 
-	angle += 1.570796f;
+	angle -= 1.570796f;
 
 
     if (angle < 0)
@@ -53,7 +53,14 @@ float4 PSMain(PSInput In) : SV_Target0
         discard;
     }
 
-    return colorTexture.Sample(Sampler, uv) * mulColor;
+    float4 color = colorTexture.Sample(Sampler, uv);
+
+    if(color.a < 0.1f)
+    {
+    discard;
+    }
+
+     return color * mulColor;
 }
 float4 PSMainGamma( PSInput In ) : SV_Target0
 {
