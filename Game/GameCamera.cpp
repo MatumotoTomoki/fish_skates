@@ -7,7 +7,7 @@
 bool GameCamera::Start() {
     m_toCameraPos.Set(0.0f, 0.0f, -570.0f);
     // ★ カメラの向きと注視点を初期化
-    Vector3 target = { 0.0f, 80.0f, 0.0f };
+    Vector3 target = { 0.0f, 80.0f, 9000.0f };
     g_camera3D->SetTarget(target);
     g_camera3D->SetPosition(m_toCameraPos.x, 60.0f, m_toCameraPos.z);
     g_camera3D->SetNear(1.0f);
@@ -34,15 +34,15 @@ void GameCamera::Update() {
     if (m_player == nullptr) {
         m_player = FindGO<Player>("Player");
     }
-    Vector3 playerRawTarget = m_player->m_position;
-    playerRawTarget.y += 80.0f;
-    float lerpFactor = 0.8f;
-    m_currentCameraTarget.Lerp(lerpFactor, m_currentCameraTarget, playerRawTarget);
+        Vector3 playerRawTarget = m_player->m_position;
+        playerRawTarget.y += 80.0f;
+        float lerpFactor = 0.8f;
+        m_currentCameraTarget.Lerp(lerpFactor, m_currentCameraTarget, playerRawTarget);
     if (m_player->m_start == true) {
         // ★ ここが“本命”のリセットポイント
         if (m_resetOnStart) {
             // 角度・距離・注視点を毎ループ同じ状態に戻す
-            m_toCameraPos.Set(0.0f, 0.0f, -570.0f);
+            m_toCameraPos.Set(0.0f, 0.0f, 7000.0f);
             m_currentCameraTarget = m_player->m_position;
             m_currentCameraTarget.y += 80.0f;
             m_resetOnStart = false;
@@ -56,7 +56,7 @@ void GameCamera::Update() {
         }
         if (m_zoom == false and m_toCameraPos.z > -370.0f) {
             if (m_flug == false) {
-                m_toCameraPos.z -= 3.0f;
+                m_toCameraPos.z -= 13.0f;
             }
         }
         else if (m_zoom == false and m_toCameraPos.z < -370.0f) {
@@ -102,7 +102,9 @@ void GameCamera::Update() {
             }
         }
         Vector3 pos = m_currentCameraTarget + m_toCameraPos;
-        g_camera3D->SetTarget(m_currentCameraTarget);
+        if (m_flug == true) {
+            g_camera3D->SetTarget(m_currentCameraTarget);
+        }
         g_camera3D->SetPosition(pos);
         g_camera3D->Update();
     }
