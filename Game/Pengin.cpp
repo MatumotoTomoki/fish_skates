@@ -32,14 +32,14 @@ if (m_player != nullptr)
     forward.Normalize();
 
     // プレイヤー前方2000～3000
-    float forwardDist = rand() % 1500 + 2500;
+    float forwardDist = rand() % 1500 + 3500;
 
     // 左右に±500
     Vector3 right;
     right.Cross(Vector3::AxisY, forward);
     right.Normalize();
 
-    float sideOffset = rand() % 2000 - 1000;
+    float sideOffset = rand() % 5500 - 1000;
 
     m_pos =
         m_player->m_position +
