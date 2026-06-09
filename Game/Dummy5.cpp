@@ -104,7 +104,7 @@ void  Dummy5::Update() {
 		m_rot.SetRotationDegY(180.0f);
 	}
 	moveSpeed.y = 0.0f;
-	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
+	m_pos = m_characterController.Execute(moveSpeed, 8.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
 	m_effectEmitter->SetPosition(m_pos);
