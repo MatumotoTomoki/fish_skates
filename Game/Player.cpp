@@ -127,7 +127,7 @@ void Player::Update() {
 		}
 		if (camera->m_flug == true)
 		{
-			m_o2 += 0.001f;
+			m_o2 += 0.002f;
 			if (m_characterController.IsOnGround() == true or m_swim == true) {
 				if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
 					m_chase = false;
