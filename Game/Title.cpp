@@ -29,7 +29,7 @@ bool Title::Start() {
 	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
 	m_seafont.SetPosition({ 10.0f, -200.0f, 0.0f });
 	m_start.Init("Assets/sprite/next.dds", 1000.0f, 700.0f);
-	m_start.SetPosition({ 0.0f,-300.0f,0.0f });
+	m_start.SetPosition({ -300.0f,-300.0f,0.0f });
 	m_font.SetPosition({ 0.0f, 0.0f, 0.0f });
 	m_gauge.SetPosition({ -600.0f, -7.0f, 0.0f });
 	m_gauge.SetPivot({ 0.13f,0.5f });
@@ -51,8 +51,8 @@ bool Title::Start() {
 	m_cameraCamera.SetPosition({ 30.0f,340.0f,0.0f });
 	m_charaCamera.Init("Assets/sprite/charaCamera.dds", 850.0f, 550.0f);
 	m_charaCamera.SetPosition({ 500.0f,340.0f,0.0f });
-	m_optionButton.Init("Assets/sprite/option.dds", 1000.0f, 700.0f);
-	m_optionButton.SetPosition({ 0.0f,-900.0f,0.0f });
+	m_optionButton.Init("Assets/sprite/option.dds", 900.0f, 600.0f);
+	m_optionButton.SetPosition({ 300.0f,-280.0f,0.0f });
 	m_defaultOption.Init("Assets/sprite/defalt.dds", 700.0f, 500.0f);
 	m_defaultOption.SetPosition({ -300.0f,-300.0f,0.0f });
 	m_returnOption.Init("Assets/sprite/returnTitle.dds", 1890.0f, 1050.0f);
@@ -117,7 +117,7 @@ void Title::Update() {
 	m_start.SetMulColor(startColor);
 	m_optionButton.SetMulColor(stopColor);
 	if (g_pad[0]->IsTrigger(enButtonRight) or g_pad[0]->IsTrigger(enButtonLeft)) {
-		if (m_optionMode == false) {
+		if (m_optionMode == false and m_coolTime == false) {
 			m_optionState = !m_optionState;
 			SoundSource* se = NewGO<SoundSource>(0);
 			se->Init(20);
@@ -458,6 +458,8 @@ void Title::Update() {
 		m_masGauge.Update();
 	}
 	if (m_coolTime == true) {
+		m_start.SetPosition({ 0.0f,-300.0f,0.0f });
+		m_start.Update();
 		m_b.Init("Assets/sprite/a.DDS", 1000.0f, 700.0f);
 		if (m_gaugeflug==false)
 		{
@@ -472,6 +474,8 @@ void Title::Update() {
 		}
 		if (g_pad[0]->IsTrigger(enButtonB) and m_cool == 3 and m_j==1)
 		{
+			m_start.SetPosition({ -300.0f,-300.0f,0.0f });
+			m_start.Update();
 			m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
 			m_cool = 0;
 			m_coolTime = false;
@@ -587,7 +591,9 @@ void Title::Update() {
 void Title::Render(RenderContext& rc) {
 	m_render.Draw(rc);
 	if (m_coolTime == false) {
-		m_optionButton.Draw(rc);
+		if (m_optionMode == false) {
+			m_optionButton.Draw(rc);
+		}
 	}
 	if (m_optionMode == false) {
 		if (m_i > 0) {
