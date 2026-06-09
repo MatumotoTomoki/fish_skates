@@ -48,15 +48,12 @@ void GameCamera::Update() {
             m_resetOnStart = false;
         }
         // ここから先は今まで通り
-        if (m_toCameraPos.z < -170.0f and m_zoom == true) {
-            m_toCameraPos.z += 3.0f;
-        }
         if (m_toCameraPos.z >= -170.0f) {
             m_zoom = false;
         }
         if (m_zoom == false and m_toCameraPos.z > -370.0f) {
             if (m_flug == false) {
-                m_toCameraPos.z -= 13.0f;
+                m_toCameraPos.z -= 33.0f;
             }
         }
         else if (m_zoom == false and m_toCameraPos.z < -370.0f) {

@@ -513,7 +513,8 @@ void Title::Update() {
 				m_pause = NewGO<Pause>(1, "Pause");
 			}
 			NewGO<Water>(0, "Water");
-			NewGO<SkyCube>(0, "SkyCube");
+			auto skyCube = NewGO<SkyCube>(0, "SkyCube");
+			skyCube->SetType((EnSkyCubeType)m_skyCubeType);
 			NewGO<GameCamera>(0, "GameCamera");
 			if (m_3 == 0) {
 				m_font.Init("Assets/sprite/3.dds", 200.0f, 200.0f);
