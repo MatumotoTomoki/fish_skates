@@ -23,9 +23,31 @@ bool Pengin::Start() {
 	);
 
 	// ランダムスポーン
-	m_pos.x = rand() % 2200 - 2000;
-	m_pos.y = 40.0f;
-	m_pos.z = rand() % 5000 - 2000;
+	m_player = FindGO<Player>("Player");
+
+if (m_player != nullptr)
+{
+    Vector3 forward = g_camera3D->GetForward();
+    forward.y = 0.0f;
+    forward.Normalize();
+
+    // プレイヤー前方2000～3000
+    float forwardDist = rand() % 1000 + 2000;
+
+    // 左右に±500
+    Vector3 right;
+    right.Cross(Vector3::AxisY, forward);
+    right.Normalize();
+
+    float sideOffset = rand() % 2000 - 1000;
+
+    m_pos =
+        m_player->m_position +
+        forward * forwardDist +
+        right * sideOffset;
+
+    m_pos.y = 40.0f;
+}
 
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_modelRender.SetPosition(m_pos);
