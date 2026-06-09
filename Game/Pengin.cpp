@@ -46,14 +46,13 @@ if (m_player != nullptr)
         forward * forwardDist +
         right * sideOffset;
 
-    m_pos.y = 40.0f;
+    m_pos.y = 10.0f;
 }
 
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_modelRender.SetPosition(m_pos);
 	m_modelRender.SetRotation(m_rot);
 
-	m_characterController.Init(75.0f, 75.0f, m_pos);
 
 	m_modelRender.Update();
 
@@ -152,10 +151,10 @@ void Pengin::Update() {
 
 	moveSpeed.y = 0.0f;
 
+	m_pos += moveSpeed;
+
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
-
-	m_pos = m_characterController.Execute(moveSpeed, 1.0f);
 
 	m_modelRender.Update();
 }
