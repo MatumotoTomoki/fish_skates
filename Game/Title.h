@@ -63,4 +63,5 @@ public:
 	int m_bgmVol = 10;
 	int m_seVol = 10;
 	int m_masVol = 7;
+	int m_skyCubeType = enSkyCubeType_DayToon;
 };
