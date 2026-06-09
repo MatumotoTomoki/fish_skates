@@ -32,7 +32,7 @@ if (m_player != nullptr)
     forward.Normalize();
 
     // プレイヤー前方2000～3000
-    float forwardDist = rand() % 1000 + 2000;
+    float forwardDist = rand() % 1500 + 2500;
 
     // 左右に±500
     Vector3 right;
