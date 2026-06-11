@@ -79,6 +79,7 @@ bool Game::Start() {
 }
 
 void Game::Update() {
+	///FPS表示用
 	long long now;
 	QueryPerformanceCounter((LARGE_INTEGER*)&now);
 	m_deltaTime = (float)(now - m_prevTime) / (float)m_freq;
@@ -86,6 +87,7 @@ void Game::Update() {
 	if (m_deltaTime > 0.0f) {
 		m_fps = 1.0f / m_deltaTime;
 	}
+	//スタート時に段階的に生成する
 	if (!m_initialized) {
 		switch (m_loadStep) {
 		case 0:
@@ -118,6 +120,7 @@ void Game::Update() {
 		}
 		m_loadStep++;
 	}
+	//ポーズ
 	if (g_pad[0]->IsTrigger(enButtonStart) and m_initialized == true) {
 		m_menuSE = NewGO<SoundSource>(0);
 		m_menuSE->Init(3);

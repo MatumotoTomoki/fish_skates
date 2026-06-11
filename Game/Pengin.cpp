@@ -31,10 +31,7 @@ bool Pengin::Start() {
 		right.Cross(Vector3::AxisY, forward);
 		right.Normalize();
 		float sideOffset = rand() % 5500 - 1000;
-		m_pos =
-			m_player->m_position +
-			forward * forwardDist +
-			right * sideOffset;
+		m_pos = m_player->m_position + forward * forwardDist + right * sideOffset;
 		m_pos.y = 10.0f;
 	}
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);

@@ -51,11 +51,17 @@ void  Dummy5::Update() {
 		}
 	}
 	else if (diff.Length() <= 600.0f and m_player->m_swim == false) {
-		if (m_effect != 15) {
+		if (m_effect <= 15) {
 			m_effect++;
 		}
 		if (m_effect >= 15) {
-			m_effectEmitter->Stop();
+			if (m_effectEmitter != nullptr) {
+				// 削除する前にログを出す（Visual Studioの出力ウィンドウで確認）
+				OutputDebugStringA("EffectEmitter Deleted!\n");
+				m_effectEmitter->Stop();
+				DeleteGO(m_effectEmitter);
+				m_effectEmitter = nullptr;
+			}
 		}
 		float distToPlayer = diff.Length();
 		Vector3 toPlayerDir = diff;
@@ -105,7 +111,9 @@ void  Dummy5::Update() {
 	m_pos = m_characterController.Execute(moveSpeed, 5.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
-	m_effectEmitter->SetPosition(m_pos);
+	if (m_effectEmitter != nullptr) {
+		m_effectEmitter->SetPosition(m_pos);
+	}
 	m_modelRender.Update();
 }
 
