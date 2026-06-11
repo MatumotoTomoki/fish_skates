@@ -127,9 +127,9 @@ void Game::Update() {
 		m_menuSE->Play(false);
 		float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
 		m_menuSE->SetVolume(finalSE);
-		m_stop = !m_stop;
+		m_stopping = !m_stopping;
 	}
-	if (m_stop == true) {
+	if (m_stopping == true) {
 		if (m_pause->m_mode == 3) {
 			if (g_pad[0]->IsTrigger(enButtonA)) {
 				m_menuSE = NewGO<SoundSource>(0);
@@ -137,7 +137,7 @@ void Game::Update() {
 				m_menuSE->Play(false);
 				float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
 				m_menuSE->SetVolume(finalSE);
-				m_stop = !m_stop;
+				m_stopping = !m_stopping;
 			}
 		}
 		if (m_pause->m_mode != 3) {
@@ -202,31 +202,7 @@ void Game::Update() {
 			m_selectSE->SetVolume(finalSE);
 		}
 	}
-	if (m_player->m_o2 >= -0.1f) {
-		DeleteGO(m_pengin);
-		DeleteGO(m_ninjaPengin);
-		DeleteGO(m_silenPengin);
-		DeleteGO(m_gameCamera);
-		DeleteGO(m_player);
-		DeleteGO(m_gameBGM);
-		DeleteGO(m_chaseBGM);
-		DeleteGO(m_ui);
-		DeleteGO(m_water);
-		DeleteGO(m_dummy);
-		DeleteGO(m_dummy3);
-		DeleteGO(m_dummy5);
-		DeleteGO(m_skyCube);
-		DeleteGO(m_distance);
-		DeleteGO(m_arrow);
-		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
-		if (m_playerLight != nullptr) {
-			g_sceneLight->DeletePointLight(m_playerLight);
-			m_playerLight = nullptr;
-		}
-		NewGO<GameOver>(0, "GameOver");
-		DeleteGO(this);
-	}
-	if (m_player->m_hp >= -0.1f) {
+	if (m_player->m_o2 >= -0.1f or m_player->m_hp >= -0.1f) {
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
 		DeleteGO(m_silenPengin);
@@ -290,7 +266,6 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
-		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
 		if (m_playerLight != nullptr) {
 			g_sceneLight->DeletePointLight(m_playerLight);
 			m_playerLight = nullptr;
