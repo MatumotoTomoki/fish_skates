@@ -398,17 +398,17 @@ void Player::Update() {
 			m_modelRender.Update();
 		}
 	}
-	if (m_qteGauge > 0.75f){
+	if (m_qteGauge > 0.5f){
 		m_qte.SetMulColor({ 0.0f,1.0f,0.0f,1.0f });
 	}
-	else if (m_qteGauge > 0.65f){
+	else if (m_qteGauge > 0.35f){
 		m_qte.SetMulColor({ 1.0f,1.0f,0.0f,1.0f });
 	}
 	else{
 		m_qte.SetMulColor({ 1.0f,0.0f,0.0f,1.0f });
 	}
 	if (m_isEnemyNear){
-		m_qteGauge -= 0.001f;
+		m_qteGauge -= 0.0017f;
 		if (m_qteGauge < 0.0f){
 			m_qteGauge = 0.0f;
 		}
