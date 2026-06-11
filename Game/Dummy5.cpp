@@ -27,7 +27,7 @@ bool  Dummy5::Start() {
 void  Dummy5::Update() {
 	m_modelRender.PlayAnimation(enAnimClip_Chase);
 	auto pause = FindGO<Pause>("Pause");
-	if (pause && pause->IsPaused()) {
+	if (pause and pause->IsPaused()) {
 		return;
 	}
 	Vector3 moveSpeed;
@@ -42,9 +42,7 @@ void  Dummy5::Update() {
 		toPlayerDir.Normalize();
 		if (m_player->m_superJump == false) {
 			moveSpeed += toPlayerDir * 15.0f;
-
 			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
-
 			// ラジアンを度数に変換し、回転行列を作成
 			m_rot.SetRotationY(angleY);
 		}
@@ -56,7 +54,7 @@ void  Dummy5::Update() {
 		if (m_effect != 15) {
 			m_effect++;
 		}
-		if (m_effect == 15) {
+		if (m_effect >= 15) {
 			m_effectEmitter->Stop();
 		}
 		float distToPlayer = diff.Length();
@@ -104,7 +102,7 @@ void  Dummy5::Update() {
 		m_rot.SetRotationDegY(180.0f);
 	}
 	moveSpeed.y = 0.0f;
-	m_pos = m_characterController.Execute(moveSpeed, 8.0f);
+	m_pos = m_characterController.Execute(moveSpeed, 5.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
 	m_effectEmitter->SetPosition(m_pos);

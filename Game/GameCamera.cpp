@@ -24,7 +24,7 @@ bool GameCamera::Start() {
 
 void GameCamera::Update() {
     auto pause = FindGO<Pause>("Pause");
-    if (pause && pause->IsPaused()) {
+    if (pause and pause->IsPaused()) {
         return;
     }
     auto title = FindGO<Title>("Title");
