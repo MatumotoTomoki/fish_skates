@@ -108,7 +108,12 @@ void  Dummy5::Update() {
 		m_rot.SetRotationDegY(180.0f);
 	}
 	moveSpeed.y = 0.0f;
-	m_pos = m_characterController.Execute(moveSpeed, 5.0f);
+	if (m_player->m_characterController.IsOnGround() and m_player->m_swim == false) {
+		m_pos = m_characterController.Execute(moveSpeed, 5.0f);
+	}
+	else {
+		m_pos = m_characterController.Execute(moveSpeed, 1.0f);
+	}
 	m_modelRender.SetRotation(m_rot);
 	m_modelRender.SetPosition(m_pos);
 	if (m_effectEmitter != nullptr) {
