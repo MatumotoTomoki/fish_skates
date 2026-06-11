@@ -2,6 +2,13 @@
 #include "Distance.h"
 #include "Player.h"
 
+namespace
+{
+	// 定数
+	// テスト用数値
+	const float OFFSET_POS_X = 100.0f;
+}
+
 bool Distance::Start() {
 	m_pos = { 0.0f,0.0f,999.0f };
 	m_player = FindGO<Player>("Player");

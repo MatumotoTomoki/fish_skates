@@ -67,7 +67,7 @@ private:
 	Arrow* m_arrow;
 	// Game.h のメンバ変数定義エリア
 	nsK2Engine::SPointLight* m_playerLight = nullptr; // 魚を照らすライト用ポインタ
-	bool m_stop = false;
+	bool m_stopping = false;
 	int m_skyCubeType = enSkyCubeType_Day;
 	int  m_loadStep = 0;
 	int m_isPause = 0;
