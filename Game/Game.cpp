@@ -81,14 +81,11 @@ bool Game::Start() {
 void Game::Update() {
 	long long now;
 	QueryPerformanceCounter((LARGE_INTEGER*)&now);
-
 	m_deltaTime = (float)(now - m_prevTime) / (float)m_freq;
 	m_prevTime = now;
-
 	if (m_deltaTime > 0.0f) {
 		m_fps = 1.0f / m_deltaTime;
 	}
-
 	if (!m_initialized) {
 		switch (m_loadStep) {
 		case 0:

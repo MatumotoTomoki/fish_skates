@@ -9,7 +9,6 @@ public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
-
 	Vector3 m_pos;
 	enum EnPenginAnimationClip {
 		enAnimClip_Walk,

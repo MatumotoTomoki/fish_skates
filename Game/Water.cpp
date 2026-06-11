@@ -9,8 +9,6 @@ bool Water::Start() {
 	m_pos.z = -50000.0f;
 	m_render.SetPosition(m_pos);
 	m_render.Update();
-	/*m_physicsStaticObject.CreateFromModel(m_render.GetModel(),
-		m_render.GetModel().GetWorldMatrix());*/
 	return true;
 }
 
