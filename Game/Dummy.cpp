@@ -16,36 +16,24 @@ bool  Dummy::Start() {
 	m_modelRender.SetPosition(m_pos);
 	m_characterController.Init(75.0f, 75.0f, m_pos);
 	m_dummy3 = FindGO<Dummy3>("Dummy3");
-
 	// ランダムスポーン
 	m_player = FindGO<Player>("Player");
-
-	if (m_player != nullptr)
-	{
+	if (m_player != nullptr){
 		Vector3 forward = g_camera3D->GetForward();
 		forward.y = 0.0f;
 		forward.Normalize();
-
 		// プレイヤー前方2000～3000
 		float forwardDist = rand() % 2000 + 3000;
-
 		// 左右に±500
 		Vector3 right;
 		right.Cross(Vector3::AxisY, forward);
 		right.Normalize();
-
 		float sideOffset = rand() % 3000 - 2000;
-
-		m_pos =
-			m_player->m_position +
-			forward * forwardDist +
-			right * sideOffset;
-
+		m_pos = m_player->m_position + forward * forwardDist + right * sideOffset;
 		m_pos.y = 40.0f;
 		m_modelRender.SetPosition(m_pos);
 		m_characterController.SetPosition(m_pos);
 	}
-
 	m_modelRender.Update();
 	return true;
 }

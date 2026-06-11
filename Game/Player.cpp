@@ -23,7 +23,6 @@ bool Player::Start() {
 	m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
 	m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
 	m_sprite.Update();
-	
 	m_rot.SetRotationDegZ(-90.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_pengin = FindGO<Pengin>("Pengin");
@@ -38,20 +37,14 @@ bool Player::Start() {
 	m_start = false;
 	m_characterController.Execute(m_velocity, 0);
 	m_qteGauge = 1.0f;
-	
 	m_gaugeCB.gaugeRate = 1.0f;
-
 	SpriteInitData initData;
-
 	initData.m_ddsFilePath[0] = "Assets/sprite/QTEGauge.dds";
 	initData.m_fxFilePath = "Assets/shader/QTEGauge.fx";
-
 	initData.m_width = 150;
 	initData.m_height = 150;
-
 	initData.m_expandConstantBuffer = &m_gaugeCB;
 	initData.m_expandConstantBufferSize = sizeof(m_gaugeCB);
-
 	m_qte.Init(initData);
 	m_qte.SetPosition({ 0.0f,-300.0f,0.0f });
 	m_qte.Update();
@@ -61,9 +54,6 @@ bool Player::Start() {
 
 void Player::Update() {
 	auto pause = FindGO<Pause>("Pause");
-
-	
-
 	if (pause && pause->IsPaused()) {
 		return;
 	}
@@ -96,15 +86,7 @@ void Player::Update() {
 		m_diff2 = m_position - m_ninjaPengin->m_pos;
 		m_diff3 = m_position - m_silenPengin->m_pos;
 		m_diff4 = m_position - m_dummy5->m_pos;
-
-		m_isEnemyNear =
-			(
-				m_diff.Length() <= 600.0f ||
-				m_diff2.Length() <= 600.0f ||
-				m_diff3.Length() <= 600.0f ||
-				m_diff4.Length() <= 600.0f
-				);
-
+		m_isEnemyNear =(m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f);
 		if (m_o2 > -0.1f) {
 			m_o2 = -0.1f;
 		}
@@ -125,9 +107,13 @@ void Player::Update() {
 			m_superJump = false;
 			m_velocity.y = 0.0f;
 		}
-		if (camera->m_flug == true)
-		{
-			m_o2 += 0.002f;
+		if (camera->m_flug == true){
+			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+				m_o2 += 0.001f;
+			}
+			else {
+				m_o2 += 0.002f;
+			}
 			if (m_characterController.IsOnGround() == true or m_swim == true) {
 				if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
 					m_chase = false;
@@ -167,9 +153,6 @@ void Player::Update() {
 					m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
 					m_sprite.Update();
 					m_qteGauge = 1.0f;
-					
-					
-
 					m_jump = 10;
 				}
 				if (m_swim == false) {
@@ -416,27 +399,18 @@ void Player::Update() {
 			m_modelRender.Update();
 		}
 	}
-	
-	if (m_qteGauge > 0.75f)
-	{
+	if (m_qteGauge > 0.75f){
 		m_qte.SetMulColor({ 0.0f,1.0f,0.0f,1.0f });
 	}
-	else if (m_qteGauge > 0.65f)
-	{
+	else if (m_qteGauge > 0.65f){
 		m_qte.SetMulColor({ 1.0f,1.0f,0.0f,1.0f });
 	}
-	else
-	{
+	else{
 		m_qte.SetMulColor({ 1.0f,0.0f,0.0f,1.0f });
 	}
-
-	if (m_isEnemyNear)
-	{
+	if (m_isEnemyNear){
 		m_qteGauge -= 0.001f;
-		
-
-		if (m_qteGauge < 0.0f)
-		{
+		if (m_qteGauge < 0.0f){
 			m_qteGauge = 0.0f;
 		}
 		m_gaugeCB.gaugeRate = m_qteGauge;
