@@ -25,7 +25,7 @@ bool  Dummy3::Start() {
 void  Dummy3::Update() {
 	m_modelRender.PlayAnimation(enAnimClip_Chase);
 	auto pause = FindGO<Pause>("Pause");
-	if (pause && pause->IsPaused()) {
+	if (pause and pause->IsPaused()) {
 		return;
 	}
 	Vector3 moveSpeed;

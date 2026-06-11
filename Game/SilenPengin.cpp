@@ -24,7 +24,7 @@ bool SilenPengin::Start() {
 
 void SilenPengin::Update() {
 	m_pause = FindGO<Pause>("Pause");
-	if (m_pause && m_pause->IsPaused()) {
+	if (m_pause and m_pause->IsPaused()) {
 		return;
 	}
 	if (m_player == nullptr) {

@@ -24,7 +24,7 @@ bool UI::Start() {
 
 void UI::Update() {
 	auto pause = FindGO<Pause>("Pause");
-	if (pause && pause->IsPaused()) {
+	if (pause and pause->IsPaused()) {
 		return;
 	}
 	if (m_player->m_hp > -0.74f) {

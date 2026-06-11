@@ -26,7 +26,7 @@ bool NinjaPengin::Start() {
 
 void NinjaPengin::Update() {
 	auto pause = FindGO<Pause>("Pause");
-	if (pause && pause->IsPaused()) {
+	if (pause and pause->IsPaused()) {
 		return;
 	}
 	Vector3 moveSpeed;

@@ -7,7 +7,6 @@
 #include "Pause.h"
 #include "GameCamera.h"
 
-
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
 	m_animationClips[enAnimClip_Idle].SetLoopFlag(true);
@@ -54,7 +53,7 @@ bool Player::Start() {
 
 void Player::Update() {
 	auto pause = FindGO<Pause>("Pause");
-	if (pause && pause->IsPaused()) {
+	if (pause and pause->IsPaused()) {
 		return;
 	}
 	if (m_start == false) {
