@@ -17,6 +17,7 @@ bool UI::Start() {
 	m_spriteRender5.SetPosition({ 780.0f,385.0f,0.0f });
 	m_spriteRender3.SetMulColor({ 0.0f,1.0f,0.0f,1.0f });
 	m_spriteRender5.SetMulColor({ 0.0f,1.0f,1.0f,1.0f });
+	m_startRender.Init("Assets/sprite/StartJP.dds", 900.0f, 600.0f);
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
 	}
@@ -74,6 +75,21 @@ void UI::Update() {
 		m_spriteRender5.SetMulColor({ 0.0f,0.0f,0.0f,1.0f });
 		m_o2UI -= 5;
 	}
+	auto camera = FindGO<GameCamera>("GameCamera");
+	if (camera->m_flug == true) {
+		if (m_alpha > 0.0f) {
+			m_alpha -= 0.02f;
+			m_startRender.SetMulColor({ 1.0f, 1.0f, 1.0f, m_alpha });
+		}
+		if (m_alpha <= 1.0f and m_se == false) {
+			SoundSource* se = NewGO<SoundSource>(0);
+			se->Init(21);
+			se->Play(false);
+			float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+			se->SetVolume(finalSE);
+			m_se = true;
+		}
+	}
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
 	m_spriteRender5.SetPosition({ 600.0f,385.0f,0.0f });
@@ -85,6 +101,7 @@ void UI::Update() {
 	m_spriteRender3.Update();
 	m_spriteRender4.Update();
 	m_spriteRender5.Update();
+	m_startRender.Update();
 }
 
 void UI::Render(RenderContext& rc) {
@@ -95,5 +112,6 @@ void UI::Render(RenderContext& rc) {
 		m_spriteRender2.Draw(rc);
 		m_spriteRender5.Draw(rc);
 		m_spriteRender4.Draw(rc);
+		m_startRender.Draw(rc);
 	}
 }

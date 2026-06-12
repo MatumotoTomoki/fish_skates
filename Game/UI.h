@@ -10,8 +10,11 @@ class UI : public IGameObject
 	SpriteRender m_spriteRender3;
 	SpriteRender m_spriteRender4;
 	SpriteRender m_spriteRender5;
+	SpriteRender m_startRender;
 	Player* m_player;
 	int m_hpUI = 0;
 	int m_o2UI = 0;
 	bool m_heal = false;
+	bool m_se = false;
+	float m_alpha = 1.0f;
 };
