@@ -5,8 +5,21 @@
 namespace
 {
 	// 定数
-	// テスト用数値
-	const float OFFSET_POS_X = 100.0f;
+	//穴との距離計算用
+	const Vector3 FIRST_HOLL_POS = { 0.0f,0.0f,1300.0f };
+	const Vector3 SECOND_HOLL_POS = { 2646.0f,0.0f,2500.0f };
+	const Vector3 THIRD_HOLL_POS = { 4095.0f,0.0f,4600.0f };
+	const Vector3 FOURTH_HOLL_POS = { 65.0f,0.0f,6500.0f };
+	const float END_HOLL_POS = 99999999999.9f;
+	//距離表示
+	const Vector4 DISTANCE_FONT_COLOR = { 0.7f, 1.0f, 1.0f, 1.0f };
+	const Vector3 DISTANCE_FONT_POS = { -745.0f, 505.0f, 0.0f };
+	const Vector3 DISTANCE_FONT_TENPOS = { -765.0f, 505.0f, 0.0f };
+	const Vector3 DISTANCE_FONT_HANDLETPOS = { -785.0f, 505.0f, 0.0f };
+	const float MAX_DISTANCE = 999.0f;
+	const float TEN_DISTANCE = 10.0f;
+	const float HANDLET_DISTANCE = 10.0f;
+	const float DISTANCE_FONT_SCALE = 1.0f;
 }
 
 bool Distance::Start() {
@@ -23,42 +36,42 @@ void Distance::Update() {
 	}
 	switch (m_hollState) {
 	case 0:
-		m_pos = { 0.0f,0.0f,1300.0f };
+		m_pos = FIRST_HOLL_POS;
 		break;
 	case 1:
-		m_pos = { 2646.0f,0.0f,2500.0f };
+		m_pos = SECOND_HOLL_POS;
 		break;
 	case 2:
-		m_pos = { 4095.0f,0.0f,4600.0f };
+		m_pos = THIRD_HOLL_POS;
 		break;
 	case 3:
-		m_pos = { 65.0f,0.0f,6500.0f };
+		m_pos = FOURTH_HOLL_POS;
 		break;
 	default:
-		m_pos.z = 99999999999.9f;
+		m_pos.z = END_HOLL_POS;
 		break;
 	}
 	Vector3 center = m_pos;
 	Vector3 diff = center - m_player->m_position;
 	diff /= 10.0f;
 	float distance = diff.Length();
-	if (distance >= 999.0f) {
-		distance = 999.0f;
+	if (distance >= MAX_DISTANCE) {
+		distance = MAX_DISTANCE;
 	}
 	wchar_t distanceText[64];
 	swprintf(distanceText, 64, L"%.0f", distance);
 	m_font.SetText(distanceText);
-	m_font.SetColor(0.7f, 1.0f, 1.0f, 1.0f);
-	if (distance < 10.0f) {
-		m_font.SetPosition(-745.0f, 505.0f, 0.0f);
+	m_font.SetColor(DISTANCE_FONT_COLOR);
+	if (distance < TEN_DISTANCE) {
+		m_font.SetPosition(DISTANCE_FONT_POS);
 	}
-	if (distance >= 10.0f) {
-		m_font.SetPosition(-765.0f, 505.0f, 0.0f);
+	if (distance >= TEN_DISTANCE) {
+		m_font.SetPosition(DISTANCE_FONT_TENPOS);
 	}
-	if (distance >= 100.0f) {
-		m_font.SetPosition(-785.0f, 505.0f, 0.0f);
+	if (distance >= HANDLET_DISTANCE) {
+		m_font.SetPosition(DISTANCE_FONT_HANDLETPOS);
 	}
-	m_font.SetScale(1.0f);
+	m_font.SetScale(DISTANCE_FONT_SCALE);
 	m_model.SetPosition(m_pos);
 	m_model.Update();
 }
