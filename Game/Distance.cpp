@@ -23,7 +23,7 @@ namespace
 }
 
 bool Distance::Start() {
-	m_pos = { 0.0f,0.0f,999.0f };
+	m_pos = FIRST_HOLL_POS;
 	m_player = FindGO<Player>("Player");
 	m_model.SetPosition(m_pos);
 	m_model.Update();
