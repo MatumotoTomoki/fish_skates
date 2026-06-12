@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Distance.h"
 #include "Player.h"
+#include "GameCamera.h"
 
 namespace
 {
@@ -77,7 +78,8 @@ void Distance::Update() {
 }
 
 void Distance::Render(RenderContext& rc) {
-	if (m_player->m_start == true) {
+	auto camera = FindGO<GameCamera>("GameCamera");
+	if (camera->m_flug == true) {
 		if (m_hollState < 4) {
 			m_font.Draw(rc);
 		}
