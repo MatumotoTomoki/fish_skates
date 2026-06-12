@@ -2,6 +2,7 @@
 #include "UI.h"
 #include "Player.h"
 #include "Pause.h"
+#include "GameCamera.h"
 
 bool UI::Start() {
 	m_spriteRender.Init("Assets/sprite/distance.dds", 650.0f, 630.0f);
@@ -87,7 +88,8 @@ void UI::Update() {
 }
 
 void UI::Render(RenderContext& rc) {
-	if (m_player->m_start == true) {
+	auto camera = FindGO<GameCamera>("GameCamera");
+	if (camera->m_flug == true) {
 		m_spriteRender.Draw(rc);
 		m_spriteRender3.Draw(rc);
 		m_spriteRender2.Draw(rc);
