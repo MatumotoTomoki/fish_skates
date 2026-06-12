@@ -28,7 +28,7 @@ bool  Dummy::Start() {
 		Vector3 right;
 		right.Cross(Vector3::AxisY, forward);
 		right.Normalize();
-		float sideOffset = rand() % 3000 - 2000;
+		float sideOffset = rand() % 4000 - 2000;
 		m_pos = m_player->m_position + forward * forwardDist + right * sideOffset;
 		m_pos.y = 40.0f;
 		m_modelRender.SetPosition(m_pos);
