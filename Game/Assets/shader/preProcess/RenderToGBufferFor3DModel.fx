@@ -28,9 +28,10 @@ static const int dither_table[4][4] = {
 
 cbuffer CustomBuffer : register(b1)
 {
-    float g_opacity;   // C++�� opacity �������ɓ���
-    float g_isDither;  // C++�� isDither �������ɓ���
-    float2 padding;    
+    float g_opacity;   
+    float g_isDither;  
+    float g_smoothness; // ★ 1. ここに追加（paddingと入れ替え、または調整）
+    float padding;      // タイトに詰めるために float1 に変更（合計4つで16バイトのアライメントを維持）
 };
 
 float3 GetNormalFromNormalMap(float3 normal, float3 tangent, float3 biNormal, float2 uv)
@@ -79,7 +80,19 @@ SPSOut PSMainCore(SPSIn psIn, int isShadowReciever)
     psOut.albedo.w = psIn.pos.z;
     psOut.normal.xyz = GetNormalFromNormalMap(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
     psOut.normal.w = 1.0f;
+   // 1. テクスチャをそのままサンプリング
     psOut.metaricShadowSmooth = g_spacular.Sample(g_sampler, psIn.uv);
+
+    // ★ ここでチェック！
+    // もし魚の元のテクスチャのGチャンネル（あるいはAチャンネル）が、他と違って「ほぼ空っぽ(0.1未満)」なら…
+    if (psOut.metaricShadowSmooth.g < 0.1f)
+    {
+        // 魚だけをツルツルにする（他は巻き込まない）
+        psOut.metaricShadowSmooth.b = 0.8f; 
+        psOut.metaricShadowSmooth.r = 0.0f; // メタリック起因の暗さを消す
+    }
+
+    // 2. 最後にエンジン指定のシャドウフラグでGを上書き（元のテクスチャのGはここで消えるので安全）
     psOut.metaricShadowSmooth.g = 255.0f * (float) isShadowReciever;
     return psOut;
 }
