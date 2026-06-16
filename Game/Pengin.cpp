@@ -11,6 +11,8 @@ bool Pengin::Start() {
 	m_animationClips[enAnimClip_Walk].SetLoopFlag(true);
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
+	m_animationClips[enAnimClip_Attack].Load("Assets/animData/pengin_attack.tka");
+	m_animationClips[enAnimClip_Attack].SetLoopFlag(true);
 	m_modelRender.Init(
 		"Assets/modelData/pengin.tkm",
 		m_animationClips,
@@ -54,8 +56,15 @@ void Pengin::Update() {
 		}
 	}
 	Vector3 diff = m_player->m_position - m_pos;
+
+	//プレイヤーへの攻撃
+	if (diff.Length() <= 350.0f)
+	{
+		m_modelRender.PlayAnimation(enAnimClip_Attack);
+	}
+
 	// プレイヤー追跡
-	if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false){
+	else if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false){
 		m_modelRender.PlayAnimation(enAnimClip_Chase);
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
@@ -102,6 +111,7 @@ void Pengin::Update() {
 		m_rot.SetRotationDegY(180.0f);
 		moveSpeed.z -= 1.0f;
 	}
+	
 	moveSpeed.y = 0.0f;
 	m_pos += moveSpeed;
 	m_modelRender.SetRotation(m_rot);

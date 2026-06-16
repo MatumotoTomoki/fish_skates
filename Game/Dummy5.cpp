@@ -9,6 +9,8 @@ bool  Dummy5::Start() {
 	m_animationClips[enAnimClip_Walk].SetLoopFlag(true);
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
+	m_animationClips[enAnimClip_Attack].Load("Assets/animData/pengin_attack.tka");
+	m_animationClips[enAnimClip_Attack].SetLoopFlag(true);
 	m_modelRender.Init("Assets/modelData/pengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
 	m_effectEmitter = NewGO <EffectEmitter>(0);
 	m_effectEmitter->Init(0);
@@ -25,7 +27,6 @@ bool  Dummy5::Start() {
 }
 
 void  Dummy5::Update() {
-	m_modelRender.PlayAnimation(enAnimClip_Chase);
 	auto pause = FindGO<Pause>("Pause");
 	if (pause and pause->IsPaused()) {
 		return;
@@ -36,7 +37,21 @@ void  Dummy5::Update() {
 		return;
 	}
 	Vector3 diff = m_player->m_position - m_pos;
-	if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
+
+	if (diff.Length() <= 350.0f)
+	{
+		if (!m_isAttacking)
+		{
+			m_modelRender.PlayAnimation(enAnimClip_Attack);
+			m_isAttacking = true;
+		}
+	}
+	else if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
+		if (!m_isChasing) {
+			m_modelRender.PlayAnimation(enAnimClip_Chase); 
+			m_isChasing = true;
+		}
+		m_isAttacking = false;
 		float distToPlayer = diff.Length();
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
@@ -51,6 +66,7 @@ void  Dummy5::Update() {
 		}
 	}
 	else if (diff.Length() <= 600.0f and m_player->m_swim == false) {
+		m_isAttacking = false;
 		if (m_effect <= 15) {
 			m_effect++;
 		}

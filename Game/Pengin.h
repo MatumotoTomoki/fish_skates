@@ -10,6 +10,7 @@ public:
 	enum EnPenginAnimationClip {
 		enAnimClip_Walk,
 		enAnimClip_Chase,
+		enAnimClip_Attack,
 		enAnimClip_Num,
 	};
 	AnimationClip m_animationClips[enAnimClip_Num];
