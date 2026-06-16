@@ -28,9 +28,10 @@ static const int dither_table[4][4] = {
 
 cbuffer CustomBuffer : register(b1)
 {
-    float g_opacity;   // C++�� opacity �������ɓ���
-    float g_isDither;  // C++�� isDither �������ɓ���
-    float2 padding;    
+    float g_opacity;   
+    float g_isDither;  
+    float g_smoothness; // ★ 1. ここに追加（paddingと入れ替え、または調整）
+    float padding;      // タイトに詰めるために float1 に変更（合計4つで16バイトのアライメントを維持）
 };
 
 float3 GetNormalFromNormalMap(float3 normal, float3 tangent, float3 biNormal, float2 uv)
@@ -79,8 +80,16 @@ SPSOut PSMainCore(SPSIn psIn, int isShadowReciever)
     psOut.albedo.w = psIn.pos.z;
     psOut.normal.xyz = GetNormalFromNormalMap(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
     psOut.normal.w = 1.0f;
+   // 1. テクスチャをそのままサンプリング
     psOut.metaricShadowSmooth = g_spacular.Sample(g_sampler, psIn.uv);
-    psOut.metaricShadowSmooth.g = 255.0f * (float) isShadowReciever;
+
+    // ★ ここでチェック！
+    // もし魚の元のテクスチャのGチャンネル（あるいはAチャンネル）が、他と違って「ほぼ空っぽ(0.1未満)」なら…
+    
+    psOut.metaricShadowSmooth.r = 0.0f;  // メタリック＝0（金属ではなく、生き物の質感にする）
+    psOut.metaricShadowSmooth.g = 255.0f * (float) isShadowReciever; // 影の設定はそのまま維持
+    psOut.metaricShadowSmooth.b = 0.8f;  // スムースネス＝0.8（数値を 0.5 ～ 0.9 の間で上げると、ツルツルにテカる！）
+    psOut.metaricShadowSmooth.a = 1.0f;
     return psOut;
 }
 

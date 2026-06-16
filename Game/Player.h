@@ -6,6 +6,13 @@ class Dummy5;
 class Player :public IGameObject
 {
 public:
+	struct CustomBuffer
+	{
+		float opacity;
+		float isDither;
+		float smoothness; // ★シェーダーの並び順と完全に合わせる
+		float padding;
+	};
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
@@ -53,7 +60,6 @@ public:
 	EffectEmitter* m_eff2 = nullptr;
 	float m_qteGauge = 1.0f;
 	bool m_isEnemyNear = false;
-	
 	struct GaugeCB
 	{
 		float gaugeRate;

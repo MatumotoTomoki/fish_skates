@@ -16,7 +16,7 @@ bool Player::Start() {
 	m_animationClips[enAnimClip_Swim].SetLoopFlag(true);
 	m_animationClips[enAnimClip_WaterJump].Load("Assets/animdata/fish_waterJump.tka");
 	m_animationClips[enAnimClip_WaterJump].SetLoopFlag(false);
-	m_modelRender.Init("Assets/modelData/fish_idol.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
+	m_modelRender.Init("Assets/modelData/fish_idol3.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	m_qte.SetScale({ 1.1f,1.1f,0.0f });
 	m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
