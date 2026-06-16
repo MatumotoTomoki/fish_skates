@@ -12,6 +12,7 @@ public:
 	enum EnPenginAnimationClip {
 		enAnimClip_Walk,
 		enAnimClip_Chase,
+		enAnimClip_Attack,
 		enAnimClip_Num,
 	};
 	AnimationClip m_animationClips[enAnimClip_Num];
@@ -23,6 +24,8 @@ public:
 	CharacterController m_characterController;
 	EffectEmitter* m_effectEmitter = nullptr;//エフェクト。
 	bool m_change = false;
+	bool m_isAttacking = false;
+	bool m_isChasing = false;
 	int m_i = 0;
 	int m_effect = 0;
 };
