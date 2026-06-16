@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Pause.h"
 #include "Title.h"
+#include "Game.h"
 
 bool GameCamera::Start() {
     m_toCameraPos.Set(0.0f, 0.0f, -570.0f);
@@ -35,10 +36,16 @@ void GameCamera::Update() {
         m_player = FindGO<Player>("Player");
     }
         Vector3 playerRawTarget = m_player->m_position;
-        playerRawTarget.y += 80.0f;
+        auto game = FindGO<Game>("Game");
+        if (m_flug == false) {
+            playerRawTarget.y -= 919.0f;
+        }
+        else {
+            playerRawTarget.y += 80.0f;
+        }
         float lerpFactor = 0.8f;
         m_currentCameraTarget.Lerp(lerpFactor, m_currentCameraTarget, playerRawTarget);
-    if (m_player->m_start == true) {
+    if (game->m_initialized == true) {
         // ★ ここが“本命”のリセットポイント
         if (m_resetOnStart) {
             // 角度・距離・注視点を毎ループ同じ状態に戻す
@@ -59,7 +66,7 @@ void GameCamera::Update() {
         else if (m_zoom == false and m_toCameraPos.z < -370.0f) {
             m_flug = true;
         }
-        if (m_flug == true) {
+        if (m_player->m_start == true) {
             float x = g_pad[0]->GetRStickXF();
             float y = g_pad[0]->GetRStickYF();
             Quaternion qRot;
@@ -99,10 +106,12 @@ void GameCamera::Update() {
             }
         }
         Vector3 pos = m_currentCameraTarget + m_toCameraPos;
-        if (m_flug == true) {
+        if (m_player->m_start == true) {
             g_camera3D->SetTarget(m_currentCameraTarget);
         }
-        g_camera3D->SetPosition(pos);
+        if (m_flug == false or m_player->m_go >= 1) {
+            g_camera3D->SetPosition(pos);
+        }
         g_camera3D->Update();
     }
 }

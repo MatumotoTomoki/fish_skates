@@ -56,7 +56,8 @@ void Player::Update() {
 	if (pause and pause->IsPaused()) {
 		return;
 	}
-	if (m_start == false) {
+	auto camera = FindGO<GameCamera>("GameCamera");
+	if (camera->m_flug == true and m_start == false) {
 		m_velocity.y -= 0.5f;
 		m_position.y += 12.0f;
 		if (m_characterController.IsOnGround() == true) {
@@ -71,9 +72,8 @@ void Player::Update() {
 		m_position = m_characterController.Execute(m_velocity, 1.0f);
 		m_modelRender.Update();
 	}
-	else {
+	if(m_start == true) {
 		m_go++;
-		auto camera = FindGO<GameCamera>("GameCamera");
 		Vector3 forward = g_camera3D->GetForward();
 		// カメラの "前方向" ベクトルを、水平方向だけにしたベクトルを作成
 		Vector3 cameraForward = forward;
