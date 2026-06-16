@@ -80,9 +80,9 @@ bool Title::Start() {
 
 void Title::Update() {
 	Vector4 titleColor = { 1.0f,1.0f,1.0f,m_titleColor };
-	Vector4 stopColor = { 1.0f,1.0f,1.0f, m_stopColor};
+	Vector4 stopColor = { 1.0f,1.0f,m_stopColor, m_stopColor};
 	m_titleColor += 0.01f;
-	Vector4 startColor = { 1.0f, 1.0f, 1.0f, m_startColor };
+	Vector4 startColor = { 1.0f, 1.0f, m_startColor, m_startColor };
 	if (m_optionState == false) {
 		if (m_startColor >= 1.0f) {
 			m_startAlpha = false;
@@ -472,8 +472,7 @@ void Title::Update() {
 		if (m_cool > 2) {
 			m_cool = 3;
 		}
-		if (g_pad[0]->IsTrigger(enButtonB) and m_cool == 3 and m_j==1)
-		{
+		if (g_pad[0]->IsTrigger(enButtonB) and m_cool == 3 and m_j==1){
 			m_start.SetPosition({ -300.0f,-300.0f,0.0f });
 			m_start.Update();
 			m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
