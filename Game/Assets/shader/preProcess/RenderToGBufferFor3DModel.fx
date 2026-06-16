@@ -85,15 +85,11 @@ SPSOut PSMainCore(SPSIn psIn, int isShadowReciever)
 
     // ★ ここでチェック！
     // もし魚の元のテクスチャのGチャンネル（あるいはAチャンネル）が、他と違って「ほぼ空っぽ(0.1未満)」なら…
-    if (psOut.metaricShadowSmooth.g < 0.1f)
-    {
-        // 魚だけをツルツルにする（他は巻き込まない）
-        psOut.metaricShadowSmooth.b = 0.8f; 
-        psOut.metaricShadowSmooth.r = 0.0f; // メタリック起因の暗さを消す
-    }
-
-    // 2. 最後にエンジン指定のシャドウフラグでGを上書き（元のテクスチャのGはここで消えるので安全）
-    psOut.metaricShadowSmooth.g = 255.0f * (float) isShadowReciever;
+    
+    psOut.metaricShadowSmooth.r = 0.0f;  // メタリック＝0（金属ではなく、生き物の質感にする）
+    psOut.metaricShadowSmooth.g = 255.0f * (float) isShadowReciever; // 影の設定はそのまま維持
+    psOut.metaricShadowSmooth.b = 0.8f;  // スムースネス＝0.8（数値を 0.5 ～ 0.9 の間で上げると、ツルツルにテカる！）
+    psOut.metaricShadowSmooth.a = 1.0f;
     return psOut;
 }
 

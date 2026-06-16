@@ -412,6 +412,7 @@ void Player::Update() {
 		if (m_qteGauge < 0.0f){
 			m_qteGauge = 0.0f;
 		}
+		m_gaugeCB.gaugeRate = m_qteGauge;
 	}
 }
 
