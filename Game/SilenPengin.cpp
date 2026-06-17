@@ -3,6 +3,7 @@
 #include "SilenPengin.h"
 #include "Pause.h"
 
+
 bool SilenPengin::Start() {
 	g_soundEngine->ResistWaveFileBank(1, "Assets/Sound/silen.wav");
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
