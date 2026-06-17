@@ -75,8 +75,7 @@ void UI::Update() {
 		m_spriteRender5.SetMulColor({ 0.0f,0.0f,0.0f,1.0f });
 		m_o2UI -= 5;
 	}
-	auto camera = FindGO<GameCamera>("GameCamera");
-	if (camera->m_flug == true) {
+	if (m_player->m_start == true) {
 		if (m_alpha > 0.0f) {
 			m_alpha -= 0.02f;
 			m_startRender.SetMulColor({ 1.0f, 1.0f, 1.0f, m_alpha });
@@ -105,8 +104,7 @@ void UI::Update() {
 }
 
 void UI::Render(RenderContext& rc) {
-	auto camera = FindGO<GameCamera>("GameCamera");
-	if (camera->m_flug == true) {
+	if (m_player->m_start == true) {
 		m_spriteRender.Draw(rc);
 		m_spriteRender3.Draw(rc);
 		m_spriteRender2.Draw(rc);
