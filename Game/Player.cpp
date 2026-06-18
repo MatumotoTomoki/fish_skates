@@ -331,13 +331,6 @@ void Player::Update() {
 					m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
 					m_eff++;
 				}
-				if (g_pad[0]->IsTrigger(enButtonA)) {
-					m_effectEmitter = NewGO <EffectEmitter>(0);
-					m_effectEmitter->Init(1);
-					m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
-					m_effectEmitter->Play();
-					m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
-				}
 				if (m_se <= 1) {
 					if (g_pad[0]->IsTrigger(enButtonA)) {
 						m_se = 0;
