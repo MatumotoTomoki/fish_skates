@@ -23,7 +23,7 @@ bool UI::Start() {
 		m_player = FindGO<Player>("Player");
 
 	}
-	m_warningRender.Init("Assets/sprite/p.dds", 256.0f, 256.0f);
+	m_warningRender.Init("Assets/sprite/p.dds", 320.0f, 256.0f);
 	m_warningRender.SetPosition({ 0.0f,250.0f,0.0f });
 	return true;
 }
@@ -93,17 +93,10 @@ void UI::Update() {
 			se->SetVolume(finalSE);
 			m_se = true;
 		}
-		
-
 		auto silenPengin = FindGO<SilenPengin>("SilenPengin");
-
-		if (silenPengin != nullptr)
-		{
+		if (silenPengin != nullptr){
 			Vector3 diff = m_player->m_position - silenPengin->m_pos;
-
-			if (silenPengin->m_coolTime <= 0.0f &&
-				silenPengin->m_coolTime >= -100.0f &&
-				diff.Length() <= 600.0f)
+			if (silenPengin->m_coolTime <= 0.0f and silenPengin->m_coolTime >= -100.0f and diff.Length() <= 600.0f)
 			{
 				
 			}
@@ -111,15 +104,12 @@ void UI::Update() {
 
 		
 	}
-	if (m_player->m_start == true)
-	{
+	if (m_player->m_start == true){
 		m_warningFlag = false;
-		if (m_player->m_diff.Length() <= 600.0f or m_player->m_diff2.Length() <= 600.0f or m_player->m_diff3.Length() <= 600.0f or m_player->m_diff4.Length() <= 600.0f)
-		{
+		if (m_player->m_diff.Length() <= 1800.0f or m_player->m_diff2.Length() <= 1800.0f or m_player->m_diff3.Length() <= 1800.0f or m_player->m_diff4.Length() <= 1800.0f){
 			m_warningFlag = true;
 		}
 	}
-	
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
 	m_spriteRender5.SetPosition({ 600.0f,385.0f,0.0f });
