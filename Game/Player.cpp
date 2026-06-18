@@ -334,7 +334,9 @@ void Player::Update() {
 				if (m_se <= 1) {
 					if (g_pad[0]->IsTrigger(enButtonA)) {
 						m_se = 0;
-						m_effectEmitter->Stop();
+						if (m_effectEmitter != nullptr) {
+							m_effectEmitter->Stop();
+						}
 					}
 				}
 				if (m_waterJump == false) {
