@@ -93,7 +93,7 @@ void UI::Update() {
 			se->SetVolume(finalSE);
 			m_se = true;
 		}
-		m_warningFlag = false;
+		
 
 		auto silenPengin = FindGO<SilenPengin>("SilenPengin");
 
@@ -105,12 +105,21 @@ void UI::Update() {
 				silenPengin->m_coolTime >= -100.0f &&
 				diff.Length() <= 600.0f)
 			{
-				m_warningFlag = true;
+				
 			}
 		}
 
-		m_warningRender.Update();
+		
 	}
+	if (m_player->m_start == true)
+	{
+		m_warningFlag = false;
+		if (m_player->m_diff.Length() <= 600.0f or m_player->m_diff2.Length() <= 600.0f or m_player->m_diff3.Length() <= 600.0f or m_player->m_diff4.Length() <= 600.0f)
+		{
+			m_warningFlag = true;
+		}
+	}
+	
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
 	m_spriteRender5.SetPosition({ 600.0f,385.0f,0.0f });
@@ -123,6 +132,7 @@ void UI::Update() {
 	m_spriteRender4.Update();
 	m_spriteRender5.Update();
 	m_startRender.Update();
+	m_warningRender.Update();
 }
 
 void UI::Render(RenderContext& rc) {
@@ -134,6 +144,9 @@ void UI::Render(RenderContext& rc) {
 		m_spriteRender5.Draw(rc);
 		m_spriteRender4.Draw(rc);
 		m_startRender.Draw(rc);
-		m_warningRender.Draw(rc);
+		if (m_warningFlag == true)
+		{
+			m_warningRender.Draw(rc);
+		}
 	}
 }
