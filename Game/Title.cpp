@@ -82,7 +82,13 @@ void Title::Update() {
 	Vector4 titleColor = { 1.0f,1.0f,1.0f,m_titleColor };
 	Vector4 stopColor = { 1.0f,1.0f,m_stopColor, m_stopColor};
 	m_titleColor += 0.01f;
-	Vector4 startColor = { 1.0f, 1.0f, m_startColor, m_startColor };
+	Vector4 startColor;
+	if (m_coolTime == false) {
+		startColor = { 1.0f, 1.0f, m_startColor, m_startColor };
+	}
+	else {
+		startColor = { 1.0f, 1.0f, 1.0f, m_startColor };
+	}
 	if (m_optionState == false) {
 		if (m_startColor >= 1.0f) {
 			m_startAlpha = false;
