@@ -334,6 +334,7 @@ void Player::Update() {
 				if (m_se <= 1) {
 					if (g_pad[0]->IsTrigger(enButtonA)) {
 						m_se = 0;
+						m_effectEmitter->Stop();
 					}
 				}
 				if (m_waterJump == false) {
@@ -376,6 +377,12 @@ void Player::Update() {
 				m_o2 -= 0.002f;
 				m_hp += 0.003f;
 			}
+			if (m_position.z >= 3155.0f and m_position.z <= 3900.0f and m_position.x >= 3017.0f and m_position.x <= 3700.0f and m_characterController.IsOnGround() == true) {
+				m_velocity += cameraForward * speed / 4;
+			}
+			if (m_position.z >= 2827.0f and m_position.z <= 3900.0f and m_position.x >= 131.0f and m_position.x <= 1400.0f and m_characterController.IsOnGround() == true) {
+				m_velocity += cameraForward * speed /4;
+			}
 			if (m_chase == true) {
 				m_modelRender.SetAnimationSpeed(0.5f);
 			}
@@ -407,10 +414,15 @@ void Player::Update() {
 		}
 		m_gaugeCB.gaugeRate = m_qteGauge;
 	}
+	/*Vector3 pos = m_position;
+	wchar_t buf[128];
+	swprintf(buf, 128, L"Pos: X = %.1f Y = %.1f Z = %.1f", pos.x, pos.y, pos.z);
+	m_font.SetText(buf);*/
 }
 
 void Player::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
+	//m_font.Draw(rc);
 	if (m_go > 61) {
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
 			if (m_qteGauge > 0) {

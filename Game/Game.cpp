@@ -60,7 +60,7 @@ bool Game::Start() {
 			return true;
 		}
 		if (odData.EqualObjectName(L"Stage") == true) {
-			m_stageRender.Init("Assets/modelData/tairiku5.3.tkm");
+			m_stageRender.Init("Assets/modelData/tairiku5.5.tkm");
 			m_stageRender.SetTRS(
 				odData.position,
 				odData.rotation,
