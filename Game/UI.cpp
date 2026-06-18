@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Pause.h"
 #include "GameCamera.h"
+#include "SilenPengin.h"
 
 bool UI::Start() {
 	m_spriteRender.Init("Assets/sprite/distance.dds", 650.0f, 630.0f);
@@ -20,7 +21,10 @@ bool UI::Start() {
 	m_startRender.Init("Assets/sprite/StartJP.dds", 900.0f, 600.0f);
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
+
 	}
+	m_warningRender.Init("Assets/sprite/p.dds", 256.0f, 256.0f);
+	m_warningRender.SetPosition({ 0.0f,250.0f,0.0f });
 	return true;
 }
 
@@ -75,7 +79,8 @@ void UI::Update() {
 		m_spriteRender5.SetMulColor({ 0.0f,0.0f,0.0f,1.0f });
 		m_o2UI -= 5;
 	}
-	if (m_player->m_start == true) {
+	auto camera = FindGO<GameCamera>("GameCamera");
+	if (camera->m_flug == true) {
 		if (m_alpha > 0.0f) {
 			m_alpha -= 0.02f;
 			m_startRender.SetMulColor({ 1.0f, 1.0f, 1.0f, m_alpha });
@@ -88,6 +93,23 @@ void UI::Update() {
 			se->SetVolume(finalSE);
 			m_se = true;
 		}
+		m_warningFlag = false;
+
+		auto silenPengin = FindGO<SilenPengin>("SilenPengin");
+
+		if (silenPengin != nullptr)
+		{
+			Vector3 diff = m_player->m_position - silenPengin->m_pos;
+
+			if (silenPengin->m_coolTime <= 0.0f &&
+				silenPengin->m_coolTime >= -100.0f &&
+				diff.Length() <= 600.0f)
+			{
+				m_warningFlag = true;
+			}
+		}
+
+		m_warningRender.Update();
 	}
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
@@ -104,6 +126,7 @@ void UI::Update() {
 }
 
 void UI::Render(RenderContext& rc) {
+	auto camera = FindGO<GameCamera>("GameCamera");
 	if (m_player->m_start == true) {
 		m_spriteRender.Draw(rc);
 		m_spriteRender3.Draw(rc);
@@ -111,5 +134,6 @@ void UI::Render(RenderContext& rc) {
 		m_spriteRender5.Draw(rc);
 		m_spriteRender4.Draw(rc);
 		m_startRender.Draw(rc);
+		m_warningRender.Draw(rc);
 	}
 }
