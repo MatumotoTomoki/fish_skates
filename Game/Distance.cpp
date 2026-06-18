@@ -78,8 +78,7 @@ void Distance::Update() {
 }
 
 void Distance::Render(RenderContext& rc) {
-	auto camera = FindGO<GameCamera>("GameCamera");
-	if (camera->m_flug == true) {
+	if (m_player->m_start == true) {
 		if (m_hollState < 4) {
 			m_font.Draw(rc);
 		}
