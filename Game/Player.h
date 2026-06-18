@@ -52,6 +52,7 @@ public:
 	int m_qteUI = 0;
 	SpriteRender m_sprite;
 	SpriteRender m_qte;
+	FontRender m_font;
 	Pengin* m_pengin = nullptr;
 	NinjaPengin* m_ninjaPengin = nullptr;
 	SilenPengin* m_silenPengin = nullptr;
