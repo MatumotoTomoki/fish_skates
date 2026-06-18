@@ -324,11 +324,16 @@ void Player::Update() {
 					se->SetVolume(finalSE);
 					SuperSe->SetVolume(finalSE);
 					m_se++;
+					if (m_effectEmitter != nullptr) {
+						m_effectEmitter->Stop();
+						m_effectEmitter = nullptr;
+					}
 					m_effectEmitter = NewGO <EffectEmitter>(0);
 					m_effectEmitter->Init(1);
 					m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
 					m_effectEmitter->Play();
 					m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
+
 					m_eff++;
 				}
 				if (m_se <= 1) {
@@ -336,6 +341,7 @@ void Player::Update() {
 						m_se = 0;
 						if (m_effectEmitter != nullptr) {
 							m_effectEmitter->Stop();
+							m_effectEmitter = nullptr;
 						}
 					}
 				}
