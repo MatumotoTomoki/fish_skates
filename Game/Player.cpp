@@ -420,7 +420,7 @@ void Player::Update() {
 		m_qte.SetMulColor({ 1.0f,0.0f,0.0f,1.0f });
 	}
 	if (m_isEnemyNear){
-		m_qteGauge -= 0.00222f;
+		m_qteGauge -= 0.00254f;
 		if (m_qteGauge < 0.0f){
 			m_qteGauge = 0.0f;
 		}

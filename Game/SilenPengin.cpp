@@ -66,7 +66,7 @@ void SilenPengin::Update() {
 			m_pos.x -= 70.0f;
 		}
 		else if(diff.Length() <= 600.0f and diff.Length() >= 350.0f) {
-			m_pos.x -= 0.7f;
+			m_pos.x -= 0.5f;
 		}
 	}
 	if (m_coolTime <= -1000.0f) {

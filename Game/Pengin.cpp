@@ -101,7 +101,7 @@ void Pengin::Update() {
 		Vector3 diff = m_pos - m_player->m_position;
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
-		moveSpeed += toPlayerDir * 5.0f;
+		moveSpeed += toPlayerDir * 7.0f;
 	}
 	// 通常移動
 	else {
