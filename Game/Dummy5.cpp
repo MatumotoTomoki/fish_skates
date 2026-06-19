@@ -46,7 +46,7 @@ void  Dummy5::Update() {
 			m_isAttacking = true;
 		}
 	}
-	else if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
+	else if (diff.Length() <= 999999999.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
 		if (!m_isChasing) {
 			m_modelRender.PlayAnimation(enAnimClip_Chase); 
 			m_isChasing = true;
