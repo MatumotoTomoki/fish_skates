@@ -15,6 +15,7 @@ public:
 	Vector3 m_pos;
 	enum EnPenginAnimationClip {
 		enAnimClip_Chase,
+		enAnimClip_Attack,
 		enAnimClip_Num,
 	};
 	AnimationClip m_animationClips[enAnimClip_Num];

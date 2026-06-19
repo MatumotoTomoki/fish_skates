@@ -8,6 +8,8 @@ bool SilenPengin::Start() {
 	g_soundEngine->ResistWaveFileBank(1, "Assets/Sound/silen.wav");
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
 	m_animationClips[enAnimClip_Chase].SetLoopFlag(false);
+	m_animationClips[enAnimClip_Attack].Load("Assets/animData/pengin_attack.tka");
+	m_animationClips[enAnimClip_Attack].SetLoopFlag(true);
 	m_modelRender.Init("Assets/modelData/silenPengin.tkm", m_animationClips, enAnimClip_Num, enModelUpAxisZ);
 	m_modelRender.SetScale(15.0f, 15.0f, 15.0f);
 	if (m_player == nullptr) {
@@ -42,6 +44,9 @@ void SilenPengin::Update() {
 		m_pos = { m_player->m_position.x,0.0f,m_player->m_position.z };
 		m_pos.x += 3000.0f;
 	}
+	if (diff.Length() <= 350.0f) {
+		m_modelRender.PlayAnimation(enAnimClip_Attack);
+	}
 	if (m_coolTime <= 35.0f and m_player->m_swim == false) {
 		if (m_silen < 1) {
 			float finalSE = (m_pause->m_sevolume / 10.0f) * (m_pause->m_master / 10.0f);
@@ -58,10 +63,10 @@ void SilenPengin::Update() {
 			m_pos.x += 50.0f;
 		}
 		else if (diff.Length() >= 600.0f) {
-			m_pos.x -= 50.0f;
+			m_pos.x -= 70.0f;
 		}
-		else {
-			m_pos.x -= 1.0f;
+		else if(diff.Length() <= 600.0f and diff.Length() >= 350.0f) {
+			m_pos.x -= 0.7f;
 		}
 	}
 	if (m_coolTime <= -1000.0f) {

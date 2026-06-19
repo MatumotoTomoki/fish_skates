@@ -58,8 +58,7 @@ void Pengin::Update() {
 	Vector3 diff = m_player->m_position - m_pos;
 
 	//プレイヤーへの攻撃
-	if (diff.Length() <= 350.0f)
-	{
+	if (diff.Length() <= 350.0f){
 		m_modelRender.PlayAnimation(enAnimClip_Attack);
 	}
 
@@ -87,7 +86,6 @@ void Pengin::Update() {
 			m_rot.SetRotationY(angleY);
 		}
 		else {
-
 			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
 			m_rot.SetRotationY(angleY);
 			Vector3 forward;
