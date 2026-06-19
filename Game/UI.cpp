@@ -21,7 +21,6 @@ bool UI::Start() {
 	m_startRender.Init("Assets/sprite/StartJP.dds", 900.0f, 600.0f);
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
-
 	}
 	m_warningRender.Init("Assets/sprite/p.dds", 340.0f, 256.0f);
 	m_warningRender.SetPosition({ 0.0f,400.0f,0.0f });
@@ -92,16 +91,6 @@ void UI::Update() {
 			se->SetVolume(finalSE);
 			m_se = true;
 		}
-		auto silenPengin = FindGO<SilenPengin>("SilenPengin");
-		if (silenPengin != nullptr){
-			Vector3 diff = m_player->m_position - silenPengin->m_pos;
-			if (silenPengin->m_coolTime <= 0.0f and silenPengin->m_coolTime >= -100.0f and diff.Length() <= 600.0f)
-			{
-				
-			}
-		}
-
-		
 	}
 	if (m_player->m_start == true){
 		m_warningFlag = false;
@@ -132,8 +121,7 @@ void UI::Render(RenderContext& rc) {
 		m_spriteRender5.Draw(rc);
 		m_spriteRender4.Draw(rc);
 		m_startRender.Draw(rc);
-		if (m_warningFlag == true)
-		{
+		if (m_warningFlag == true and m_player->m_swim == false) {
 			m_warningRender.Draw(rc);
 		}
 	}
