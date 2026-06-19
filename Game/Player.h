@@ -13,6 +13,7 @@ public:
 		float smoothness; // ★シェーダーの並び順と完全に合わせる
 		float padding;
 	};
+	~Player();
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
