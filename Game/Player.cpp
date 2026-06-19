@@ -102,6 +102,15 @@ void Player::Update() {
 			}
 		}
 		else {
+			if (m_position.z >= 3155.0f and m_position.z <= 3900.0f and m_position.x >= 3017.0f and m_position.x <= 3700.0f) {
+				m_slip = true;
+			}
+			else if (m_position.z >= 2827.0f and m_position.z <= 3900.0f and m_position.x >= 131.0f and m_position.x <= 1400.0f) {
+				m_slip = true;
+			}
+			else {
+				m_slip = false;
+			}
 			m_modelRender.PlayAnimation(enAnimClip_Idle);
 			m_superJump = false;
 			m_velocity.y = 0.0f;
@@ -324,16 +333,13 @@ void Player::Update() {
 					se->SetVolume(finalSE);
 					SuperSe->SetVolume(finalSE);
 					m_se++;
-					if (m_effectEmitter != nullptr) {
-						m_effectEmitter->Stop();
-						m_effectEmitter = nullptr;
-					}
 					m_effectEmitter = NewGO <EffectEmitter>(0);
 					m_effectEmitter->Init(1);
-					m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
-					m_effectEmitter->Play();
-					m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
-
+					if (m_effectEmitter != nullptr) {
+						m_effectEmitter->SetScale({ 20.0f,50.0f,20.0f });
+						m_effectEmitter->Play();
+						m_effectEmitter->SetPosition({ m_position.x,m_posy,m_position.z });
+					}
 					m_eff++;
 				}
 				if (m_se <= 1) {
@@ -341,6 +347,7 @@ void Player::Update() {
 						m_se = 0;
 						if (m_effectEmitter != nullptr) {
 							m_effectEmitter->Stop();
+							DeleteGO(m_effectEmitter);
 							m_effectEmitter = nullptr;
 						}
 					}
@@ -385,11 +392,8 @@ void Player::Update() {
 				m_o2 -= 0.002f;
 				m_hp += 0.003f;
 			}
-			if (m_position.z >= 3155.0f and m_position.z <= 3900.0f and m_position.x >= 3017.0f and m_position.x <= 3700.0f and m_characterController.IsOnGround() == true) {
-				m_velocity += cameraForward * speed / 4;
-			}
-			if (m_position.z >= 2827.0f and m_position.z <= 3900.0f and m_position.x >= 131.0f and m_position.x <= 1400.0f and m_characterController.IsOnGround() == true) {
-				m_velocity += cameraForward * speed /4;
+			if (m_slip == true) {
+				m_velocity += cameraForward * speed;
 			}
 			if (m_chase == true) {
 				m_modelRender.SetAnimationSpeed(0.5f);

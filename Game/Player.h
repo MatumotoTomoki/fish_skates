@@ -61,6 +61,7 @@ public:
 	EffectEmitter* m_eff2 = nullptr;
 	float m_qteGauge = 1.0f;
 	bool m_isEnemyNear = false;
+	bool m_slip = false;
 	struct GaugeCB
 	{
 		float gaugeRate;
