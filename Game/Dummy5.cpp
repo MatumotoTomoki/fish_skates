@@ -37,7 +37,7 @@ void Dummy5::Update() {
 		return;
 	}
 	Vector3 diff = m_player->m_position - m_pos;
-	if (diff.Length() <= 350.0f){
+	if (diff.Length() <= 350.0f and m_player->m_swim == false){
 		if (!m_isAttacking){
 			m_modelRender.PlayAnimation(enAnimClip_Attack);
 			m_isAttacking = true;
@@ -110,7 +110,7 @@ void Dummy5::Update() {
 	else {
 		moveSpeed.z -= 1.0f;
 	}
-	if (m_ninjaPengin && m_ninjaPengin->m_change == true) {
+	if (m_ninjaPengin and m_ninjaPengin->m_change == true) {
 		if (m_i < 1) {
 			m_oldPos = m_pos;
 			m_characterController.SetPosition(m_ninjaPengin->m_oldPos);
