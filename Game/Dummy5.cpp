@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Pause.h"
 
-bool  Dummy5::Start() {
+bool Dummy5::Start() {
 	m_animationClips[enAnimClip_Walk].Load("Assets/animData/pengin_walk.tka");
 	m_animationClips[enAnimClip_Walk].SetLoopFlag(true);
 	m_animationClips[enAnimClip_Chase].Load("Assets/animData/pengin_chase.tka");
@@ -26,7 +26,7 @@ bool  Dummy5::Start() {
 	return true;
 }
 
-void  Dummy5::Update() {
+void Dummy5::Update() {
 	auto pause = FindGO<Pause>("Pause");
 	if (pause and pause->IsPaused()) {
 		return;
@@ -37,11 +37,8 @@ void  Dummy5::Update() {
 		return;
 	}
 	Vector3 diff = m_player->m_position - m_pos;
-
-	if (diff.Length() <= 350.0f)
-	{
-		if (!m_isAttacking)
-		{
+	if (diff.Length() <= 350.0f){
+		if (!m_isAttacking){
 			m_modelRender.PlayAnimation(enAnimClip_Attack);
 			m_isAttacking = true;
 		}
@@ -138,6 +135,6 @@ void  Dummy5::Update() {
 	m_modelRender.Update();
 }
 
-void  Dummy5::Render(RenderContext& rc) {
+void Dummy5::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
 }

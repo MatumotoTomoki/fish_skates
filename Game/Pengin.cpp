@@ -21,8 +21,7 @@ bool Pengin::Start() {
 	);
 	// ランダムスポーン
 	m_player = FindGO<Player>("Player");
-	if (m_player != nullptr)
-	{
+	if (m_player != nullptr){
 		Vector3 forward = g_camera3D->GetForward();
 		forward.y = 0.0f;
 		forward.Normalize();
@@ -56,12 +55,10 @@ void Pengin::Update() {
 		}
 	}
 	Vector3 diff = m_player->m_position - m_pos;
-
 	//プレイヤーへの攻撃
 	if (diff.Length() <= 350.0f){
 		m_modelRender.PlayAnimation(enAnimClip_Attack);
 	}
-
 	// プレイヤー追跡
 	else if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false){
 		m_modelRender.PlayAnimation(enAnimClip_Chase);
@@ -95,7 +92,6 @@ void Pengin::Update() {
 			moveSpeed += forward * 8.0f;
 		}
 	}
-
 	// プレイヤー泳ぎ中
 	else if (m_player->m_swim == true) {
 		Vector3 diff = m_pos - m_player->m_position;
@@ -109,7 +105,6 @@ void Pengin::Update() {
 		m_rot.SetRotationDegY(180.0f);
 		moveSpeed.z -= 1.0f;
 	}
-	
 	moveSpeed.y = 0.0f;
 	m_pos += moveSpeed;
 	m_modelRender.SetRotation(m_rot);
