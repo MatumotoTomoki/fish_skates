@@ -446,7 +446,7 @@ void Player::Render(RenderContext& rc) {
 	//m_font.Draw(rc);
 	if (m_go > 61) {
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
-			if (m_qteGauge > 0) {
+			if (m_qteGauge > 0 and m_swim == false) {
 				m_sprite.Draw(rc);
 				m_qte.Draw(rc);
 			}
