@@ -330,6 +330,7 @@ void Player::Update() {
 				}
 			}
 			if (m_swim == true) {
+				m_qteGauge = 1.0f;
 				if (m_se == 0) {
 					SoundSource* se = NewGO<SoundSource>(0);
 					se->Init(7);
