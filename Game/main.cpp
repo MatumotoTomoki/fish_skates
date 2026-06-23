@@ -3,6 +3,7 @@
 #include<InitGUID.h>
 #include<dxgidebug.h>
 #include "Title.h"
+#include "OptionManager.h"
 
 void ReportLiveObjects()
 {
@@ -27,6 +28,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	//Gameクラスのオブジェクトを作成。
 	NewGO<Title>(0, "Title");
+	NewGO<OptionManager>(0, "OptionManager");
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////

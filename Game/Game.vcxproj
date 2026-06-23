@@ -234,6 +234,7 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NinjaPengin.cpp" />
+    <ClCompile Include="OptionManager.cpp" />
     <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Pengin.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="NinjaPengin.h" />
+    <ClInclude Include="OptionManager.h" />
     <ClInclude Include="Pause.h" />
     <ClInclude Include="Pengin.h" />
     <ClInclude Include="Player.h" />

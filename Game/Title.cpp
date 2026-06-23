@@ -21,8 +21,6 @@ bool Title::Start() {
 	m_sound->Init(11);
 	m_sound->Play(true);
 	m_pause = FindGO<Pause>("Pause");
-	float finalSE = (m_bgmVol / 10.0f) * (m_masVol / 10.0f);
-	m_sound->SetVolume(finalSE);
 	m_font.Init("Assets/sprite/Gaugeflame.dds", 1600.0f, 200.0f);
 	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
 	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
@@ -102,7 +100,7 @@ void Title::Update() {
 		if (m_startAlpha == true) {
 			m_startColor += 0.01f;
 		}
-		stopColor = { 1.0f,1.0f,1.0f, 1.0f };
+		m_stopColor = 1.0f;
 	}
 	else {
 		if (m_stopColor >= 1.0f) {
@@ -118,7 +116,7 @@ void Title::Update() {
 			m_stopColor += 0.01f;
 		}
 		m_startAlpha == true;
-		startColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+		m_startColor = 1.0f;
 	}
 	m_start.SetMulColor(startColor);
 	m_optionButton.SetMulColor(stopColor);
