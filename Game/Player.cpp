@@ -351,7 +351,7 @@ void Player::Update() {
 					}
 					m_eff++;
 				}
-				if (m_se <= 1) {
+				if (m_se == 1) {
 					if (g_pad[0]->IsTrigger(enButtonA)) {
 						m_se = 0;
 						if (m_effectEmitter != nullptr) {

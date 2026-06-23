@@ -11,10 +11,10 @@ public:
 	void Render(RenderContext& rc);
 	bool IsPaused() const { return m_isPause; }
 	int m_mode = 2;
-	int m_volume = 10;
-	int m_sevolume = 10;
+	int m_volume;
+	int m_sevolume;
 	int m_soundMode = 0;
-	int m_master = 7;
+	int m_master;
 	int m_select;
 	bool m_soundTest = false;
 	bool m_return = false;

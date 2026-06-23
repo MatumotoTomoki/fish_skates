@@ -28,6 +28,7 @@
     <ClCompile Include="Dummy5.cpp" />
     <ClCompile Include="Distance.cpp" />
     <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="OptionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -51,5 +52,6 @@
     <ClInclude Include="Dummy5.h" />
     <ClInclude Include="Distance.h" />
     <ClInclude Include="Arrow.h" />
+    <ClInclude Include="OptionManager.h" />
   </ItemGroup>
 </Project>
