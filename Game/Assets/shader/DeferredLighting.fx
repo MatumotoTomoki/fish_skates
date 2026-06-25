@@ -139,7 +139,7 @@ float3 CalcDirectionLight(
     for(int ligNo = 0; ligNo < NUM_DIRECTIONAL_LIGHT; ligNo++)
     {
         // ★強制的に光の向きを固定（ここを変えると光が動く）
-        float3 customDir = normalize(float3(0.1f, -0.5f, -0.7f));
+        float3 customDir = normalize(float3(0.0f, -0.5f, 2.0f));
 
         // 影の比率を計算する。
         float shadow = 0.8f;
@@ -153,10 +153,10 @@ float3 CalcDirectionLight(
                 isSoftShadow ) * shadowParam;
         }
         
-        float maxShadowDarkness = 0.7f; // 0.0で影が消える、1.0で真っ黒
+        float maxShadowDarkness = 0.2f; // 0.0で影が消える、1.0で真っ黒
         lig += CalcLighting(
             customDir, // ★固定した向きを適用
-            light.directionalLight[ligNo].color * 2.0f,
+            light.directionalLight[ligNo].color * 5.0f,
             normal,
             toEye,
             albedoColor,
