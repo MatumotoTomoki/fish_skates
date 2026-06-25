@@ -26,12 +26,12 @@ bool Pengin::Start() {
 		forward.y = 0.0f;
 		forward.Normalize();
 		// プレイヤー前方1500～3500
-		float forwardDist = rand() % 1500 + 3500;
+		float forwardDist = rand() % 500 + 3500;
 		// 左右に±500
 		Vector3 right;
 		right.Cross(Vector3::AxisY, forward);
 		right.Normalize();
-		float sideOffset = rand() % 5500 - 1000;
+		float sideOffset = rand() % 1000 - 500;
 		m_pos = m_player->m_position + forward * forwardDist + right * sideOffset;
 		m_pos.y = 10.0f;
 	}
