@@ -139,10 +139,10 @@ float3 CalcDirectionLight(
     for(int ligNo = 0; ligNo < NUM_DIRECTIONAL_LIGHT; ligNo++)
     {
         // ★強制的に光の向きを固定（ここを変えると光が動く）
-        float3 customDir = normalize(float3(0.1f, -0.5f, -0.7f));
+        float3 customDir = normalize(float3(0.0f, -0.5f, -10.7f));
 
         // 影の比率を計算する。
-        float shadow = 0.8f;
+        float shadow = 1.0f;
         if( light.directionalLight[ligNo].castShadow == 1){
             //影を生成する。
             shadow = CalcShadowRate( 
@@ -432,7 +432,7 @@ float4 PSMainCore(PSInput In, uniform int isSoftShadow)
     }
     else {
         // 環境光による底上げ（雪用のほんのり青みブレンド）
-        float3 snowAmbient = light.ambientLight + float3(0.11f, 0.15f, 0.15f);
+        float3 snowAmbient = light.ambientLight + float3(0.15f, 0.15f, 0.15f);
         lig += snowAmbient * albedoColor.xyz;
     }
    
