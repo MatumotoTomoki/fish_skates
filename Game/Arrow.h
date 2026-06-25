@@ -3,6 +3,7 @@ class Player;
 class Distance;
 class Arrow : public IGameObject
 {
+public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);

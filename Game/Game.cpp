@@ -367,6 +367,27 @@ void Game::Update() {
 			m_playerLight->Update();
 		}
 	}
+	if (m_initialized && g_sceneLight && m_arrow != nullptr) {
+		Vector3 arrowPos = m_arrow->m_position;
+		// 1. まだライトがなければ【1個だけ】生成する
+		if (m_arrowLight == nullptr) {
+			m_arrowLight = g_sceneLight->NewPointLight();
+			// 生成された瞬間だけ Use() を呼んで有効化する
+			if (m_arrowLight != nullptr) {
+				m_arrowLight->Use();
+			}
+		}
+		// 2. ライトが存在していれば、毎フレーム座標を更新して【手動でUpdate】を呼ぶ
+		if (m_arrowLight != nullptr) {
+			// 色と範囲をセット
+			m_arrowLight->SetColor(100.8f, 100.8f, 100.8f); // 色
+			m_arrowLight->SetRange(50.0f);           // 影響範囲
+			// 魚の位置に追従
+			m_arrowLight->SetPosition(arrowPos.x, arrowPos.y + 10.0f, arrowPos.z);
+			// ★これを強制的に呼ぶことで、ライトの内部座標（positionInView）が計算されてシェーダーに送られる！
+			m_arrowLight->Update();
+		}
+	}
 	m_stageRender.Update();
 	m_modelRender.Update();
 	//リリースでのFPS確認用
