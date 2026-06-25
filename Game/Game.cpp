@@ -359,10 +359,10 @@ void Game::Update() {
 		// 2. ライトが存在していれば、毎フレーム座標を更新して【手動でUpdate】を呼ぶ
 		if (m_playerLight != nullptr) {
 			// 色と範囲をセット
-			m_playerLight->SetColor(0.8f, 0.8f, 0.8f); // 色
-			m_playerLight->SetRange(40.0f);           // 影響範囲
+			m_playerLight->SetColor(100.8f, 100.8f, 100.8f); // 色
+			m_playerLight->SetRange(30.0f);           // 影響範囲
 			// 魚の位置に追従
-			m_playerLight->SetPosition(playerPos.x, playerPos.y + 20.0f, playerPos.z);
+			m_playerLight->SetPosition(playerPos.x, playerPos.y + 30.0f, playerPos.z);
 			// ★これを強制的に呼ぶことで、ライトの内部座標（positionInView）が計算されてシェーダーに送られる！
 			m_playerLight->Update();
 		}
