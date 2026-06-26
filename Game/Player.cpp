@@ -53,7 +53,6 @@ bool Player::Start() {
 Player::~Player() {
 	if (m_eff2 != nullptr) {
 		m_eff2->Stop();
-		DeleteGO(m_eff2);
 	}
 }
 
