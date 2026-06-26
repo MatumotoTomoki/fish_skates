@@ -45,7 +45,7 @@ float3 GetNormalFromNormalMap(float3 normal, float3 tangent, float3 biNormal, fl
     binSpaceNormal = (binSpaceNormal * 2.0f) - 1.0f;
 
     // ★ 2. ここで強度を調整！ (0.1 ～ 0.3 あたりに下げると汚れっぽさが消える)
-    float normalStrength = 0.3f;
+    float normalStrength = 0.2f;
     binSpaceNormal.x *= normalStrength;
     binSpaceNormal.y *= normalStrength;
 
@@ -89,7 +89,7 @@ SPSOut PSMainCore(SPSIn psIn, int isShadowReciever)
     psOut.metaricShadowSmooth.r = 0.0f;  // メタリック＝0（金属ではなく、生き物の質感にする）
     psOut.metaricShadowSmooth.g = 255.0f * (float) isShadowReciever; // 影の設定はそのまま維持
     psOut.metaricShadowSmooth.b = 0.8f;  // スムースネス＝0.8（数値を 0.5 ～ 0.9 の間で上げると、ツルツルにテカる！）
-    psOut.metaricShadowSmooth.a = 0.5f;
+    psOut.metaricShadowSmooth.a = 0.3f;
     return psOut;
 }
 

@@ -47,6 +47,7 @@ bool Game::Start() {
 	QueryPerformanceCounter((LARGE_INTEGER*)&m_prevTime);
 	m_stageLevelRnder.Init("Assets/modelData/Stage2.tkl", [&](LevelObjectData& odData) {
 		m_skyCube = FindGO<SkyCube>("SkyCube");
+		m_skyCube->SetLuminance(2.0f);
 		m_water = FindGO<Water>("Water");
 		m_pause = FindGO<Pause>("Pause");
 		m_gameCamera = FindGO<GameCamera>("GameCamera");
