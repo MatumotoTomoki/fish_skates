@@ -204,7 +204,7 @@ void Game::Update() {
 			m_selectSE->SetVolume(finalSE);
 		}
 	}
-	if (m_player->m_o2 >= -0.1f or m_player->m_hp >= -0.1f) {
+	if (m_player->m_o2 >= -0.1f) {
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
 		DeleteGO(m_silenPengin);
@@ -226,6 +226,32 @@ void Game::Update() {
 			m_playerLight = nullptr;
 		}
 		NewGO<GameOver>(0, "GameOver");
+		DeleteGO(this);
+	}
+	else if (m_player->m_hp >= -0.1f) {
+		DeleteGO(m_pengin);
+		DeleteGO(m_ninjaPengin);
+		DeleteGO(m_silenPengin);
+		DeleteGO(m_gameCamera);
+		DeleteGO(m_player);
+		DeleteGO(m_gameBGM);
+		DeleteGO(m_chaseBGM);
+		DeleteGO(m_ui);
+		DeleteGO(m_water);
+		DeleteGO(m_dummy);
+		DeleteGO(m_dummy3);
+		DeleteGO(m_dummy5);
+		DeleteGO(m_skyCube);
+		DeleteGO(m_distance);
+		DeleteGO(m_arrow);
+		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
+		if (m_playerLight != nullptr) {
+			g_sceneLight->DeletePointLight(m_playerLight);
+			m_playerLight = nullptr;
+		}
+		NewGO<GameOver>(0, "GameOver");
+		auto gameover = FindGO<GameOver>("GameOver");
+		gameover->m_gameoverState = 1;
 		DeleteGO(this);
 	}
 	else if (m_player->m_position.z >= 7500.0f) {

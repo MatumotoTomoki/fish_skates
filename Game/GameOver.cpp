@@ -4,7 +4,12 @@
 #include "Pause.h"
 
 bool GameOver::Start() {
-	m_render.Init("Assets/sprite/gameover.dds", 1920.0f, 1080.0f);
+	if (m_gameoverState == 0) {
+		m_render.Init("Assets/sprite/gameover.dds", 1920.0f, 1080.0f);
+	}
+	else {
+		m_render.Init("Assets/sprite/gameover2.dds", 1920.0f, 1080.0f);
+	}
 	m_nextRender.Init("Assets/sprite/next.dds", 1000.0f, 700.0f);
 	m_nextRender.SetPosition({ 0.0f,-300.0f,0.0f });
 	auto pause = FindGO<Pause>("Pause");

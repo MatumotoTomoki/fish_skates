@@ -1,6 +1,7 @@
 ﻿#pragma once
 class GameOver : public IGameObject
 {
+public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
@@ -8,6 +9,7 @@ class GameOver : public IGameObject
 	SpriteRender m_nextRender;
 	SoundSource* m_bgm;
 	int m_i = 0;
+	int m_gameoverState = 0;
 	float m_color = 0.0f;
 	float m_nextColor = 0.0f;
 	bool m_change = false;
