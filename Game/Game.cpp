@@ -407,7 +407,7 @@ void Game::Update() {
 		// 2. ライトが存在していれば、毎フレーム座標を更新して【手動でUpdate】を呼ぶ
 		if (m_arrowLight != nullptr) {
 			// 色と範囲をセット
-			m_arrowLight->SetColor(100.8f, 100.8f, 100.8f); // 色
+			m_arrowLight->SetColor(100.8f, 100.0f, 100.0f); // 色
 			m_arrowLight->SetRange(50.0f);           // 影響範囲
 			// 魚の位置に追従
 			m_arrowLight->SetPosition(arrowPos.x, arrowPos.y + 10.0f, arrowPos.z);
