@@ -13,4 +13,3 @@ public:
 	Distance* m_distance;
 	Quaternion m_rot;
 };
-

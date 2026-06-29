@@ -12,4 +12,3 @@ public:
 	int m_masMenuVol;
 	bool m_camera;
 };
-

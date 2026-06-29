@@ -13,4 +13,3 @@ class GameClear : public IGameObject
     bool m_change = false;
     bool m_flug = true;
 };
-
