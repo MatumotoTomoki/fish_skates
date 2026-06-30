@@ -436,12 +436,10 @@ void Player::Update() {
 		}
 		m_gaugeCB.gaugeRate = m_qteGauge;
 	}
-	if (m_isEnemyNear)
-	{
+	if (m_isEnemyNear){
 		m_vignetteAlpha = 1.0f - m_qteGauge;
 	}
-	else
-	{
+	else{
 		m_vignetteAlpha = 0.0f;
 	}
 	/*Vector3 pos = m_position;
@@ -458,7 +456,7 @@ void Player::Render(RenderContext& rc) {
 			if (m_qteGauge > 0 and m_swim == false) {
 				m_sprite.Draw(rc);
 				m_qte.Draw(rc);
-			    m_vignette.SetMulColor({ 1.0f,1.0f,1.0f,m_vignetteAlpha });
+			    m_vignette.SetMulColor({ 0.0f,0.0f,0.0f,m_vignetteAlpha });
 			}
 			m_vignette.Draw(rc);
 		}
