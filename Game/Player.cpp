@@ -436,12 +436,10 @@ void Player::Update() {
 		}
 		m_gaugeCB.gaugeRate = m_qteGauge;
 	}
-	if (m_isEnemyNear)
-	{
+	if (m_isEnemyNear){
 		m_vignetteAlpha = 1.0f - m_qteGauge;
 	}
-	else
-	{
+	else{
 		m_vignetteAlpha = 0.0f;
 	}
 	/*Vector3 pos = m_position;
