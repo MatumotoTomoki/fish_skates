@@ -22,6 +22,8 @@ bool Player::Start() {
 	m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
 	m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
 	m_sprite.Update();
+	m_vignette.Init("Assets/sprite/haikei.DDS", 1920.0f,1080.0f);
+	m_vignette.Update();
 	m_rot.SetRotationDegZ(-90.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_pengin = FindGO<Pengin>("Pengin");
@@ -434,6 +436,14 @@ void Player::Update() {
 		}
 		m_gaugeCB.gaugeRate = m_qteGauge;
 	}
+	if (m_isEnemyNear)
+	{
+		m_vignetteAlpha = 1.0f - m_qteGauge;
+	}
+	else
+	{
+		m_vignetteAlpha = 0.0f;
+	}
 	/*Vector3 pos = m_position;
 	wchar_t buf[128];
 	swprintf(buf, 128, L"Pos: X = %.1f Y = %.1f Z = %.1f", pos.x, pos.y, pos.z);
@@ -448,7 +458,9 @@ void Player::Render(RenderContext& rc) {
 			if (m_qteGauge > 0 and m_swim == false) {
 				m_sprite.Draw(rc);
 				m_qte.Draw(rc);
+			    m_vignette.SetMulColor({ 1.0f,1.0f,1.0f,m_vignetteAlpha });
 			}
+			m_vignette.Draw(rc);
 		}
 	}
 }

@@ -43,7 +43,8 @@ public:
 	float m_hp = -1.05f;
 	float m_o2 = -1.05f;
 	float m_count = 0.0f;
-	float m_posy = -100.0f;;
+	float m_posy = -100.0f;
+	float m_vignetteAlpha = 0.0f;
 	int m_i = 0;
 	int m_se = 0;
 	int m_eff = 0;
@@ -53,6 +54,7 @@ public:
 	int m_qteUI = 0;
 	SpriteRender m_sprite;
 	SpriteRender m_qte;
+	SpriteRender m_vignette;
 	FontRender m_font;
 	Pengin* m_pengin = nullptr;
 	NinjaPengin* m_ninjaPengin = nullptr;
