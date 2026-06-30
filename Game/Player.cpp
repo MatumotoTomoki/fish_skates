@@ -456,7 +456,7 @@ void Player::Render(RenderContext& rc) {
 			if (m_qteGauge > 0 and m_swim == false) {
 				m_sprite.Draw(rc);
 				m_qte.Draw(rc);
-			    m_vignette.SetMulColor({ 1.0f,1.0f,1.0f,m_vignetteAlpha });
+			    m_vignette.SetMulColor({ 0.0f,0.0f,0.0f,m_vignetteAlpha });
 			}
 			m_vignette.Draw(rc);
 		}
