@@ -12,7 +12,7 @@ bool GameCamera::Start() {
     g_camera3D->SetTarget(target);
     g_camera3D->SetPosition(m_toCameraPos.x, 60.0f, m_toCameraPos.z);
     g_camera3D->SetNear(1.0f);
-    g_camera3D->SetFar(20000.0f);
+    g_camera3D->SetFar(2000000000.0f);
     auto title = FindGO<Title>("Title");
     if (title->m_specialCamera == false) {
         m_special = false;
