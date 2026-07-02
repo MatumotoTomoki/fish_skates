@@ -246,7 +246,7 @@ void Player::Update() {
 							m_eff2->SetPosition(m_position);
 							m_eff2->Play();
 							SoundSource* se = NewGO<SoundSource>(0);
-							se->Init(15);
+							se->Init(22);
 							se->Play(false);
 							float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
 							se->SetVolume(finalSE);
@@ -268,7 +268,7 @@ void Player::Update() {
 							m_eff2->SetPosition(m_position);
 							m_eff2->Play();
 							SoundSource* se = NewGO<SoundSource>(0);
-							se->Init(15);
+							se->Init(22);
 							se->Play(false);
 							float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
 							se->SetVolume(finalSE);
@@ -290,7 +290,7 @@ void Player::Update() {
 							m_eff2->SetPosition(m_position);
 							m_eff2->Play();
 							SoundSource* se = NewGO<SoundSource>(0);
-							se->Init(15);
+							se->Init(22);
 							se->Play(false);
 							float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
 							se->SetVolume(finalSE);
@@ -312,7 +312,7 @@ void Player::Update() {
 							m_eff2->SetPosition(m_position);
 							m_eff2->Play();
 							SoundSource* se = NewGO<SoundSource>(0);
-							se->Init(15);
+							se->Init(22);
 							se->Play(false);
 							float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
 							se->SetVolume(finalSE);

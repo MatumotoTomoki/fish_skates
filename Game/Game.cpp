@@ -35,6 +35,7 @@ void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(18, "Assets/sound/Hial.wav");
 	g_soundEngine->ResistWaveFileBank(19, "Assets/sound/damage.wav");
 	g_soundEngine->ResistWaveFileBank(21, "Assets/sound/pi.wav");
+	g_soundEngine->ResistWaveFileBank(22, "Assets/sound/zone.wav");
 	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_sphere.efk");
 	EffectEngine::GetInstance()->ResistEffect(1, u"Assets/effect/Wave.efk");
 	EffectEngine::GetInstance()->ResistEffect(2, u"Assets/effect/jump.efk");
