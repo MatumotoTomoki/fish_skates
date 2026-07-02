@@ -24,6 +24,8 @@ bool Player::Start() {
 	m_sprite.Update();
 	m_vignette.Init("Assets/sprite/haikei.DDS", 1920.0f,1080.0f);
 	m_vignette.Update();
+	m_zone.Init("Assets/sprite/syutyu_0821.dds", 1920.0f, 1080.0f);
+	m_zone.Update();
 	m_rot.SetRotationDegZ(-90.0f);
 	m_modelRender.SetRotation(m_rot);
 	m_pengin = FindGO<Pengin>("Pengin");
@@ -459,6 +461,10 @@ void Player::Render(RenderContext& rc) {
 			    m_vignette.SetMulColor({ 0.0f,0.0f,0.0f,m_vignetteAlpha });
 			}
 			m_vignette.Draw(rc);
+		}
+		if (m_superJump == true)
+		{
+			m_zone.Draw(rc);
 		}
 	}
 }
