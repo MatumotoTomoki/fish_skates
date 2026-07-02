@@ -423,10 +423,10 @@ void Player::Update() {
 		}
 	}
 	if (m_qteGauge > 0.5f){
-		m_qte.SetMulColor({ 0.0f,1.0f,0.0f,1.0f });
+		m_qte.SetMulColor({ 0.0f,0.7f,1.0f,1.0f });
 	}
 	else if (m_qteGauge > 0.35f){
-		m_qte.SetMulColor({ 1.0f,1.0f,0.0f,1.0f });
+		m_qte.SetMulColor({ 0.0f,1.0f,1.0f,1.0f });
 	}
 	else{
 		m_qte.SetMulColor({ 1.0f,0.0f,0.0f,1.0f });
