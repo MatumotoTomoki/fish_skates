@@ -57,19 +57,22 @@ SPSIn VSMainCore(SVSIn vsIn, float4x4 mWorldLocal, uniform bool isUsePreComputed
 {
     SPSIn psIn;
     
-    // 1. まずワールド空間の位置を計算
-    float4 worldPos = CalcVertexPositionInWorldSpace(vsIn.pos, mWorldLocal, isUsePreComputedVertexBuffer);
-    
-    // 2. ★波の計算：サイン波を重ねてY軸をオフセット
-    // ※ 0.005f や 2.0f の係数は波の大きさや速度に合わせて調整してください
-    worldPos.y += sin(worldPos.x * 0.01f + g_time * 2.0f) * 2.0f;
-    worldPos.y += sin(worldPos.z * 0.01f + g_time * 1.5f) * 2.0f;
+// VSMainCore内
+float4 localPos = vsIn.pos;
 
-    // 3. 計算済みの位置を使ってビュー・プロジェクション変換
+// 「上」方向（Y軸）に対してのみ波の変位を加える
+// sinの引数には、水平面である X と Z を使う
+float wave = sin(localPos.x * 0.05f + g_time * 1.5f) + sin(localPos.z * 0.05f + g_time * 1.2f);
+
+localPos.z += wave * 10.0f; // ★Z軸にのみ加算する
+
+// その後、ワールド行列を適用
+float4 worldPos = mul(mWorldLocal, localPos);
+    
+    // ビュー・プロジェクション変換
     psIn.pos = mul(mView, worldPos);
     psIn.pos = mul(mProj, psIn.pos);
     
-    // ...以降の計算はそのまま
     CalcVertexNormalTangentBiNormalInWorldSpace(psIn.normal, psIn.tangent, psIn.biNormal, mWorldLocal, vsIn.normal, vsIn.tangent, vsIn.biNormal, isUsePreComputedVertexBuffer);
     psIn.uv = vsIn.uv;
     return psIn;
@@ -78,28 +81,22 @@ SPSIn VSMainCore(SVSIn vsIn, float4x4 mWorldLocal, uniform bool isUsePreComputed
 SPSOut PSMainCore(SPSIn psIn, int isShadowReciever)
 {
     SPSOut psOut;
-    // �e�N�X�`���̐F���T���v���i�����ŃA���t�@�l���擾�����j
+    // 赤色代入を削除して、元のテクスチャサンプリングに戻す
     psOut.albedo = g_albedo.Sample(g_sampler, psIn.uv);
     
+    // ...以降の処理（アルファテストなどは一旦そのまま）
     uint d_x = (uint) psIn.pos.x % 2;
     uint d_y = (uint) psIn.pos.y % 2;
-
-    // --- 0.5f �ł͂Ȃ��A�e�N�X�`���̃A���t�@�l(psOut.albedo.a)���g�� ---
-    clip(psOut.albedo.a - (float) dither_table[d_y][d_x] / 64.0f);
-    // ------------------------------------------------------------
+    clip(0.5f - (float) dither_table[d_y][d_x] / 64.0f); // 簡易化
 
     psOut.albedo.w = psIn.pos.z;
     psOut.normal.xyz = GetNormalFromNormalMap(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
     psOut.normal.w = 1.0f;
-   // 1. テクスチャをそのままサンプリング
     psOut.metaricShadowSmooth = g_spacular.Sample(g_sampler, psIn.uv);
-
-    // ★ ここでチェック！
-    // もし魚の元のテクスチャのGチャンネル（あるいはAチャンネル）が、他と違って「ほぼ空っぽ(0.1未満)」なら…
     
-    psOut.metaricShadowSmooth.r = 0.0f;  // メタリック＝0（金属ではなく、生き物の質感にする）
-    psOut.metaricShadowSmooth.g = 255.0f * (float) isShadowReciever; // 影の設定はそのまま維持
-    psOut.metaricShadowSmooth.b = 0.8f;  // スムースネス＝0.8（数値を 0.5 ～ 0.9 の間で上げると、ツルツルにテカる！）
+    psOut.metaricShadowSmooth.r = 0.0f;
+    psOut.metaricShadowSmooth.g = 255.0f * (float) isShadowReciever;
+    psOut.metaricShadowSmooth.b = 0.8f;
     psOut.metaricShadowSmooth.a = 0.3f;
     return psOut;
 }
