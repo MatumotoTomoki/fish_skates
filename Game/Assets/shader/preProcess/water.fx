@@ -62,7 +62,7 @@ float4 localPos = vsIn.pos;
 
 // 「上」方向（Y軸）に対してのみ波の変位を加える
 // sinの引数には、水平面である X と Z を使う
-float wave = sin(localPos.x * 0.05f + g_time * 1.5f) + sin(localPos.z * 5.05f + g_time * 1.2f);
+float wave = sin(localPos.x * 0.5f + g_time * 1.5f) + sin(localPos.z * 0.05f + g_time * 1.2f);
 
 localPos.z += wave * 2.0f; // ★Z軸にのみ加算する
 
