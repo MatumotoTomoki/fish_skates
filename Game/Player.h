@@ -55,6 +55,7 @@ public:
 	SpriteRender m_sprite;
 	SpriteRender m_qte;
 	SpriteRender m_vignette;
+	SpriteRender m_zone;
 	FontRender m_font;
 	Pengin* m_pengin = nullptr;
 	NinjaPengin* m_ninjaPengin = nullptr;
