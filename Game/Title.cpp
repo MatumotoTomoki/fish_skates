@@ -515,7 +515,10 @@ void Title::Update() {
 			if (m_pause == nullptr) {
 				m_pause = NewGO<Pause>(1, "Pause");
 			}
-			NewGO<Water>(0, "Water");
+			auto water = FindGO<Water>("Water");
+			if (water == nullptr) {
+				NewGO<Water>(0, "Water");
+			}
 			auto skyCube = NewGO<SkyCube>(0, "SkyCube");
 			skyCube->SetType((EnSkyCubeType)m_skyCubeType);
 			NewGO<GameCamera>(0, "GameCamera");

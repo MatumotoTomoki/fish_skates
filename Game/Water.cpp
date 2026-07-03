@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Water.h"
+#include "Game.h"
 
 bool Water::Start() {
 	m_render.Init("Assets/modelData/water.tkm");
@@ -30,6 +31,9 @@ void Water::Update() {
 }
 
 void Water::Render(RenderContext& rc) {
-	rc.SetConstantBuffer(1, m_cb);
-	m_render.Draw(rc);
+	auto game = FindGO<Game>("Game");
+	if (game != nullptr) {
+		rc.SetConstantBuffer(1, m_cb);
+		m_render.Draw(rc);
+	}
 }

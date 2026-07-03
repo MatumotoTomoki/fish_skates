@@ -214,7 +214,7 @@ void Game::Update() {
 		DeleteGO(m_gameBGM);
 		DeleteGO(m_chaseBGM);
 		DeleteGO(m_ui);
-		DeleteGO(m_water);
+		//DeleteGO(m_water);
 		DeleteGO(m_dummy);
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
@@ -238,7 +238,7 @@ void Game::Update() {
 		DeleteGO(m_gameBGM);
 		DeleteGO(m_chaseBGM);
 		DeleteGO(m_ui);
-		DeleteGO(m_water);
+		//DeleteGO(m_water);
 		DeleteGO(m_dummy);
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
@@ -264,7 +264,7 @@ void Game::Update() {
 		DeleteGO(m_gameBGM);
 		DeleteGO(m_chaseBGM);
 		DeleteGO(m_ui);
-		DeleteGO(m_water);
+		//DeleteGO(m_water);
 		DeleteGO(m_dummy);
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
@@ -288,7 +288,7 @@ void Game::Update() {
 		DeleteGO(m_gameBGM);
 		DeleteGO(m_chaseBGM);
 		DeleteGO(m_ui);
-		DeleteGO(m_water);
+		//DeleteGO(m_water);
 		DeleteGO(m_dummy);
 		DeleteGO(m_dummy3);
 		DeleteGO(m_dummy5);
