@@ -1,4 +1,5 @@
 ﻿#pragma once
+class Player;
 class Item :public IGameObject
 {
 	bool Start();
@@ -6,5 +7,7 @@ class Item :public IGameObject
 	void Render(RenderContext& rc);
 	ModelRender m_modelRender;
 	PhysicsStaticObject m_physicsStaticObject;
+	Player* m_player;
+	Vector3 m_position;
 };
 
