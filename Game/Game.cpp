@@ -224,6 +224,7 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
+		DeleteGO(m_item);
 		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
 		if (m_playerLight != nullptr) {
 			g_sceneLight->DeletePointLight(m_playerLight);
@@ -248,6 +249,7 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
+		DeleteGO(m_item);
 		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
 		if (m_playerLight != nullptr) {
 			g_sceneLight->DeletePointLight(m_playerLight);
@@ -274,6 +276,7 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
+		DeleteGO(m_item);
 		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
 		if (m_playerLight != nullptr) {
 			g_sceneLight->DeletePointLight(m_playerLight);
@@ -298,6 +301,7 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
+		DeleteGO(m_item);
 		if (m_playerLight != nullptr) {
 			g_sceneLight->DeletePointLight(m_playerLight);
 			m_playerLight = nullptr;

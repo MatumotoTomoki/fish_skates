@@ -455,6 +455,7 @@ void Player::Update() {
 			if (m_o2stoptime >= 3.0f)
 			{
 				O2StopGet = false;
+				m_o2stoptime = 0.0f;
 			}
 		}
 		else
@@ -464,6 +465,7 @@ void Player::Update() {
 			if (m_o2stoptime >= 3.0f)
 			{
 				O2StopGet = false;
+				m_o2stoptime = 0.0f;
 			}
 		}
 		
