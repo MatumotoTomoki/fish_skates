@@ -35,21 +35,27 @@ void Distance::Update() {
 	if (m_player->m_position.z >= m_pos.z) {
 		m_hollState += 1;
 	}
-	switch (m_hollState) {
+	switch (m_stage) {
 	case 0:
-		m_pos = FIRST_HOLL_POS;
+		switch (m_hollState) {
+		case 0:
+			m_pos = FIRST_HOLL_POS;
+			break;
+		case 1:
+			m_pos = SECOND_HOLL_POS;
+			break;
+		case 2:
+			m_pos = THIRD_HOLL_POS;
+			break;
+		case 3:
+			m_pos = FOURTH_HOLL_POS;
+			break;
+		default:
+			m_pos.z = END_HOLL_POS;
+			break;
+		}
 		break;
 	case 1:
-		m_pos = SECOND_HOLL_POS;
-		break;
-	case 2:
-		m_pos = THIRD_HOLL_POS;
-		break;
-	case 3:
-		m_pos = FOURTH_HOLL_POS;
-		break;
-	default:
-		m_pos.z = END_HOLL_POS;
 		break;
 	}
 	Vector3 center = m_pos;
