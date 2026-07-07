@@ -449,7 +449,24 @@ void Player::Update() {
 
 	if (O2StopGet == true)
 	{
-		m_o2 -= 0.002f;
+		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+			m_o2 -= 0.001f;
+			m_o2stoptime += 1.0f / 60.0f;
+			if (m_o2stoptime >= 3.0f)
+			{
+				O2StopGet = false;
+			}
+		}
+		else
+		{
+			m_o2 -= 0.002f;
+			m_o2stoptime += 1.0f / 60.0f;
+			if (m_o2stoptime >= 3.0f)
+			{
+				O2StopGet = false;
+			}
+		}
+		
 	}
 
 	/*Vector3 pos = m_position;

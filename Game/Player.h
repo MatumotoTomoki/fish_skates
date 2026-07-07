@@ -66,9 +66,11 @@ public:
 	EffectEmitter* m_eff2 = nullptr;
 	Item* m_item = nullptr;
 	float m_qteGauge = 1.0f;
+	float m_o2stoptime = 0.0f;
 	bool m_isEnemyNear = false;
 	bool m_slip = false;
 	bool O2StopGet = false;
+	bool m_o2stoplose = false;
 	struct GaugeCB
 	{
 		float gaugeRate;
