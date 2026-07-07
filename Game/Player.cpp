@@ -6,6 +6,7 @@
 #include "Dummy5.h"
 #include "Pause.h"
 #include "GameCamera.h"
+#include "Item.h"
 
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
@@ -32,6 +33,7 @@ bool Player::Start() {
 	m_ninjaPengin = FindGO<NinjaPengin>("NinjaPengin");
 	m_silenPengin = FindGO<SilenPengin>("SilenPengin");
 	m_dummy5 = FindGO<Dummy5>("Dummy5");
+	m_item = FindGO<Item>("item");
 	m_position = { 0.0f,1000.0f,0.0f };
 	m_modelRender.SetPosition(m_position);
 	m_characterController.Init(35.0f, 30.0f, m_position);
@@ -444,6 +446,31 @@ void Player::Update() {
 	else{
 		m_vignetteAlpha = 0.0f;
 	}
+
+	if (O2StopGet == true)
+	{
+		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+			m_o2 -= 0.001f;
+			m_o2stoptime += 1.0f / 60.0f;
+			if (m_o2stoptime >= 3.0f)
+			{
+				O2StopGet = false;
+				m_o2stoptime = 0.0f;
+			}
+		}
+		else
+		{
+			m_o2 -= 0.002f;
+			m_o2stoptime += 1.0f / 60.0f;
+			if (m_o2stoptime >= 3.0f)
+			{
+				O2StopGet = false;
+				m_o2stoptime = 0.0f;
+			}
+		}
+		
+	}
+
 	/*Vector3 pos = m_position;
 	wchar_t buf[128];
 	swprintf(buf, 128, L"Pos: X = %.1f Y = %.1f Z = %.1f", pos.x, pos.y, pos.z);
