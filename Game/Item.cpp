@@ -15,7 +15,7 @@ bool Item::Start()
 void Item::Update()
 {
 	Vector3 diff = m_player->m_position - m_position;
-	if (diff.Length() <= 100.0f)
+	if (diff.Length() <= 10.0f)
 	{
 		m_player->O2StopGet = true;
 		DeleteGO(this);
