@@ -11,6 +11,10 @@ namespace
 	const Vector3 SECOND_HOLL_POS = { 2646.0f,0.0f,2500.0f };
 	const Vector3 THIRD_HOLL_POS = { 4095.0f,0.0f,4600.0f };
 	const Vector3 FOURTH_HOLL_POS = { 65.0f,0.0f,6500.0f };
+	const Vector3 FIRST_HOLL_POS2 = { 2456.0f,0.0f,124.5f };
+	const Vector3 SECOND_HOLL_POS2 = { -1201.0f,0.0f,2521.5f };
+	const Vector3 THIRD_HOLL_POS2 = { -2975.0f,0.0f,3287.5f };
+	const Vector3 FOURTH_HOLL_POS2 = { 1372.0f,0.0f,4839.0f };
 	const float END_HOLL_POS = 99999999999.9f;
 	//距離表示
 	const Vector4 DISTANCE_FONT_COLOR = { 0.7f, 1.0f, 1.0f, 1.0f };
@@ -45,7 +49,7 @@ void Distance::Update() {
 			m_pos = SECOND_HOLL_POS;
 			break;
 		case 2:
-			m_pos = THIRD_HOLL_POS;
+			m_pos = THIRD_HOLL_POS2;
 			break;
 		case 3:
 			m_pos = FOURTH_HOLL_POS;
@@ -56,6 +60,23 @@ void Distance::Update() {
 		}
 		break;
 	case 1:
+		switch (m_hollState) {
+		case 0:
+			m_pos = FIRST_HOLL_POS2;
+			break;
+		case 1:
+			m_pos = SECOND_HOLL_POS2;
+			break;
+		case 2:
+			m_pos = THIRD_HOLL_POS2;
+			break;
+		case 3:
+			m_pos = FOURTH_HOLL_POS2;
+			break;
+		default:
+			m_pos.z = END_HOLL_POS;
+			break;
+		}
 		break;
 	}
 	Vector3 center = m_pos;
