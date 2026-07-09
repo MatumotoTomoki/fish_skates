@@ -9,7 +9,7 @@ class Distance : public IGameObject
 	FontRender m_font;
 	ModelRender m_model;
 	int m_hollState = 0;
-	int m_stage = 1;
+	int m_stage = 0;
 public:
 	Vector3 m_pos;
 };
