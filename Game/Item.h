@@ -12,4 +12,3 @@ public:
 	Vector3 m_position;
 	
 };
-
