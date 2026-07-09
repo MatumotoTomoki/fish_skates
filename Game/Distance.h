@@ -13,4 +13,3 @@ class Distance : public IGameObject
 public:
 	Vector3 m_pos;
 };
-
