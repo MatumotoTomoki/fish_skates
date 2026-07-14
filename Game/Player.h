@@ -4,6 +4,7 @@ class NinjaPengin;
 class SilenPengin;
 class Dummy5;
 class Item;
+class Distance;
 class Player :public IGameObject
 {
 public:
@@ -62,6 +63,7 @@ public:
 	NinjaPengin* m_ninjaPengin = nullptr;
 	SilenPengin* m_silenPengin = nullptr;
 	Dummy5* m_dummy5 = nullptr;
+	Distance* m_distance = nullptr;
 	EffectEmitter* m_effectEmitter = nullptr;
 	EffectEmitter* m_eff2 = nullptr;
 	Item* m_item = nullptr;
