@@ -7,6 +7,7 @@
 #include "Pause.h"
 #include "GameCamera.h"
 #include "Item.h"
+#include "Distance.h"
 
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
@@ -113,14 +114,21 @@ void Player::Update() {
 			}
 		}
 		else {
-			if (m_position.z >= 3155.0f and m_position.z <= 3900.0f and m_position.x >= 3017.0f and m_position.x <= 3700.0f) {
-				m_slip = true;
+			if (m_distance == nullptr) {
+				m_distance = FindGO<Distance>("Distance");
 			}
-			else if (m_position.z >= 2827.0f and m_position.z <= 3900.0f and m_position.x >= 131.0f and m_position.x <= 1400.0f) {
-				m_slip = true;
-			}
-			else {
-				m_slip = false;
+			if (m_distance != nullptr) {
+				if (m_distance->m_stage == 0) {
+					if (m_position.z >= 3155.0f and m_position.z <= 3900.0f and m_position.x >= 3017.0f and m_position.x <= 3700.0f) {
+						m_slip = true;
+					}
+					else if (m_position.z >= 2827.0f and m_position.z <= 3900.0f and m_position.x >= 131.0f and m_position.x <= 1400.0f) {
+						m_slip = true;
+					}
+					else {
+						m_slip = false;
+					}
+				}
 			}
 			m_modelRender.PlayAnimation(enAnimClip_Idle);
 			m_superJump = false;
