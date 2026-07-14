@@ -17,6 +17,7 @@
 #include "Title.h"
 #include "Arrow.h"
 #include "Item.h"
+#include "Item2.h"
 #include "graphics/light/SceneLight.h"
 
 void Game::Preload() {
@@ -108,6 +109,7 @@ void Game::Update() {
 		case 1:
 			m_ui = NewGO<UI>(0, "ui");
 			m_item = NewGO<Item>(0, "item");
+			m_item2 = NewGO<Item2>(0, "item2");
 			break;
 		case 2:
 			m_distance = NewGO<Distance>(0, "Distance");

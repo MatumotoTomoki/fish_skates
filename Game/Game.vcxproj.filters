@@ -30,6 +30,7 @@
     <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="OptionManager.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Item2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -55,5 +56,6 @@
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="OptionManager.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Item2.h" />
   </ItemGroup>
 </Project>

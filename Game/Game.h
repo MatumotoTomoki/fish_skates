@@ -14,6 +14,7 @@ class Pause;
 class Distance;
 class Arrow;
 class Item;
+class Item2;
 class Game : public IGameObject
 {
 public:
@@ -67,6 +68,7 @@ private:
 	Distance* m_distance;
 	Arrow* m_arrow;
 	Item* m_item;
+	Item2* m_item2;
 	// Game.h のメンバ変数定義エリア
 	nsK2Engine::SPointLight* m_playerLight = nullptr; // 魚を照らすライト用ポインタ
 	nsK2Engine::SPointLight* m_arrowLight = nullptr; // 矢印を照らすライト用ポインタ
