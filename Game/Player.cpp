@@ -7,6 +7,7 @@
 #include "Pause.h"
 #include "GameCamera.h"
 #include "Item.h"
+#include "Item2.h"
 
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
@@ -447,13 +448,13 @@ void Player::Update() {
 		m_vignetteAlpha = 0.0f;
 	}
 
-	if (O2StopGet == true)
+	if (m_o2StopGet == true)
 	{
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
 			m_o2 -= 0.001f;
 			m_o2stoptime += 1.0f / 60.0f;
 			if (m_o2stoptime >= 3.0f){
-				O2StopGet = false;
+				m_o2StopGet = false;
 				m_o2stoptime = 0.0f;
 			}
 		}
@@ -461,11 +462,20 @@ void Player::Update() {
 			m_o2 -= 0.002f;
 			m_o2stoptime += 1.0f / 60.0f;
 			if (m_o2stoptime >= 3.0f){
-				O2StopGet = false;
+				m_o2StopGet = false;
 				m_o2stoptime = 0.0f;
 			}
 		}
 		
+	}
+
+	if (m_superMoveGet == true) {
+		m_characterController.Execute(m_velocity, 2.0f);
+		m_supermovetime += 1.0f / 60.0f;
+		if (m_supermovetime >= 3.0f) {
+			m_superMoveGet = false;
+			m_supermovetime = 0.0f;
+		}
 	}
 
 	/*Vector3 pos = m_position;
