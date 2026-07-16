@@ -7,6 +7,7 @@
 #include "Pause.h"
 #include "GameCamera.h"
 #include "Item.h"
+#include "Item3.h"
 #include "Distance.h"
 
 bool Player::Start() {
@@ -35,6 +36,7 @@ bool Player::Start() {
 	m_silenPengin = FindGO<SilenPengin>("SilenPengin");
 	m_dummy5 = FindGO<Dummy5>("Dummy5");
 	m_item = FindGO<Item>("item");
+	m_item3=FindGO<Item3>("item3");
 	m_position = { 0.0f,1000.0f,0.0f };
 	m_modelRender.SetPosition(m_position);
 	m_characterController.Init(35.0f, 30.0f, m_position);
@@ -491,6 +493,10 @@ void Player::Update() {
 			}
 		}
 		
+	}
+
+	if (m_geta == true) {
+		m_characterController.Execute(m_velocity, -0.2f);
 	}
 
 	Vector3 pos = m_position;
