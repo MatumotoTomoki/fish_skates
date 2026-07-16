@@ -5,6 +5,7 @@ class SilenPengin;
 class Dummy5;
 class Item;
 class Distance;
+class Item3;
 class Player :public IGameObject
 {
 public:
@@ -67,6 +68,7 @@ public:
 	EffectEmitter* m_effectEmitter = nullptr;
 	EffectEmitter* m_eff2 = nullptr;
 	Item* m_item = nullptr;
+	Item3* m_item3 = nullptr;
 	float m_qteGauge = 1.0f;
 	float m_o2stoptime = 0.0f;
 	bool m_isEnemyNear = false;
@@ -74,6 +76,8 @@ public:
 	bool m_rSlip = false;
 	bool O2StopGet = false;
 	bool m_o2stoplose = false;
+
+	bool m_geta = false;
 	struct GaugeCB
 	{
 		float gaugeRate;
