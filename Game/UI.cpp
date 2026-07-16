@@ -98,6 +98,30 @@ void UI::Update() {
 			m_warningFlag = true;
 		}
 	}
+	Vector3 pos = m_player->m_position;
+	wchar_t buf[128];
+	swprintf(buf, 128, L"Pos: X = %.1f Y = %.1f Z = %.1f", pos.x, pos.y, pos.z);
+	// 共通の速度で値を変化させる
+	float speed = 0.01f;
+
+	// 0.0〜1.0の間を往復させるためのシンプルロジック
+	auto updateColorValue = [&](float& val, bool& dir, float spd) {
+		if (dir) {
+			val += spd;
+			if (val >= 1.0f) { val = 1.0f; dir = false; }
+		}
+		else {
+			val -= spd;
+			if (val <= 0.0f) { val = 0.0f; dir = true; }
+		}
+		};
+
+	updateColorValue(m_posColor, m_color, speed);
+	updateColorValue(m_posColor1, m_color1, speed);
+	updateColorValue(m_posColor2, m_color2, speed);
+
+	m_font.SetColor(m_posColor, m_posColor1, m_posColor2, 1.0f);
+	m_font.SetText(buf);
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
 	m_spriteRender5.SetPosition({ 600.0f,385.0f,0.0f });
@@ -114,6 +138,7 @@ void UI::Update() {
 }
 
 void UI::Render(RenderContext& rc) {
+	m_font.Draw(rc);
 	if (m_player->m_start == true) {
 		m_spriteRender.Draw(rc);
 		m_spriteRender3.Draw(rc);

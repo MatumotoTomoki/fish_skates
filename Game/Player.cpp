@@ -509,36 +509,10 @@ void Player::Update() {
 	if (m_geta == true) {
 		m_characterController.Execute(m_velocity, -0.2f);
 	}
-
-	Vector3 pos = m_position;
-	wchar_t buf[128];
-	swprintf(buf, 128, L"Pos: X = %.1f Y = %.1f Z = %.1f", pos.x, pos.y, pos.z);
-	// 共通の速度で値を変化させる
-	float speed = 0.01f;
-
-	// 0.0〜1.0の間を往復させるためのシンプルロジック
-	auto updateColorValue = [&](float& val, bool& dir, float spd) {
-		if (dir) {
-			val += spd;
-			if (val >= 1.0f) { val = 1.0f; dir = false; }
-		}
-		else {
-			val -= spd;
-			if (val <= 0.0f) { val = 0.0f; dir = true; }
-		}
-		};
-
-	updateColorValue(m_posColor, m_color, speed);
-	updateColorValue(m_posColor1, m_color1, speed);
-	updateColorValue(m_posColor2, m_color2, speed);
-
-	m_font.SetColor(m_posColor, m_posColor1, m_posColor2, 1.0f);
-	m_font.SetText(buf);
 }
 
 void Player::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
-	m_font.Draw(rc);
 	if (m_go > 61) {
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
 			if (m_qteGauge > 0 and m_swim == false) {
