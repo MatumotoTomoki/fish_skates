@@ -8,6 +8,8 @@
 #include "GameCamera.h"
 #include "Item.h"
 #include "Item2.h"
+#include "Item3.h"
+#include "Distance.h"
 
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
@@ -35,6 +37,7 @@ bool Player::Start() {
 	m_silenPengin = FindGO<SilenPengin>("SilenPengin");
 	m_dummy5 = FindGO<Dummy5>("Dummy5");
 	m_item = FindGO<Item>("item");
+	m_item3=FindGO<Item3>("item3");
 	m_position = { 0.0f,1000.0f,0.0f };
 	m_modelRender.SetPosition(m_position);
 	m_characterController.Init(35.0f, 30.0f, m_position);
@@ -114,14 +117,35 @@ void Player::Update() {
 			}
 		}
 		else {
-			if (m_position.z >= 3155.0f and m_position.z <= 3900.0f and m_position.x >= 3017.0f and m_position.x <= 3700.0f) {
-				m_slip = true;
+			if (m_distance == nullptr) {
+				m_distance = FindGO<Distance>("Distance");
 			}
-			else if (m_position.z >= 2827.0f and m_position.z <= 3900.0f and m_position.x >= 131.0f and m_position.x <= 1400.0f) {
-				m_slip = true;
-			}
-			else {
-				m_slip = false;
+			if (m_distance != nullptr) {
+				if (m_distance->m_stage == 0) {
+					if (m_position.z >= 3155.0f and m_position.z <= 3900.0f and m_position.x >= 3017.0f and m_position.x <= 3700.0f) {
+						m_slip = true;
+					}
+					else if (m_position.z >= 2827.0f and m_position.z <= 3900.0f and m_position.x >= 131.0f and m_position.x <= 1400.0f) {
+						m_slip = true;
+					}
+					else {
+						m_slip = false;
+					}
+				}
+				else if (m_distance->m_stage == 1) {
+					if (m_position.z >= 6006.0f and m_position.z <= 7120.0f and m_position.x >= 655.6f and m_position.x <= 2076.0f) {
+						m_slip = true;
+					}
+					else {
+						m_slip = false;
+					}
+					if (m_position.z >= 5838.0f and m_position.z <= 6129.0f and m_position.x >= 655.6f and m_position.x <= 2076.0f) {
+						m_rSlip = true;
+					}
+					else {
+						m_rSlip = false;
+					}
+				}
 			}
 			m_modelRender.PlayAnimation(enAnimClip_Idle);
 			m_superJump = false;
@@ -410,6 +434,9 @@ void Player::Update() {
 			if (m_slip == true) {
 				m_velocity += cameraForward * speed;
 			}
+			if (m_rSlip == true) {
+				m_velocity.z -= 7.0f;
+			}
 			if (m_chase == true) {
 				m_modelRender.SetAnimationSpeed(0.5f);
 			}
@@ -479,14 +506,19 @@ void Player::Update() {
 	}
 
 	/*Vector3 pos = m_position;
+	if (m_geta == true) {
+		m_characterController.Execute(m_velocity, -0.2f);
+	}
+
+	Vector3 pos = m_position;
 	wchar_t buf[128];
 	swprintf(buf, 128, L"Pos: X = %.1f Y = %.1f Z = %.1f", pos.x, pos.y, pos.z);
-	m_font.SetText(buf);*/
+	m_font.SetText(buf);
 }
 
 void Player::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
-	//m_font.Draw(rc);
+	m_font.Draw(rc);
 	if (m_go > 61) {
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
 			if (m_qteGauge > 0 and m_swim == false) {
