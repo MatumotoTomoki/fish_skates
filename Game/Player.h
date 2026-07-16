@@ -4,6 +4,7 @@ class NinjaPengin;
 class SilenPengin;
 class Dummy5;
 class Item;
+class Item2;
 class Distance;
 class Item3;
 class Player :public IGameObject
@@ -68,11 +69,15 @@ public:
 	EffectEmitter* m_effectEmitter = nullptr;
 	EffectEmitter* m_eff2 = nullptr;
 	Item* m_item = nullptr;
+	Item2* m_item2 = nullptr;
 	Item3* m_item3 = nullptr;
 	float m_qteGauge = 1.0f;
 	float m_o2stoptime = 0.0f;
+	float m_supermovetime = 0.0f;
 	bool m_isEnemyNear = false;
 	bool m_slip = false;
+	bool m_o2StopGet = false;
+	bool m_superMoveGet = false;
 	bool m_rSlip = false;
 	bool O2StopGet = false;
 	bool m_o2stoplose = false;

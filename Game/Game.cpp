@@ -17,6 +17,7 @@
 #include "Title.h"
 #include "Arrow.h"
 #include "Item.h"
+#include "Item2.h"
 
 #include "Item3.h"
 #include "graphics/light/SceneLight.h"
@@ -110,6 +111,7 @@ void Game::Update() {
 		case 1:
 			m_ui = NewGO<UI>(0, "ui");
 			m_item = NewGO<Item>(0, "item");
+			m_item2 = NewGO<Item2>(0, "item2");
 
 			m_item3 = NewGO<Item3>(0, "item3");
 			break;
@@ -228,6 +230,7 @@ void Game::Update() {
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
+		DeleteGO(m_item2);
 
 		DeleteGO(m_item3);
 		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
@@ -254,6 +257,7 @@ void Game::Update() {
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
+		DeleteGO(m_item2);
 
 		DeleteGO(m_item3);
 		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
@@ -282,6 +286,7 @@ void Game::Update() {
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
+		DeleteGO(m_item2);
 
 		DeleteGO(m_item3);
 		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
@@ -308,6 +313,7 @@ void Game::Update() {
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
+		DeleteGO(m_item2);
 
 		DeleteGO(m_item3);
 		if (m_playerLight != nullptr) {
