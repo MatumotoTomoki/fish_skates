@@ -37,15 +37,15 @@ void Dummy5::Update() {
 		return;
 	}
 	Vector3 diff = m_player->m_position - m_pos;
-	if (diff.Length() <= 350.0f and m_player->m_swim == false){
-		if (!m_isAttacking){
+	if (diff.Length() <= 350.0f and m_player->m_swim == false) {
+		if (!m_isAttacking) {
 			m_modelRender.PlayAnimation(enAnimClip_Attack);
 			m_isAttacking = true;
 		}
 	}
 	else if (diff.Length() <= 999999999.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
 		if (!m_isChasing) {
-			m_modelRender.PlayAnimation(enAnimClip_Chase); 
+			m_modelRender.PlayAnimation(enAnimClip_Chase);
 			m_isChasing = true;
 		}
 		m_isAttacking = false;
