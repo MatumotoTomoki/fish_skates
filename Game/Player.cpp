@@ -130,7 +130,13 @@ void Player::Update() {
 					}
 				}
 				else if (m_distance->m_stage == 1) {
-					if (m_position.z >= 5838.0f and m_position.z <= 6129.0f) {
+					if (m_position.z >= 6006.0f and m_position.z <= 7120.0f and m_position.x >= 655.6f and m_position.x <= 2503.0f) {
+						m_slip = true;
+					}
+					else {
+						m_slip = false;
+					}
+					if (m_position.z >= 5838.0f and m_position.z <= 6129.0f and m_position.x >= 655.6f and m_position.x <= 2503.0f) {
 						m_rSlip = true;
 					}
 					else {
