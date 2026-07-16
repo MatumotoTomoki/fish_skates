@@ -513,6 +513,26 @@ void Player::Update() {
 	Vector3 pos = m_position;
 	wchar_t buf[128];
 	swprintf(buf, 128, L"Pos: X = %.1f Y = %.1f Z = %.1f", pos.x, pos.y, pos.z);
+	// 共通の速度で値を変化させる
+	float speed = 0.01f;
+
+	// 0.0〜1.0の間を往復させるためのシンプルロジック
+	auto updateColorValue = [&](float& val, bool& dir, float spd) {
+		if (dir) {
+			val += spd;
+			if (val >= 1.0f) { val = 1.0f; dir = false; }
+		}
+		else {
+			val -= spd;
+			if (val <= 0.0f) { val = 0.0f; dir = true; }
+		}
+		};
+
+	updateColorValue(m_posColor, m_color, speed);
+	updateColorValue(m_posColor1, m_color1, speed);
+	updateColorValue(m_posColor2, m_color2, speed);
+
+	m_font.SetColor(m_posColor, m_posColor1, m_posColor2, 1.0f);
 	m_font.SetText(buf);
 }
 
