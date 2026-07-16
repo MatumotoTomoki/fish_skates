@@ -87,7 +87,7 @@ void Player::Update() {
 		m_position = m_characterController.Execute(m_velocity, 1.0f);
 		m_modelRender.Update();
 	}
-	if(m_start == true) {
+	if (m_start == true) {
 		m_go++;
 		Vector3 forward = g_camera3D->GetForward();
 		// カメラの "前方向" ベクトルを、水平方向だけにしたベクトルを作成
@@ -100,7 +100,7 @@ void Player::Update() {
 		m_diff2 = m_position - m_ninjaPengin->m_pos;
 		m_diff3 = m_position - m_silenPengin->m_pos;
 		m_diff4 = m_position - m_dummy5->m_pos;
-		m_isEnemyNear =(m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f);
+		m_isEnemyNear = (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f);
 		if (m_o2 > -0.1f) {
 			m_o2 = -0.1f;
 		}
@@ -151,7 +151,7 @@ void Player::Update() {
 			m_superJump = false;
 			m_velocity.y = 0.0f;
 		}
-		if (camera->m_flug == true){
+		if (camera->m_flug == true) {
 			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
 				m_o2 += 0.001f;
 			}
@@ -443,8 +443,8 @@ void Player::Update() {
 			else {
 				m_modelRender.SetAnimationSpeed(1.0f);
 			}
-            m_modelRender.SetPosition(m_position); 
-            m_modelRender.SetRotation(m_rot);
+			m_modelRender.SetPosition(m_position);
+			m_modelRender.SetRotation(m_rot);
 			m_position = m_characterController.Execute(m_velocity, 1.0f);
 			m_modelRender.Update();
 		}
@@ -452,48 +452,47 @@ void Player::Update() {
 			m_modelRender.Update();
 		}
 	}
-	if (m_qteGauge > 0.5f){
+	if (m_qteGauge > 0.5f) {
 		m_qte.SetMulColor({ 0.0f,0.7f,1.0f,1.0f });
 	}
-	else if (m_qteGauge > 0.35f){
+	else if (m_qteGauge > 0.35f) {
 		m_qte.SetMulColor({ 0.0f,1.0f,1.0f,1.0f });
 	}
-	else{
+	else {
 		m_qte.SetMulColor({ 1.0f,0.0f,0.0f,1.0f });
 	}
-	if (m_isEnemyNear){
+	if (m_isEnemyNear) {
 		m_qteGauge -= 0.00254f;
-		if (m_qteGauge < 0.0f){
+		if (m_qteGauge < 0.0f) {
 			m_qteGauge = 0.0f;
 		}
 		m_gaugeCB.gaugeRate = m_qteGauge;
 	}
-	if (m_isEnemyNear){
+	if (m_isEnemyNear) {
 		m_vignetteAlpha = 1.0f - m_qteGauge;
 	}
-	else{
+	else {
 		m_vignetteAlpha = 0.0f;
 	}
 
-	if (m_o2StopGet == true)
-	{
+	if (m_o2StopGet == true) {
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
 			m_o2 -= 0.001f;
 			m_o2stoptime += 1.0f / 60.0f;
-			if (m_o2stoptime >= 3.0f){
+			if (m_o2stoptime >= 3.0f) {
 				m_o2StopGet = false;
 				m_o2stoptime = 0.0f;
 			}
 		}
-		else{
+		else {
 			m_o2 -= 0.002f;
 			m_o2stoptime += 1.0f / 60.0f;
-			if (m_o2stoptime >= 3.0f){
+			if (m_o2stoptime >= 3.0f) {
 				m_o2StopGet = false;
 				m_o2stoptime = 0.0f;
 			}
 		}
-		
+
 	}
 
 	if (m_superMoveGet == true) {
@@ -505,7 +504,7 @@ void Player::Update() {
 		}
 	}
 
-	
+
 	if (m_geta == true) {
 		m_characterController.Execute(m_velocity, -0.2f);
 	}

@@ -78,7 +78,7 @@ bool Title::Start() {
 
 void Title::Update() {
 	Vector4 titleColor = { 1.0f,1.0f,1.0f,m_titleColor };
-	Vector4 stopColor = { 1.0f,1.0f,m_stopColor, m_stopColor};
+	Vector4 stopColor = { 1.0f,1.0f,m_stopColor, m_stopColor };
 	m_titleColor += 0.01f;
 	Vector4 startColor;
 	if (m_coolTime == false) {
@@ -465,18 +465,18 @@ void Title::Update() {
 		m_start.SetPosition({ 0.0f,-300.0f,0.0f });
 		m_start.Update();
 		m_b.Init("Assets/sprite/a.DDS", 1000.0f, 700.0f);
-		if (m_gaugeflug==false)
+		if (m_gaugeflug == false)
 		{
-		m_manualColor += 0.01;
+			m_manualColor += 0.01;
 		}
-		if(m_gaugeflug ==true) {
+		if (m_gaugeflug == true) {
 			m_manualColor = 0.0;
 		}
 		m_cool++;
 		if (m_cool > 2) {
 			m_cool = 3;
 		}
-		if (g_pad[0]->IsTrigger(enButtonB) and m_cool == 3 and m_j==1){
+		if (g_pad[0]->IsTrigger(enButtonB) and m_cool == 3 and m_j == 1) {
 			m_start.SetPosition({ -300.0f,-300.0f,0.0f });
 			m_start.Update();
 			m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
