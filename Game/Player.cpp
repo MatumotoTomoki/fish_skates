@@ -505,7 +505,7 @@ void Player::Update() {
 		}
 	}
 
-	/*Vector3 pos = m_position;
+	
 	if (m_geta == true) {
 		m_characterController.Execute(m_velocity, -0.2f);
 	}
