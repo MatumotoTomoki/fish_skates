@@ -49,9 +49,6 @@ public:
 	float m_count = 0.0f;
 	float m_posy = -100.0f;
 	float m_vignetteAlpha = 0.0f;
-	float m_posColor = 0.0f;
-	float m_posColor1 = 1.0f;
-	float m_posColor2 = 0.5f;
 	int m_i = 0;
 	int m_se = 0;
 	int m_eff = 0;
@@ -63,7 +60,6 @@ public:
 	SpriteRender m_qte;
 	SpriteRender m_vignette;
 	SpriteRender m_zone;
-	FontRender m_font;
 	Pengin* m_pengin = nullptr;
 	NinjaPengin* m_ninjaPengin = nullptr;
 	SilenPengin* m_silenPengin = nullptr;
@@ -84,9 +80,6 @@ public:
 	bool m_rSlip = false;
 	bool O2StopGet = false;
 	bool m_o2stoplose = false;
-	bool m_color = false;
-	bool m_color1 = false;
-	bool m_color2 = false;
 	bool m_geta = false;
 	struct GaugeCB
 	{
