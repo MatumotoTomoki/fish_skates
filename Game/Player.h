@@ -71,6 +71,7 @@ public:
 	float m_o2stoptime = 0.0f;
 	bool m_isEnemyNear = false;
 	bool m_slip = false;
+	bool m_rSlip = false;
 	bool O2StopGet = false;
 	bool m_o2stoplose = false;
 	struct GaugeCB
