@@ -67,8 +67,8 @@ void GameCamera::Update() {
             m_flug = true;
         }
         if (m_player->m_start == true) {
-            float x = g_pad[0]->GetRStickXF();
-            float y = g_pad[0]->GetRStickYF();
+            float x = g_pad[0]->GetLStickXF();
+            float y = g_pad[0]->GetLStickYF();
             Quaternion qRot;
             Vector3 dir = m_toCameraPos;
             Vector3 oldPosYaw = m_toCameraPos;
