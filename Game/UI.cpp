@@ -92,9 +92,9 @@ void UI::Update() {
 			m_se = true;
 		}
 	}
-	if (m_player->m_start == true){
+	if (m_player->m_start == true) {
 		m_warningFlag = false;
-		if (m_player->m_diff.Length() <= 1800.0f or m_player->m_diff2.Length() <= 1800.0f or m_player->m_diff3.Length() <= 1800.0f or m_player->m_diff4.Length() <= 1800.0f){
+		if (m_player->m_diff.Length() <= 1800.0f or m_player->m_diff2.Length() <= 1800.0f or m_player->m_diff3.Length() <= 1800.0f or m_player->m_diff4.Length() <= 1800.0f) {
 			m_warningFlag = true;
 		}
 	}
@@ -115,11 +115,9 @@ void UI::Update() {
 			if (val <= 0.0f) { val = 0.0f; dir = true; }
 		}
 		};
-
 	updateColorValue(m_posColor, m_color, speed);
 	updateColorValue(m_posColor1, m_color1, speed);
 	updateColorValue(m_posColor2, m_color2, speed);
-
 	m_font.SetColor(m_posColor, m_posColor1, m_posColor2, 1.0f);
 	m_font.SetText(buf);
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
