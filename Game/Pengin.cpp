@@ -56,11 +56,11 @@ void Pengin::Update() {
 	}
 	Vector3 diff = m_player->m_position - m_pos;
 	//プレイヤーへの攻撃
-	if (diff.Length() <= 350.0f){
+	if (diff.Length() <= 350.0f) {
 		m_modelRender.PlayAnimation(enAnimClip_Attack);
 	}
 	// プレイヤー追跡
-	else if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false){
+	else if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
 		m_modelRender.PlayAnimation(enAnimClip_Chase);
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
@@ -74,7 +74,7 @@ void Pengin::Update() {
 		}
 	}
 	// 近距離
-	else if (diff.Length() <= 600.0f and m_player->m_swim == false){
+	else if (diff.Length() <= 600.0f and m_player->m_swim == false) {
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
 		if (m_player->m_superJump == false) {

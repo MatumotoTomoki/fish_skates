@@ -2,7 +2,7 @@
 #include "Item2.h"
 #include "Player.h"
 
-bool Item2::Start(){
+bool Item2::Start() {
 	m_modelRender.Init("Assets/modelData/SuperMove.tkm");
 	m_position = { 0.0f,100.0f,100.0f };
 	m_modelRender.SetPosition(m_position);
