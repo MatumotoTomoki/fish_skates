@@ -4,7 +4,7 @@
 
 bool Item3::Start() {
 	m_modelRender.Init("Assets/modelData/speedDown.tkm");
-	m_position = { 0.0f,100.0f,100.0f };
+	m_position = { 30.0f,100.0f,100.0f };
 	m_modelRender.SetPosition(m_position);
 	m_player = FindGO<Player>("Player");
 	m_modelRender.Update();
