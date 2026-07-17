@@ -36,7 +36,7 @@ void NinjaPengin::Update() {
 		return;
 	}
 	Vector3 diff = m_player->m_position - m_pos;
-	if (diff.Length() <= 2000.0f and diff.Length() >= 700.0f and  m_player->m_swim == false) {
+	if (diff.Length() <= 2000.0f and diff.Length() >= 700.0f and m_player->m_swim == false) {
 		float distToPlayer = diff.Length();
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
@@ -50,7 +50,7 @@ void NinjaPengin::Update() {
 			moveSpeed.z -= 15.0f;
 		}
 	}
-	else if (diff.Length() <= 700.0f and diff.Length() >= 600.0f  and m_player->m_swim == false) {
+	else if (diff.Length() <= 700.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
 		float distToPlayer = diff.Length();
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();

@@ -3,7 +3,7 @@ class Player;
 class Dummy;
 class Dummy3;
 class Dummy5;
-class NinjaPengin:public IGameObject
+class NinjaPengin :public IGameObject
 {
 public:
 	bool Start();
