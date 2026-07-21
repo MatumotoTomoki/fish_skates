@@ -73,31 +73,11 @@ void ReversePengin::Update() {
 			moveSpeed.z -= 15.0f;
 		}
 	}
-	// 近距離
-	else if (diff.Length() <= 600.0f and m_player->m_swim == false) {
-		Vector3 toPlayerDir = diff;
-		toPlayerDir.Normalize();
-		if (m_player->m_superJump == false) {
-			moveSpeed += toPlayerDir * 0.6f;
-			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
-			m_rot.SetRotationY(angleY);
-		}
-		else {
-			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
-			m_rot.SetRotationY(angleY);
-			Vector3 forward;
-			forward.x = sinf(angleY);
-			forward.y = 0.0f;
-			forward.z = cosf(angleY);
-			moveSpeed += forward * 8.0f;
-		}
-	}
 	// プレイヤー泳ぎ中
 	else if (m_player->m_swim == true) {
-		Vector3 diff = m_pos - m_player->m_position;
 		Vector3 toPlayerDir = diff;
-		toPlayerDir.Normalize();
-		moveSpeed += toPlayerDir * 7.0f;
+		float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
+		m_rot.SetRotationY(angleY);
 	}
 	// 通常移動
 	else {
