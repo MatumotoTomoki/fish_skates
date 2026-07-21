@@ -2,9 +2,11 @@
 class Player;
 class Item3 :public IGameObject
 {
+public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
+	void SetPosition(const Vector3& pos);
 	ModelRender m_modelRender;
 	PhysicsStaticObject m_physicsStaticObject;
 	Player* m_player;
