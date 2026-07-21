@@ -32,6 +32,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Item2.cpp" />
     <ClCompile Include="Item3.cpp" />
+    <ClCompile Include="ReversePengin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -59,5 +60,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Item2.h" />
     <ClInclude Include="Item3.h" />
+    <ClInclude Include="ReversePengin.h" />
   </ItemGroup>
 </Project>
