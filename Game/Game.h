@@ -15,7 +15,6 @@ class Distance;
 class Arrow;
 class Item;
 class Item2;
-
 class Item3;
 class Game : public IGameObject
 {

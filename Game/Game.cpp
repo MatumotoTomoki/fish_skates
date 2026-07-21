@@ -18,7 +18,6 @@
 #include "Arrow.h"
 #include "Item.h"
 #include "Item2.h"
-
 #include "Item3.h"
 #include "graphics/light/SceneLight.h"
 
