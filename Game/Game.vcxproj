@@ -241,6 +241,7 @@
     <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Pengin.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ReversePengin.cpp" />
     <ClCompile Include="SilenPengin.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -270,6 +271,7 @@
     <ClInclude Include="Pause.h" />
     <ClInclude Include="Pengin.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ReversePengin.h" />
     <ClInclude Include="SilenPengin.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
