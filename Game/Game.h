@@ -71,8 +71,15 @@ private:
 	Arrow* m_arrow;
 	Item* m_item;
 	Item2* m_item2;
-
-	Item3* m_item3;
+	Item3* m_item3[5];
+	Vector3 m_item3Pos[5] =
+	{
+		{30.0f,100.0f,100.0f},
+		{70.0f,100.0f,100.0f},
+		{110.0f,100.0f,100.0f},
+		{150.0f,100.0f,100.0f},
+		{190.0f,100.0f,100.0f}
+	};
 	// Game.h のメンバ変数定義エリア
 	nsK2Engine::SPointLight* m_playerLight = nullptr; // 魚を照らすライト用ポインタ
 	nsK2Engine::SPointLight* m_arrowLight = nullptr; // 矢印を照らすライト用ポインタ

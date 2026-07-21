@@ -4,7 +4,6 @@
 
 bool Item3::Start() {
 	m_modelRender.Init("Assets/modelData/speedDown.tkm");
-	m_position = { 30.0f,100.0f,100.0f };
 	m_modelRender.SetPosition(m_position);
 	m_player = FindGO<Player>("Player");
 	m_modelRender.Update();
@@ -17,6 +16,13 @@ void Item3::Update() {
 		m_player->m_geta = true;
 		DeleteGO(this);
 	}
+}
+
+void Item3::SetPosition(const Vector3& pos)
+{
+	m_position = pos;
+	m_modelRender.SetPosition(m_position);
+	m_modelRender.Update();
 }
 
 void Item3::Render(RenderContext& rc) {

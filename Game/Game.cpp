@@ -112,8 +112,11 @@ void Game::Update() {
 			m_ui = NewGO<UI>(0, "ui");
 			m_item = NewGO<Item>(0, "item");
 			m_item2 = NewGO<Item2>(0, "item2");
-
-			m_item3 = NewGO<Item3>(0, "item3");
+			for (int i = 0; i < 5; i++)
+			{
+				m_item3[i] = NewGO<Item3>(0, "item3");
+				m_item3[i]->SetPosition(m_item3Pos[i]);
+			}
 			break;
 		case 2:
 			m_distance = NewGO<Distance>(0, "Distance");
@@ -232,7 +235,14 @@ void Game::Update() {
 		DeleteGO(m_item);
 		DeleteGO(m_item2);
 
-		DeleteGO(m_item3);
+		for (int i = 0; i < 5; i++)
+		{
+			if (m_item3[i] != nullptr)
+			{
+				DeleteGO(m_item3[i]);
+				m_item3[i] = nullptr;
+			}
+		}
 		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
 		if (m_playerLight != nullptr) {
 			g_sceneLight->DeletePointLight(m_playerLight);
@@ -259,7 +269,14 @@ void Game::Update() {
 		DeleteGO(m_item);
 		DeleteGO(m_item2);
 
-		DeleteGO(m_item3);
+		for (int i = 0; i < 5; i++)
+		{
+			if (m_item3[i] != nullptr)
+			{
+				DeleteGO(m_item3[i]);
+				m_item3[i] = nullptr;
+			}
+		}
 		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
 		if (m_playerLight != nullptr) {
 			g_sceneLight->DeletePointLight(m_playerLight);
@@ -288,7 +305,14 @@ void Game::Update() {
 		DeleteGO(m_item);
 		DeleteGO(m_item2);
 
-		DeleteGO(m_item3);
+		for (int i = 0; i < 5; i++)
+		{
+			if (m_item3[i] != nullptr)
+			{
+				DeleteGO(m_item3[i]);
+				m_item3[i] = nullptr;
+			}
+		}
 		// 例：m_player->m_o2 >= -0.1f などの、DeleteGO が並んでいる中に追加
 		if (m_playerLight != nullptr) {
 			g_sceneLight->DeletePointLight(m_playerLight);
@@ -315,7 +339,15 @@ void Game::Update() {
 		DeleteGO(m_item);
 		DeleteGO(m_item2);
 
-		DeleteGO(m_item3);
+		for (int i = 0; i < 5; i++)
+		{
+			if (m_item3[i] != nullptr)
+			{
+				DeleteGO(m_item3[i]);
+				m_item3[i] = nullptr;
+			}
+		}
+
 		if (m_playerLight != nullptr) {
 			g_sceneLight->DeletePointLight(m_playerLight);
 			m_playerLight = nullptr;
