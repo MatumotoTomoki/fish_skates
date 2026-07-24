@@ -13,7 +13,7 @@ bool Item3::Start() {
 void Item3::Update() {
 	Vector3 diff = m_player->m_position - m_position;
 	if (diff.Length() <= 80.0f) {
-		m_player->m_geta = true;
+		m_player->m_getaCount++;
 		DeleteGO(this);
 	}
 }

@@ -80,7 +80,7 @@ public:
 	bool m_rSlip = false;
 	bool O2StopGet = false;
 	bool m_o2stoplose = false;
-	bool m_geta = false;
+	int m_getaCount = 0;
 	struct GaugeCB
 	{
 		float gaugeRate;

@@ -505,9 +505,11 @@ void Player::Update() {
 	}
 
 
-	if (m_geta == true) {
-		m_characterController.Execute(m_velocity, -0.2f);
-	}
+	const float oneGetaSpeed = 0.2f;
+
+	float speedDown = -0.2f - (oneGetaSpeed * m_getaCount);
+
+	m_characterController.Execute(m_velocity, speedDown);
 }
 
 void Player::Render(RenderContext& rc) {
