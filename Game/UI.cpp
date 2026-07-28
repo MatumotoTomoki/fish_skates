@@ -105,7 +105,7 @@ void UI::Update() {
 	float speed = 0.01f;
 
 	wchar_t text[64];
-	swprintf_s(text, L"Geta : %d", m_player->m_getaCount);
+	swprintf_s(text, L"下駄カウント : %d", m_player->m_getaCount);
 
 	// 0.0〜1.0の間を往復させるためのシンプルロジック
 	auto updateColorValue = [&](float& val, bool& dir, float spd) {
@@ -123,7 +123,8 @@ void UI::Update() {
 	updateColorValue(m_posColor2, m_color2, speed);
 	m_font.SetColor(m_posColor, m_posColor1, m_posColor2, 1.0f);
 	m_font.SetText(buf);
-	m_font.SetText(text);
+	m_getafont.SetText(text);
+	m_getafont.SetPosition({ -800.0f,0.0f,0.0f });
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
 	m_spriteRender5.SetPosition({ 600.0f,385.0f,0.0f });
@@ -151,6 +152,9 @@ void UI::Render(RenderContext& rc) {
 		if (m_warningFlag == true and m_player->m_swim == false) {
 			m_warningRender.Draw(rc);
 		}
-
+		if (m_player->m_getaCount > 0) {
+			m_getafont.Draw(rc);
+		}
 	}
+	
 }
