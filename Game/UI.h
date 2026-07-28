@@ -13,6 +13,7 @@ class UI : public IGameObject
 	SpriteRender m_startRender;
 	SpriteRender m_warningRender;
 	FontRender m_font;
+	FontRender m_getafont;
 	Player* m_player;
 	int m_hpUI = 0;
 	int m_o2UI = 0;
