@@ -26,12 +26,12 @@ bool ReversePengin::Start() {
 		forward.y = 0.0f;
 		forward.Normalize();
 		// プレイヤー前方1500～3500
-		float forwardDist = rand() % 500 + 3500;
+		float forwardDist = rand() % 1500 + 3000;
 		// 左右に±500
 		Vector3 right;
 		right.Cross(Vector3::AxisY, forward);
 		right.Normalize();
-		float sideOffset = rand() % 1000 - 500;
+		float sideOffset = rand() % 1000 - 300;
 		m_pos = m_player->m_position + forward * forwardDist + right * sideOffset;
 		m_pos.y = 10.0f;
 	}
@@ -60,7 +60,7 @@ void ReversePengin::Update() {
 		m_modelRender.PlayAnimation(enAnimClip_Attack);
 	}
 	// プレイヤー追跡
-	else if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
+	else if (diff.Length() <= 2000.0f and diff.Length()>= 600.0f and m_player->m_swim == false) {
 		m_modelRender.PlayAnimation(enAnimClip_Chase);
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();
@@ -71,6 +71,24 @@ void ReversePengin::Update() {
 		}
 		else {
 			moveSpeed.z -= 15.0f;
+		}
+	}
+	else if (diff.Length() <= 600.0f and m_player->m_swim == false) {
+		Vector3 toPlayerDir = diff;
+		toPlayerDir.Normalize();
+		if (m_player->m_superJump == false) {
+			moveSpeed += toPlayerDir * 0.6f;
+			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
+			m_rot.SetRotationY(angleY);
+		}
+		else {
+			float angleY = atan2f(toPlayerDir.x, toPlayerDir.z);
+			m_rot.SetRotationY(angleY);
+			Vector3 forward;
+			forward.x = sinf(angleY);
+			forward.y = 0.0f;
+			forward.z = cosf(angleY);
+			moveSpeed += forward * 8.0f;
 		}
 	}
 	// プレイヤー泳ぎ中

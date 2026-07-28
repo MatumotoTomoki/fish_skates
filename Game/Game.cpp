@@ -19,6 +19,7 @@
 #include "Item.h"
 #include "Item2.h"
 #include "Item3.h"
+#include "ReversePengin.h"
 #include "graphics/light/SceneLight.h"
 
 void Game::Preload() {
@@ -39,6 +40,7 @@ void Game::Preload() {
 	g_soundEngine->ResistWaveFileBank(19, "Assets/sound/damage.wav");
 	g_soundEngine->ResistWaveFileBank(21, "Assets/sound/pi.wav");
 	g_soundEngine->ResistWaveFileBank(22, "Assets/sound/zone.wav");
+	g_soundEngine->ResistWaveFileBank(23, "Assets/sound/get.wav");
 	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_sphere.efk");
 	EffectEngine::GetInstance()->ResistEffect(1, u"Assets/effect/Wave.efk");
 	EffectEngine::GetInstance()->ResistEffect(2, u"Assets/effect/jump.efk");
@@ -106,6 +108,7 @@ void Game::Update() {
 			m_dummy = NewGO<Dummy>(0, "Dummy");
 			m_dummy3 = NewGO<Dummy3>(0, "Dummy3");
 			m_dummy5 = NewGO<Dummy5>(0, "Dummy5");
+			m_reversePengin = NewGO<ReversePengin>(0, "ReversePengin");
 			break;
 		case 1:
 			m_ui = NewGO<UI>(0, "ui");
@@ -233,11 +236,9 @@ void Game::Update() {
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
 		DeleteGO(m_item2);
-
-		for (int i = 0; i < 5; i++)
-		{
-			if (m_item3[i] != nullptr)
-			{
+		DeleteGO(m_reversePengin);
+		for (int i = 0; i < 5; i++) {
+			if (m_item3[i] != nullptr) {
 				DeleteGO(m_item3[i]);
 				m_item3[i] = nullptr;
 			}
@@ -267,11 +268,9 @@ void Game::Update() {
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
 		DeleteGO(m_item2);
-
-		for (int i = 0; i < 5; i++)
-		{
-			if (m_item3[i] != nullptr)
-			{
+		DeleteGO(m_reversePengin);
+		for (int i = 0; i < 5; i++) {
+			if (m_item3[i] != nullptr) {
 				DeleteGO(m_item3[i]);
 				m_item3[i] = nullptr;
 			}
@@ -303,11 +302,9 @@ void Game::Update() {
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
 		DeleteGO(m_item2);
-
-		for (int i = 0; i < 5; i++)
-		{
-			if (m_item3[i] != nullptr)
-			{
+		DeleteGO(m_reversePengin);
+		for (int i = 0; i < 5; i++) {
+			if (m_item3[i] != nullptr) {
 				DeleteGO(m_item3[i]);
 				m_item3[i] = nullptr;
 			}
@@ -337,16 +334,13 @@ void Game::Update() {
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
 		DeleteGO(m_item2);
-
-		for (int i = 0; i < 5; i++)
-		{
-			if (m_item3[i] != nullptr)
-			{
+		DeleteGO(m_reversePengin);
+		for (int i = 0; i < 5; i++) {
+			if (m_item3[i] != nullptr) {
 				DeleteGO(m_item3[i]);
 				m_item3[i] = nullptr;
 			}
 		}
-
 		if (m_playerLight != nullptr) {
 			g_sceneLight->DeletePointLight(m_playerLight);
 			m_playerLight = nullptr;
@@ -390,7 +384,7 @@ void Game::Update() {
 		if (m_chaseBGM and m_chaseBGM->IsPlaying())
 			m_chaseBGM->SetFrequencyRatio(targetRatio);
 	}
-	if (m_pause->m_isPause == true and m_isPause == 0){
+	if (m_pause->m_isPause == true and m_isPause == 0) {
 		DeleteGO(m_gameBGM);
 		m_gameBGM = nullptr;
 		DeleteGO(m_chaseBGM);
@@ -402,7 +396,7 @@ void Game::Update() {
 		float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
 		m_pauseBGM->SetVolume(vol);
 	}
-	if (m_pause->m_isPause == false and m_isPause == 1){
+	if (m_pause->m_isPause == false and m_isPause == 1) {
 		DeleteGO(m_pauseBGM);
 		m_pauseBGM = nullptr;
 		float vol = (m_pause->m_volume / 10.0f) * (m_pause->m_master / 10.0f);
