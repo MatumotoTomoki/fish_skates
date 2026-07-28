@@ -16,6 +16,7 @@ class Arrow;
 class Item;
 class Item2;
 class Item3;
+class ReversePengin;
 class Game : public IGameObject
 {
 public:
@@ -71,6 +72,7 @@ private:
 	Item* m_item;
 	Item2* m_item2;
 	Item3* m_item3[5];
+	ReversePengin* m_reversePengin;
 	Vector3 m_item3Pos[5] =
 	{
 		{30.0f,100.0f,100.0f},
