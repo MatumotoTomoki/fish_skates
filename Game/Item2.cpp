@@ -17,6 +17,7 @@ void Item2::Update() {
 	Vector3 diff = m_player->m_position - m_position;
 	if (diff.Length() <= 80.0f) {
 		m_player->m_superMoveGet = true;
+		m_player->m_supermovetime = 0.0f;
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(22);
 		se->Play(false);
