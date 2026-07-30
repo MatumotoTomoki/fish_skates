@@ -507,7 +507,15 @@ void Title::Update() {
 	if (m_gaugeflug == true) {
 		m_gauge.SetPosition({ -600.0f, -8.0f, 0.0f });
 		m_scare += 0.339f;
-		m_gauge.SetScale({ m_scare,1.0f,0.0f });
+		if (m_i <= 2) {
+			m_gauge.SetScale({ m_scare,1.0f,0.0f });
+		}
+		else {
+			m_gauge.SetScale({ m_oldscare,1.0f,0.0f });
+		}
+		if (m_i == 2) {
+			m_oldscare = m_scare;
+		}
 		m_gauge.Update();
 	}
 	if (m_flug == true) {
@@ -535,7 +543,7 @@ void Title::Update() {
 		m_i++;
 		m_se++;
 	}
-	if (m_i == 4) {
+	if (m_i >= 6) {
 		if (m_newGame == 0) {
 			NewGO<Game>(0, "Game");
 			m_game = FindGO<Game>("Game");
@@ -570,9 +578,7 @@ void Title::Render(RenderContext& rc) {
 	}
 	if (m_optionMode == false) {
 		if (m_i > 0) {
-			if (m_i < 4) {
-				m_gauge.Draw(rc);
-			}
+			m_gauge.Draw(rc);
 			m_font.Draw(rc);
 		}
 		m_manual.Draw(rc);

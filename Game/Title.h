@@ -41,6 +41,7 @@ public:
 	bool m_specialCamera = false;
 	float m_count = 3.0f;
 	float m_scare = 0.0f;
+	float m_oldscare = 0.0f;
 	float m_alpha = 1.0f;
 	float m_hamachiAlpha = 1.0f;
 	float m_fontHaikei = 0.0f;
