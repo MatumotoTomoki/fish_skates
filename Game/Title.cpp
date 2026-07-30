@@ -523,53 +523,19 @@ void Title::Update() {
 			skyCube->SetType((EnSkyCubeType)m_skyCubeType);
 			NewGO<GameCamera>(0, "GameCamera");
 			if (m_3 == 0) {
-				m_font.Init("Assets/sprite/3.dds", 200.0f, 200.0f);
+				//m_font.Init("Assets/sprite/3.dds", 200.0f, 200.0f);
 				m_3++;
 			}
 		}
 		if (m_3 == 1) {
 			Vector4 FontColor = { 1.0f,1.0f,1.0f, m_fontHaikei };
 			m_fontHaikei += 0.02f;
-			m_font.SetMulColor(FontColor);
-			m_seafont.SetMulColor(FontColor);
 		}
 		m_count -= 0.015f;
 		m_i++;
 		m_se++;
 	}
-	if (m_se == 10) {
-		SoundSource* se2 = NewGO<SoundSource>(0);
-		se2->Init(8);
-		se2->Play(false);
-		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
-		se2->SetVolume(finalSE);
-	}
-	if (m_count <= 2.0f) {
-		if (m_2 == 0) {
-			m_font.Init("Assets/sprite/2.dds", 200.0f, 200.0f);
-			m_2++;
-		}
-	}
-	if (m_count <= 1.2f) {
-		if (m_1 == 0) {
-			m_font.Init("Assets/sprite/1.dds", 200.0f, 200.0f);
-			m_1++;
-		}
-	}
-	if (m_count <= 0.3f) {
-		if (m_GO == 0) {
-			m_font.Init("Assets/sprite/GO.dds", 400.0f, 200.0f);
-			m_GO++;
-		}
-		Vector4 color = { 1.0f, 1.0f, 1.0f, m_alpha };
-		Vector4 hamachiColor = { 1.0f, 1.0f, 1.0f, m_hamachiAlpha };
-		m_alpha -= 0.02f;
-		m_hamachiAlpha -= 0.008f;
-		m_font.SetMulColor(color);
-		m_seafont.SetMulColor(color);
-		m_render.SetMulColor(hamachiColor);
-	}
-	if (m_count <= -0.8f) {
+	if (m_i == 4) {
 		if (m_newGame == 0) {
 			NewGO<Game>(0, "Game");
 			m_game = FindGO<Game>("Game");
@@ -613,9 +579,6 @@ void Title::Render(RenderContext& rc) {
 		if (m_i < 1) {
 			m_start.Draw(rc);
 			m_b.Draw(rc);
-		}
-		if (m_i > 3) {
-			m_seafont.Draw(rc);
 		}
 	}
 	else {
