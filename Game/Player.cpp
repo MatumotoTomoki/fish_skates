@@ -10,6 +10,7 @@
 #include "Item2.h"
 #include "Item3.h"
 #include "Distance.h"
+#include "ReversePengin.h"
 
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
@@ -35,6 +36,7 @@ bool Player::Start() {
 	m_pengin = FindGO<Pengin>("Pengin");
 	m_ninjaPengin = FindGO<NinjaPengin>("NinjaPengin");
 	m_silenPengin = FindGO<SilenPengin>("SilenPengin");
+	m_reversePengin = FindGO<ReversePengin>("ReversePengin");
 	m_dummy5 = FindGO<Dummy5>("Dummy5");
 	m_item = FindGO<Item>("item");
 	m_item3=FindGO<Item3>("item3");
@@ -100,7 +102,8 @@ void Player::Update() {
 		m_diff2 = m_position - m_ninjaPengin->m_pos;
 		m_diff3 = m_position - m_silenPengin->m_pos;
 		m_diff4 = m_position - m_dummy5->m_pos;
-		m_isEnemyNear = (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f);
+		m_diff5 = m_position - m_reversePengin->m_pos;
+		m_isEnemyNear = (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f);
 		if (m_o2 > -0.1f) {
 			m_o2 = -0.1f;
 		}
@@ -152,14 +155,14 @@ void Player::Update() {
 			m_velocity.y = 0.0f;
 		}
 		if (camera->m_flug == true) {
-			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 				m_o2 += 0.001f;
 			}
 			else {
 				m_o2 += 0.002f;
 			}
 			if (m_characterController.IsOnGround() == true or m_swim == true) {
-				if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
+				if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f and m_diff5.Length() >= 600.0f) {
 					m_chase = false;
 					if (g_pad[0]->IsTrigger(enButtonA)) {
 						m_eff2 = NewGO<EffectEmitter>(0);
@@ -206,7 +209,7 @@ void Player::Update() {
 				m_waterJump = false;
 			}
 			else {
-				if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f) {
+				if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f and m_diff5.Length() >= 600.0f) {
 					if (m_swim == true) {
 						if (g_pad[0]->IsTrigger(enButtonA)) {
 							m_swim = false;
@@ -220,7 +223,7 @@ void Player::Update() {
 			}
 			if (m_qteGauge > 0) {
 				if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
-					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
 						se->Play(false);
@@ -230,7 +233,7 @@ void Player::Update() {
 					}
 				}
 				if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
-					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
 						se->Play(false);
@@ -240,7 +243,7 @@ void Player::Update() {
 					}
 				}
 				if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
-					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
 						se->Play(false);
@@ -250,7 +253,7 @@ void Player::Update() {
 					}
 				}
 				if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
-					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
 						se->Play(false);
@@ -262,7 +265,7 @@ void Player::Update() {
 				switch (m_jump) {
 				case 0:
 					if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
-						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 							m_superJump = true;
 							m_velocity.y += 25.0f;
 							m_sprite.Init("Assets/sprite/931911.dds", 150.0f, 200.0f);
@@ -283,7 +286,7 @@ void Player::Update() {
 					break;
 				case 1:
 					if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
-						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 							m_superJump = true;
 							m_velocity.x -= 300.0f;
 							m_velocity.y += 25.0f;
@@ -305,7 +308,7 @@ void Player::Update() {
 					break;
 				case 2:
 					if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
-						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 							m_superJump = true;
 							m_velocity.y += 25.0f;
 							m_velocity.x += 300.0f;
@@ -327,7 +330,7 @@ void Player::Update() {
 					break;
 				case 3:
 					if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
-						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 							m_superJump = true;
 							m_velocity.z -= 30.0f;
 							m_velocity.y += 15.0f;
@@ -403,7 +406,7 @@ void Player::Update() {
 			}
 			else {
 				m_count = 0.0f;
-				if (m_diff.Length() <= 350.0f or m_diff2.Length() <= 350.0f or m_diff3.Length() <= 350.0f or m_diff4.Length() <= 350.0f) {
+				if (m_diff.Length() <= 350.0f or m_diff2.Length() <= 350.0f or m_diff3.Length() <= 350.0f or m_diff4.Length() <= 350.0f or m_diff5.Length() <= 350.0f) {
 					m_hp += 0.01f;
 					/*SoundSource* se = NewGO<SoundSource>(0);
 					se->Init(19);
@@ -476,7 +479,7 @@ void Player::Update() {
 	}
 
 	if (m_o2StopGet == true) {
-		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 			m_o2 -= 0.001f;
 			m_o2stoptime += 1.0f / 60.0f;
 			if (m_o2stoptime >= 3.0f) {
@@ -515,7 +518,7 @@ void Player::Update() {
 void Player::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
 	if (m_go > 61) {
-		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f) {
+		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 			if (m_qteGauge > 0 and m_swim == false) {
 				m_sprite.Draw(rc);
 				m_qte.Draw(rc);

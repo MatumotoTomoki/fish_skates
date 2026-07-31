@@ -2,6 +2,7 @@
 class Pengin;
 class NinjaPengin;
 class SilenPengin;
+class ReversePengin;
 class Dummy5;
 class Item;
 class Item2;
@@ -27,6 +28,7 @@ public:
 	Vector3 m_diff2;
 	Vector3 m_diff3;
 	Vector3 m_diff4;
+	Vector3 m_diff5;
 	Quaternion m_rot;
 	ModelRender m_modelRender;
 	CharacterController m_characterController;
@@ -63,6 +65,7 @@ public:
 	Pengin* m_pengin = nullptr;
 	NinjaPengin* m_ninjaPengin = nullptr;
 	SilenPengin* m_silenPengin = nullptr;
+	ReversePengin* m_reversePengin = nullptr;
 	Dummy5* m_dummy5 = nullptr;
 	Distance* m_distance = nullptr;
 	EffectEmitter* m_effectEmitter = nullptr;
