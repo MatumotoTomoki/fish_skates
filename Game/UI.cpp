@@ -103,9 +103,14 @@ void UI::Update() {
 	swprintf(buf, 128, L"Pos: X = %.1f Y = %.1f Z = %.1f", pos.x, pos.y, pos.z);
 	// 共通の速度で値を変化させる
 	float speed = 0.01f;
-
+	//取った下駄のカウント
 	wchar_t text[64];
 	swprintf_s(text, L"下駄カウント : %d", m_player->m_getaCount);
+	//スピードアップの残り時間
+	float remain = 3.0f - m_player->m_supermovetime;
+
+	wchar_t speedText[64];
+	swprintf_s(speedText, L"スピードアップ %.1f", remain);
 
 	// 0.0〜1.0の間を往復させるためのシンプルロジック
 	auto updateColorValue = [&](float& val, bool& dir, float spd) {
@@ -124,7 +129,9 @@ void UI::Update() {
 	m_font.SetColor(m_posColor, m_posColor1, m_posColor2, 1.0f);
 	m_font.SetText(buf);
 	m_getafont.SetText(text);
+	m_speedfont.SetText(speedText);
 	m_getafont.SetPosition({ -800.0f,0.0f,0.0f });
+	m_speedfont.SetPosition({ -800.0f,-50.0f,0.0f });
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
 	m_spriteRender5.SetPosition({ 600.0f,385.0f,0.0f });
@@ -154,6 +161,9 @@ void UI::Render(RenderContext& rc) {
 		}
 		if (m_player->m_getaCount > 0) {
 			m_getafont.Draw(rc);
+		}
+		if (m_player->m_superMoveGet == true) {
+			m_speedfont.Draw(rc);
 		}
 	}
 	
