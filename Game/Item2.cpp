@@ -22,7 +22,14 @@ void Item2::Update() {
 		se->Play(false);
 		float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
 		se->SetVolume(finalSE);
+		m_effectEmitter = NewGO <EffectEmitter>(0);
+		m_effectEmitter->Init(3);
+		m_effectEmitter->SetScale({ 10.0f,10.0f,10.0f });
+		m_effectEmitter->Play();
 		DeleteGO(this);
+	}
+	if (m_effectEmitter != nullptr) {
+		m_effectEmitter->SetPosition({ m_player->m_position });
 	}
 }
 
