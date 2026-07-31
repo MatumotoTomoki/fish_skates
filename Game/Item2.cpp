@@ -5,7 +5,6 @@
 
 bool Item2::Start() {
 	m_modelRender.Init("Assets/modelData/SuperMove.tkm");
-	m_position = { 0.0f,100.0f,100.0f };
 	m_modelRender.SetPosition(m_position);
 	m_player = FindGO<Player>("Player");
 	m_modelRender.Update();
@@ -25,6 +24,12 @@ void Item2::Update() {
 		se->SetVolume(finalSE);
 		DeleteGO(this);
 	}
+}
+
+void Item2::SetPosition(const Vector3& pos) {
+	m_position = pos;
+	m_modelRender.SetPosition(m_position);
+	m_modelRender.Update();
 }
 
 void Item2::Render(RenderContext& rc) {

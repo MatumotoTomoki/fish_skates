@@ -114,11 +114,14 @@ void Game::Update() {
 		case 1:
 		{
 			m_ui = NewGO<UI>(0, "ui");
-			m_item = NewGO<Item>(0, "item");
-			m_item2 = NewGO<Item2>(0, "item2");
-
 			int pattern = rand() % 3;
 			srand(time(nullptr));
+			m_item = NewGO<Item>(0, "item");
+			; for (int i = 0; i < 5; i++)
+			{
+				m_item2[i] = NewGO<Item2>(0, "item2");
+				m_item2[i]->SetPosition(m_item2Pos[pattern][i]);
+			}
 			for (int i = 0; i < 5; i++)
 			{
 				m_item3[i] = NewGO<Item3>(0, "item3");
@@ -242,7 +245,12 @@ void Game::Update() {
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
-		DeleteGO(m_item2);
+		for (int i = 0; i < 5; i++) {
+			if (m_item2[i] != nullptr) {
+				DeleteGO(m_item2[i]);
+				m_item2[i] = nullptr;
+			}
+		}
 		DeleteGO(m_reversePengin);
 		for (int i = 0; i < 5; i++) {
 			if (m_item3[i] != nullptr) {
@@ -274,7 +282,12 @@ void Game::Update() {
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
-		DeleteGO(m_item2);
+		for (int i = 0; i < 5; i++) {
+			if (m_item2[i] != nullptr) {
+				DeleteGO(m_item2[i]);
+				m_item2[i] = nullptr;
+			}
+		}
 		DeleteGO(m_reversePengin);
 		for (int i = 0; i < 5; i++) {
 			if (m_item3[i] != nullptr) {
@@ -308,7 +321,12 @@ void Game::Update() {
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
-		DeleteGO(m_item2);
+		for (int i = 0; i < 5; i++) {
+			if (m_item2[i] != nullptr) {
+				DeleteGO(m_item2[i]);
+				m_item2[i] = nullptr;
+			}
+		}
 		DeleteGO(m_reversePengin);
 		for (int i = 0; i < 5; i++) {
 			if (m_item3[i] != nullptr) {
@@ -340,7 +358,12 @@ void Game::Update() {
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
 		DeleteGO(m_item);
-		DeleteGO(m_item2);
+		for (int i = 0; i < 5; i++) {
+			if (m_item2[i] != nullptr) {
+				DeleteGO(m_item2[i]);
+				m_item2[i] = nullptr;
+			}
+		}
 		DeleteGO(m_reversePengin);
 		for (int i = 0; i < 5; i++) {
 			if (m_item3[i] != nullptr) {
