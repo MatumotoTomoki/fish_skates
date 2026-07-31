@@ -94,7 +94,7 @@ void UI::Update() {
 	}
 	if (m_player->m_start == true) {
 		m_warningFlag = false;
-		if (m_player->m_diff.Length() <= 1800.0f or m_player->m_diff2.Length() <= 1800.0f or m_player->m_diff3.Length() <= 1800.0f or m_player->m_diff4.Length() <= 1800.0f) {
+		if (m_player->m_diff.Length() <= 1800.0f or m_player->m_diff2.Length() <= 1800.0f or m_player->m_diff3.Length() <= 1800.0f or m_player->m_diff4.Length() <= 1800.0f or m_player->m_diff5.Length() <= 1800.0f) {
 			m_warningFlag = true;
 		}
 	}
