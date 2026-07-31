@@ -112,6 +112,7 @@ void Game::Update() {
 			m_reversePengin = NewGO<ReversePengin>(0, "ReversePengin");
 			break;
 		case 1:
+		{
 			m_ui = NewGO<UI>(0, "ui");
 			int pattern = rand() % 3;
 			srand(time(nullptr));
@@ -121,18 +122,12 @@ void Game::Update() {
 				m_item2[i] = NewGO<Item2>(0, "item2");
 				m_item2[i]->SetPosition(m_item2Pos[pattern][i]);
 			}
-			for (int i = 0; i < 5; i++)
-			{
-			m_item = NewGO<Item>(0, "item");
-			m_item2 = NewGO<Item2>(0, "item2");
-			int pattern;
-			pattern = rand() % 3;
-			srand(time(nullptr));
 			for (int i = 0; i < 5; i++) {
 				m_item3[i] = NewGO<Item3>(0, "item3");
 				m_item3[i]->SetPosition(m_item3Pos[pattern][i]);
 			}
 			break;
+		}
 		case 2:
 			m_distance = NewGO<Distance>(0, "Distance");
 			m_arrow = NewGO<Arrow>(0, "Arrow");
