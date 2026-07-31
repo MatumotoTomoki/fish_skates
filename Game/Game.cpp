@@ -45,6 +45,8 @@ void Game::Preload() {
 	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/magic_sphere.efk");
 	EffectEngine::GetInstance()->ResistEffect(1, u"Assets/effect/Wave.efk");
 	EffectEngine::GetInstance()->ResistEffect(2, u"Assets/effect/jump.efk");
+	EffectEngine::GetInstance()->ResistEffect(3, u"Assets/effect/bahu.efk");
+	EffectEngine::GetInstance()->ResistEffect(4, u"Assets/effect/debahu.efk");
 	Title* title = FindGO<Title>("Title");
 	title->m_flug = true;
 }

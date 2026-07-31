@@ -11,5 +11,6 @@ public:
 	PhysicsStaticObject m_physicsStaticObject;
 	Player* m_player;
 	Vector3 m_position;
+	EffectEmitter* m_effectEmitter = nullptr;
 };
 
