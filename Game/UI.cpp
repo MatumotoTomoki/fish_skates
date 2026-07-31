@@ -149,7 +149,6 @@ void UI::Update() {
 
 void UI::Render(RenderContext& rc) {
 	m_font.Draw(rc);
-	m_speedfont.Draw(rc);
 	if (m_player->m_start == true) {
 		m_spriteRender.Draw(rc);
 		m_spriteRender3.Draw(rc);
@@ -162,6 +161,9 @@ void UI::Render(RenderContext& rc) {
 		}
 		if (m_player->m_getaCount > 0) {
 			m_getafont.Draw(rc);
+		}
+		if (m_player->m_superMoveGet == true) {
+			m_speedfont.Draw(rc);
 		}
 	}
 	
