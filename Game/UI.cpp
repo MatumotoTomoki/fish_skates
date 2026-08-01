@@ -105,7 +105,7 @@ void UI::Update() {
 	float speed = 0.01f;
 	//取った下駄のカウント
 	wchar_t text[64];
-	swprintf_s(text, L"下駄カウント : %d", m_player->m_getaCount);
+	swprintf_s(text, L"スピードダウンカウント : %d", m_player->m_getaCount);
 	//スピードアップの残り時間
 	float remain = 3.0f - m_player->m_supermovetime;
 
