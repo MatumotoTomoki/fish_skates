@@ -17,8 +17,8 @@ void Item2::Update() {
 	if (diff.Length() <= 80.0f) {
 		m_player->m_superMoveGet = true;
 		m_player->m_supermovetime = 0.0f;
-		//エフェクトを追従させるために削除せずに遠くまで飛ばす
-		m_position.x = 9999999999999999999.0f;
+		//エフェクトを追従させるために削除せずに見えない位置(地下深く)まで飛ばす
+		m_position.y = -9999999999999999999.0f;
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(22);
 		se->Play(false);
@@ -44,6 +44,8 @@ void Item2::Update() {
 	if (m_itemDeleteCount >= 155) {
 		DeleteGO(this);
 	}
+	m_modelRender.SetPosition(m_position);
+	m_modelRender.Update();
 }
 
 void Item2::SetPosition(const Vector3& pos) {
