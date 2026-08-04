@@ -18,6 +18,7 @@ class UI : public IGameObject
 	Player* m_player;
 	int m_hpUI = 0;
 	int m_o2UI = 0;
+	int m_secount = 0;
 	bool m_warningFlag = false;
 	bool m_heal = false;
 	bool m_se = false;
@@ -28,4 +29,5 @@ class UI : public IGameObject
 	float m_posColor = 0.0f;
 	float m_posColor1 = 1.0f;
 	float m_posColor2 = 0.5f;
+	float m_countDown = 3.0f;
 };

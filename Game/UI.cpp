@@ -32,6 +32,19 @@ void UI::Update() {
 	if (pause and pause->IsPaused()) {
 		return;
 	}
+	auto camera = FindGO<GameCamera>("GameCamera");
+	if (m_player->m_start == true) {
+		SoundSource* se;
+		if (m_secount == 0) {
+			se = NewGO<SoundSource>(0);
+			se->Init(8);
+			se->Play(false);
+			float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+			se->SetVolume(finalSE);
+			m_secount++;
+		}
+		m_countDown -= 0.1f;
+	}
 	if (m_player->m_hp > -0.74f) {
 		m_spriteRender3.SetMulColor({ 0.0f,1.0f,0.0f,1.0f });
 	}
