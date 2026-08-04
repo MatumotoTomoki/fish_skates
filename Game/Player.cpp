@@ -11,6 +11,7 @@
 #include "Item3.h"
 #include "Distance.h"
 #include "ReversePengin.h"
+#include "UI.h"
 
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
@@ -74,10 +75,11 @@ void Player::Update() {
 		return;
 	}
 	auto camera = FindGO<GameCamera>("GameCamera");
+	auto ui = FindGO<UI>("ui");
 	if (camera->m_flug == true and m_start == false) {
 		m_velocity.y -= 0.5f;
 		m_position.y += 12.0f;
-		if (m_characterController.IsOnGround() == true) {
+		if (m_characterController.IsOnGround() == true and ui->m_countDown <= 0.2f) {
 			if (m_go < 62) {
 				m_go++;
 			}

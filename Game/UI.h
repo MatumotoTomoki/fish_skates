@@ -2,6 +2,7 @@
 class Player;
 class UI : public IGameObject
 {
+public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
@@ -12,12 +13,15 @@ class UI : public IGameObject
 	SpriteRender m_spriteRender5;
 	SpriteRender m_startRender;
 	SpriteRender m_warningRender;
+	SpriteRender m_countRender;
 	FontRender m_font;
 	FontRender m_getafont;
 	FontRender m_speedfont;
 	Player* m_player;
 	int m_hpUI = 0;
 	int m_o2UI = 0;
+	int m_secount = 0;
+	int m_number = 2;
 	bool m_warningFlag = false;
 	bool m_heal = false;
 	bool m_se = false;
@@ -28,4 +32,5 @@ class UI : public IGameObject
 	float m_posColor = 0.0f;
 	float m_posColor1 = 1.0f;
 	float m_posColor2 = 0.5f;
+	float m_countDown = 4.0f;
 };
