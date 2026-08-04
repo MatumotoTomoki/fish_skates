@@ -12,6 +12,7 @@ class UI : public IGameObject
 	SpriteRender m_spriteRender5;
 	SpriteRender m_startRender;
 	SpriteRender m_warningRender;
+	SpriteRender m_countRender;
 	FontRender m_font;
 	FontRender m_getafont;
 	FontRender m_speedfont;
@@ -19,6 +20,7 @@ class UI : public IGameObject
 	int m_hpUI = 0;
 	int m_o2UI = 0;
 	int m_secount = 0;
+	int m_number = 2;
 	bool m_warningFlag = false;
 	bool m_heal = false;
 	bool m_se = false;

@@ -19,6 +19,7 @@ bool UI::Start() {
 	m_spriteRender3.SetMulColor({ 0.0f,1.0f,0.0f,1.0f });
 	m_spriteRender5.SetMulColor({ 0.0f,1.0f,1.0f,1.0f });
 	m_startRender.Init("Assets/sprite/StartJP.dds", 900.0f, 600.0f);
+	m_countRender.Init("Assets/sprite/3.dds", 500.0f, 500.0f);
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
 	}
@@ -43,7 +44,15 @@ void UI::Update() {
 			se->SetVolume(finalSE);
 			m_secount++;
 		}
-		m_countDown -= 0.1f;
+		m_countDown -= 0.021f;
+		if (m_countDown <= 2.0f and m_number == 2) {
+			m_countRender.Init("Assets/sprite/2.dds", 500.0f, 500.0f);
+			m_number--;
+		}
+		if (m_countDown <= 1.0f and m_number == 1) {
+			m_countRender.Init("Assets/sprite/1.dds", 500.0f, 500.0f);
+			m_number--;
+		}
 	}
 	if (m_player->m_hp > -0.74f) {
 		m_spriteRender3.SetMulColor({ 0.0f,1.0f,0.0f,1.0f });
@@ -169,6 +178,7 @@ void UI::Render(RenderContext& rc) {
 		m_spriteRender5.Draw(rc);
 		m_spriteRender4.Draw(rc);
 		m_startRender.Draw(rc);
+		m_countRender.Draw(rc);
 		if (m_warningFlag == true and m_player->m_swim == false) {
 			m_warningRender.Draw(rc);
 		}
