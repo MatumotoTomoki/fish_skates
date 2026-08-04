@@ -19,7 +19,7 @@ bool UI::Start() {
 	m_spriteRender3.SetMulColor({ 0.0f,1.0f,0.0f,1.0f });
 	m_spriteRender5.SetMulColor({ 0.0f,1.0f,1.0f,1.0f });
 	m_startRender.Init("Assets/sprite/StartJP.dds", 900.0f, 600.0f);
-	m_countRender.Init("Assets/sprite/3.dds", 500.0f, 500.0f);
+	m_countRender.Init("Assets/sprite/3.dds", 250.0f, 250.0f);
 	if (m_player == nullptr) {
 		m_player = FindGO<Player>("Player");
 	}
@@ -34,9 +34,9 @@ void UI::Update() {
 		return;
 	}
 	auto camera = FindGO<GameCamera>("GameCamera");
-	if (m_player->m_start == true) {
+	if (m_player->m_characterController.IsOnGround() == true) {
 		SoundSource* se;
-		if (m_secount == 0) {
+		if (m_secount == 0 and m_countDown <= 3.0f) {
 			se = NewGO<SoundSource>(0);
 			se->Init(8);
 			se->Play(false);
@@ -45,12 +45,12 @@ void UI::Update() {
 			m_secount++;
 		}
 		m_countDown -= 0.021f;
-		if (m_countDown <= 2.0f and m_number == 2) {
-			m_countRender.Init("Assets/sprite/2.dds", 500.0f, 500.0f);
+		if (m_countDown <= 1.6f and m_number == 2) {
+			m_countRender.Init("Assets/sprite/2.dds", 250.0f, 250.0f);
 			m_number--;
 		}
-		if (m_countDown <= 1.0f and m_number == 1) {
-			m_countRender.Init("Assets/sprite/1.dds", 500.0f, 500.0f);
+		if (m_countDown <= 0.4f and m_number == 1) {
+			m_countRender.Init("Assets/sprite/1.dds", 250.0f, 250.0f);
 			m_number--;
 		}
 	}
@@ -171,6 +171,9 @@ void UI::Update() {
 
 void UI::Render(RenderContext& rc) {
 	m_font.Draw(rc);
+	if (m_countDown <= 3.0f and m_player->m_start == false) {
+		m_countRender.Draw(rc);
+	}
 	if (m_player->m_start == true) {
 		m_spriteRender.Draw(rc);
 		m_spriteRender3.Draw(rc);
@@ -178,7 +181,6 @@ void UI::Render(RenderContext& rc) {
 		m_spriteRender5.Draw(rc);
 		m_spriteRender4.Draw(rc);
 		m_startRender.Draw(rc);
-		m_countRender.Draw(rc);
 		if (m_warningFlag == true and m_player->m_swim == false) {
 			m_warningRender.Draw(rc);
 		}
