@@ -112,6 +112,12 @@ void UI::Update() {
 	wchar_t speedText[64];
 	swprintf_s(speedText, L"スピードアップ %.1f", remain);
 
+	//酸素ストップの残り時間
+	float o2stop = 3.0f - m_player->m_o2stoptime;
+
+	wchar_t o2Text[64];
+	swprintf_s(o2Text, L"酸素ストップ%.1f", o2stop);
+
 	// 0.0〜1.0の間を往復させるためのシンプルロジック
 	auto updateColorValue = [&](float& val, bool& dir, float spd) {
 		if (dir) {
@@ -130,8 +136,10 @@ void UI::Update() {
 	m_font.SetText(buf);
 	m_getafont.SetText(text);
 	m_speedfont.SetText(speedText);
+	m_o2font.SetText(o2Text);
 	m_getafont.SetPosition({ -800.0f,0.0f,0.0f });
 	m_speedfont.SetPosition({ -800.0f,-50.0f,0.0f });
+	m_o2font.SetPosition({ -800.0f,-100.0f,0.0f });
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
 	m_spriteRender5.SetPosition({ 600.0f,385.0f,0.0f });
@@ -164,6 +172,9 @@ void UI::Render(RenderContext& rc) {
 		}
 		if (m_player->m_superMoveGet == true) {
 			m_speedfont.Draw(rc);
+		}
+		if (m_player->m_o2StopGet == true) {
+			m_o2font.Draw(rc);
 		}
 	}
 	
