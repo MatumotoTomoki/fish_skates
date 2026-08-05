@@ -3,6 +3,7 @@ class Game;
 class GameClear;
 class GameOver;
 class Title;
+class Player;
 class Pause : public IGameObject
 {
 public:
@@ -40,6 +41,7 @@ private:
 	GameClear* m_gameClear;
 	GameOver* m_gameOver;
 	Title* m_title;
+	Player* m_player;
 	enum class PauseState {
 		Main,   // 通常のメニュー選択
 		Sound   // サウンド設定中

@@ -148,7 +148,7 @@ void Game::Update() {
 		m_loadStep++;
 	}
 	//ポーズ
-	if (g_pad[0]->IsTrigger(enButtonStart) and m_initialized == true) {
+	if (g_pad[0]->IsTrigger(enButtonStart) and m_initialized == true and m_player->m_start == true) {
 		m_menuSE = NewGO<SoundSource>(0);
 		m_menuSE->Init(3);
 		m_menuSE->Play(false);
