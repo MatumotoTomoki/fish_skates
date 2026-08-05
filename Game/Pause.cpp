@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "GameClear.h"
 #include "GameOver.h"
+#include "Player.h"
 
 bool Pause::Start() {
 	m_sprite.Init("Assets/sprite/allow.dds", 300.0f, 200.0f);
@@ -57,6 +58,9 @@ void Pause::Update() {
 	if (m_title == nullptr) {
 		m_title = FindGO<Title>("Title");
 	}
+	if (m_player == nullptr) {
+		m_player = FindGO<Player>("Player");
+	}
 	if (m_title) {
 		m_title = nullptr;
 		return;
@@ -69,7 +73,7 @@ void Pause::Update() {
 		m_gameOver = nullptr;
 		return;
 	}
-	if (m_game) {
+	if (m_player->m_start == true) {
 		if (g_pad[0]->IsTrigger(enButtonStart)) {
 			m_soundMode = 0;
 			m_menuSprite.Init("Assets/sprite/pause.dds", 1920.0f, 1080.0f);
