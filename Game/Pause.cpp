@@ -62,6 +62,7 @@ void Pause::Update() {
 		m_player = FindGO<Player>("Player");
 	}
 	if (m_title) {
+		m_player = nullptr;
 		m_title = nullptr;
 		return;
 	}
