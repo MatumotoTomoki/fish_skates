@@ -11,5 +11,5 @@ class Distance : public IGameObject
 	int m_hollState = 0;
 public:
 	Vector3 m_pos;
-	int m_stage = 1;
+	int m_stage = 0;
 };

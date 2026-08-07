@@ -17,6 +17,7 @@ public:
 	int m_soundMode = 0;
 	int m_master;
 	int m_select;
+	int m_clearCount = 0;
 	bool m_soundTest = false;
 	bool m_return = false;
 	bool m_isPause = false;
