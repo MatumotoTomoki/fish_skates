@@ -17,6 +17,7 @@ public:
 	FontRender m_font;
 	FontRender m_getafont;
 	FontRender m_speedfont;
+	FontRender m_o2font;
 	Player* m_player;
 	int m_hpUI = 0;
 	int m_o2UI = 0;

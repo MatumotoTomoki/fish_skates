@@ -13,6 +13,7 @@ bool Item3::Start() {
 
 void Item3::Update() {
 	auto pause = FindGO<Pause>("Pause");
+	Move();
 	Vector3 diff = m_player->m_position - m_position;
 	if (diff.Length() <= 80.0f) {
 		m_player->m_getaCount++;
@@ -44,6 +45,11 @@ void Item3::Update() {
 	}
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.Update();
+}
+
+void Item3::Move() {
+	rot.AddRotationDegY(2.0f);
+	m_modelRender.SetRotation(rot);
 }
 
 void Item3::SetPosition(const Vector3& pos) {

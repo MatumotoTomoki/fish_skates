@@ -133,7 +133,10 @@ void Game::Update() {
 			m_ui = NewGO<UI>(0, "ui");
 			int pattern = rand() % 3;
 			srand(time(nullptr));
-			m_item = NewGO<Item>(0, "item");
+			for (int i = 0; i < 5; i++) {
+				m_item[i] = NewGO<Item>(0, "item");
+				m_item[i]->SetPosition(m_itemPos[pattern][i]);
+			}
 			; for (int i = 0; i < 5; i++)
 			{
 				m_item2[i] = NewGO<Item2>(0, "item2");
@@ -259,7 +262,12 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
-		DeleteGO(m_item);
+		for (int i = 0; i < 5; i++) {
+			if (m_item[i] != nullptr) {
+				DeleteGO(m_item[i]);
+				m_item[i] = nullptr;
+			}
+		}
 		for (int i = 0; i < 5; i++) {
 			if (m_item2[i] != nullptr) {
 				DeleteGO(m_item2[i]);
@@ -296,7 +304,12 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
-		DeleteGO(m_item);
+		for (int i = 0; i < 5; i++) {
+			if (m_item[i] != nullptr) {
+				DeleteGO(m_item[i]);
+				m_item[i] = nullptr;
+			}
+		}
 		for (int i = 0; i < 5; i++) {
 			if (m_item2[i] != nullptr) {
 				DeleteGO(m_item2[i]);
@@ -336,7 +349,12 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
-		DeleteGO(m_item);
+		for (int i = 0; i < 5; i++) {
+			if (m_item[i] != nullptr) {
+				DeleteGO(m_item[i]);
+				m_item[i] = nullptr;
+			}
+		}
 		for (int i = 0; i < 5; i++) {
 			if (m_item2[i] != nullptr) {
 				DeleteGO(m_item2[i]);
@@ -373,7 +391,12 @@ void Game::Update() {
 		DeleteGO(m_skyCube);
 		DeleteGO(m_distance);
 		DeleteGO(m_arrow);
-		DeleteGO(m_item);
+		for (int i = 0; i < 5; i++) {
+			if (m_item[i] != nullptr) {
+				DeleteGO(m_item[i]);
+				m_item[i] = nullptr;
+			}
+		}
 		for (int i = 0; i < 5; i++) {
 			if (m_item2[i] != nullptr) {
 				DeleteGO(m_item2[i]);
