@@ -70,7 +70,22 @@ bool Game::Start() {
 				odData.scale);
 			return true;
 		}
-		if (odData.EqualObjectName(L"Stage") == true) {
+		if (odData.EqualObjectName(L"Stage") == true and m_pause->m_clearCount == 0) {
+			m_stageRender.Init("Assets/modelData/tairiku5.5.tkm");
+			m_stageRender.SetTRS(
+				odData.position,
+				odData.rotation,
+				odData.scale);
+			m_stageRender.SetPosition(0.0f, 0.0f, 0.0f);
+			m_stageRender.SetScale(100.0f, 100.0f, 100.0f);
+			m_stageRender.Update();
+			m_physicsStaticObject.CreateFromModel(
+				m_stageRender.GetModel(),
+				m_stageRender.GetModel().GetWorldMatrix()
+			);
+			return true;
+		}
+		if (odData.EqualObjectName(L"Stage") == true and m_pause->m_clearCount == 1) {
 			m_stageRender.Init("Assets/modelData/stage2.tkm");
 			m_stageRender.SetTRS(
 				odData.position,
@@ -306,6 +321,7 @@ void Game::Update() {
 		DeleteGO(this);
 	}
 	else if (m_player->m_position.z >= 7500.0f) {
+		m_pause->m_clearCount++;
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
 		DeleteGO(m_silenPengin);

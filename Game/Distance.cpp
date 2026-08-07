@@ -2,6 +2,7 @@
 #include "Distance.h"
 #include "Player.h"
 #include "GameCamera.h"
+#include "Pause.h"
 
 namespace
 {
@@ -30,6 +31,8 @@ namespace
 bool Distance::Start() {
 	m_pos = FIRST_HOLL_POS;
 	m_player = FindGO<Player>("Player");
+	auto pause = FindGO<Pause>("Pause");
+	m_stage = pause->m_clearCount;
 	m_model.SetPosition(m_pos);
 	m_model.Update();
 	return true;
