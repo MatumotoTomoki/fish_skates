@@ -133,18 +133,36 @@ void Game::Update() {
 			m_ui = NewGO<UI>(0, "ui");
 			int pattern = rand() % 3;
 			srand(time(nullptr));
-			for (int i = 0; i < 5; i++) {
-				m_item[i] = NewGO<Item>(0, "item");
-				m_item[i]->SetPosition(m_itemPos[pattern][i]);
+			if (m_pause->m_clearCount == 0) {
+				for (int i = 0; i < 5; i++) {
+					m_item[i] = NewGO<Item>(0, "item");
+					m_item[i]->SetPosition(m_itemPosStage1[pattern][i]);
+				}
+				; for (int i = 0; i < 5; i++)
+				{
+					m_item2[i] = NewGO<Item2>(0, "item2");
+					m_item2[i]->SetPosition(m_item2PosStage1[pattern][i]);
+				}
+				for (int i = 0; i < 5; i++) {
+					m_item3[i] = NewGO<Item3>(0, "item3");
+					m_item3[i]->SetPosition(m_item3PosStage1[pattern][i]);
+				}
 			}
-			; for (int i = 0; i < 5; i++)
-			{
-				m_item2[i] = NewGO<Item2>(0, "item2");
-				m_item2[i]->SetPosition(m_item2Pos[pattern][i]);
-			}
-			for (int i = 0; i < 5; i++) {
-				m_item3[i] = NewGO<Item3>(0, "item3");
-				m_item3[i]->SetPosition(m_item3Pos[pattern][i]);
+
+			if (m_pause->m_clearCount == 1) {
+				for (int i = 0; i < 5; i++) {
+					m_item[i] = NewGO<Item>(0, "item");
+					m_item[i]->SetPosition(m_itemPosStage2[pattern][i]);
+				}
+				; for (int i = 0; i < 5; i++)
+				{
+					m_item2[i] = NewGO<Item2>(0, "item2");
+					m_item2[i]->SetPosition(m_item2PosStage2[pattern][i]);
+				}
+				for (int i = 0; i < 5; i++) {
+					m_item3[i] = NewGO<Item3>(0, "item3");
+					m_item3[i]->SetPosition(m_item3PosStage2[pattern][i]);
+				}
 			}
 			break;
 		}
