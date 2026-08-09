@@ -77,6 +77,11 @@ bool Title::Start() {
 }
 
 void Title::Update() {
+	if (m_pause != nullptr and m_pause->m_clearCount == 1) {
+		m_flug = true;
+		m_coolTime = true;
+		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
+	}
 	Vector4 titleColor = { 1.0f,1.0f,1.0f,m_titleColor };
 	Vector4 stopColor = { 1.0f,1.0f,m_stopColor, m_stopColor };
 	m_titleColor += 0.01f;
