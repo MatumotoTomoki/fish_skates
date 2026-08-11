@@ -536,7 +536,6 @@ void Title::Update() {
 			skyCube->SetType((EnSkyCubeType)m_skyCubeType);
 			NewGO<GameCamera>(0, "GameCamera");
 			if (m_3 == 0) {
-				//m_font.Init("Assets/sprite/3.dds", 200.0f, 200.0f);
 				m_3++;
 			}
 		}
