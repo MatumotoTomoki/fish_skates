@@ -79,6 +79,7 @@ bool Title::Start() {
 void Title::Update() {
 	if (m_pause != nullptr and m_pause->m_clearCount == 1) {
 		m_flug = true;
+		m_gaugeflug = true;
 		m_coolTime = true;
 		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
 	}
