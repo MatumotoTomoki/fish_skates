@@ -414,6 +414,7 @@ void Game::Update() {
 			g_sceneLight->DeletePointLight(m_playerLight);
 			m_playerLight = nullptr;
 		}
+		m_pause->m_clearCount = 0;
 		m_pause->m_return = false;
 		DeleteGO(this);
 	}
