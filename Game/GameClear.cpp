@@ -55,7 +55,7 @@ void GameClear::Update() {
 	if (m_change == true) {
 		m_color = 0.0f;
 	}
-	if (m_color < 0.0f) {
+	if (m_color == 0.0f) {
 		DeleteGO(this);
 	}
 	m_spriteRender.SetMulColor({ 1.0f, 1.0f, 1.0f, m_color });

@@ -61,7 +61,7 @@ void GameOver::Update() {
 	if (m_change == true) {
 		m_color = 0.0f;
 	}
-	if (m_color < 0.0f) {
+	if (m_color == 0.0f) {
 		DeleteGO(this);
 	}
 	m_render.Update();

@@ -17,10 +17,10 @@ bool Title::Start() {
 	g_soundEngine->ResistWaveFileBank(12, "Assets/sound/ok.wav");
 	g_soundEngine->ResistWaveFileBank(13, "Assets/sound/cancel.wav");
 	g_soundEngine->ResistWaveFileBank(20, "Assets/sound/select.wav");
+	m_pause = FindGO<Pause>("Pause");
 	m_sound = NewGO<SoundSource>(0);
 	m_sound->Init(11);
 	m_sound->Play(true);
-	m_pause = FindGO<Pause>("Pause");
 	m_font.Init("Assets/sprite/Gaugeflame.dds", 1600.0f, 200.0f);
 	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
 	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
@@ -79,8 +79,10 @@ bool Title::Start() {
 void Title::Update() {
 	if (m_pause != nullptr and m_pause->m_clearCount == 1) {
 		m_flug = true;
+		m_gaugeflug = true;
 		m_coolTime = true;
 		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
+		m_sound->Stop();
 	}
 	Vector4 titleColor = { 1.0f,1.0f,1.0f,m_titleColor };
 	Vector4 stopColor = { 1.0f,1.0f,m_stopColor, m_stopColor };
@@ -536,7 +538,6 @@ void Title::Update() {
 			skyCube->SetType((EnSkyCubeType)m_skyCubeType);
 			NewGO<GameCamera>(0, "GameCamera");
 			if (m_3 == 0) {
-				//m_font.Init("Assets/sprite/3.dds", 200.0f, 200.0f);
 				m_3++;
 			}
 		}
