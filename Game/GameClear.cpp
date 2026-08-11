@@ -53,7 +53,7 @@ void GameClear::Update() {
 		m_color = 1.0f;
 	}
 	if (m_change == true) {
-		m_color -= 0.01f;
+		m_color = 0.0f;
 	}
 	if (m_color < 0.0f) {
 		DeleteGO(this);
