@@ -17,10 +17,12 @@ bool Title::Start() {
 	g_soundEngine->ResistWaveFileBank(12, "Assets/sound/ok.wav");
 	g_soundEngine->ResistWaveFileBank(13, "Assets/sound/cancel.wav");
 	g_soundEngine->ResistWaveFileBank(20, "Assets/sound/select.wav");
-	m_sound = NewGO<SoundSource>(0);
-	m_sound->Init(11);
-	m_sound->Play(true);
 	m_pause = FindGO<Pause>("Pause");
+	if (m_pause == nullptr) {
+		m_sound = NewGO<SoundSource>(0);
+		m_sound->Init(11);
+		m_sound->Play(true);
+	}
 	m_font.Init("Assets/sprite/Gaugeflame.dds", 1600.0f, 200.0f);
 	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
 	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
