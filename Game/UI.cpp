@@ -138,7 +138,7 @@ void UI::Update() {
 	float o2stop = 3.0f - m_player->m_o2stoptime;
 
 	wchar_t o2Text[64];
-	swprintf_s(o2Text, L"酸素ストップ%.1f", o2stop);
+	swprintf_s(o2Text, L"酸素ストップ%.1f");
 
 	// 0.0〜1.0の間を往復させるためのシンプルロジック
 	auto updateColorValue = [&](float& val, bool& dir, float spd) {
@@ -175,6 +175,19 @@ void UI::Update() {
 	m_spriteRender5.Update();
 	m_startRender.Update();
 	m_warningRender.Update();
+	if (m_player->m_o2StopGet == true) {
+		m_countRender.SetPosition({ -500.0f,-100.0f,0.0f });
+		if (m_player->m_o2stoptime >= 0.0f and m_player->m_o2stoptime < 1.0f) {
+			m_countRender.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
+		}
+		if (m_player->m_o2stoptime >= 1.0f and m_player->m_o2stoptime < 2.0f) {
+			m_countRender.Init("Assets/sprite/2.dds", 75.0f, 75.0f);
+		}
+		if (m_player->m_o2stoptime >= 2.0f) {
+			m_countRender.Init("Assets/sprite/1.dds", 75.0f, 75.0f);
+		}
+	}
+	m_countRender.Update();
 }
 
 void UI::Render(RenderContext& rc) {
@@ -200,6 +213,15 @@ void UI::Render(RenderContext& rc) {
 		}
 		if (m_player->m_o2StopGet == true) {
 			m_o2font.Draw(rc);
+			if (m_player->m_o2stoptime >= 0.0f and m_player->m_o2stoptime < 1.0f) {
+				m_countRender.Draw(rc);
+			}
+			if (m_player->m_o2stoptime >= 1.0f and m_player->m_o2stoptime < 2.0f) {
+				m_countRender.Draw(rc);
+			}
+			if (m_player->m_o2stoptime >= 2.0f) {
+				m_countRender.Draw(rc);
+			}
 		}
 	}
 	
