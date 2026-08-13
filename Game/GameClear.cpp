@@ -4,10 +4,15 @@
 #include "Pause.h"
 
 bool GameClear::Start() {
-	m_spriteRender.Init("Assets/sprite/GameClear.dds", 1920.0f, 1080.0f);
+	auto pause = FindGO<Pause>("Pause");
+	if (pause->m_clearCount == 2) {
+		m_spriteRender.Init("Assets/sprite/GameClear.dds", 1920.0f, 1080.0f);
+	}
+	else if (pause->m_clearCount <= 1) {
+		m_spriteRender.Init("Assets/sprite/stageClear.dds", 1920.0f, 1080.0f);
+	}
 	m_nextRender.Init("Assets/sprite/next.dds", 1000.0f, 700.0f);
 	m_nextRender.SetPosition({ 0.0f,-300.0f,0.0f });
-	auto pause = FindGO<Pause>("Pause");
 	m_bgm = NewGO<SoundSource>(0);
 	m_bgm->Init(9);
 	m_bgm->Play(false);
