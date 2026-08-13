@@ -266,6 +266,7 @@ void Game::Update() {
 		}
 	}
 	if (m_player->m_o2 >= -0.1f) {
+		m_pause->m_clearCount = 0;
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
 		DeleteGO(m_silenPengin);
@@ -308,6 +309,7 @@ void Game::Update() {
 		DeleteGO(this);
 	}
 	else if (m_player->m_hp >= -0.1f) {
+		m_pause->m_clearCount = 0;
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
 		DeleteGO(m_silenPengin);
@@ -352,7 +354,12 @@ void Game::Update() {
 		DeleteGO(this);
 	}
 	else if (m_player->m_position.z >= 7500.0f) {
-		m_pause->m_clearCount++;
+		if (m_pause->m_clearCount == 0) {
+			m_pause->m_clearCount++;
+		}
+		else {
+			m_pause->m_clearCount--;
+		}
 		DeleteGO(m_pengin);
 		DeleteGO(m_ninjaPengin);
 		DeleteGO(m_silenPengin);
