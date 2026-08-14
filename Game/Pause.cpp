@@ -141,7 +141,6 @@ void Pause::Update() {
 					m_endGame.SetScale({ 1.0f,1.0f,1.0f });
 					break;
 				}
-
 				switch (m_mode) {
 				case 0:
 					m_sprite.SetPosition({ -400.0f,-310.0f,0.0f });

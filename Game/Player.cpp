@@ -479,7 +479,6 @@ void Player::Update() {
 	else {
 		m_vignetteAlpha = 0.0f;
 	}
-
 	if (m_o2StopGet == true) {
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 			m_o2 -= 0.001f;
@@ -499,7 +498,6 @@ void Player::Update() {
 		}
 
 	}
-
 	if (m_superMoveGet == true) {
 		m_characterController.Execute(m_velocity, 2.0f);
 		m_supermovetime += 1.0f / 60.0f;
@@ -508,10 +506,7 @@ void Player::Update() {
 			m_supermovetime = 0.0f;
 		}
 	}
-
-
 	const float oneGetaSpeed = 0.2f;
-
 	float speedDown = -0.2f - (oneGetaSpeed * m_getaCount);
 	if (m_getaCount > 0) {
 		m_characterController.Execute(m_velocity, speedDown);
