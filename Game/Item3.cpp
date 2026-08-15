@@ -21,8 +21,6 @@ void Item3::Update() {
 		if (m_deleteSwitch == false) {
 			m_player->m_getaCount++;
 		}
-		//エフェクトを追従させるために削除せずに見えない位置(地下深く)まで飛ばす
-		m_position.y = -9999999999999999999.0f;
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(22);
 		se->Play(false);
@@ -42,6 +40,8 @@ void Item3::Update() {
 	}
 	//エフェクトが消えるくらいの時間でアイテムを消す
 	if (m_deleteSwitch == true) {
+		//エフェクトを追従させるために削除せずに見えない位置(地下深く)まで飛ばす
+		m_position.y -= -9999999999999999999.0f;
 		m_itemDeleteCount++;
 	}
 	if (m_itemDeleteCount >= 155) {
