@@ -506,8 +506,8 @@ void Player::Update() {
 			m_supermovetime = 0.0f;
 		}
 	}
-	const float oneGetaSpeed = 0.2f;
-	float speedDown = -0.2f - (oneGetaSpeed * m_getaCount);
+	const float oneGetaSpeed = 0.1f;
+	float speedDown = -0.0f - (oneGetaSpeed * m_getaCount);
 	if (m_getaCount > 0) {
 		m_characterController.Execute(m_velocity, speedDown);
 	}
