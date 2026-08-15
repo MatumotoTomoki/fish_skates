@@ -18,9 +18,9 @@ public:
 	SpriteRender m_o2CountRender;
 	SpriteRender m_speedUpRender;
 	SpriteRender m_speedCountRender;
+	SpriteRender m_speedDownRender;
+	SpriteRender m_downCountRender;
 	FontRender m_font;
-	FontRender m_getafont;
-	
 	Player* m_player;
 	int m_hpUI = 0;
 	int m_o2UI = 0;
