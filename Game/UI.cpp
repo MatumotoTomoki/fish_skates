@@ -25,6 +25,18 @@ bool UI::Start() {
 	}
 	m_warningRender.Init("Assets/sprite/p.dds", 340.0f, 256.0f);
 	m_warningRender.SetPosition({ 0.0f,400.0f,0.0f });
+	m_o2stopRender.Init("Assets/sprite/O2stop.dds", 150.0f, 100.0f);
+	m_o2stopRender.SetPosition({ -700.0f,-100.0f,0.0f });
+	m_o2CountRender.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
+	m_o2CountRender.SetPosition({ -500.0f,-100.0f,0.0f });
+	m_speedUpRender.Init("Assets/sprite/Speedup.dds", 150.0f, 100.0f);
+	m_speedUpRender.SetPosition({ -700.0f,-50.0f,0.0f });
+	m_speedCountRender.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
+	m_speedCountRender.SetPosition({ -500.0f,-50.0f,0.0f });
+	m_speedDownRender.Init("Assets/sprite/Speeddowncount.dds", 150.0f, 100.0f);
+	m_speedDownRender.SetPosition({ -700.0f,0.0f,0.0f });
+	m_downCountRender.Init("Assets/sprite/5.dds", 75.0f, 75.0f);
+	m_downCountRender.SetPosition({ -500.0f,0.0f,0.0f });
 	return true;
 }
 
@@ -125,21 +137,6 @@ void UI::Update() {
 	swprintf(buf, 128, L"Pos: X = %.1f Y = %.1f Z = %.1f", pos.x, pos.y, pos.z);
 	// 共通の速度で値を変化させる
 	float speed = 0.01f;
-	//取った下駄のカウント
-	wchar_t text[64];
-	swprintf_s(text, L"スピードダウンカウント : %d", m_player->m_getaCount);
-	//スピードアップの残り時間
-	float remain = 3.0f - m_player->m_supermovetime;
-
-	wchar_t speedText[64];
-	swprintf_s(speedText, L"スピードアップ %.1f", remain);
-
-	//酸素ストップの残り時間
-	float o2stop = 3.0f - m_player->m_o2stoptime;
-
-	wchar_t o2Text[64];
-	swprintf_s(o2Text, L"酸素ストップ%.1f", o2stop);
-
 	// 0.0〜1.0の間を往復させるためのシンプルロジック
 	auto updateColorValue = [&](float& val, bool& dir, float spd) {
 		if (dir) {
@@ -156,12 +153,6 @@ void UI::Update() {
 	updateColorValue(m_posColor2, m_color2, speed);
 	m_font.SetColor(m_posColor, m_posColor1, m_posColor2, 1.0f);
 	m_font.SetText(buf);
-	m_getafont.SetText(text);
-	m_speedfont.SetText(speedText);
-	m_o2font.SetText(o2Text);
-	m_getafont.SetPosition({ -800.0f,0.0f,0.0f });
-	m_speedfont.SetPosition({ -800.0f,-50.0f,0.0f });
-	m_o2font.SetPosition({ -800.0f,-100.0f,0.0f });
 	m_spriteRender5.SetPivot({ 1.0,0.53f });
 	m_spriteRender5.SetScale({ m_player->m_o2,1.0f,0.0f });
 	m_spriteRender5.SetPosition({ 600.0f,385.0f,0.0f });
@@ -175,6 +166,51 @@ void UI::Update() {
 	m_spriteRender5.Update();
 	m_startRender.Update();
 	m_warningRender.Update();
+	if (m_player->m_o2StopGet == true) {
+		m_o2stopRender.Update();
+		if (m_player->m_o2stoptime >= 0.0f and m_player->m_o2stoptime < 1.0f) {
+			m_o2CountRender.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
+		}
+		if (m_player->m_o2stoptime >= 1.0f and m_player->m_o2stoptime < 2.0f) {
+			m_o2CountRender.Init("Assets/sprite/2.dds", 75.0f, 75.0f);
+		}
+		if (m_player->m_o2stoptime >= 2.0f) {
+			m_o2CountRender.Init("Assets/sprite/1.dds", 75.0f, 75.0f);
+		}
+		m_o2CountRender.Update();
+	}
+	if (m_player->m_superMoveGet == true) {
+		m_speedUpRender.Update();
+		if (m_player->m_supermovetime >= 0.0f and m_player->m_supermovetime < 1.0f) {
+			m_speedCountRender.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
+		}
+		else if (m_player->m_supermovetime >= 1.0f and m_player->m_supermovetime < 2.0f) {
+			m_speedCountRender.Init("Assets/sprite/2.dds", 75.0f, 75.0f);
+		}
+		else {
+			m_speedCountRender.Init("Assets/sprite/1.dds", 75.0f, 75.0f);
+		}
+		m_speedCountRender.Update();
+	}
+	if (m_player->m_getaCount > 0) {
+		m_speedDownRender.Update();
+		if (m_player->m_getaCount == 1) {
+			m_downCountRender.Init("Assets/sprite/1.dds", 75.0f, 75.0f);
+		}
+		else if (m_player->m_getaCount == 2) {
+			m_downCountRender.Init("Assets/sprite/2.dds", 75.0f, 75.0f);
+		}
+		else if (m_player->m_getaCount == 3) {
+			m_downCountRender.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
+		}
+		else if (m_player->m_getaCount == 4) {
+			m_downCountRender.Init("Assets/sprite/4.dds", 75.0f, 75.0f);
+		}
+		else {
+			m_downCountRender.Init("Assets/sprite/5.dds", 75.0f, 75.0f);
+		}
+		m_downCountRender.Update();
+	}
 }
 
 void UI::Render(RenderContext& rc) {
@@ -193,13 +229,46 @@ void UI::Render(RenderContext& rc) {
 			m_warningRender.Draw(rc);
 		}
 		if (m_player->m_getaCount > 0) {
-			m_getafont.Draw(rc);
+			m_speedDownRender.Draw(rc);
+			if (m_player->m_getaCount == 1) {
+				m_downCountRender.Draw(rc);
+			}
+			else if (m_player->m_getaCount == 2) {
+				m_downCountRender.Draw(rc);
+			}
+			else if (m_player->m_getaCount == 3) {
+				m_downCountRender.Draw(rc);
+			}
+			else if (m_player->m_getaCount == 4) {
+				m_downCountRender.Draw(rc);
+			}
+			else {
+				m_downCountRender.Draw(rc);
+			}
 		}
 		if (m_player->m_superMoveGet == true) {
-			m_speedfont.Draw(rc);
+			m_speedUpRender.Draw(rc);
+			if (m_player->m_supermovetime >= 0.0f and m_player->m_supermovetime < 1.0f) {
+				m_o2CountRender.Draw(rc);
+			}
+			else if (m_player->m_supermovetime >= 1.0f and m_player->m_supermovetime < 2.0f) {
+				m_o2CountRender.Draw(rc);
+			}
+			else {
+				m_o2CountRender.Draw(rc);
+			}
 		}
 		if (m_player->m_o2StopGet == true) {
-			m_o2font.Draw(rc);
+			m_o2stopRender.Draw(rc);
+			if (m_player->m_o2stoptime >= 0.0f and m_player->m_o2stoptime < 1.0f) {
+				m_speedCountRender.Draw(rc);
+			}
+			if (m_player->m_o2stoptime >= 1.0f and m_player->m_o2stoptime < 2.0f) {
+				m_speedCountRender.Draw(rc);
+			}
+			if (m_player->m_o2stoptime >= 2.0f) {
+				m_speedCountRender.Draw(rc);
+			}
 		}
 	}
 	

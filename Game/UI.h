@@ -14,10 +14,13 @@ public:
 	SpriteRender m_startRender;
 	SpriteRender m_warningRender;
 	SpriteRender m_countRender;
+	SpriteRender m_o2stopRender;
+	SpriteRender m_o2CountRender;
+	SpriteRender m_speedUpRender;
+	SpriteRender m_speedCountRender;
+	SpriteRender m_speedDownRender;
+	SpriteRender m_downCountRender;
 	FontRender m_font;
-	FontRender m_getafont;
-	FontRender m_speedfont;
-	FontRender m_o2font;
 	Player* m_player;
 	int m_hpUI = 0;
 	int m_o2UI = 0;
