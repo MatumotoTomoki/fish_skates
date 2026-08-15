@@ -20,7 +20,6 @@ void Item2::Update() {
 	if (diff.Length() <= 80.0f) {
 		m_player->m_superMoveGet = true;
 		m_player->m_supermovetime = 0.0f;
-		//エフェクトを追従させるために削除せずに見えない位置(地下深く)まで飛ばす
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(22);
 		se->Play(false);
@@ -32,7 +31,7 @@ void Item2::Update() {
 			m_effectEmitter->Init(3);
 			m_effectEmitter->SetScale({ 10.0f,10.0f,10.0f });
 			m_effectEmitter->Play();
-			m_itemDeleteCount++;
+			m_effectCount++;
 		}
 		m_deleteSwitch = true;
 	}
@@ -41,6 +40,7 @@ void Item2::Update() {
 	}
 	//エフェクトが消えるくらいの時間でアイテムを消す
 	if (m_deleteSwitch == true) {
+		//エフェクトを追従させるために削除せずに見えない位置(地下深く)まで飛ばす
 		m_position.y = -9999999999999999999.0f;
 		m_itemDeleteCount++;
 	}

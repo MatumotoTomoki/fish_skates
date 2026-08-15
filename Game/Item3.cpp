@@ -32,6 +32,7 @@ void Item3::Update() {
 			m_effectEmitter->Init(4);
 			m_effectEmitter->SetScale({ 10.0f,10.0f,10.0f });
 			m_effectEmitter->Play();
+			m_effectCount++;
 		}
 		m_deleteSwitch = true;
 	}
