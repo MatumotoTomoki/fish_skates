@@ -18,7 +18,9 @@ void Item3::Update() {
 	Floating();
 	Vector3 diff = m_player->m_position - m_position;
 	if (diff.Length() <= 80.0f) {
-		m_player->m_getaCount++;
+		if (m_deleteSwitch == false) {
+			m_player->m_getaCount++;
+		}
 		//エフェクトを追従させるために削除せずに見えない位置(地下深く)まで飛ばす
 		m_position.y = -9999999999999999999.0f;
 		SoundSource* se = NewGO<SoundSource>(0);
