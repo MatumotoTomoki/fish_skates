@@ -42,9 +42,9 @@ bool Title::Start() {
 	m_optionButton.Init("Assets/sprite/option.dds", 900.0f, 600.0f);
 	m_defaultOption.Init("Assets/sprite/defalt.dds", 700.0f, 500.0f);
 	m_returnOption.Init("Assets/sprite/returnTitle.dds", 1890.0f, 1050.0f);
-	m_easy.Init("Assets/sprite/easy.dds", 200.0f, 400.0f);
-	m_normal.Init("Assets/sprite/normal.dds", 200.0f, 400.0f);
-	m_hard.Init("Assets/sprite/hard.dds", 200.0f, 400.0f);
+	m_easy.Init("Assets/sprite/easy.dds", 400.0f, 150.0f);
+	m_normal.Init("Assets/sprite/normal.dds", 500.0f, 340.0f);
+	m_hard.Init("Assets/sprite/hard.dds", 400.0f, 150.0f);
 	m_start.SetPosition({ -300.0f,-300.0f,0.0f });
 	m_font.SetPosition({ 0.0f, 0.0f, 0.0f });
 	m_cameraOption.SetPosition({ -330.0f,340.0f,0.0f });
@@ -59,6 +59,9 @@ bool Title::Start() {
 	m_seGauge.SetPosition({ 110.0f,20.0f,0.0f });
 	m_masOption.SetPosition({ -100.0f,0.0f,0.0f });
 	m_masGauge.SetPosition({ 110.0f,-140.0f,0.0f });
+	m_easy.SetPosition({ 0.0f,340.0f,0.0f });
+	m_normal.SetPosition({ 0.0f,0.0f,0.0f });
+	m_hard.SetPosition({ 0.0f,-340.0f,0.0f });
 	m_b.Update();
 	m_gauge.Update();
 	m_seafont.Update();
@@ -578,6 +581,9 @@ void Title::Update() {
 	m_defaultOption.Update();
 	m_returnOption.Update();
 	m_optionButton.Update();
+	m_easy.Update();
+	m_normal.Update();
+	m_hard.Update();
 }
 
 void Title::Render(RenderContext& rc) {
