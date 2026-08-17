@@ -7,6 +7,7 @@
 void OptionManager::Update() {
 	auto title = FindGO<Title>("Title");
 	if (title != nullptr) {
+		m_difficult = title->m_difficult;
 		m_bgmVol = title->m_bgmVol;
 		m_seVol = title->m_seVol;
 		m_masVol = title->m_masVol;
