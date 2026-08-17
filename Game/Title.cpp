@@ -7,7 +7,7 @@
 
 bool Title::Start() {
 	m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
-	m_manual.Init("Assets/sprite/Manual.dds", 1920.0f, 1080.0f);
+	m_manual.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
 	m_b.Init("Assets/sprite/a.DDS", 1000.0f, 700.0f);
 	m_b.SetPosition({ 750.0f,-450.0f,0.0f });
 	m_b.SetScale({ 0.5f,0.5f,1.0f });
@@ -472,8 +472,7 @@ void Title::Update() {
 		m_start.SetPosition({ 0.0f,-300.0f,0.0f });
 		m_start.Update();
 		m_b.Init("Assets/sprite/a.DDS", 1000.0f, 700.0f);
-		if (m_gaugeflug == false)
-		{
+		if (m_gaugeflug == false) {
 			m_manualColor += 0.01;
 		}
 		if (m_gaugeflug == true) {
