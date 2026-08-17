@@ -606,7 +606,12 @@ void Title::Difficult() {
 		se->Play(false);
 		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
 		se->SetVolume(finalSE);
-		m_difficult++;
+		if (m_difficult == 2) {
+			m_difficult = 0;
+		}
+		else {
+			m_difficult++;
+		}
 	}
 	if (g_pad[0]->IsTrigger(enButtonUp)) {
 		SoundSource* se = NewGO<SoundSource>(0);
@@ -614,7 +619,12 @@ void Title::Difficult() {
 		se->Play(false);
 		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
 		se->SetVolume(finalSE);
-		m_difficult--;
+		if (m_difficult == 0) {
+			m_difficult = 2;
+		}
+		else {
+			m_difficult--;
+		}
 	}
 	switch (m_difficult) {
 		case 0:
