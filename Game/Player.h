@@ -8,6 +8,7 @@ class Item;
 class Item2;
 class Distance;
 class Item3;
+class OptionManager;
 class Player :public IGameObject
 {
 public:
@@ -73,6 +74,7 @@ public:
 	Item* m_item = nullptr;
 	Item2* m_item2 = nullptr;
 	Item3* m_item3 = nullptr;
+	OptionManager* m_optionManager = nullptr;
 	float m_qteGauge = 1.0f;
 	float m_o2stoptime = 0.0f;
 	float m_supermovetime = 0.0f;
