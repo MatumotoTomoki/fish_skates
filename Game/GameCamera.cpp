@@ -35,16 +35,16 @@ void GameCamera::Update() {
     if (m_player == nullptr) {
         m_player = FindGO<Player>("Player");
     }
-        Vector3 playerRawTarget = m_player->m_position;
-        auto game = FindGO<Game>("Game");
-        if (m_flug == false) {
-            playerRawTarget.y -= 919.0f;
-        }
-        else {
-            playerRawTarget.y += 80.0f;
-        }
-        float lerpFactor = 0.8f;
-        m_currentCameraTarget.Lerp(lerpFactor, m_currentCameraTarget, playerRawTarget);
+    Vector3 playerRawTarget = m_player->m_position;
+    auto game = FindGO<Game>("Game");
+    if (m_flug == false) {
+        playerRawTarget.y -= 919.0f;
+    }
+    else {
+        playerRawTarget.y += 80.0f;
+    }
+    float lerpFactor = 0.8f;
+    m_currentCameraTarget.Lerp(lerpFactor, m_currentCameraTarget, playerRawTarget);
     if (game->m_initialized == true) {
         // ★ ここが“本命”のリセットポイント
         if (m_resetOnStart) {
