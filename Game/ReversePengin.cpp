@@ -60,7 +60,7 @@ void ReversePengin::Update() {
 		m_modelRender.PlayAnimation(enAnimClip_Attack);
 	}
 	// プレイヤー追跡
-	else if (diff.Length() <= 2000.0f and diff.Length()>= 600.0f and m_player->m_swim == false) {
+	else if (diff.Length() <= 2000.0f and diff.Length() >= 600.0f and m_player->m_swim == false) {
 		m_modelRender.PlayAnimation(enAnimClip_Chase);
 		Vector3 toPlayerDir = diff;
 		toPlayerDir.Normalize();

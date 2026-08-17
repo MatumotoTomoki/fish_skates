@@ -271,5 +271,4 @@ void UI::Render(RenderContext& rc) {
 			}
 		}
 	}
-	
 }

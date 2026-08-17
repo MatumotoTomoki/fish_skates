@@ -496,7 +496,6 @@ void Player::Update() {
 				m_o2stoptime = 0.0f;
 			}
 		}
-
 	}
 	if (m_superMoveGet == true) {
 		m_characterController.Execute(m_velocity, 2.0f);
