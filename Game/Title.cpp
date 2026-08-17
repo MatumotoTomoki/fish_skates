@@ -7,7 +7,7 @@
 
 bool Title::Start() {
 	m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
-	m_manual.Init("Assets/sprite/Manual.dds", 1920.0f, 1080.0f);
+	m_manual.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
 	m_b.Init("Assets/sprite/a.DDS", 1000.0f, 700.0f);
 	m_b.SetPosition({ 750.0f,-450.0f,0.0f });
 	m_b.SetScale({ 0.5f,0.5f,1.0f });
@@ -42,6 +42,9 @@ bool Title::Start() {
 	m_optionButton.Init("Assets/sprite/option.dds", 900.0f, 600.0f);
 	m_defaultOption.Init("Assets/sprite/defalt.dds", 700.0f, 500.0f);
 	m_returnOption.Init("Assets/sprite/returnTitle.dds", 1890.0f, 1050.0f);
+	m_easy.Init("Assets/sprite/easy.dds", 400.0f, 150.0f);
+	m_normal.Init("Assets/sprite/normal.dds", 500.0f, 340.0f);
+	m_hard.Init("Assets/sprite/hard.dds", 400.0f, 150.0f);
 	m_start.SetPosition({ -300.0f,-300.0f,0.0f });
 	m_font.SetPosition({ 0.0f, 0.0f, 0.0f });
 	m_cameraOption.SetPosition({ -330.0f,340.0f,0.0f });
@@ -56,6 +59,9 @@ bool Title::Start() {
 	m_seGauge.SetPosition({ 110.0f,20.0f,0.0f });
 	m_masOption.SetPosition({ -100.0f,0.0f,0.0f });
 	m_masGauge.SetPosition({ 110.0f,-140.0f,0.0f });
+	m_easy.SetPosition({ 0.0f,340.0f,0.0f });
+	m_normal.SetPosition({ 0.0f,0.0f,0.0f });
+	m_hard.SetPosition({ 0.0f,-340.0f,0.0f });
 	m_b.Update();
 	m_gauge.Update();
 	m_seafont.Update();
@@ -142,7 +148,7 @@ void Title::Update() {
 		m_sound->SetVolume(finalBGM);
 	}
 	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0 and m_optionState == false) {
-		m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
+		//m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
 		m_titleColor = 1.0f;
 		DeleteGO(m_sound);
 		m_j++;
@@ -469,15 +475,21 @@ void Title::Update() {
 		m_masGauge.Update();
 	}
 	if (m_coolTime == true) {
-		m_start.SetPosition({ 0.0f,-300.0f,0.0f });
+		m_start.SetPosition({ 0.0f,-3999900.0f,0.0f });
 		m_start.Update();
 		m_b.Init("Assets/sprite/a.DDS", 1000.0f, 700.0f);
-		if (m_gaugeflug == false)
-		{
+		if (m_gaugeflug == false) {
 			m_manualColor += 0.01;
+			/*m_easyColor += 0.01;
+			m_normalColor += 0.01;
+			m_hardColor += 0.01;*/
+			Difficult();
 		}
 		if (m_gaugeflug == true) {
 			m_manualColor = 0.0;
+			m_easyColor = 0.0;
+			m_normalColor = 0.0;
+			m_hardColor = 0.0;
 		}
 		m_cool++;
 		if (m_cool > 2) {
@@ -491,6 +503,9 @@ void Title::Update() {
 			m_coolTime = false;
 			m_j = 0;
 			m_manualColor = 0.0;
+			m_easyColor = 0.0;
+			m_normalColor = 0.0;
+			m_hardColor = 0.0;
 			m_start.Init("Assets/sprite/next.dds", 1000.0f, 700.0f);
 			m_sound = NewGO<SoundSource>(0);
 			m_sound->Init(13);
@@ -560,8 +575,14 @@ void Title::Update() {
 		}
 	}
 	Vector4 manuaColor = { 1.0f,1.0f,1.0f,m_manualColor };
+	Vector4 easyColor = { 1.0f,1.0f,1.0f,m_easyColor };
+	Vector4 normalColor = { 1.0f,1.0f,1.0f,m_normalColor };
+	Vector4 hardColor = { 1.0f,1.0f,1.0f,m_hardColor };
 	m_manual.SetMulColor(manuaColor);
 	m_b.SetMulColor(manuaColor);
+	m_easy.SetMulColor(easyColor);
+	m_normal.SetMulColor(normalColor);
+	m_hard.SetMulColor(hardColor);
 	m_arrow.Update();
 	m_returnOption.Update();
 	m_cameraOption.Update();
@@ -573,6 +594,88 @@ void Title::Update() {
 	m_defaultOption.Update();
 	m_returnOption.Update();
 	m_optionButton.Update();
+	m_easy.Update();
+	m_normal.Update();
+	m_hard.Update();
+}
+
+void Title::Difficult() {
+	if (g_pad[0]->IsTrigger(enButtonDown)) {
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(20);
+		se->Play(false);
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se->SetVolume(finalSE);
+		if (m_difficult == 2) {
+			m_difficult = 0;
+		}
+		else {
+			m_difficult++;
+		}
+	}
+	if (g_pad[0]->IsTrigger(enButtonUp)) {
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(20);
+		se->Play(false);
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se->SetVolume(finalSE);
+		if (m_difficult == 0) {
+			m_difficult = 2;
+		}
+		else {
+			m_difficult--;
+		}
+	}
+	switch (m_difficult) {
+		case 0:
+			if (m_easyColor >= 1.0f) {
+				m_easySelect = false;
+			}
+			if (m_easyColor <= 0.0f) {
+				m_easySelect = true;
+			}
+			if (m_easySelect == false) {
+				m_easyColor -= 0.01f;
+			}
+			if (m_easySelect == true) {
+				m_easyColor += 0.01f;
+			}
+			m_normalColor = 1.0f;
+			m_hardColor = 1.0f;
+			break;
+		case 1:
+			if (m_normalColor >= 1.0f) {
+				m_normalSelect = false;
+			}
+			if (m_normalColor <= 0.0f) {
+				m_normalSelect = true;
+			}
+			if (m_normalSelect == false) {
+				m_normalColor -= 0.01f;
+			}
+			if (m_normalSelect == true) {
+				m_normalColor += 0.01f;
+			}
+			m_easyColor = 1.0f;
+			m_hardColor = 1.0f;
+			break;
+		case 2:
+			if (m_hardColor >= 1.0f) {
+				m_hardSelect = false;
+			}
+			if (m_hardColor <= 0.0f) {
+				m_hardSelect = true;
+			}
+			if (m_hardSelect == false) {
+				m_hardColor -= 0.01f;
+			}
+			if (m_hardSelect == true) {
+				m_hardColor += 0.01f;
+			}
+			m_easyColor = 1.0f;
+			m_normalColor = 1.0f;
+			break;
+	}
 }
 
 void Title::Render(RenderContext& rc) {
@@ -583,13 +686,16 @@ void Title::Render(RenderContext& rc) {
 		}
 	}
 	if (m_optionMode == false) {
+		m_start.Draw(rc);
 		if (m_i > 0) {
 			m_gauge.Draw(rc);
 			m_font.Draw(rc);
 		}
 		m_manual.Draw(rc);
+		m_easy.Draw(rc);
+		m_normal.Draw(rc);
+		m_hard.Draw(rc);
 		if (m_i < 1) {
-			m_start.Draw(rc);
 			m_b.Draw(rc);
 		}
 	}

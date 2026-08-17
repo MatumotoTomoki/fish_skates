@@ -12,6 +12,7 @@
 #include "Distance.h"
 #include "ReversePengin.h"
 #include "UI.h"
+#include "OptionManager.h"
 
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
@@ -28,7 +29,7 @@ bool Player::Start() {
 	m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
 	m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
 	m_sprite.Update();
-	m_vignette.Init("Assets/sprite/haikei.DDS", 1920.0f,1080.0f);
+	m_vignette.Init("Assets/sprite/haikei.DDS", 1920.0f, 1080.0f);
 	m_vignette.Update();
 	m_zone.Init("Assets/sprite/syutyu_0821.dds", 1920.0f, 1080.0f);
 	m_zone.Update();
@@ -40,7 +41,8 @@ bool Player::Start() {
 	m_reversePengin = FindGO<ReversePengin>("ReversePengin");
 	m_dummy5 = FindGO<Dummy5>("Dummy5");
 	m_item = FindGO<Item>("item");
-	m_item3=FindGO<Item3>("item3");
+	m_item3 = FindGO<Item3>("item3");
+	m_optionManager = FindGO<OptionManager>("OptionManager");
 	m_position = { 0.0f,1000.0f,0.0f };
 	m_modelRender.SetPosition(m_position);
 	m_characterController.Init(35.0f, 30.0f, m_position);
@@ -158,10 +160,23 @@ void Player::Update() {
 		}
 		if (camera->m_flug == true) {
 			if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
-				m_o2 += 0.001f;
+				if (m_optionManager->m_difficult == 0) {
+					m_o2 += 0.000f;
+				}
+				else {
+					m_o2 += 0.001f;
+				}
 			}
 			else {
-				m_o2 += 0.002f;
+				if (m_optionManager->m_difficult == 0) {
+					m_o2 += 0.001f;
+				}
+				else if(m_optionManager->m_difficult == 1){
+					m_o2 += 0.002f;
+				}
+				else if (m_optionManager->m_difficult == 2) {
+					m_o2 += 0.0023f;
+				}
 			}
 			if (m_characterController.IsOnGround() == true or m_swim == true) {
 				if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f and m_diff5.Length() >= 600.0f) {
@@ -481,7 +496,9 @@ void Player::Update() {
 	}
 	if (m_o2StopGet == true) {
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
-			m_o2 -= 0.001f;
+			if (m_optionManager->m_difficult != 0) {
+				m_o2 -= 0.001f;
+			}
 			m_o2stoptime += 1.0f / 60.0f;
 			if (m_o2stoptime >= 3.0f) {
 				m_o2StopGet = false;
@@ -489,7 +506,15 @@ void Player::Update() {
 			}
 		}
 		else {
-			m_o2 -= 0.002f;
+			if (m_optionManager->m_difficult == 0) {
+				m_o2 -= 0.001f;
+			}
+			else if(m_optionManager->m_difficult == 2){
+				m_o2 -= 0.002f;
+			}
+			else {
+				m_o2 -= 0.0023f;
+			}
 			m_o2stoptime += 1.0f / 60.0f;
 			if (m_o2stoptime >= 3.0f) {
 				m_o2StopGet = false;

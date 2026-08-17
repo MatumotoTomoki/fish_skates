@@ -7,6 +7,7 @@ public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
+	void Difficult();
 	SpriteRender m_render;
 	SpriteRender m_font;
 	SpriteRender m_gauge;
@@ -27,6 +28,9 @@ public:
 	SpriteRender m_defaultOption;
 	SpriteRender m_returnOption;
 	SpriteRender m_arrow;
+	SpriteRender m_easy;
+	SpriteRender m_normal;
+	SpriteRender m_hard;
 	Game* m_game;
 	Pause* m_pause;
 	SoundSource* m_sound;
@@ -39,6 +43,9 @@ public:
 	bool m_optionState = false;
 	bool m_optionMode = false;
 	bool m_specialCamera = false;
+	bool m_easySelect = false;
+	bool m_normalSelect = false;
+	bool m_hardSelect = false;
 	float m_count = 3.0f;
 	float m_scare = 0.0f;
 	float m_oldscare = 0.0f;
@@ -48,6 +55,9 @@ public:
 	float m_startColor = 0.0f;
 	float m_titleColor = 0.0f;
 	float m_manualColor = 0.0f;
+	float m_easyColor = 0.0f;
+	float m_normalColor = 0.0f;
+	float m_hardColor = 0.0f;
 	float m_bColor = 0.0f;
 	float m_stopColor = 1.0f;
 	int m_i = 0;
@@ -65,4 +75,5 @@ public:
 	int m_seVol = 10;
 	int m_masVol = 7;
 	int m_skyCubeType = enSkyCubeType_DayToon;
+	int m_difficult = 0;
 };

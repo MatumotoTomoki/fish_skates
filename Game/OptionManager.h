@@ -10,5 +10,6 @@ public:
 	int m_bgmMenuVol;
 	int m_seMenuVol;
 	int m_masMenuVol;
+	int m_difficult;
 	bool m_camera;
 };
