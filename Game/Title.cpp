@@ -480,6 +480,7 @@ void Title::Update() {
 		m_b.Init("Assets/sprite/a.DDS", 1000.0f, 700.0f);
 		if (m_gaugeflug == false) {
 			m_manualColor += 0.01;
+			Difficult();
 		}
 		if (m_gaugeflug == true) {
 			m_manualColor = 0.0;
@@ -584,6 +585,23 @@ void Title::Update() {
 	m_easy.Update();
 	m_normal.Update();
 	m_hard.Update();
+}
+
+void Title::Difficult() {
+	if (g_pad[0]->IsTrigger(enButtonDown)) {
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(20);
+		se->Play(false);
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se->SetVolume(finalSE);
+	}
+	if (g_pad[0]->IsTrigger(enButtonUp)) {
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(20);
+		se->Play(false);
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se->SetVolume(finalSE);
+	}
 }
 
 void Title::Render(RenderContext& rc) {
