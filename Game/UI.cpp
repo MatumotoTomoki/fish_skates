@@ -43,8 +43,16 @@ bool UI::Start() {
 	m_speedCountRender1.SetPosition({ -500.0f,-50.0f,0.0f });
 	m_speedDownRender.Init("Assets/sprite/Speeddowncount.dds", 150.0f, 100.0f);
 	m_speedDownRender.SetPosition({ -700.0f,0.0f,0.0f });
-	m_downCountRender.Init("Assets/sprite/5.dds", 75.0f, 75.0f);
-	m_downCountRender.SetPosition({ -500.0f,0.0f,0.0f });
+	m_downCountRender5.Init("Assets/sprite/5.dds", 75.0f, 75.0f);
+	m_downCountRender5.SetPosition({ -500.0f,0.0f,0.0f });
+	m_downCountRender4.Init("Assets/sprite/4.dds", 75.0f, 75.0f);
+	m_downCountRender4.SetPosition({ -500.0f,0.0f,0.0f });
+	m_downCountRender3.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
+	m_downCountRender3.SetPosition({ -500.0f,0.0f,0.0f });
+	m_downCountRender2.Init("Assets/sprite/2.dds", 75.0f, 75.0f);
+	m_downCountRender2.SetPosition({ -500.0f,0.0f,0.0f });
+	m_downCountRender1.Init("Assets/sprite/1.dds", 75.0f, 75.0f);
+	m_downCountRender1.SetPosition({ -500.0f,0.0f,0.0f });
 	return true;
 }
 
@@ -202,21 +210,20 @@ void UI::Update() {
 	if (m_player->m_getaCount > 0) {
 		m_speedDownRender.Update();
 		if (m_player->m_getaCount == 1) {
-			m_downCountRender.Init("Assets/sprite/1.dds", 75.0f, 75.0f);
+			m_downCountRender1.Update();
 		}
 		else if (m_player->m_getaCount == 2) {
-			m_downCountRender.Init("Assets/sprite/2.dds", 75.0f, 75.0f);
+			m_downCountRender2.Update();
 		}
 		else if (m_player->m_getaCount == 3) {
-			m_downCountRender.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
+			m_downCountRender3.Update();
 		}
 		else if (m_player->m_getaCount == 4) {
-			m_downCountRender.Init("Assets/sprite/4.dds", 75.0f, 75.0f);
+			m_downCountRender4.Update();
 		}
 		else {
-			m_downCountRender.Init("Assets/sprite/5.dds", 75.0f, 75.0f);
+			m_downCountRender5.Update();
 		}
-		m_downCountRender.Update();
 	}
 }
 
@@ -238,19 +245,19 @@ void UI::Render(RenderContext& rc) {
 		if (m_player->m_getaCount > 0) {
 			m_speedDownRender.Draw(rc);
 			if (m_player->m_getaCount == 1) {
-				m_downCountRender.Draw(rc);
+				m_downCountRender1.Draw(rc);
 			}
 			else if (m_player->m_getaCount == 2) {
-				m_downCountRender.Draw(rc);
+				m_downCountRender2.Draw(rc);
 			}
 			else if (m_player->m_getaCount == 3) {
-				m_downCountRender.Draw(rc);
+				m_downCountRender3.Draw(rc);
 			}
 			else if (m_player->m_getaCount == 4) {
-				m_downCountRender.Draw(rc);
+				m_downCountRender4.Draw(rc);
 			}
 			else {
-				m_downCountRender.Draw(rc);
+				m_downCountRender5.Draw(rc);
 			}
 		}
 		if (m_player->m_superMoveGet == true) {

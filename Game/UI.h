@@ -23,7 +23,11 @@ public:
 	SpriteRender m_speedCountRender2;
 	SpriteRender m_speedCountRender1;
 	SpriteRender m_speedDownRender;
-	SpriteRender m_downCountRender;
+	SpriteRender m_downCountRender5;
+	SpriteRender m_downCountRender4;
+	SpriteRender m_downCountRender3;
+	SpriteRender m_downCountRender2;
+	SpriteRender m_downCountRender1;
 	FontRender m_font;
 	Player* m_player;
 	int m_hpUI = 0;
