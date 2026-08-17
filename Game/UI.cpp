@@ -27,8 +27,12 @@ bool UI::Start() {
 	m_warningRender.SetPosition({ 0.0f,400.0f,0.0f });
 	m_o2stopRender.Init("Assets/sprite/O2stop.dds", 150.0f, 100.0f);
 	m_o2stopRender.SetPosition({ -700.0f,-100.0f,0.0f });
-	m_o2CountRender.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
-	m_o2CountRender.SetPosition({ -500.0f,-100.0f,0.0f });
+	m_o2CountRender3.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
+	m_o2CountRender3.SetPosition({ -500.0f,-100.0f,0.0f });
+	m_o2CountRender2.Init("Assets/sprite/2.dds", 75.0f, 75.0f);
+	m_o2CountRender2.SetPosition({ -500.0f,-100.0f,0.0f });
+	m_o2CountRender1.Init("Assets/sprite/1.dds", 75.0f, 75.0f);
+	m_o2CountRender1.SetPosition({ -500.0f,-100.0f,0.0f });
 	m_speedUpRender.Init("Assets/sprite/Speedup.dds", 150.0f, 100.0f);
 	m_speedUpRender.SetPosition({ -700.0f,-50.0f,0.0f });
 	m_speedCountRender.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
@@ -169,15 +173,15 @@ void UI::Update() {
 	if (m_player->m_o2StopGet == true) {
 		m_o2stopRender.Update();
 		if (m_player->m_o2stoptime >= 0.0f and m_player->m_o2stoptime < 1.0f) {
-			m_o2CountRender.Init("Assets/sprite/3.dds", 75.0f, 75.0f);
+			m_o2CountRender3.Update();
 		}
 		if (m_player->m_o2stoptime >= 1.0f and m_player->m_o2stoptime < 2.0f) {
-			m_o2CountRender.Init("Assets/sprite/2.dds", 75.0f, 75.0f);
+			m_o2CountRender2.Update();
 		}
 		if (m_player->m_o2stoptime >= 2.0f) {
-			m_o2CountRender.Init("Assets/sprite/1.dds", 75.0f, 75.0f);
+			m_o2CountRender1.Update();
 		}
-		m_o2CountRender.Update();
+		
 	}
 	if (m_player->m_superMoveGet == true) {
 		m_speedUpRender.Update();
@@ -249,13 +253,13 @@ void UI::Render(RenderContext& rc) {
 		if (m_player->m_superMoveGet == true) {
 			m_speedUpRender.Draw(rc);
 			if (m_player->m_supermovetime >= 0.0f and m_player->m_supermovetime < 1.0f) {
-				m_o2CountRender.Draw(rc);
+				m_o2CountRender3.Draw(rc);
 			}
 			else if (m_player->m_supermovetime >= 1.0f and m_player->m_supermovetime < 2.0f) {
-				m_o2CountRender.Draw(rc);
+				m_o2CountRender2.Draw(rc);
 			}
 			else {
-				m_o2CountRender.Draw(rc);
+				m_o2CountRender1.Draw(rc);
 			}
 		}
 		if (m_player->m_o2StopGet == true) {

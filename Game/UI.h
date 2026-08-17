@@ -15,7 +15,9 @@ public:
 	SpriteRender m_warningRender;
 	SpriteRender m_countRender;
 	SpriteRender m_o2stopRender;
-	SpriteRender m_o2CountRender;
+	SpriteRender m_o2CountRender3;
+	SpriteRender m_o2CountRender2;
+	SpriteRender m_o2CountRender1;
 	SpriteRender m_speedUpRender;
 	SpriteRender m_speedCountRender;
 	SpriteRender m_speedDownRender;
