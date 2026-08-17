@@ -27,6 +27,9 @@ public:
 	SpriteRender m_defaultOption;
 	SpriteRender m_returnOption;
 	SpriteRender m_arrow;
+	SpriteRender m_easy;
+	SpriteRender m_normal;
+	SpriteRender m_hard;
 	Game* m_game;
 	Pause* m_pause;
 	SoundSource* m_sound;

@@ -42,6 +42,9 @@ bool Title::Start() {
 	m_optionButton.Init("Assets/sprite/option.dds", 900.0f, 600.0f);
 	m_defaultOption.Init("Assets/sprite/defalt.dds", 700.0f, 500.0f);
 	m_returnOption.Init("Assets/sprite/returnTitle.dds", 1890.0f, 1050.0f);
+	m_easy.Init("Assets/sprite/easy.dds", 200.0f, 400.0f);
+	m_normal.Init("Assets/sprite/normal.dds", 200.0f, 400.0f);
+	m_hard.Init("Assets/sprite/hard.dds", 200.0f, 400.0f);
 	m_start.SetPosition({ -300.0f,-300.0f,0.0f });
 	m_font.SetPosition({ 0.0f, 0.0f, 0.0f });
 	m_cameraOption.SetPosition({ -330.0f,340.0f,0.0f });
@@ -561,6 +564,9 @@ void Title::Update() {
 	Vector4 manuaColor = { 1.0f,1.0f,1.0f,m_manualColor };
 	m_manual.SetMulColor(manuaColor);
 	m_b.SetMulColor(manuaColor);
+	m_easy.SetMulColor(manuaColor);
+	m_normal.SetMulColor(manuaColor);
+	m_hard.SetMulColor(manuaColor);
 	m_arrow.Update();
 	m_returnOption.Update();
 	m_cameraOption.Update();
@@ -587,6 +593,9 @@ void Title::Render(RenderContext& rc) {
 			m_font.Draw(rc);
 		}
 		m_manual.Draw(rc);
+		m_easy.Draw(rc);
+		m_normal.Draw(rc);
+		m_hard.Draw(rc);
 		if (m_i < 1) {
 			m_start.Draw(rc);
 			m_b.Draw(rc);
