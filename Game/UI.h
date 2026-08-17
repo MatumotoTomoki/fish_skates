@@ -19,7 +19,9 @@ public:
 	SpriteRender m_o2CountRender2;
 	SpriteRender m_o2CountRender1;
 	SpriteRender m_speedUpRender;
-	SpriteRender m_speedCountRender;
+	SpriteRender m_speedCountRender3;
+	SpriteRender m_speedCountRender2;
+	SpriteRender m_speedCountRender1;
 	SpriteRender m_speedDownRender;
 	SpriteRender m_downCountRender;
 	FontRender m_font;
