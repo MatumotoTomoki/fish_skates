@@ -495,9 +495,6 @@ void Title::Update() {
 		m_b.Init("Assets/sprite/a.DDS", 1000.0f, 700.0f);
 		if (m_gaugeflug == false) {
 			m_manualColor += 0.01;
-			/*m_easyColor += 0.01;
-			m_normalColor += 0.01;
-			m_hardColor += 0.01;*/
 			Difficult();
 		}
 		if (m_gaugeflug == true) {
