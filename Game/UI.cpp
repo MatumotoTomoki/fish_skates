@@ -228,7 +228,7 @@ void UI::Update() {
 }
 
 void UI::Render(RenderContext& rc) {
-	m_font.Draw(rc);
+	//m_font.Draw(rc);
 	if (m_countDown <= 3.0f and m_player->m_start == false) {
 		m_countRender.Draw(rc);
 	}

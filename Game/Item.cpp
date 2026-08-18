@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Item.h"
 #include "Player.h"
+#include "Pause.h"
 
 bool Item::Start() {
 	m_modelRender.Init("Assets/modelData/O2Stop(kari).tkm");
@@ -12,17 +13,23 @@ bool Item::Start() {
 }
 
 void Item::Update() {
+	auto pause = FindGO<Pause>("Pause");
 	Floating();
 	Vector3 diff = m_player->m_position - m_position;
 	if (diff.Length() <= 80.0f) {
 		m_player->m_o2StopGet = true;
 		m_player->m_supermovetime = 0.0f;
-		DeleteGO(this);
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(22);
+		se->Play(false);
+		float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+		se->SetVolume(finalSE);
 		//エフェクトが出る回数を一回に制限
 		if (m_effectCount == 0) {
 			m_effectEmitter = NewGO<EffectEmitter>(0);
 			m_effectEmitter->Init(3);
 			m_effectEmitter->SetScale({ 10.0f,10.0f,10.0f });
+			m_effectEmitter->SetPosition(m_player->m_position);
 			m_effectEmitter->Play();
 			m_effectCount++;
 		}
