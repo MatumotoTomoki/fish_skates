@@ -41,11 +41,12 @@ public:
 	bool m_coolTime = false;
 	bool m_manualAlpha = false;
 	bool m_manualFontAlpha = false;
+	bool m_manualMode = false;
 	bool m_stopAlpha = false;
 	bool m_optionState = false;
 	bool m_manualState = false;
 	bool m_optionMode = false;
-	bool m_manualMode = false;
+	bool m_manualSan = false;
 	bool m_specialCamera = false;
 	bool m_easySelect = false;
 	bool m_normalSelect = false;

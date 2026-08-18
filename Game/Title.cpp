@@ -158,16 +158,18 @@ void Title::Update() {
 	m_manualFont.SetMulColor(manualFontColor);
 	if (g_pad[0]->IsTrigger(enButtonRight) or g_pad[0]->IsTrigger(enButtonLeft)) {
 		if (m_optionMode == false and m_coolTime == false) {
-			m_optionState = !m_optionState;
-			SoundSource* se = NewGO<SoundSource>(0);
-			se->Init(20);
-			se->Play(false);
-			float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
-			se->SetVolume(finalSE);
+			if (m_manualState == false) {
+				m_optionState = !m_optionState;
+				SoundSource* se = NewGO<SoundSource>(0);
+				se->Init(20);
+				se->Play(false);
+				float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+				se->SetVolume(finalSE);
+			}
 		}
 	}
 	if (g_pad[0]->IsTrigger(enButtonDown) or g_pad[0]->IsTrigger(enButtonUp)) {
-		if (m_manualMode == false and m_coolTime == false) {
+		if (m_manualMode == false and m_coolTime == false and m_optionMode == false) {
 			m_manualState = !m_manualState;
 			SoundSource* se = NewGO<SoundSource>(0);
 			se->Init(20);
@@ -180,7 +182,7 @@ void Title::Update() {
 		float finalBGM = (m_bgmVol / 10.0f) * (m_masVol / 10.0f);
 		m_sound->SetVolume(finalBGM);
 	}
-	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0 and m_optionState == false) {
+	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0 and m_optionState == false and m_manualState == false) {
 		if (m_pause == nullptr) {
 			//m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
 			m_titleColor = 1.0f;
@@ -216,7 +218,7 @@ void Title::Update() {
 		m_charaCamera.SetScale({ 1.07f,1.07f,1.0f });
 	}
 	//設定に移行する処理
-	if (m_optionState == true and m_optionMode == false and g_pad[0]->IsTrigger(enButtonA)) {
+	if (m_optionState == true and m_optionMode == false and g_pad[0]->IsTrigger(enButtonA) and m_manualState == false) {
 		m_render.Init("Assets/sprite/hamachi.dds", 1920.0f, 1080.0f);
 		SoundSource* se = NewGO<SoundSource>(0);
 		se->Init(12);
@@ -522,6 +524,29 @@ void Title::Update() {
 		m_seGauge.Update();
 		m_masGauge.Update();
 	}
+	//マニュアル
+	if (m_manualState == true and m_manualMode == false and g_pad[0]->IsTrigger(enButtonA)) {
+		m_render.Init("Assets/sprite/manual.dds", 1920.0f, 1080.0f);
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(12);
+		se->Play(false);
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se->SetVolume(finalSE);
+		m_manualMode = true;
+	}
+	if (m_manualMode == true and g_pad[0]->IsTrigger(enButtonB)) {
+		m_render.Init("Assets/sprite/title.dds", 1920.0f, 1080.0f);
+		SoundSource* se = NewGO<SoundSource>(0);
+		se->Init(13);
+		se->Play(false);
+		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+		se->SetVolume(finalSE);
+		m_manualColor = 0.0f;
+		m_manualMode = false;
+	}
+	if (m_manualMode == true) {
+		m_manualColor += 0.01;
+	}
 	if (m_coolTime == true) {
 		m_start.SetPosition({ 0.0f,-3999900.0f,0.0f });
 		m_start.Update();
@@ -623,7 +648,9 @@ void Title::Update() {
 	Vector4 easyColor = { 1.0f,1.0f,1.0f,m_easyColor };
 	Vector4 normalColor = { 1.0f,1.0f,1.0f,m_normalColor };
 	Vector4 hardColor = { 1.0f,1.0f,1.0f,m_hardColor };
-	m_manual.SetMulColor(manuaColor);
+	if (m_manualMode == false) {
+		m_manual.SetMulColor(manuaColor);
+	}
 	m_b.SetMulColor(manuaColor);
 	m_easy.SetMulColor(easyColor);
 	m_normal.SetMulColor(normalColor);
@@ -727,12 +754,16 @@ void Title::Render(RenderContext& rc) {
 	m_render.Draw(rc);
 	if (m_coolTime == false) {
 		if (m_optionMode == false) {
-			m_optionButton.Draw(rc);
-			m_manualFont.Draw(rc);
+			if (m_manualMode == false) {
+				m_optionButton.Draw(rc);
+				m_manualFont.Draw(rc);
+			}
 		}
 	}
 	if (m_optionMode == false) {
-		m_start.Draw(rc);
+		if (m_manualMode == false) {
+			m_start.Draw(rc);
+		}
 		if (m_i > 0) {
 			m_gauge.Draw(rc);
 			m_font.Draw(rc);
@@ -741,9 +772,7 @@ void Title::Render(RenderContext& rc) {
 		m_easy.Draw(rc);
 		m_normal.Draw(rc);
 		m_hard.Draw(rc);
-		if (m_i < 1) {
-			m_b.Draw(rc);
-		}
+		m_b.Draw(rc);
 	}
 	else {
 		m_bgmOption.Draw(rc);
