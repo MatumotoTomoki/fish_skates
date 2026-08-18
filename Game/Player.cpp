@@ -425,11 +425,6 @@ void Player::Update() {
 				m_count = 0.0f;
 				if (m_diff.Length() <= 350.0f or m_diff2.Length() <= 350.0f or m_diff3.Length() <= 350.0f or m_diff4.Length() <= 350.0f or m_diff5.Length() <= 350.0f) {
 					m_hp += 0.01f;
-					/*SoundSource* se = NewGO<SoundSource>(0);
-					se->Init(19);
-					se->Play(false);
-					float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
-					se->SetVolume(finalSE);*/
 				}
 				m_rot.SetRotationDegZ(-90.0f);
 			}
@@ -534,6 +529,9 @@ void Player::Update() {
 	float speedDown = -0.0f - (oneGetaSpeed * m_getaCount);
 	if (m_getaCount > 0) {
 		m_characterController.Execute(m_velocity, speedDown);
+	}
+	if (m_optionManager->m_difficult == 9) {
+		m_superMoveGet = true;
 	}
 }
 

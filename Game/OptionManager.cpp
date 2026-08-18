@@ -6,8 +6,19 @@
 
 void OptionManager::Update() {
 	auto title = FindGO<Title>("Title");
+	auto pause = FindGO<Pause>("Pause");
 	if (title != nullptr) {
-		m_difficult = title->m_difficult;
+		if (pause == nullptr) {
+			m_difficult = title->m_difficult;
+		}
+		if (pause != nullptr) {
+			if (pause->m_clearCount == 0) {
+				m_difficult = title->m_difficult;
+			}
+		}
+		if (title->m_seaclet == 7 and title->m_difficult == 0) {
+			m_difficult = 9;
+		}
 		m_bgmVol = title->m_bgmVol;
 		m_seVol = title->m_seVol;
 		m_masVol = title->m_masVol;
@@ -22,7 +33,6 @@ void OptionManager::Update() {
 			m_volCount = 0;
 		}
 	}
-	auto pause = FindGO<Pause>("Pause");
 	if (pause != nullptr) {
 		auto game = FindGO<Game>("Game");
 		if (game != nullptr) {
