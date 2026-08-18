@@ -699,6 +699,9 @@ void Title::Difficult() {
 			m_difficult--;
 		}
 	}
+	if (g_pad[0]->IsTrigger(enButtonB)) {
+		m_difficult = 0;
+	}
 	switch (m_difficult) {
 		case 0:
 			if (m_easyColor >= 1.0f) {
