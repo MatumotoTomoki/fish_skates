@@ -160,6 +160,19 @@ void Title::Update() {
 			se->SetVolume(finalSE);
 			m_coolTime = true;
 		}
+		if (m_pause != nullptr) {
+			if (m_pause->m_clearCount == 0) {
+				m_titleColor = 1.0f;
+				DeleteGO(m_sound);
+				m_j++;
+				SoundSource* se = NewGO<SoundSource>(0);
+				se->Init(12);
+				se->Play(false);
+				float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+				se->SetVolume(finalSE);
+				m_coolTime = true;
+			}
+		}
 	}
 	if (m_specialCamera == false) {
 		m_cameraCamera.SetScale({ 1.07f,1.07f,1.0f });
