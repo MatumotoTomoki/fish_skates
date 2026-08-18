@@ -25,7 +25,7 @@ bool Title::Start() {
 	m_gauge.Init("Assets/sprite/Gauge.dds", 1600.0f, 200.0f);
 	m_seafont.Init("Assets/sprite/sea.dds", 600.0f, 400.0f);
 	m_seafont.SetPosition({ 10.0f, -200.0f, 0.0f });
-	m_start.Init("Assets/sprite/next.dds", 1000.0f, 700.0f);
+	m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
 	m_gauge.SetPosition({ -600.0f, -7.0f, 0.0f });
 	m_gauge.SetPivot({ 0.13f,0.5f });
 	m_gauge.SetScale({ -1600.0f,200.0f,0.0f });
@@ -148,16 +148,18 @@ void Title::Update() {
 		m_sound->SetVolume(finalBGM);
 	}
 	if (g_pad[0]->IsTrigger(enButtonA) and m_j == 0 and m_optionState == false) {
-		//m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
-		m_titleColor = 1.0f;
-		DeleteGO(m_sound);
-		m_j++;
-		SoundSource* se = NewGO<SoundSource>(0);
-		se->Init(12);
-		se->Play(false);
-		float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
-		se->SetVolume(finalSE);
-		m_coolTime = true;
+		if (m_pause == nullptr) {
+			//m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
+			m_titleColor = 1.0f;
+			DeleteGO(m_sound);
+			m_j++;
+			SoundSource* se = NewGO<SoundSource>(0);
+			se->Init(12);
+			se->Play(false);
+			float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+			se->SetVolume(finalSE);
+			m_coolTime = true;
+		}
 	}
 	if (m_specialCamera == false) {
 		m_cameraCamera.SetScale({ 1.07f,1.07f,1.0f });
@@ -506,7 +508,7 @@ void Title::Update() {
 			m_easyColor = 0.0;
 			m_normalColor = 0.0;
 			m_hardColor = 0.0;
-			m_start.Init("Assets/sprite/next.dds", 1000.0f, 700.0f);
+			m_start.Init("Assets/sprite/start.dds", 1000.0f, 700.0f);
 			m_sound = NewGO<SoundSource>(0);
 			m_sound->Init(13);
 			m_sound->Play(false);
