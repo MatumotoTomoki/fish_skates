@@ -18,6 +18,27 @@ void Item::Update() {
 		m_player->m_o2StopGet = true;
 		m_player->m_supermovetime = 0.0f;
 		DeleteGO(this);
+		//エフェクトが出る回数を一回に制限
+		if (m_effectCount == 0) {
+			m_effectEmitter = NewGO<EffectEmitter>(0);
+			m_effectEmitter->Init(3);
+			m_effectEmitter->SetScale({ 10.0f,10.0f,10.0f });
+			m_effectEmitter->Play();
+			m_effectCount++;
+		}
+		m_deleteSwitch = true;
+	}
+	if (m_effectEmitter != nullptr) {
+		m_effectEmitter->SetPosition(m_player->m_position);
+	}
+	//エフェクトが消えるくらいの時間でアイテムを消す
+	if (m_deleteSwitch == true) {
+		//エフェクトを追従させるために削除せずに見えない位置(地下深く)まで飛ばす
+		m_position.y= -9999999999999999999.0f;
+		m_itemDeleteCount++;
+	}
+	if (m_itemDeleteCount >= 155) {
+		DeleteGO(this);
 	}
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.Update();
