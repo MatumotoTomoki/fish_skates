@@ -31,6 +31,7 @@ public:
 	SpriteRender m_easy;
 	SpriteRender m_normal;
 	SpriteRender m_hard;
+	SpriteRender m_manualFont;
 	Game* m_game;
 	Pause* m_pause;
 	SoundSource* m_sound;
@@ -39,9 +40,13 @@ public:
 	bool m_startAlpha = false;
 	bool m_coolTime = false;
 	bool m_manualAlpha = false;
+	bool m_manualFontAlpha = false;
+	bool m_manualMode = false;
 	bool m_stopAlpha = false;
 	bool m_optionState = false;
+	bool m_manualState = false;
 	bool m_optionMode = false;
+	bool m_manualSan = false;
 	bool m_specialCamera = false;
 	bool m_easySelect = false;
 	bool m_normalSelect = false;
@@ -60,6 +65,7 @@ public:
 	float m_hardColor = 0.0f;
 	float m_bColor = 0.0f;
 	float m_stopColor = 1.0f;
+	float m_manualFontColor = 1.0f;
 	int m_i = 0;
 	int m_j = 0;
 	int m_newGame = 0;
