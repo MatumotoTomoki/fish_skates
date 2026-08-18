@@ -8,6 +8,7 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 	void Difficult();
+	void SeacletCode();
 	SpriteRender m_render;
 	SpriteRender m_font;
 	SpriteRender m_gauge;
@@ -66,6 +67,7 @@ public:
 	float m_bColor = 0.0f;
 	float m_stopColor = 1.0f;
 	float m_manualFontColor = 1.0f;
+	float m_seacletTime = 0.0f;
 	int m_i = 0;
 	int m_j = 0;
 	int m_newGame = 0;
@@ -82,4 +84,5 @@ public:
 	int m_masVol = 7;
 	int m_skyCubeType = enSkyCubeType_DayToon;
 	int m_difficult = 0;
+	int m_seaclet = 0;
 };
