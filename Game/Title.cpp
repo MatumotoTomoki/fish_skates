@@ -45,6 +45,7 @@ bool Title::Start() {
 	m_easy.Init("Assets/sprite/easy.dds", 400.0f, 150.0f);
 	m_normal.Init("Assets/sprite/normal.dds", 500.0f, 340.0f);
 	m_hard.Init("Assets/sprite/hard.dds", 400.0f, 150.0f);
+	m_manualFont.Init("Assets/sprite/manualFont.dds", 500.0f, 180.0f);
 	m_start.SetPosition({ -300.0f,-300.0f,0.0f });
 	m_font.SetPosition({ 0.0f, 0.0f, 0.0f });
 	m_cameraOption.SetPosition({ -330.0f,340.0f,0.0f });
@@ -62,11 +63,13 @@ bool Title::Start() {
 	m_easy.SetPosition({ 0.0f,340.0f,0.0f });
 	m_normal.SetPosition({ 0.0f,0.0f,0.0f });
 	m_hard.SetPosition({ 0.0f,-340.0f,0.0f });
+	m_manualFont.SetPosition({ 0.0f,-420.0f,0.0f });
 	m_b.Update();
 	m_gauge.Update();
 	m_seafont.Update();
 	m_start.Update();
 	m_manual.Update();
+	m_manualFont.Update();
 	m_bgmOption.Update();
 	m_bgmGauge.Update();
 	m_seOption.Update();
@@ -92,6 +95,7 @@ void Title::Update() {
 	}
 	Vector4 titleColor = { 1.0f,1.0f,1.0f,m_titleColor };
 	Vector4 stopColor = { 1.0f,1.0f,m_stopColor, m_stopColor };
+	Vector4 manualFontColor = { 1.0f,1.0f,m_manualFontColor, m_manualFontColor };
 	m_titleColor += 0.01f;
 	Vector4 startColor;
 	if (m_coolTime == false) {
@@ -100,7 +104,7 @@ void Title::Update() {
 	else {
 		startColor = { 1.0f, 1.0f, 1.0f, m_startColor };
 	}
-	if (m_optionState == false) {
+	if (m_optionState == false and m_manualState == false) {
 		if (m_startColor >= 1.0f) {
 			m_startAlpha = false;
 		}
@@ -114,8 +118,9 @@ void Title::Update() {
 			m_startColor += 0.01f;
 		}
 		m_stopColor = 1.0f;
+		m_manualFontColor = 1.0f;
 	}
-	else {
+	else if (m_optionState == true and m_manualState == false) {
 		if (m_stopColor >= 1.0f) {
 			m_stopAlpha = false;
 		}
@@ -130,12 +135,40 @@ void Title::Update() {
 		}
 		m_startAlpha == true;
 		m_startColor = 1.0f;
+		m_manualFontColor = 1.0f;
+	}
+	else if (m_manualState == true) {
+		if (m_manualFontColor >= 1.0f) {
+			m_manualFontAlpha = false;
+		}
+		if (m_manualFontColor <= 0.0f) {
+			m_manualFontAlpha = true;
+		}
+		if (m_manualFontAlpha == false) {
+			m_manualFontColor -= 0.01f;
+		}
+		if (m_manualFontAlpha == true) {
+			m_manualFontColor += 0.01f;
+		}
+		m_startColor = 1.0f;
+		m_stopColor = 1.0f;
 	}
 	m_start.SetMulColor(startColor);
 	m_optionButton.SetMulColor(stopColor);
+	m_manualFont.SetMulColor(manualFontColor);
 	if (g_pad[0]->IsTrigger(enButtonRight) or g_pad[0]->IsTrigger(enButtonLeft)) {
 		if (m_optionMode == false and m_coolTime == false) {
 			m_optionState = !m_optionState;
+			SoundSource* se = NewGO<SoundSource>(0);
+			se->Init(20);
+			se->Play(false);
+			float finalSE = (m_seVol / 10.0f) * (m_masVol / 10.0f);
+			se->SetVolume(finalSE);
+		}
+	}
+	if (g_pad[0]->IsTrigger(enButtonDown) or g_pad[0]->IsTrigger(enButtonUp)) {
+		if (m_manualMode == false and m_coolTime == false) {
+			m_manualState = !m_manualState;
 			SoundSource* se = NewGO<SoundSource>(0);
 			se->Init(20);
 			se->Play(false);
@@ -695,6 +728,7 @@ void Title::Render(RenderContext& rc) {
 	if (m_coolTime == false) {
 		if (m_optionMode == false) {
 			m_optionButton.Draw(rc);
+			m_manualFont.Draw(rc);
 		}
 	}
 	if (m_optionMode == false) {
