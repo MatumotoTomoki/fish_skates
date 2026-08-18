@@ -554,6 +554,7 @@ void Title::Update() {
 		if (m_gaugeflug == false) {
 			m_manualColor += 0.01;
 			Difficult();
+			SeacletCode();
 		}
 		if (m_gaugeflug == true) {
 			m_manualColor = 0.0;
@@ -748,6 +749,54 @@ void Title::Difficult() {
 			m_normalColor = 1.0f;
 			break;
 	}
+}
+
+void Title::SeacletCode() {
+	if (g_pad[0]->IsTrigger(enButtonLeft) and m_seaclet == 0) {
+		m_seaclet++;
+		m_seacletTime = 1.5f;
+	}
+	if (m_seacletTime > 0.0f) {
+		if (g_pad[0]->IsTrigger(enButtonRight) and m_seaclet == 1) {
+			m_seaclet++;
+			m_seacletTime = 1.5f;
+		}
+		if (g_pad[0]->IsTrigger(enButtonLeft) and m_seaclet == 2) {
+			m_seaclet++;
+			m_seacletTime = 1.5f;
+		}
+		if (g_pad[0]->IsTrigger(enButtonRight) and m_seaclet == 3) {
+			m_seaclet++;
+			m_seacletTime = 1.5f;
+		}
+		if (g_pad[0]->IsTrigger(enButtonUp) and m_seaclet == 4) {
+			m_seaclet++;
+			m_seacletTime = 1.5f;
+		}
+		if (g_pad[0]->IsTrigger(enButtonDown) and m_seaclet == 5) {
+			m_seaclet++;
+			m_seacletTime = 1.5f;
+		}
+		if (g_pad[0]->IsTrigger(enButtonX) and m_seaclet == 6) {
+			m_seaclet++;
+			m_seacletTime = 1.5f;
+		}
+	}
+	if (g_pad[0]->IsTrigger(enButtonB)) {
+		m_seaclet = 0;
+	}
+	if (m_seaclet == 7) {
+		m_easy.Init("Assets/sprite/gaeasy.dds", 400.0f, 150.0f);
+	}
+	if (m_seaclet == 0) {
+		m_easy.Init("Assets/sprite/easy.dds", 400.0f, 150.0f);
+	}
+	if (m_seacletTime <= 0.0f) {
+		if (m_seaclet < 7) {
+			m_seacletTime = 0.0f;
+		}
+	}
+	m_seacletTime -= 0.1f;
 }
 
 void Title::Render(RenderContext& rc) {
