@@ -442,10 +442,6 @@ void Player::Update() {
 			if (m_i < -1) {
 				m_i = -1;
 			}
-			if (g_pad[0]->IsPress(enButtonY)) {
-				m_o2 -= 0.002f;
-				m_hp += 0.003f;
-			}
 			if (m_slip == true) {
 				m_velocity += cameraForward * speed;
 			}
