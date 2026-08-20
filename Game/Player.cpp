@@ -305,7 +305,6 @@ void Player::Update() {
 					if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
 						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 							m_superJump = true;
-							m_velocity.x -= 300.0f;
 							m_velocity.y += 25.0f;
 							m_sprite.Init("Assets/sprite/931908.dds", 200.0f, 150.0f);
 							m_sprite.SetPosition({ -25.0f,-300.0f,0.0f });
@@ -328,7 +327,6 @@ void Player::Update() {
 						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 							m_superJump = true;
 							m_velocity.y += 25.0f;
-							m_velocity.x += 300.0f;
 							m_sprite.Init("Assets/sprite/931902.dds", 200.0f, 150.0f);
 							m_sprite.SetPosition({ 25.0f,-300.0f,0.0f });
 							m_eff2 = NewGO<EffectEmitter>(0);
@@ -349,8 +347,7 @@ void Player::Update() {
 					if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
 						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 							m_superJump = true;
-							m_velocity.z -= 30.0f;
-							m_velocity.y += 15.0f;
+							m_velocity.y += 25.0f;
 							m_sprite.Init("Assets/sprite/931905.dds", 150.0f, 200.0f);
 							m_sprite.SetPosition({ 0.0f,-325.0f,0.0f });
 							m_eff2 = NewGO<EffectEmitter>(0);
