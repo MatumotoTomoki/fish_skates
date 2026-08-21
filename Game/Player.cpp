@@ -317,6 +317,46 @@ void Player::Update() {
 						m_jump = 3;
 					}
 				}
+				if (g_pad[0]->IsTrigger(enButtonA) and m_characterController.IsOnGround() == true) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
+						SoundSource* se = NewGO<SoundSource>(0);
+						se->Init(4);
+						se->Play(false);
+						float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+						se->SetVolume(finalSE);
+						m_jump = 4;
+					}
+				}
+				if (g_pad[0]->IsTrigger(enButtonB) and m_characterController.IsOnGround() == true) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
+						SoundSource* se = NewGO<SoundSource>(0);
+						se->Init(4);
+						se->Play(false);
+						float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+						se->SetVolume(finalSE);
+						m_jump = 5;
+					}
+				}
+				if (g_pad[0]->IsTrigger(enButtonX) and m_characterController.IsOnGround() == true) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
+						SoundSource* se = NewGO<SoundSource>(0);
+						se->Init(4);
+						se->Play(false);
+						float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+						se->SetVolume(finalSE);
+						m_jump = 6;
+					}
+				}
+				if (g_pad[0]->IsTrigger(enButtonY) and m_characterController.IsOnGround() == true) {
+					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
+						SoundSource* se = NewGO<SoundSource>(0);
+						se->Init(4);
+						se->Play(false);
+						float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+						se->SetVolume(finalSE);
+						m_jump = 7;
+					}
+				}
 				switch (m_jump) {
 				case 0:
 					if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
@@ -399,6 +439,78 @@ void Player::Update() {
 							float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
 							se->SetVolume(finalSE);
 							m_sprite.Update();
+						}
+					}
+					break;
+				case 4:
+					if (g_pad[0]->IsTrigger(enButtonA) and m_characterController.IsOnGround() == true) {
+						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
+							m_superJump = true;
+							m_velocity.y += 25.0f;
+							m_eff2 = NewGO<EffectEmitter>(0);
+							m_eff2->Init(2);
+							m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+							m_eff2->SetPosition(m_position);
+							m_eff2->Play();
+							SoundSource* se = NewGO<SoundSource>(0);
+							se->Init(22);
+							se->Play(false);
+							float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+							se->SetVolume(finalSE);
+						}
+					}
+					break;
+				case 5:
+					if (g_pad[0]->IsTrigger(enButtonB) and m_characterController.IsOnGround() == true) {
+						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
+							m_superJump = true;
+							m_velocity.y += 25.0f;
+							m_eff2 = NewGO<EffectEmitter>(0);
+							m_eff2->Init(2);
+							m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+							m_eff2->SetPosition(m_position);
+							m_eff2->Play();
+							SoundSource* se = NewGO<SoundSource>(0);
+							se->Init(22);
+							se->Play(false);
+							float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+							se->SetVolume(finalSE);
+						}
+					}
+					break;
+				case 6:
+					if (g_pad[0]->IsTrigger(enButtonX) and m_characterController.IsOnGround() == true) {
+						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
+							m_superJump = true;
+							m_velocity.y += 25.0f;
+							m_eff2 = NewGO<EffectEmitter>(0);
+							m_eff2->Init(2);
+							m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+							m_eff2->SetPosition(m_position);
+							m_eff2->Play();
+							SoundSource* se = NewGO<SoundSource>(0);
+							se->Init(22);
+							se->Play(false);
+							float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+							se->SetVolume(finalSE);
+						}
+					}
+					break;
+				case 7:
+					if (g_pad[0]->IsTrigger(enButtonY) and m_characterController.IsOnGround() == true) {
+						if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
+							m_superJump = true;
+							m_velocity.y += 25.0f;
+							m_eff2 = NewGO<EffectEmitter>(0);
+							m_eff2->Init(2);
+							m_eff2->SetScale({ 10.0f,1.0f,10.0f });
+							m_eff2->SetPosition(m_position);
+							m_eff2->Play();
+							SoundSource* se = NewGO<SoundSource>(0);
+							se->Init(22);
+							se->Play(false);
+							float finalSE = (pause->m_sevolume / 10.0f) * (pause->m_master / 10.0f);
+							se->SetVolume(finalSE);
 						}
 					}
 					break;
