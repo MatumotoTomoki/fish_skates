@@ -253,8 +253,8 @@ void Player::Update() {
 				break;
 			case 1:
 				
-					m_pteSprite.Init("Assets/sprite/a.dds", 150.0f, 150.0f);
-					m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
+					m_pteSprite.Init("Assets/sprite/a.dds", 950.0f, 750.0f);
+					m_pteSprite.SetPosition({ 250.0f,-340.0f,0.0f });
 					m_pteSprite.Update();
 					break;
 			case 2:
