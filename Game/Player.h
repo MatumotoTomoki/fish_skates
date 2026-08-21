@@ -63,6 +63,7 @@ public:
 	SpriteRender m_qte;
 	SpriteRender m_vignette;
 	SpriteRender m_zone;
+	SpriteRender m_pteSprite;
 	Pengin* m_pengin = nullptr;
 	NinjaPengin* m_ninjaPengin = nullptr;
 	SilenPengin* m_silenPengin = nullptr;
@@ -86,6 +87,7 @@ public:
 	bool O2StopGet = false;
 	bool m_o2stoplose = false;
 	int m_getaCount = 0;
+	int m_pteRandomcount = 0;
 	struct GaugeCB
 	{
 		float gaugeRate;

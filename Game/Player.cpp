@@ -13,6 +13,7 @@
 #include "ReversePengin.h"
 #include "UI.h"
 #include "OptionManager.h"
+#include <time.h>
 
 bool Player::Start() {
 	m_animationClips[enAnimClip_Idle].Load("Assets/animdata/fish_idol.tka");
@@ -237,6 +238,43 @@ void Player::Update() {
 				}
 				m_i -= 1;
 				m_velocity.y -= 0.5f;
+			}
+			if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f and m_diff5.Length() >= 600.0f) {
+				m_pteRandomcount = rand() % 5;
+				srand(time(nullptr));
+			}
+			switch (m_pteRandomcount) {
+			case 0:
+				
+					m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
+					m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
+					m_sprite.Update();
+				
+				break;
+			case 1:
+				
+					m_pteSprite.Init("Assets/sprite/a.dds", 150.0f, 150.0f);
+					m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
+					m_pteSprite.Update();
+					break;
+			case 2:
+				
+					m_pteSprite.Init("Assets/sprite/b.dds", 150.0f, 150.0f);
+					m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
+					m_pteSprite.Update();
+					break;
+			case 3:
+				
+					m_pteSprite.Init("Assets/sprite/x.dds", 150.0f, 150.0f);
+					m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
+					m_pteSprite.Update();
+					break;
+			case 4:
+				
+					m_pteSprite.Init("Assets/sprite/y.dds", 150.0f, 150.0f);
+					m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
+					m_pteSprite.Update();
+					break;
 			}
 			if (m_qteGauge > 0) {
 				if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
@@ -533,7 +571,23 @@ void Player::Render(RenderContext& rc) {
 	if (m_go > 61) {
 		if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 			if (m_qteGauge > 0 and m_swim == false) {
-				m_sprite.Draw(rc);
+				switch (m_pteRandomcount) {
+				case 0:
+					m_sprite.Draw(rc);
+					break;
+				case 1:
+					m_pteSprite.Draw(rc);
+					break;
+				case 2:
+					m_pteSprite.Draw(rc);
+					break;
+				case 3:
+					m_pteSprite.Draw(rc);
+					break;
+				case 4:
+					m_pteSprite.Draw(rc);
+					break;
+				}
 				m_qte.Draw(rc);
 			    m_vignette.SetMulColor({ 0.0f,0.0f,0.0f,m_vignetteAlpha });
 			}
