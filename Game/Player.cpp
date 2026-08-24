@@ -172,7 +172,7 @@ void Player::Update() {
 				if (m_optionManager->m_difficult == 0) {
 					m_o2 += 0.001f;
 				}
-				else if(m_optionManager->m_difficult == 1){
+				else if (m_optionManager->m_difficult == 1) {
 					m_o2 += 0.002f;
 				}
 				else if (m_optionManager->m_difficult == 2) {
@@ -245,39 +245,33 @@ void Player::Update() {
 			}
 			switch (m_pteRandomcount) {
 			case 0:
-				
-					m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
-					m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
-					m_sprite.Update();
-				
+				m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
+				m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
+				m_sprite.Update();
 				break;
 			case 1:
-				
-					m_pteSprite.Init("Assets/sprite/a.dds", 950.0f, 750.0f);
-					m_pteSprite.SetPosition({ 250.0f,-340.0f,0.0f });
-					m_pteSprite.Update();
-					break;
+				m_pteSprite.Init("Assets/sprite/a.dds", 950.0f, 750.0f);
+				m_pteSprite.SetPosition({ 250.0f,-340.0f,0.0f });
+				m_pteSprite.Update();
+				break;
 			case 2:
-				
-					m_pteSprite.Init("Assets/sprite/b.dds", 150.0f, 150.0f);
-					m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
-					m_pteSprite.Update();
-					break;
+				m_pteSprite.Init("Assets/sprite/b.dds", 150.0f, 150.0f);
+				m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
+				m_pteSprite.Update();
+				break;
 			case 3:
-				
-					m_pteSprite.Init("Assets/sprite/x.dds", 150.0f, 150.0f);
-					m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
-					m_pteSprite.Update();
-					break;
+				m_pteSprite.Init("Assets/sprite/x.dds", 150.0f, 150.0f);
+				m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
+				m_pteSprite.Update();
+				break;
 			case 4:
-				
-					m_pteSprite.Init("Assets/sprite/y.dds", 150.0f, 150.0f);
-					m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
-					m_pteSprite.Update();
-					break;
+				m_pteSprite.Init("Assets/sprite/y.dds", 150.0f, 150.0f);
+				m_pteSprite.SetPosition({ 0.0f,-300.0f,0.0f });
+				m_pteSprite.Update();
+				break;
 			}
 			if (m_qteGauge > 0) {
-				if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true and m_pteRandomcount==0) {
+				if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true and m_pteRandomcount == 0) {
 					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
@@ -647,7 +641,7 @@ void Player::Update() {
 			if (m_optionManager->m_difficult == 0) {
 				m_o2 -= 0.001f;
 			}
-			else if(m_optionManager->m_difficult == 2){
+			else if (m_optionManager->m_difficult == 2) {
 				m_o2 -= 0.002f;
 			}
 			else {
