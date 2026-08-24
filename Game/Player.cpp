@@ -277,7 +277,7 @@ void Player::Update() {
 					break;
 			}
 			if (m_qteGauge > 0) {
-				if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true) {
+				if (g_pad[0]->IsTrigger(enButtonLeft) and m_characterController.IsOnGround() == true and m_pteRandomcount==0) {
 					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
@@ -287,7 +287,7 @@ void Player::Update() {
 						m_jump = 1;
 					}
 				}
-				if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true) {
+				if (g_pad[0]->IsTrigger(enButtonRight) and m_characterController.IsOnGround() == true and m_pteRandomcount == 0) {
 					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
@@ -297,7 +297,7 @@ void Player::Update() {
 						m_jump = 2;
 					}
 				}
-				if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true) {
+				if (g_pad[0]->IsTrigger(enButtonUp) and m_characterController.IsOnGround() == true and m_pteRandomcount == 0) {
 					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
@@ -307,7 +307,7 @@ void Player::Update() {
 						m_jump = 0;
 					}
 				}
-				if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true) {
+				if (g_pad[0]->IsTrigger(enButtonDown) and m_characterController.IsOnGround() == true and m_pteRandomcount == 0) {
 					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
@@ -317,7 +317,7 @@ void Player::Update() {
 						m_jump = 3;
 					}
 				}
-				if (g_pad[0]->IsTrigger(enButtonA) and m_characterController.IsOnGround() == true) {
+				if (g_pad[0]->IsTrigger(enButtonA) and m_characterController.IsOnGround() == true and m_pteRandomcount == 1) {
 					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
@@ -327,7 +327,7 @@ void Player::Update() {
 						m_jump = 4;
 					}
 				}
-				if (g_pad[0]->IsTrigger(enButtonB) and m_characterController.IsOnGround() == true) {
+				if (g_pad[0]->IsTrigger(enButtonB) and m_characterController.IsOnGround() == true and m_pteRandomcount == 2) {
 					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
@@ -337,7 +337,7 @@ void Player::Update() {
 						m_jump = 5;
 					}
 				}
-				if (g_pad[0]->IsTrigger(enButtonX) and m_characterController.IsOnGround() == true) {
+				if (g_pad[0]->IsTrigger(enButtonX) and m_characterController.IsOnGround() == true and m_pteRandomcount == 3) {
 					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
@@ -347,7 +347,7 @@ void Player::Update() {
 						m_jump = 6;
 					}
 				}
-				if (g_pad[0]->IsTrigger(enButtonY) and m_characterController.IsOnGround() == true) {
+				if (g_pad[0]->IsTrigger(enButtonY) and m_characterController.IsOnGround() == true and m_pteRandomcount == 4) {
 					if (m_diff.Length() <= 600.0f or m_diff2.Length() <= 600.0f or m_diff3.Length() <= 600.0f or m_diff4.Length() <= 600.0f or m_diff5.Length() <= 600.0f) {
 						SoundSource* se = NewGO<SoundSource>(0);
 						se->Init(4);
