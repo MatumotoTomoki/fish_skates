@@ -56,7 +56,7 @@ public:
 	int m_se = 0;
 	int m_eff = 0;
 	int m_efk = 0;
-	int m_jump = 0;
+	int m_jump = 9999999999999999999;
 	int m_go = 0;
 	int m_qteUI = 0;
 	SpriteRender m_sprite;
@@ -87,7 +87,7 @@ public:
 	bool O2StopGet = false;
 	bool m_o2stoplose = false;
 	int m_getaCount = 0;
-	int m_pteRandomcount = 0;
+	int m_pteRandomcount;
 	struct GaugeCB
 	{
 		float gaugeRate;
