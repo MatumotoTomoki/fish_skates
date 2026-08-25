@@ -697,11 +697,11 @@ void Player::Render(RenderContext& rc) {
 					break;
 				}
 				m_qte.Draw(rc);
-			    m_vignette.SetMulColor({ 0.0f,0.0f,0.0f,m_vignetteAlpha });
+				m_vignette.SetMulColor({ 0.0f,0.0f,0.0f,m_vignetteAlpha });
 			}
 			m_vignette.Draw(rc);
 		}
-		if (m_superJump == true){
+		if (m_superJump == true) {
 			m_zone.Draw(rc);
 		}
 	}
