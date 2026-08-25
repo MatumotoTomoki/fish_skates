@@ -52,7 +52,7 @@ void Distance::Update() {
 			m_pos = SECOND_HOLL_POS;
 			break;
 		case 2:
-			m_pos = THIRD_HOLL_POS2;
+			m_pos = THIRD_HOLL_POS;
 			break;
 		case 3:
 			m_pos = FOURTH_HOLL_POS;
