@@ -240,7 +240,7 @@ void Player::Update() {
 				m_velocity.y -= 0.5f;
 			}
 			if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f and m_diff5.Length() >= 600.0f) {
-				//m_pteRandomcount = rand() % 5;
+				m_pteRandomcount = rand() % 5;
 				srand(time(nullptr));
 			}
 			switch (m_pteRandomcount) {
