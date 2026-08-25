@@ -240,13 +240,15 @@ void Player::Update() {
 				m_velocity.y -= 0.5f;
 			}
 			if (m_diff.Length() >= 600.0f and m_diff2.Length() >= 600.0f and m_diff3.Length() >= 600.0f and m_diff4.Length() >= 600.0f and m_diff5.Length() >= 600.0f) {
-				m_pteRandomcount = rand() % 5;
+				//m_pteRandomcount = rand() % 5;
 				srand(time(nullptr));
 			}
 			switch (m_pteRandomcount) {
 			case 0:
-				m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
-				m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
+				if (m_characterController.IsOnGround() == true) {
+					m_sprite.Init("Assets/sprite/931912.dds", 150.0f, 150.0f);
+					m_sprite.SetPosition({ 0.0f,-300.0f,0.0f });
+				}
 				m_sprite.Update();
 				break;
 			case 1:
